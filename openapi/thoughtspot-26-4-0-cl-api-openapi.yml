@@ -1,0 +1,1921 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 26.4.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 26.4.0.cl
+paths:
+  /api/rest/2.0/collections/create:
+    post:
+      operationId: createCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nCreates a new collection in ThoughtSpot.\n\nCollections allow you to organize and group related metadata objects such as Liveboards, Answers, worksheets, and other data objects. You can also create nested collections (sub-collections) to build a hierarchical structure.\n\n#### Supported operations\n\nThe API endpoint lets you perform the following operations:\n\n* Create a new collection\n* Add metadata objects (Liveboards, Answers, Logical Tables) to the collection\n* Create nested collections by adding sub-collections\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Collection created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/delete:
+    post:
+      operationId: deleteCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nDeletes one or more collections from ThoughtSpot.\n\n#### Delete options\n\n* **delete_children**: When set to `true`, deletes the child objects (metadata items) within the collection that the user has access to. Objects that the user does not have permission to delete will be skipped.\n* **dry_run**: When set to `true`, performs a preview of the deletion operation without actually deleting anything. The response shows what would be deleted, allowing you to review before committing the deletion.\n\n#### Response\n\nThe response includes:\n* **metadata_deleted**: List of metadata objects that were successfully deleted\n* **metadata_skipped**: List of metadata objects that were skipped due to lack of permissions or other constraints\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteCollectionRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Collections deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDeleteResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/search:
+    post:
+      operationId: searchCollections
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nGets a list of collections available in ThoughtSpot.\n\nTo get details of a specific collection, specify the collection GUID or name. You can also filter the API response based on the collection name pattern, author, and other criteria.\n\n#### Search options\n\n* **name_pattern**: Use '%' as a wildcard character to match collection names\n* **collection_identifiers**: Search for specific collections by their GUIDs or names\n* **include_metadata**: When set to `true`, includes the metadata objects within each collection in the response\n\n**NOTE**: In addition to the GUID and name, `collection_identifiers` accepts a Custom object ID if one is configured for the collection. The response also includes the `obj_id` field for each collection that has one set.\n\n**NOTE**: If the API returns an empty list, consider increasing the value of the `record_size` parameter. To search across all available collections, set `record_size` to `-1`.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCollectionsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully retrieved list of collections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSearchResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/{collection_identifier}/update:
+    post:
+      operationId: updateCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nUpdates an existing collection in ThoughtSpot.\n\n#### Supported operations\n\nThis API endpoint lets you perform the following operations:\n\n* Update collection name and description\n* Change visibility settings\n* Add metadata objects to the collection (operation: ADD)\n* Remove metadata objects from the collection (operation: REMOVE)\n* Replace all metadata objects in the collection (operation: REPLACE)\n\n#### Operation types\n\n* **ADD**: Adds the specified metadata objects to the existing collection without removing current items\n* **REMOVE**: Removes only the specified metadata objects from the collection\n* **REPLACE**: Replaces all existing metadata objects with the specified items (default behavior)\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectionRequest'
+        required: true
+      parameters:
+      - in: path
+        name: collection_identifier
+        required: true
+        schema:
+          type: string
+        description: 'Unique GUID of the collection. Note: Collection names cannot be used as
+
+          identifiers since duplicate names are allowed.'
+      responses:
+        '204':
+          description: Collection updated successfully. No content returned.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/jobs/history/communication-channels/search:
+    post:
+      operationId: searchChannelHistory
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nSearches delivery history for communication channels such as webhooks. Returns channel-level delivery status for each job execution record. Use this to monitor channel health and delivery success rates across events.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n**NOTE**: When `channel_type` is `WEBHOOK`, the following constraints apply:\n\n- `job_ids`, `channel_identifiers`, and `events` each accept at most one element.\n- When `job_ids` is provided, it is used as the sole lookup key and other filter fields are ignored.\n- When `job_ids` is not provided, `channel_identifiers` and `events` are both required, each containing exactly one element.\n- Records older than the configured retention period are not returned.\n- Use `start_epoch_time_in_millis` and/or `end_epoch_time_in_millis` to narrow results to a specific time window.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchChannelHistoryRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Channel status logs retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchChannelHistoryResponse'
+              examples:
+                example_1:
+                  description: Search webhook channel history by channel identifier and event
+                  value:
+                    jobs:
+                    - id: n.6170538a-a4d4-4712-91bf-39b353db2b72
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599720674
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: 90c4f1b0-08c9-4a6c-8e61-49cffd9f1550
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+                    - id: n.5c5bbedb-c425-48c0-8b54-a17267b08e7c
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599600508
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: b9834966-fe85-4fa9-8a10-9889c01d4826
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+                example_2:
+                  description: Search webhook channel history by job ID
+                  value:
+                    jobs:
+                    - id: n.5c5bbedb-c425-48c0-8b54-a17267b08e7c
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599600508
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: b9834966-fe85-4fa9-8a10-9889c01d4826
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: channel_type must be specified. Currently only WEBHOOK is supported.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve channel delivery history.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Insufficient privileges to retrieve channel delivery history.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving channel delivery history.
+  /api/rest/2.0/system/communication-channels/validate:
+    post:
+      operationId: validateCommunicationChannel
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Validates a communication channel configuration to ensure it is properly set up and can receive events.
+
+        - Use `channel_type` to specify the type of communication channel to validate (e.g., WEBHOOK).
+
+        - Use `channel_identifier` to provide the unique identifier or name for the communication channel.
+
+        - Use `event_type` to specify the event type to validate for this channel.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. For webhook channels, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateCommunicationChannelRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: communication channel configuration validated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationChannelValidateResponse'
+              examples:
+                example_1:
+                  description: Successful webhook validation with HTTP check only
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    channel_name: My Liveboard Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: 9a8b7c6d-5e4f-3210-fedc-ba9876543210
+                    result_code: SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                example_2:
+                  description: Successful webhook validation with both HTTP and S3 storage checks
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    channel_name: S3 Storage Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: b2c3d4e5-f678-9012-bcde-f23456789012
+                    result_code: SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                    - validation_step: STORAGE_FILE_UPLOAD_CHECK
+                      status: SUCCESS
+                      http_status: null
+                      error_message: null
+                      aws_s3_info:
+                        bucket_name: my-webhook-files
+                        file_name: thoughtspot-validation-test.json
+                        object_key: webhooks/thoughtspot-validation-test.json
+                example_3:
+                  description: 'Partial success: HTTP check passed but S3 upload failed'
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: c3d4e5f6-7890-1234-cdef-345678901234
+                    channel_name: Failed S3 Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: d4e5f678-9012-3456-defa-456789012345
+                    result_code: PARTIAL_SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                    - validation_step: STORAGE_FILE_UPLOAD_CHECK
+                      status: FAILED
+                      http_status: null
+                      error_message: Access denied. Ensure the IAM role has s3:PutObject permission on the target bucket.
+                      aws_s3_info: null
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: Webhook with the specified channel_identifier was not found.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to validate a communication channel.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Insufficient privileges to validate communication channels.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while validating the communication channel.
+  /api/rest/2.0/template/variables/create:
+    post:
+      operationId: createVariable
+      description: '
+
+        Create a variable which can be used for parameterizing metadata objects <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Allows creating a variable which can be used for parameterizing metadata objects in ThoughtSpot.
+
+
+        Requires ADMINISTRATION role and TENANT scope.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint supports the following types of variables:
+
+        * CONNECTION_PROPERTY - For connection properties
+
+        * TABLE_MAPPING - For table mappings
+
+        * CONNECTION_PROPERTY_PER_PRINCIPAL - For connection properties per principal. In order to use this please contact support to enable this.
+
+        * FORMULA_VARIABLE - For Formula variables, introduced in 10.15.0.cl
+
+
+        When creating a variable, you need to specify:
+
+        * The variable type
+
+        * A unique name for the variable
+
+        * Whether the variable contains sensitive values (defaults to false)
+
+        * The data type of the variable, only specify for formula variables (defaults to null)
+
+
+        The operation will fail if:
+
+        * The user lacks required permissions
+
+        * The variable name already exists
+
+        * The variable type is invalid
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVariableRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Create variable is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/template/variables/delete:
+    post:
+      operationId: deleteVariables
+      description: '
+
+        Delete variable(s) <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Allows deleting multiple variables from ThoughtSpot.
+
+
+        Requires ADMINISTRATION role and TENANT scope.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint requires:
+
+        * The variable identifiers (IDs or names)
+
+
+        The operation will fail if:
+
+        * The user lacks required permissions
+
+        * Any of the variables don''t exist
+
+        * Any of the variables are being used by other objects
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteVariablesRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Deletion of variable(s) is successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/template/variables/{identifier}/update-values:
+    post:
+      operationId: putVariableValues
+      description: '
+
+        Update values for a variable <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Allows updating values for a specific variable in ThoughtSpot.
+
+
+        Requires ADMINISTRATION role.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint allows:
+
+        * Adding new values to the variable
+
+        * Replacing existing values
+
+        * Deleting values from the variable
+
+        * Resetting all values
+
+
+        When updating variable values, you need to specify:
+
+        * The variable identifier (ID or name)
+
+        * The values to add/replace/remove
+
+        * The operation to perform (ADD, REPLACE, REMOVE, RESET)
+
+
+        Behaviour based on operation type:
+
+        * ADD - Adds values to the variable if this is a list type variable, else same as replace.
+
+        * REPLACE - Replaces all values of a given set of constraints with the current set of values.
+
+        * REMOVE - Removes any values which match the set of conditions of the variables if this is a list type variable, else clears value.
+
+        * RESET - Removes all constraints for the given variable, scope is ignored
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutVariableValuesRequest'
+        required: true
+      parameters:
+      - in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+        description: Unique ID or name of the variable
+      responses:
+        '204':
+          description: Variable values updated successfully.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/template/variables/search:
+    post:
+      operationId: searchVariables
+      description: '
+
+        Search variables <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Allows searching for variables in ThoughtSpot.
+
+
+        Requires ADMINISTRATION role.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint supports searching variables by:
+
+        * Variable identifier (ID or name)
+
+        * Variable type
+
+        * Name pattern (case-insensitive, supports % for wildcard)
+
+
+        The search results can be formatted in three ways:
+
+        * METADATA - Returns only variable metadata (default)
+
+        * METADATA_AND_VALUES - Returns variable metadata and values
+
+
+        The values can be filtered by scope:
+
+        * org_identifier
+
+        * principal_identifier
+
+        * model_identifier
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchVariablesRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: List of variables is successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variable'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/template/variables/{identifier}/update:
+    post:
+      operationId: updateVariable
+      description: '
+
+        Update a variable''s name <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Allows updating a variable''s name in ThoughtSpot.
+
+
+        Requires ADMINISTRATION role and TENANT scope.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint allows updating:
+
+        * The variable name
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 26.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVariableRequest'
+        required: true
+      parameters:
+      - in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+        description: Unique id or name of the variable to update.
+      responses:
+        '204':
+          description: Variable name updated successfully.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    GenericInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+    ChannelValidationAwsS3Info:
+      type: object
+      properties:
+        bucket_name:
+          type: string
+          description: Name of the S3 bucket.
+          nullable: true
+        file_name:
+          type: string
+          description: Name of the uploaded file.
+          nullable: true
+        object_key:
+          type: string
+          description: Key of the object in S3 storage.
+          nullable: true
+      description: AWS S3 storage information returned from a validation step.
+    CommunicationChannelValidateResponse:
+      type: object
+      required:
+      - channel_type
+      - channel_id
+      - event_type
+      - job_id
+      - result_code
+      properties:
+        channel_type:
+          type: string
+          enum:
+          - WEBHOOK
+          description: Type of communication channel that was validated.
+        channel_id:
+          type: string
+          description: ID of the communication channel (e.g., webhook_id).
+        channel_name:
+          type: string
+          description: Name of the communication channel (e.g., webhook name).
+          nullable: true
+        event_type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Event type that was validated.
+        job_id:
+          type: string
+          description: Unique Job Id of the validation.
+        result_code:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          - PARTIAL_SUCCESS
+          description: Overall result of the validation.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelValidationDetail'
+          description: Detailed results of various validation sub-steps.
+          nullable: true
+      description: Response containing validation results for communication channel configuration.
+    VariableOrgInfo:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: ID of the Org.
+        name:
+          type: string
+          description: Name of the Org.
+    ValidateCommunicationChannelRequest:
+      type: object
+      properties:
+        channel_type:
+          description: Type of communication channel to validate (e.g., WEBHOOK).
+          type: string
+          enum:
+          - WEBHOOK
+        channel_identifier:
+          description: Unique identifier or name for the communication channel.
+          type: string
+        event_type:
+          description: Event type to validate for this channel.
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+      required:
+      - channel_type
+      - channel_identifier
+      - event_type
+    CreateVariableRequest:
+      type: object
+      properties:
+        type:
+          description: Type of variable
+          type: string
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+        name:
+          description: Name of the variable. This is unique across the cluster.
+          type: string
+        is_sensitive:
+          description: If the variable contains sensitive values like passwords
+          default: false
+          type: boolean
+          nullable: true
+        data_type:
+          description: 'Variable Data Type, only for formula_variable type, leave empty for others <br/>  <span class="since-beta-tag">Version: 10.15.0.cl or later</span>'
+          type: string
+          enum:
+          - VARCHAR
+          - INT32
+          - INT64
+          - DOUBLE
+          - DATE
+          - DATE_TIME
+      required:
+      - type
+      - name
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    UpdateVariableRequest:
+      type: object
+      properties:
+        name:
+          description: New name of the variable.
+          type: string
+      required:
+      - name
+    VariableDetailInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the variable
+          nullable: true
+        type:
+          type: string
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+          - USER_PROPERTY
+          description: Type of variable
+          nullable: true
+        name_pattern:
+          type: string
+          description: A pattern to match case-insensitive name of the variable. User % for a wildcard match
+          nullable: true
+      description: Input for variable details in search
+    Variable:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the variable
+        name:
+          type: string
+          description: Name of the variable
+        variable_type:
+          type: string
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+          - USER_PROPERTY
+          description: Type of the variable
+          nullable: true
+        sensitive:
+          type: boolean
+          description: If the variable is sensitive
+          nullable: true
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValue'
+          description: Values of the variable
+          nullable: true
+        org:
+          $ref: '#/components/schemas/VariableOrgInfo'
+          description: Owner org of the variable.
+          nullable: true
+      description: Variable object
+    CollectionDeleteTypeIdentifiers:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the metadata object (e.g., Collection, Worksheet, Table).
+          nullable: true
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericInfo'
+          description: List of metadata identifiers belonging to the given type.
+          nullable: true
+      description: Group of metadata objects identified by type.
+    Collection:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the collection.
+        name:
+          type: string
+          description: Name of the collection.
+        obj_id:
+          type: string
+          description: 'Custom object ID (obj_id) of the collection, if one is set. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
+          nullable: true
+        description:
+          type: string
+          description: Description of the collection.
+          nullable: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataItem'
+          description: Metadata objects in the collection.
+          nullable: true
+        created_at:
+          type: string
+          description: Creation timestamp in milliseconds.
+          nullable: true
+        updated_at:
+          type: string
+          description: Last updated timestamp in milliseconds.
+          nullable: true
+        author_name:
+          type: string
+          description: Name of the author who created the collection.
+          nullable: true
+        author_id:
+          type: string
+          description: Unique identifier of the author.
+          nullable: true
+        org:
+          $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: Org associated with the collection.
+          nullable: true
+      description: Response object for a collection.
+    ChannelHistoryEventInput:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        identifier:
+          type: string
+          description: Unique ID or name of the event.
+          nullable: true
+      description: Event specification for channel history search.
+    VariableValue:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        value:
+          type: string
+          description: The value of the variable
+          nullable: true
+        value_list:
+          type: array
+          items:
+            type: string
+          description: The value of the variable if it is a list type
+          nullable: true
+        org_identifier:
+          type: string
+          description: The unique name of the org
+        principal_type:
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          description: Type of principal to which this value applies. Use USER to assign the value to a specific user, or USER_GROUP to assign it to a group.
+          nullable: true
+        principal_identifier:
+          type: string
+          description: Unique ID or name of the principal
+          nullable: true
+        model_identifier:
+          type: string
+          description: 'Unique ID of the model <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
+          nullable: true
+        priority:
+          type: integer
+          format: int32
+          description: The priority assigned to this value. If there are 2 matching values, the one with the higher priority will be picked.
+          nullable: true
+    CollectionDeleteResponse:
+      type: object
+      properties:
+        metadata_deleted:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: List of metadata objects that were successfully deleted.
+          nullable: true
+        metadata_skipped:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: 'List of metadata objects that were skipped during deletion.
+
+            Objects may be skipped due to lack of permissions, dependencies, or other constraints.'
+          nullable: true
+      description: Response object for delete collection operation.
+    CollectionSearchResponse:
+      type: object
+      required:
+      - collections
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collection'
+          description: List of collections matching the search criteria.
+        record_offset:
+          type: integer
+          format: int32
+          description: The starting record number from where the records are included.
+          nullable: true
+        record_size:
+          type: integer
+          format: int32
+          description: The number of records returned.
+          nullable: true
+        is_last_batch:
+          type: boolean
+          description: Indicates if this is the last batch of results.
+          nullable: true
+        count:
+          type: integer
+          format: int32
+          description: Total count of records returned.
+          nullable: true
+      description: Response object for search collections operation.
+    CollectionMetadataInput:
+      type: object
+      required:
+      - type
+      - identifiers
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - COLLECTION
+          description: Type of metadata object.
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: List of unique IDs or names of metadata objects.
+      description: Input type for metadata to be added to a collection.
+    SortOptions:
+      type: object
+      properties:
+        field_name:
+          type: string
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+          nullable: true
+        order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+          nullable: true
+      description: Sort options.
+    SearchChannelHistoryRequest:
+      type: object
+      properties:
+        channel_type:
+          description: Type of communication channel to search history for.
+          type: string
+          enum:
+          - WEBHOOK
+        job_ids:
+          description: List of job execution record IDs to retrieve.
+          type: array
+          items:
+            type: string
+        channel_identifiers:
+          description: List of channel IDs or names to filter by.
+          type: array
+          items:
+            type: string
+        channel_status:
+          description: Filter by channel delivery status.
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+        events:
+          description: Filter by events that triggered the channel.
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryEventInput'
+        start_epoch_time_in_millis:
+          description: Filter records created on or after this time (epoch milliseconds).
+          type: number
+          format: float
+        end_epoch_time_in_millis:
+          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          type: number
+          format: float
+      required:
+      - channel_type
+    UpdateCollectionRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the collection.
+          type: string
+        description:
+          description: Description of the collection.
+          type: string
+        metadata:
+          description: Metadata objects to add, remove, or replace in the collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataInput'
+        operation:
+          description: Type of update operation. Default operation type is REPLACE.
+          default: REPLACE
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+    ChannelValidationGcpGcsInfo:
+      type: object
+      properties:
+        bucket_name:
+          type: string
+          description: Name of the GCS bucket.
+          nullable: true
+        file_name:
+          type: string
+          description: Name of the uploaded file.
+          nullable: true
+        object_key:
+          type: string
+          description: Key (path) of the object within the GCS bucket.
+          nullable: true
+      description: GCP GCS storage information returned from a validation step.
+    DeleteCollectionRequest:
+      type: object
+      properties:
+        collection_identifiers:
+          description: 'Unique GUIDs of collections to delete. Note: Collection names cannot be
+
+            used as identifiers since duplicate names are allowed.'
+          type: array
+          items:
+            type: string
+        delete_children:
+          description: Flag to delete child objects of the collection that the user has access to.
+          default: false
+          type: boolean
+          nullable: true
+        dry_run:
+          description: 'Preview deletion without actually deleting. When set to true, returns
+
+            what would be deleted without performing the actual deletion.'
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - collection_identifiers
+    ChannelHistoryEventInfo:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        id:
+          type: string
+          description: Unique ID of the event.
+        name:
+          type: string
+          description: Name of the event.
+          nullable: true
+        run_id:
+          type: string
+          description: Unique run ID for this event execution.
+          nullable: true
+      description: Event metadata for the triggering event associated with a job.
+    PutVariableValuesRequest:
+      type: object
+      properties:
+        operation:
+          description: Operation to perform
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          - RESET
+        variable_assignment:
+          description: Variable assignments
+          type: array
+          items:
+            $ref: '#/components/schemas/VariablePutAssignmentInput'
+      required:
+      - variable_assignment
+    JobRecipient:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - USER
+          - EXTERNAL
+          description: Type of the recipient.
+        id:
+          type: string
+          description: Unique ID of the recipient.
+          nullable: true
+        name:
+          type: string
+          description: Name of the recipient.
+          nullable: true
+        email:
+          type: string
+          description: Email of the recipient.
+          nullable: true
+      description: A recipient (user, group, or external) for a job execution.
+    CollectionMetadataItem:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the metadata object.
+          nullable: true
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: List of identifiers for this metadata type.
+          nullable: true
+      description: Metadata item in a collection response.
+    ChannelValidationDetail:
+      type: object
+      required:
+      - validation_step
+      - status
+      properties:
+        validation_step:
+          type: string
+          enum:
+          - HTTP_CONNECTION_CHECK
+          - STORAGE_FILE_UPLOAD_CHECK
+          description: The validation step that was performed.
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          description: Status of this validation step.
+        http_status:
+          type: integer
+          format: int32
+          description: HTTP status code returned by the channel (if applicable).
+          nullable: true
+        error_message:
+          type: string
+          description: Error message from the channel or validation process.
+          nullable: true
+        aws_s3_info:
+          $ref: '#/components/schemas/ChannelValidationAwsS3Info'
+          description: AWS S3 storage information from the validation step.
+          nullable: true
+        gcp_gcs_info:
+          $ref: '#/components/schemas/ChannelValidationGcpGcsInfo'
+          description: 'GCP GCS storage information from the validation step. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          nullable: true
+      description: Validation detail result for a sub-step.
+    SearchChannelHistoryResponse:
+      type: object
+      required:
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
+    CreateCollectionRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the collection.
+          type: string
+        description:
+          description: Description of the collection.
+          type: string
+        metadata:
+          description: Metadata objects to add to the collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataInput'
+      required:
+      - name
+    SearchCollectionsRequest:
+      type: object
+      properties:
+        name_pattern:
+          description: 'A pattern to match case-insensitive name of the Collection object.
+
+            Use ''%'' for wildcard match.'
+          type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: 'The number of records that should be included.
+
+            -1 implies no pagination.'
+          default: 10
+          type: integer
+          format: int32
+        collection_identifiers:
+          description: 'Unique GUIDs of collections to search. Note: Collection names cannot be
+
+            used as identifiers since duplicate names are allowed.'
+          type: array
+          items:
+            type: string
+        created_by_user_identifiers:
+          description: 'Filter collections by author. Provide unique IDs or names of users
+
+            who created the collections.'
+          type: array
+          items:
+            type: string
+        include_metadata:
+          description: Include collection metadata items in the response.
+          default: false
+          type: boolean
+          nullable: true
+        sort_options:
+          description: Sort options.
+          allOf:
+          - $ref: '#/components/schemas/SortOptions'
+    ChannelHistoryJob:
+      type: object
+      required:
+      - id
+      - status
+      - creation_time_in_millis
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this job.
+        status:
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+          description: Delivery status of this job.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Timestamp when this job was created (epoch milliseconds).
+        event:
+          $ref: '#/components/schemas/ChannelHistoryEventInfo'
+          description: Event metadata for the triggering event associated with this job.
+          nullable: true
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobRecipient'
+          description: The users, groups or external recipients for this job.
+          nullable: true
+        detail:
+          type: string
+          description: Additional delivery details such as HTTP response code or error message.
+          nullable: true
+        try_count:
+          type: integer
+          format: int32
+          description: Number of attempts made. 1 indicates first attempt.
+          nullable: true
+      description: A single job execution record for a channel.
+    SearchVariablesRequest:
+      type: object
+      properties:
+        variable_details:
+          description: Variable details
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableDetailInput'
+        value_scope:
+          description: Array of scope filters
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueScopeInput'
+        record_offset:
+          description: The starting record number from where the records should be included
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included
+          default: 10
+          type: integer
+          format: int32
+        response_content:
+          description: Format in which we want the output
+          default: METADATA
+          type: string
+          enum:
+          - METADATA
+          - METADATA_AND_VALUES
+    CollectionEntityIdentifier:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Unique identifier of the entity.
+          nullable: true
+        name:
+          type: string
+          description: Name of the entity.
+          nullable: true
+      description: Entity identifier with name.
+    DeleteVariablesRequest:
+      type: object
+      properties:
+        identifiers:
+          description: Unique id(s) or name(s) of the variable(s) to delete
+          type: array
+          items:
+            type: string
+      required:
+      - identifiers
+    ValueScopeInput:
+      type: object
+      properties:
+        org_identifier:
+          type: string
+          description: The unique name of the org
+          nullable: true
+        principal_type:
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          description: Type of principal to filter by. Use USER to filter values assigned to specific users, or USER_GROUP to filter values assigned to groups.
+          nullable: true
+        principal_identifier:
+          type: string
+          description: Unique ID or name of the principal
+          nullable: true
+        model_identifier:
+          type: string
+          description: Unique ID or name of the model to filter by. Applicable only for FORMULA_VARIABLE type.
+          nullable: true
+      description: Input for filtering variable values by scope in search operations
+    VariablePutAssignmentInput:
+      type: object
+      required:
+      - assigned_values
+      properties:
+        assigned_values:
+          type: array
+          items:
+            type: string
+          description: Values of the variable
+        org_identifier:
+          type: string
+          description: The unique name of the org
+          nullable: true
+        principal_type:
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          description: Principal type
+          nullable: true
+        principal_identifier:
+          type: string
+          description: Unique ID or name of the principal
+          nullable: true
+        model_identifier:
+          type: string
+          description: Unique ID of the model
+          nullable: true
+        priority:
+          type: integer
+          format: int32
+          description: Priority level
+          nullable: true
+      description: Input for variable value put operations
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

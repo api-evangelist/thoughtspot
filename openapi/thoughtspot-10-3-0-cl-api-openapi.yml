@@ -1,0 +1,263 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 10.3.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 10.3.0.cl
+paths:
+  /api/rest/2.0/metadata/copyobject:
+    post:
+      operationId: copyObject
+      description: '
+
+        Makes a copy of an Answer or Liveboard <br/>  <span class="since-beta-tag">Version: 10.3.0.cl or later</span>
+
+
+        Creates a copy of a metadata object.
+
+
+        Requires at least view access to the metadata object being copied.
+
+
+        Upon successful execution, the API creates a copy of the metadata object specified in the API request and returns the ID of the new object.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 10.3.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyObjectRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully created a copy of the object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCopyObject'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ResponseCopyObject:
+      type: object
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object.
+          nullable: true
+    CopyObjectRequest:
+      type: object
+      properties:
+        description:
+          description: Description of the new object
+          type: string
+        identifier:
+          description: GUID of metadata object to be copied (answer id or liveboard id)
+          type: string
+        type:
+          description: Type of metadata object
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+        title:
+          description: Title of the new object
+          type: string
+      required:
+      - identifier
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

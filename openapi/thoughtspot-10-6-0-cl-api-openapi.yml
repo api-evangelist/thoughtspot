@@ -1,0 +1,482 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 10.6.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 10.6.0.cl
+paths:
+  /api/rest/2.0/metadata/worksheets/convert:
+    post:
+      operationId: convertWorksheetToModel
+      description: "\nConvert worksheets to models <br/>  <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (Can manage data models).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs (Globally Unique Identifiers) specifying the Worksheets to be converted.  \n   - **Usage:**  \n     - Used only when `convert_all` is set to `false`.  \n     - Leave empty or omit when `convert_all` is set to `true`.\n\n2. **exclude_worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs specifying Worksheets to be excluded from conversion.  \n   - **Usage:**  \n     - Useful when `convert_all` is set to `true` and specific Worksheets should not be converted.\n\n3. **convert_all**  \n   - **Description:** Sets the scope of conversion.\n   - **Options:**  \n     - `true`: Converts all Worksheets in the system, except those specified in `exclude_worksheet_ids`.  \n     - `false`: Converts only the Worksheets listed in `worksheet_ids`.\n\n4. **apply_changes**  \n   - **Description:** Specifies whether to apply changes directly to ThoughtSpot or to generate a preview before applying any changes.Used for validation of conversion.\n   - **Options:**  \n     - `true`: Applies conversion changes directly to ThoughtSpot.\n     - `false`: Generates only a preview of the changes and does not apply any changes to ThoughtSpot\n\n---\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the conversion process\n\n2. **Partial Conversion for Testing:**  \n   Test the conversion process by setting `convert_all` to `false` and specifying a small number of `worksheet_ids`.\n\n3. **Verify Dependencies:**  \n   Check for dependent objects, such as Tables and Connections, to avoid invalid references.\n\n4. **Review Changes:**  \n   Use `apply_changes: false` to preview the impact of the conversion before applying changes.\n\n---\n\n## Examples\n\n### Convert Specific Worksheets\n```json\n{\n  \"worksheet_ids\": [\"guid1\", \"guid2\", \"guid3\"],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": false,\n  \"apply_changes\": true\n}\n```\n\n### Convert All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n### Exclude Specific Worksheets While Converting All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [\"abc\"],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.6.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertWorksheetToModelRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Conversion of worksheets to model done successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWorksheetToModelConversion'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/headers/update:
+    post:
+      operationId: updateMetadataHeader
+      description: "\nUpdate header attributes for a given list of header objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `ORG_ADMINISTRATION` (Can manage orgs).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **headers_update**  \n   - **Description:** List of header objects with their attributes to be updated. Each object contains a list of attributes to be updated in the header.\n   - **Usage:**\n      - You must provide either `identifier` or `obj_identifier`, but not both. Both fields cannot be empty.\n      - When `org_identifier` is set to `-1`, only the `identifier` value is accepted; `obj_identifier` is not allowed.\n\n2. **org_identifier**  \n   - **Description:** GUID (Globally Unique Identifier) or name of the organization.  \n   - **Usage:**\n     - Leaving this field empty assumes that the changes should be applied to the current organization \n     - Provide `org_guid` or `org_name` to uniquely identify the organization where changes need to be applied. .\n     - Provide `-1` if changes have to be applied across all the org.\n\n---\n\n## Note\nCurrently, this API is enabled only for updating the `obj_identifier` attribute. Only `text` will be allowed in attribute's value.\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the update process\n\n---\n\n## Examples\n\n### Only `identifier` is given \n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"obj_identifier\": \"\",\n      \"type\": \"LOGICAL_COLUMN\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgGuid\"\n}\n```\n\n### Only `obj_identifier` is given\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"obj_identifier\": \"custom_object_id\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgName\"\n}\n```\n\n### Executing update for all org `-1`\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n### Optional `type` is not provided\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.6.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMetadataHeaderRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Headers update was successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ResponseWorksheetToModelConversion:
+      type: object
+      required:
+      - name
+      - success_count
+      - failure_count
+      - incomplete_count
+      - post_upgrade_failed_count
+      - total_time_in_millis
+      - successful_entities
+      - failed_entities
+      - incomplete_entities
+      - post_upgrade_failed_entities
+      properties:
+        name:
+          type: string
+        success_count:
+          type: integer
+          format: int32
+          description: The number of worksheets successfully converted to models.
+        failure_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed to convert.
+        incomplete_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that were incomplete during the conversion process.
+        post_upgrade_failed_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed after an upgrade during the conversion process.
+        total_time_in_millis:
+          type: integer
+          format: int32
+          description: The total time taken to complete the conversion process in milliseconds.
+        successful_entities:
+          $ref: '#/components/schemas/ResponseSuccessfulEntities'
+          description: List of worksheets successfully converted to models.
+        failed_entities:
+          $ref: '#/components/schemas/ResponseFailedEntities'
+          description: List of worksheets that failed to convert.
+        incomplete_entities:
+          $ref: '#/components/schemas/ResponseIncompleteEntities'
+          description: List of worksheets that were incomplete during the conversion.
+        post_upgrade_failed_entities:
+          $ref: '#/components/schemas/ResponsePostUpgradeFailedEntities'
+          description: List of worksheets that failed after an upgrade during the conversion process.
+      description: Name of the conversion process, which involves converting worksheets to models.
+    ResponseFailedEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet that failed to convert.
+        error:
+          type: string
+          description: Error details related to the failed conversion.
+      description: Unique ID of the failed worksheet.
+    ResponseIncompleteEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the incomplete worksheet.
+        error:
+          type: string
+          description: Error details related to the incomplete conversion.
+      description: Unique ID of the incomplete worksheet.
+    ResponseSuccessfulEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseSuccessfulEntity'
+      description: Wrapper for the successful entities, as they are inside a 'data' field in the response.
+    ResponsePostUpgradeFailedEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet that failed post-upgrade.
+        error:
+          type: string
+          description: Error details related to the post-upgrade failure.
+      description: Unique ID of the worksheet that failed post-upgrade.
+    ResponseSuccessfulEntity:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet.
+      description: Unique ID of the worksheet.
+    ResponsePostUpgradeFailedEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponsePostUpgradeFailedEntity'
+      description: Wrapper for the post-upgrade failed entities, as they are inside a 'data' field in the response.
+    UpdateMetadataHeaderRequest:
+      type: object
+      properties:
+        headers_update:
+          description: List of header objects to update.
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderUpdateInput'
+        org_identifier:
+          description: Unique ID or name of the organization.
+          type: string
+      required:
+      - headers_update
+    ResponseIncompleteEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseIncompleteEntity'
+      description: Wrapper for the incomplete entities, as they are inside a 'data' field in the response.
+    HeaderAttributeInput:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: Attribute name to be updated.
+        value:
+          type: string
+          description: Attribute's new value.
+      description: Attribute to update in a header.
+    ConvertWorksheetToModelRequest:
+      type: object
+      properties:
+        worksheet_ids:
+          description: List of Worksheet IDs.
+          type: array
+          items:
+            type: string
+        exclude_worksheet_ids:
+          description: List of Worksheet IDs to be excluded.
+          type: array
+          items:
+            type: string
+        convert_all:
+          description: Indicates whether all the worksheet needs to be converted to models.
+          default: false
+          type: boolean
+          nullable: true
+        apply_changes:
+          description: Indicates whether the changes should be applied to database.
+          default: false
+          type: boolean
+          nullable: true
+    ResponseFailedEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseFailedEntity'
+      description: Wrapper for the failed entities, as they are inside a 'data' field in the response.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    HeaderUpdateInput:
+      type: object
+      required:
+      - attributes
+      properties:
+        identifier:
+          type: string
+          description: Unique ID of a specified type to identify the header.
+          nullable: true
+        obj_identifier:
+          type: string
+          description: Custom object identifier to uniquely identify header.
+          nullable: true
+        type:
+          type: string
+          enum:
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LIVEBOARD
+          - ACTION_OBJECT
+          - DATA_SOURCE
+          - USER
+          - USER_GROUP
+          - COLLECTION
+          description: Optional type of the header object.
+          nullable: true
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderAttributeInput'
+          description: List of attributes to update
+      description: Favorite object options.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

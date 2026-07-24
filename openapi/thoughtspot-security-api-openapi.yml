@@ -1,0 +1,1215 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Security API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Security
+paths:
+  /api/rest/2.0/security/metadata/assign:
+    post:
+      operationId: assignChangeAuthor
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nTransfers the ownership of one or several objects from one user to another.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege and edit access to the objects are required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignChangeAuthorRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Author assignment for given metadata objects is successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/column/rules/fetch:
+    post:
+      operationId: fetchColumnSecurityRules
+      description: "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nFetches column security rules for specified tables.\n\nThis API endpoint retrieves column-level security rules configured for tables. It returns information about which columns are secured and which groups have access to those columns.\n\n#### Usage guidelines\n\n- Provide an array of table identifiers using either `identifier` (GUID or name) or `obj_identifier` (object ID)\n- At least one of `identifier` or `obj_identifier` must be provided for each table\n- The API returns column security rules for all specified tables\n- Users must have appropriate permissions to access security rules for the specified tables\n\n#### Required permissions\n\n- `ADMINISTRATION` - Can administer ThoughtSpot\n- `DATAMANAGEMENT` - Can manage data\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` - Can manage worksheet views and tables\n\n#### Example request\n\n```json\n{\n  \"tables\": [\n    {\n      \"identifier\": \"table-guid\",\n      \"obj_identifier\": \"table-object-id\"\n    }\n  ]\n}\n```\n\n#### Response format\n\nThe API returns an array of `ColumnSecurityRuleResponse` objects wrapped in a `data` field. Each `ColumnSecurityRuleResponse` object contains:\n- Table information (GUID and object ID)  \n- Array of column security rules with column details, group access, and source table information\n\n#### Example response\n\n```json\n{\n  \"data\": [\n    {\n      \"guid\": \"table-guid\",\n      \"objId\": \"table-object-id\",\n      \"columnSecurityRules\": [\n        {\n          \"column\": {\n            \"id\": \"col_123\",\n            \"name\": \"Salary\"\n          },\n          \"groups\": [\n            {\n              \"id\": \"group_1\",\n              \"name\": \"HR Department\"\n            }\n          ],\n          \"sourceTableDetails\": {\n            \"id\": \"source-table-guid\",\n            \"name\": \"Employee_Data\"\n          }\n        }\n      ]\n    }\n  ]\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchColumnSecurityRulesRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully fetched column security rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ColumnSecurityRuleResponse'
+        '400':
+          description: Bad request - Table not found or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - User doesn't have permission to access security rules for this table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/fetch-object-privileges:
+    post:
+      operationId: fetchObjectPrivileges
+      description: "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API fetches the object privileges present for the given list of principals (user or group), on the given set of objects. It supports pagination, which can be enabled and configured using the request parameters. It provides users access to certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `type` (`USER` or `USER_GROUP`) and `identifier` (either GUID or name) of the principals for which you want to retrieve object privilege information in the `principals` array.\n- Specify the `type`  (`LOGICAL_TABLE`)  and `identifier` (either GUID or name) of the metadata objects for which you want to retrieve object privilege information in the `metadata` array. Only `LOGICAL_TABLE` metadata type is supported for now. It may be extended for other metadata types in future.\n- To control the offset from where principals have to be fetched, use `record_offset`. When `record_offset` is 0, information is fetched from the beginning.\n- To control the number of principals to be fetched, use `record_size`. Default `record_size` is 20.\n- Ensure `record_offset` for a subsequent request is one more than the value of `record_size` of the previous request.\n- Ensure using correct Authorization Bearer Token corresponding to specific user & org. \n\n#### Example request\n\n```json\n{\n  \"principals\": [\n    {\n      \"type\": \"type-1\",\n      \"identifier\": \"principal-guid-or-name-1\"\n    },\n    {\n      \"type\": \"type-2\",\n      \"identifier\": \"principal-guid-or-name-2\"\n    }\n  ],\n  \"metadata\": [\n    {\n      \"type\": \"metadata-type-1\",\n      \"identifier\": \"metadata-guid-or-name-1\"\n    },\n    {\n      \"type\": \"metadata-type-2\",\n      \"identifier\": \"metadata-guid-or-name-2\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 20\n}\n```\n\n\n#### Response format\n\nThe API returns an array of `metadata_object_privileges` objects wrapped in JSON. Each `metadata_object_privileges` object contains:\n- Metadata information (GUID, name and type)\n- Array of `principal_object_privilege_info`.\n- Each `principal_object_privilege_info` contains:\n  - Principal type. All principals of this type are listed as described below.\n  - Array of `principal_object_privileges`.\n  - Each `principal_object_privileges` contains:\n    - Principal information (GUID, name, subtype)\n    - List of applied object level privileges.\n\n#### Example response\n\n```json\n{\n    \"metadata_object_privileges\": [\n      {\n        \"metadata_id\": \"metadata-guid-1\",\n        \"metadata_name\": \"metadata-name-1\",\n        \"metadata_type\": \"metadata-type-1\",\n        \"principal_object_privilege_info\": [\n          {\n            \"principal_type\": \"principal-type-1\",\n            \"principal_object_privileges\": [\n              {\n                \"principal_id\": \"principal-guid-1\",\n                \"principal_name\": \"principal-name-1\",\n                \"principal_sub_type\": \"principal-sub-type-1\",\n                \"object_privileges\": \"[object-privilege-1, object-privilege-2]\"\n              },\n              {\n                \"principal_id\": \"principal-guid-2\",\n                \"principal_name\": \"principal-name-2\",\n                \"principal_sub_type\": \"principal-sub-type-2\",\n                \"object_privileges\": \"[object-privilege-1, object-privilege-2]\"\n              }\n            ]\n          },\n          {\n            \"principal_type\": \"principal-type-2\",\n            \"principal_object_privileges\": [\n              {\n                \"principal_id\": \"principal-guid-3\",\n                \"principal_name\": \"principal-guid-4\",\n                \"principal_sub_type\": \"principal-sub-type-4\",\n                \"object_privileges\": \"[object-privilege-1]\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"metadata_id\": \"metadata-guid-2\",\n        \"metadata_name\": \"metadata-name-2\",\n        \"metadata_type\": \"metadata-type-2\",\n        \"principal_object_privilege_info\": [\n          {\n            \"principal_type\": \"principal-type-1\",\n            \"principal_object_privileges\": [\n              {\n                \"principal_id\": \"principal-guid-1\",\n                \"principal_name\": \"principal-name-1\",\n                \"principal_sub_type\": \"principal-sub-type-1\",\n                \"object_privileges\": \"[object-privilege-3, object-privilege-4]\"\n              },\n              {\n                \"principal_id\": \"principal-guid-2\",\n                \"principal_name\": \"principal-name-2\",\n                \"principal_sub_type\": \"principal-sub-type-2\",\n                \"object_privileges\": \"[object-privilege-4]\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchObjectPrivilegesRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching defined object privileges of metadata objects is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectPrivilegesOfMetadataResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/principals/fetch-permissions:
+    post:
+      operationId: fetchPermissionsOfPrincipals
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches object permission details for a given principal object such as a user and group.\n\nRequires view access to the metadata object. \n\n#### Usage guidelines\n\n* To get a list of all metadata objects that a user or group can access, specify the `type` and GUID or name of the principal.\n* To get permission details for a specific object, add the `type` and GUID or name of the metadata object to your API request.\n\nUpon successful execution, the API returns a list of metadata objects and permission details for each object.  \n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchPermissionsOfPrincipalsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching permissions of principals is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionOfPrincipalsResponse'
+              examples:
+                example_1:
+                  value:
+                    principal_permission_details:
+                    - principal_id: 7f5e7f87-09a1-487c-a1da-c4bb35e45270
+                      principal_name: test_user
+                      principal_type: USER
+                      principal_sub_type: LOCAL_USER
+                      metadata_permission_info:
+                      - metadata_type: LIVEBOARD
+                        metadata_permissions:
+                        - metadata_id: 2ff57a24-cf90-485f-8b4b-45fc17474c6f
+                          metadata_name: Learn how to use ThoughtSpot
+                          metadata_owner:
+                            id: 2ff57a24-cf90-485f-8b4b-45fc17474c6f
+                            name: Learn how to use ThoughtSpot
+                          metadata_author:
+                            id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                            name: tsadmin
+                          permission: READ_ONLY
+                          shared_permission: NO_ACCESS
+                          group_permission: []
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/fetch-permissions:
+    post:
+      operationId: fetchPermissionsOnMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches permission details for a given metadata object.\n\nRequires view access to the metadata object.\n\n#### Usage guidelines\n\n* To fetch a list of users and groups for a metadata object, specify `type` and GUID or name of the metadata object.\n* To get permission details for a specific user or group, add `type` and GUID or name of the principal object to your API request.\n\nUpon successful execution, the API returns permission details and principal information for the object specified in the API request.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchPermissionsOnMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching permissions of metadata objects is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionOfMetadataResponse'
+              examples:
+                example_1:
+                  value:
+                    metadata_permission_details:
+                    - metadata_id: a62a5bf3-9f16-45b2-a174-7d30b3b577a9
+                      metadata_name: testing
+                      metadata_type: LIVEBOARD
+                      metadata_owner:
+                        id: a62a5bf3-9f16-45b2-a174-7d30b3b577a9
+                        name: testing
+                      metadata_author:
+                        id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                        name: tsadmin
+                      principal_permission_info:
+                      - principal_type: USER_GROUP
+                        principal_sub_type: LOCAL_GROUP
+                        principal_permissions:
+                        - principal_id: d0326b56-ef23-4c8a-8327-a30e99bcc72b
+                          principal_name: Administrator
+                          permission: MODIFY
+                          shared_permission: NO_ACCESS
+                          group_permission: []
+                      - principal_type: USER
+                        principal_sub_type: LOCAL_USER
+                        principal_permissions:
+                        - principal_id: 0f0dd0f7-7411-4195-a4aa-0dc6b58413c9
+                          principal_name: su
+                          permission: MODIFY
+                          shared_permission: NO_ACCESS
+                          group_permission: []
+                        - principal_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                          principal_name: tsadmin
+                          permission: MODIFY
+                          shared_permission: NO_ACCESS
+                          group_permission: []
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/manage-object-privilege:
+    post:
+      operationId: manageObjectPrivilege
+      description: "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API allows the addition or deletion of object level privileges for a set of users and groups, on a set of metadata objects. It provides users to access certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `operation`. The supported operations are: `ADD`, `REMOVE`.\n- Specify the type of the objects on which the object privileges are being provided in `metadata_type`. Only `LOGICAL_TABLE` metadata type is supported for now. It may be extended for other metadata types in future.\n- Specify the list of object privilege types in the `object_privilege_types` array. The supported object privilege types are: `SPOTTER_COACHING_PRIVILEGE`.\n- Specify the identifiers (either GUID or name) for the metadata objects in the `metadata_identifiers` array.\n- Specify the `type` (`USER` or `USER_GROUP`) and `identifier` (either GUID or name) of the principals to which you want to apply the given operation and given object privileges in the `principals` array.\n- Ensure using correct Authorization Bearer Token corresponding to specific user & org.\n\n#### Example request\n\n```json\n{\n  \"operation\": \"operation-type\",\n  \"metadata_type\": \"metadata-type\",\n  \"object_privilege_types\": [\"privilege-type-1\", \"privilege-type-2\"],\n  \"metadata_identifiers\": [\"metadata-guid-or-name-1\", \"metadata-guid-or-name-1\"],\n  \"principals\": [\n    {\n      \"type\": \"type-1\", \n      \"identifier\": \"principal-guid-or-name-1\"\n    },\n    {\n      \"type\": \"type-2\",\n      \"identifier\": \"principal-guid-or-name-2\"\n    }\n  ]\n}\n```\n\n> ###### Note:\n> * Only admin users, users with edit access and users with coaching privilege on a given data-model can add or remove principals related to SPOTTER_COACHING_PRIVILEGE  \n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageObjectPrivilegeRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Object privileges added/removed successfully
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/publish:
+    post:
+      operationId: publishMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows publishing metadata objects across organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows publishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nThis API will essentially share the objects along with it's dependencies to\nthe org admins of the orgs to which it is being published.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Publishing metadata objects is successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/share:
+    post:
+      operationId: shareMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAllows sharing one or several metadata objects with users and groups in ThoughtSpot.\n\nRequires edit access to the metadata object.\n\n#### Supported metadata objects:\n* Liveboards\n* Visualizations\n* Answers\n* Models\n* Views\n* Connections\n* Collections\n\n#### Object permissions\n\nYou can provide `READ_ONLY` or `MODIFY` access when sharing an object with another user or group. The `READ_ONLY` permission grants view access to the shared object, whereas `MODIFY` provides edit access.\n\nTo prevent a user or group from accessing the shared object, specify the GUID or name of the principal and set `shareMode` to `NO_ACCESS`.\n\n#### Sharing a visualization\n\n* Sharing a visualization implicitly shares the entire Liveboard with the recipient.\n* Object permissions set for a shared visualization also apply to the Liveboard unless overridden by another API request or via UI.\n* If email notifications for object sharing are enabled, a notification with a link to the shared visualization will be sent to the recipient’s email address. Although this link opens the shared visualization, recipients can also access other visualizations in the Liveboard.\n\n#### Sharing a collection\n\nCollections support **dual permissions** that provide fine-grained control:\n\n* **Collection permissions** (`share_mode`) - controls access to the collection itself (view, edit, delete the collection)\n* **Content permissions** (`content_share_mode`) - controls access to objects within the collection (view, edit objects inside)\n\n**Default Behavior:**\n- If only `share_mode` is specified, the content permissions default to `READ_ONLY` (except when `share_mode` is `NO_ACCESS`, then content also gets `NO_ACCESS`)\n- To give users edit access to collection contents, explicitly set `content_share_mode: \"MODIFY\"`\n\n## Examples\n\nThe following JSON examples can be copy-pasted as request bodies for the REST v2 API endpoint:\n\n```bash\nPOST /callosum/v1/v2/security/metadata/share\nContent-Type: application/x-www-form-urlencoded\n```\n\n### Basic collection sharing\nShare a collection with read-only access:\n\n```json\n{\n  \"metadata_type\": \"COLLECTION\",\n  \"metadata_identifiers\": [\"Sales Reports Collection\"],\n  \"permissions\": [{\n    \"principal\": {\n      \"type\": \"USER\",\n      \"identifier\": \"alice@company.com\"\n    },\n    \"share_mode\": \"READ_ONLY\"\n  }],\n  \"notification\": {\n    \"message\": \"I've shared the Sales Reports collection with you\",\n    \"notify_on_share\": true\n  }\n}\n```\n\n### Collection sharing with dual permissions\nShare a collection with different permissions for the collection vs. its contents:\n\n```json\n{\n  \"metadata_type\": \"COLLECTION\",\n  \"metadata_identifiers\": [\"Marketing Analytics\"],\n  \"permissions\": [{\n    \"principal\": {\n      \"type\": \"USER\",\n      \"identifier\": \"bob@company.com\"\n    },\n    \"share_mode\": \"MODIFY\",\n    \"content_share_mode\": \"READ_ONLY\"\n  }, {\n    \"principal\": {\n      \"type\": \"USER_GROUP\",\n      \"identifier\": \"Marketing Team\"\n    },\n    \"share_mode\": \"READ_ONLY\",\n    \"content_share_mode\": \"READ_ONLY\"\n  }],\n  \"notification\": {\n    \"emails\": [\"bob@company.com\"],\n    \"message\": \"You can edit the collection but content is read-only\",\n    \"enable_custom_url\": false,\n    \"notify_on_share\": true\n  },\n  \"has_lenient_discoverability\": false\n}\n```\n\n### Multiple collections sharing\nShare multiple collections with different users:\n\n```json\n{\n  \"metadata\": [\n    {\n      \"type\": \"COLLECTION\",\n      \"identifier\": \"Q4 Reports\"\n    },\n    {\n      \"type\": \"COLLECTION\",\n      \"identifier\": \"Executive Dashboard Collection\"\n    }\n  ],\n  \"permissions\": [{\n    \"principal\": {\n      \"type\": \"USER_GROUP\",\n      \"identifier\": \"Executives\"\n    },\n    \"share_mode\": \"MODIFY\"\n  }, {\n    \"principal\": {\n      \"type\": \"USER\",\n      \"identifier\": \"manager@company.com\"\n    },\n    \"share_mode\": \"READ_ONLY\",\n    \"content_share_mode\": \"MODIFY\"\n  }],\n  \"notification\": {\n    \"message\": \"Sharing quarterly collections with leadership team\",\n    \"notify_on_share\": true\n  }\n}\n```\n\n### Remove collection access\nRemove access to a collection by setting share_mode to NO_ACCESS:\n\n```json\n{\n  \"metadata_type\": \"COLLECTION\",\n  \"metadata_identifiers\": [\"Confidential Reports\"],\n  \"permissions\": [{\n    \"principal\": {\n      \"type\": \"USER\",\n      \"identifier\": \"former-employee@company.com\"\n    },\n    \"share_mode\": \"NO_ACCESS\"\n  }],\n  \"notification\": {\n    \"notify_on_share\": false\n  }\n}\n```\n\n### Collection Permission Scenarios\n\n**Scenario 1: Collection Admin**\n- `share_mode: MODIFY` + `content_share_mode: MODIFY` = Full control over collection and its contents\n\n**Scenario 2: Collection Curator**\n- `share_mode: MODIFY` + `content_share_mode: READ_ONLY` = Can manage collection structure but not edit contents\n\n**Scenario 3: Content Editor**\n- `share_mode: READ_ONLY` + `content_share_mode: MODIFY` = Can edit objects within collection but can't change collection itself\n\n**Scenario 4: Viewer**\n- `share_mode: READ_ONLY` + `content_share_mode: READ_ONLY` = View-only access to collection and contents\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Sharing metadata objects is successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/metadata/unpublish:
+    post:
+      operationId: unpublishMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows unpublishing metadata objects from organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows unpublishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nWhen unpublishing objects, you can:\n* Include dependencies by setting `include_dependencies` to true - this will unpublish all dependent objects if no other published object is using them\n* Force unpublish by setting `force` to true - this will break all dependent objects in the unpublished organizations\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnpublishMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Unpublishing metadata objects is successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/security/column/rules/update:
+    post:
+      operationId: updateColumnSecurityRules
+      description: "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nCreates, updates, or deletes column security rules for specified tables.\n\nThis API endpoint allows you to create, update, or delete column-level security rules on columns of a table. The operation follows an \"all or none\" policy: if defining security rules for any of the provided columns fails, the entire operation will be rolled back, and no rules will be created.\n\n#### Usage guidelines\n\n- Provide table identifier using either `identifier` (GUID or name) or `obj_identifier` (object ID)\n- Use `clear_csr: true` to remove all column security rules from the table\n- For each column, specify the security rule using `column_security_rules` array\n- Use `is_unsecured: true` to mark a specific column as unprotected\n- Use `group_access` operations to manage group associations:\n  - `ADD`: Add groups to the column's access list\n  - `REMOVE`: Remove groups from the column's access list\n  - `REPLACE`: Replace all existing groups with the specified groups\n\n#### Required permissions\n\n- `ADMINISTRATION` - Can administer ThoughtSpot\n- `DATAMANAGEMENT` - Can manage data (if RBAC is disabled)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` - Can manage worksheet views and tables (if RBAC is enabled)\n\n#### Example request\n\n```json\n{\n  \"identifier\": \"table-guid\",\n  \"obj_identifier\": \"table-object-id\",\n  \"clear_csr\": false,\n  \"column_security_rules\": [\n    {\n      \"column_identifier\": \"col id or col name\",\n      \"is_unsecured\": false,\n      \"group_access\": [\n        {\n          \"operation\": \"ADD\",\n          \"group_identifiers\": [\"hr_group_id\", \"hr_group_name\", \"finance_group_id\"]\n        }\n      ]\n    },\n    {\n      \"column_identifier\": \"col id or col name\",\n      \"is_unsecured\": true\n    },\n    {\n      \"column_identifier\": \"col id or col name\",\n      \"is_unsecured\": false,\n      \"group_access\": [\n        {\n          \"operation\": \"REPLACE\",\n          \"group_identifiers\": [\"management_group_id\", \"management_group_name\"]\n        }\n      ]\n    }\n  ]\n}\n```\n\n#### Request Body Schema\n\n- `identifier` (string, optional): GUID or name of the table for which we want to create column security rules\n- `obj_identifier` (string, optional): The object ID of the table\n- `clear_csr` (boolean, optional): If true, then all the secured columns will be marked as unprotected, and all the group associations will be removed\n- `column_security_rules` (array of objects, required): An array where each object defines the security rule for a specific column\n\nEach column security rule object contains:\n- `column_identifier` (string, required): Column identifier (col_id or name)\n- `is_unsecured` (boolean, optional): If true, the column will be marked as unprotected and all groups associated with it will be removed\n- `group_access` (array of objects, optional): Array of group operation objects\n\nEach group operation object contains:\n- `operation` (string, required): Operation type - ADD, REMOVE, or REPLACE\n- `group_identifiers` (array of strings, required): Array of group identifiers (name or GUID) on which the operation will be performed\n\n#### Response\n\nThis API does not return any response body. A successful operation returns HTTP 200 status code.\n\n#### Operation Types\n\n- **ADD**: Adds the specified groups to the column's access list\n- **REMOVE**: Removes the specified groups from the column's access list  \n- **REPLACE**: Replaces all existing groups with the specified groups \n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateColumnSecurityRulesRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Successfully updated column security rules
+        '400':
+          description: Bad request - Invalid parameters or table not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - User doesn't have permission to modify security rules for this table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UpdateColumnSecurityRulesRequest:
+      type: object
+      properties:
+        identifier:
+          description: GUID or name of the table for which we want to create column security rules
+          type: string
+        obj_identifier:
+          description: The object ID of the table
+          type: string
+        clear_csr:
+          description: If true, then all the secured columns will be marked as unprotected, and all the group associations will be removed
+          type: boolean
+          nullable: true
+        column_security_rules:
+          description: Array where each object defines the security rule for a specific column
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleUpdate'
+      required:
+      - column_security_rules
+    PrincipalsInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the principal object such as a user or group.
+        type:
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          description: Principal type.
+          nullable: true
+    FetchPermissionsOfPrincipalsRequest:
+      type: object
+      properties:
+        principals:
+          description: GUID or name of the user or group.
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        metadata:
+          description: 'Metadata objects for which you want to fetch permission details.
+
+            If not specified, the API returns permission details for all
+
+            metadata objects that the specified users and groups can access.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: -1
+          type: integer
+          format: int32
+        default_metadata_type:
+          description: When no metadata objects input is passed, metadata objects of this type are fetched.
+          type: string
+          enum:
+          - ALL
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+      required:
+      - principals
+    ManageObjectPrivilegeRequest:
+      type: object
+      properties:
+        operation:
+          description: 'Operation to perform to manage object privileges. Available operations are: `ADD`, `REMOVE`.'
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+        metadata_type:
+          description: Type of metadata objects on which you want to perform the operation. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+        object_privilege_types:
+          description: List of object privilege types on which you want to perform the operation.
+          type: array
+          items:
+            type: string
+            enum:
+            - SPOTTER_COACHING_PRIVILEGE
+        metadata_identifiers:
+          description: List of metadata identifiers (GUID or name) on which you want to perform the operation.
+          type: array
+          items:
+            type: string
+        principals:
+          description: User or group objects (GUID or name) to which you want to apply the given operation and given object privileges.
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+      required:
+      - operation
+      - metadata_type
+      - object_privilege_types
+      - metadata_identifiers
+      - principals
+    PublishMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects to be published.
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishMetadataListItem'
+        org_identifiers:
+          description: Unique ID or name of orgs to which metadata objects should be published.
+          type: array
+          items:
+            type: string
+        skip_validation:
+          description: Skip validations of objects to be published.
+          type: boolean
+          nullable: true
+      required:
+      - metadata
+      - org_identifiers
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    ColumnSecurityRuleUpdate:
+      type: object
+      required:
+      - column_identifier
+      properties:
+        column_identifier:
+          type: string
+          description: Column identifier (col_id or name)
+        is_unsecured:
+          type: boolean
+          description: If true, the column will be marked as unprotected and all groups associated with it will be removed
+          nullable: true
+        group_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleGroupOperation'
+          description: Array of group operation objects that specifies the actions for groups to be associated with a column
+          nullable: true
+    PublishMetadataListItem:
+      type: object
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          description: Type of metadata. Required if identifier is name.
+          nullable: true
+    SharePermissionsInput:
+      type: object
+      required:
+      - principal
+      - share_mode
+      properties:
+        principal:
+          $ref: '#/components/schemas/PrincipalsInput'
+          description: Details of users or groups.
+        share_mode:
+          type: string
+          enum:
+          - READ_ONLY
+          - MODIFY
+          - NO_ACCESS
+          description: Type of access to the shared object
+        content_share_mode:
+          type: string
+          enum:
+          - READ_ONLY
+          - MODIFY
+          description: Content share mode for collections. Controls access to objects within the collection. Only applicable when sharing COLLECTION metadata type.
+          nullable: true
+    ObjectPrivilegesOfMetadataResponse:
+      type: object
+      properties:
+        metadata_object_privileges:
+          type: object
+          nullable: true
+    ColumnSecurityRuleTableInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Name or GUID of the table
+          nullable: true
+        obj_identifier:
+          type: string
+          description: Object ID of the table
+          nullable: true
+    ColumnSecurityRuleColumn:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the column
+        name:
+          type: string
+          description: The name of the column
+    AuthorMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - CONNECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+      description: MetadataType InputType used in Author API's
+    ColumnSecurityRuleGroup:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the group
+        name:
+          type: string
+          description: The name of the group
+    AssignChangeAuthorRequest:
+      type: object
+      properties:
+        metadata:
+          description: GUID or name of the metadata object.
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorMetadataTypeInput'
+        user_identifier:
+          description: GUID or name of the user who you want to assign as the author.
+          type: string
+        current_owner_identifier:
+          description: 'GUID or name of the current author.  When defined, the metadata objects
+
+            authored by the specified owner are filtered for the API operation.'
+          type: string
+      required:
+      - metadata
+      - user_identifier
+    PermissionOfPrincipalsResponse:
+      type: object
+      properties:
+        principal_permission_details:
+          type: object
+          nullable: true
+    PermissionsMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+      description: MetadataType InputType used in Permission API's
+    FetchObjectPrivilegesRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects for which you want to fetch object privileges. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectPrivilegesMetadataInput'
+        principals:
+          description: 'User or group objects for which you want to fetch object privileges.
+
+            If not specified, the API returns all users and groups that
+
+            have object privileges on the specified metadata objects.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: 20
+          type: integer
+          format: int32
+      required:
+      - metadata
+    FetchPermissionsOnMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: GUID or name of the metadata object.
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
+        principals:
+          description: 'User or group objects for which you want to fetch permissions.
+
+            If not specified, the API returns all users and groups that
+
+            can access the specified metadata objects.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        include_dependent_objects:
+          description: Indicates whether to fetch permissions of dependent metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: -1
+          type: integer
+          format: int32
+        permission_type:
+          description: "<div><span class=\"since-beta-tag\">Version: 10.3.0.cl or later</span></div>\n\nSpecifies the type of permission. Valid values are:\n    EFFECTIVE - If the user permission to the metadata objects is granted by the privileges assigned to the groups to which they belong.\n    DEFINED - If a user or user group received access to metadata objects via object sharing by another user."
+          type: string
+      required:
+      - metadata
+    FetchColumnSecurityRulesRequest:
+      type: object
+      properties:
+        tables:
+          description: Array of table identifier objects for which to fetch column security rules
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleTableInput'
+      required:
+      - tables
+    ShareMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nType of metadata. Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+    PermissionOfMetadataResponse:
+      type: object
+      properties:
+        metadata_permission_details:
+          type: object
+          nullable: true
+    ColumnSecurityRuleResponse:
+      type: object
+      properties:
+        table_guid:
+          type: string
+          description: GUID of the table for which the column security rules are fetched
+          nullable: true
+        obj_id:
+          type: string
+          description: Object ID of the table for which the column security rules are fetched
+          nullable: true
+        column_security_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRule'
+          description: Array containing column security rule objects
+          nullable: true
+    ColumnSecurityRuleSourceTable:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the source table
+        name:
+          type: string
+          description: The name of the source table
+    UnpublishMetadataRequest:
+      type: object
+      properties:
+        force:
+          description: Force unpublishes the object. This will break all the dependent objects in the unpublished orgs.
+          type: boolean
+          nullable: true
+        include_dependencies:
+          description: 'Should we unpublish all the dependencies for the objects specified.
+
+            The dependencies will be unpublished if no other published object is using it.'
+          type: boolean
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishMetadataListItem'
+        org_identifiers:
+          description: Unique ID or name of orgs.
+          type: array
+          items:
+            type: string
+      required:
+      - include_dependencies
+      - metadata
+      - org_identifiers
+    ShareMetadataRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: 'Type of metadata. Required if identifier in metadata_identifies is a name.
+
+            1. Liveboard
+
+            2. Answers
+
+            3. LOGICAL_TABLE for any data object such as table, worksheet or view.
+
+            4. LOGICAL_COLUMN
+
+            5. Connection
+
+            6. Collection'
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+        metadata_identifiers:
+          description: 'Unique ID or name of metadata objects. Note: All the names should belong to same metadata_type'
+          type: array
+          items:
+            type: string
+        metadata:
+          description: Metadata details for sharing objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareMetadataTypeInput'
+        permissions:
+          description: Permission details for sharing the objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/SharePermissionsInput'
+        visualization_identifiers:
+          description: Options to specify details of Liveboard. First Liveboard encountered in payload is considered to be the corresponding Liveboard.
+          type: array
+          items:
+            type: string
+        emails:
+          description: Email IDs to which notifications will be sent.
+          default: []
+          type: array
+          items:
+            type: string
+        message:
+          description: Message to be included in notification.
+          type: string
+        enable_custom_url:
+          description: Sends object URLs in the customized format in email notifications.
+          default: false
+          type: boolean
+          nullable: true
+        notify_on_share:
+          description: Flag to notify user when any object is shared.
+          default: true
+          type: boolean
+          nullable: true
+        has_lenient_discoverability:
+          description: Flag to make the object discoverable.
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - permissions
+      - message
+    ColumnSecurityRule:
+      type: object
+      required:
+      - column
+      properties:
+        column:
+          $ref: '#/components/schemas/ColumnSecurityRuleColumn'
+          description: Information about the column
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleGroup'
+          description: Array of groups that have access to this column
+          nullable: true
+        source_table_details:
+          $ref: '#/components/schemas/ColumnSecurityRuleSourceTable'
+          description: Information about the source table
+          nullable: true
+    ObjectPrivilegesMetadataInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          description: 'Type of metadata object.
+
+            Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.'
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+    ColumnSecurityRuleGroupOperation:
+      type: object
+      required:
+      - operation
+      - group_identifiers
+      properties:
+        operation:
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          description: Type of operation to be performed on the groups
+        group_identifiers:
+          type: array
+          items:
+            type: string
+          description: Array of group identifiers (name or GUID) on which the operation will be performed
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

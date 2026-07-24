@@ -1,0 +1,649 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Collections API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Collections
+paths:
+  /api/rest/2.0/collections/create:
+    post:
+      operationId: createCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nCreates a new collection in ThoughtSpot.\n\nCollections allow you to organize and group related metadata objects such as Liveboards, Answers, worksheets, and other data objects. You can also create nested collections (sub-collections) to build a hierarchical structure.\n\n#### Supported operations\n\nThe API endpoint lets you perform the following operations:\n\n* Create a new collection\n* Add metadata objects (Liveboards, Answers, Logical Tables) to the collection\n* Create nested collections by adding sub-collections\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Collections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Collection created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/delete:
+    post:
+      operationId: deleteCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nDeletes one or more collections from ThoughtSpot.\n\n#### Delete options\n\n* **delete_children**: When set to `true`, deletes the child objects (metadata items) within the collection that the user has access to. Objects that the user does not have permission to delete will be skipped.\n* **dry_run**: When set to `true`, performs a preview of the deletion operation without actually deleting anything. The response shows what would be deleted, allowing you to review before committing the deletion.\n\n#### Response\n\nThe response includes:\n* **metadata_deleted**: List of metadata objects that were successfully deleted\n* **metadata_skipped**: List of metadata objects that were skipped due to lack of permissions or other constraints\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Collections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteCollectionRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Collections deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDeleteResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/search:
+    post:
+      operationId: searchCollections
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nGets a list of collections available in ThoughtSpot.\n\nTo get details of a specific collection, specify the collection GUID or name. You can also filter the API response based on the collection name pattern, author, and other criteria.\n\n#### Search options\n\n* **name_pattern**: Use '%' as a wildcard character to match collection names\n* **collection_identifiers**: Search for specific collections by their GUIDs or names\n* **include_metadata**: When set to `true`, includes the metadata objects within each collection in the response\n\n**NOTE**: In addition to the GUID and name, `collection_identifiers` accepts a Custom object ID if one is configured for the collection. The response also includes the `obj_id` field for each collection that has one set.\n\n**NOTE**: If the API returns an empty list, consider increasing the value of the `record_size` parameter. To search across all available collections, set `record_size` to `-1`.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Collections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCollectionsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully retrieved list of collections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSearchResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/collections/{collection_identifier}/update:
+    post:
+      operationId: updateCollection
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nUpdates an existing collection in ThoughtSpot.\n\n#### Supported operations\n\nThis API endpoint lets you perform the following operations:\n\n* Update collection name and description\n* Change visibility settings\n* Add metadata objects to the collection (operation: ADD)\n* Remove metadata objects from the collection (operation: REMOVE)\n* Replace all metadata objects in the collection (operation: REPLACE)\n\n#### Operation types\n\n* **ADD**: Adds the specified metadata objects to the existing collection without removing current items\n* **REMOVE**: Removes only the specified metadata objects from the collection\n* **REPLACE**: Replaces all existing metadata objects with the specified items (default behavior)\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Collections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectionRequest'
+        required: true
+      parameters:
+      - in: path
+        name: collection_identifier
+        required: true
+        schema:
+          type: string
+        description: 'Unique GUID of the collection. Note: Collection names cannot be used as
+
+          identifiers since duplicate names are allowed.'
+      responses:
+        '204':
+          description: Collection updated successfully. No content returned.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DeleteCollectionRequest:
+      type: object
+      properties:
+        collection_identifiers:
+          description: 'Unique GUIDs of collections to delete. Note: Collection names cannot be
+
+            used as identifiers since duplicate names are allowed.'
+          type: array
+          items:
+            type: string
+        delete_children:
+          description: Flag to delete child objects of the collection that the user has access to.
+          default: false
+          type: boolean
+          nullable: true
+        dry_run:
+          description: 'Preview deletion without actually deleting. When set to true, returns
+
+            what would be deleted without performing the actual deletion.'
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - collection_identifiers
+    GenericInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+    CollectionMetadataItem:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the metadata object.
+          nullable: true
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: List of identifiers for this metadata type.
+          nullable: true
+      description: Metadata item in a collection response.
+    UpdateCollectionRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the collection.
+          type: string
+        description:
+          description: Description of the collection.
+          type: string
+        metadata:
+          description: Metadata objects to add, remove, or replace in the collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataInput'
+        operation:
+          description: Type of update operation. Default operation type is REPLACE.
+          default: REPLACE
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+    CollectionSearchResponse:
+      type: object
+      required:
+      - collections
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collection'
+          description: List of collections matching the search criteria.
+        record_offset:
+          type: integer
+          format: int32
+          description: The starting record number from where the records are included.
+          nullable: true
+        record_size:
+          type: integer
+          format: int32
+          description: The number of records returned.
+          nullable: true
+        is_last_batch:
+          type: boolean
+          description: Indicates if this is the last batch of results.
+          nullable: true
+        count:
+          type: integer
+          format: int32
+          description: Total count of records returned.
+          nullable: true
+      description: Response object for search collections operation.
+    CollectionDeleteTypeIdentifiers:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the metadata object (e.g., Collection, Worksheet, Table).
+          nullable: true
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericInfo'
+          description: List of metadata identifiers belonging to the given type.
+          nullable: true
+      description: Group of metadata objects identified by type.
+    CollectionMetadataInput:
+      type: object
+      required:
+      - type
+      - identifiers
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - COLLECTION
+          description: Type of metadata object.
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: List of unique IDs or names of metadata objects.
+      description: Input type for metadata to be added to a collection.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    Collection:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the collection.
+        name:
+          type: string
+          description: Name of the collection.
+        obj_id:
+          type: string
+          description: 'Custom object ID (obj_id) of the collection, if one is set. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
+          nullable: true
+        description:
+          type: string
+          description: Description of the collection.
+          nullable: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataItem'
+          description: Metadata objects in the collection.
+          nullable: true
+        created_at:
+          type: string
+          description: Creation timestamp in milliseconds.
+          nullable: true
+        updated_at:
+          type: string
+          description: Last updated timestamp in milliseconds.
+          nullable: true
+        author_name:
+          type: string
+          description: Name of the author who created the collection.
+          nullable: true
+        author_id:
+          type: string
+          description: Unique identifier of the author.
+          nullable: true
+        org:
+          $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: Org associated with the collection.
+          nullable: true
+      description: Response object for a collection.
+    SortOptions:
+      type: object
+      properties:
+        field_name:
+          type: string
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+          nullable: true
+        order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+          nullable: true
+      description: Sort options.
+    SearchCollectionsRequest:
+      type: object
+      properties:
+        name_pattern:
+          description: 'A pattern to match case-insensitive name of the Collection object.
+
+            Use ''%'' for wildcard match.'
+          type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: 'The number of records that should be included.
+
+            -1 implies no pagination.'
+          default: 10
+          type: integer
+          format: int32
+        collection_identifiers:
+          description: 'Unique GUIDs of collections to search. Note: Collection names cannot be
+
+            used as identifiers since duplicate names are allowed.'
+          type: array
+          items:
+            type: string
+        created_by_user_identifiers:
+          description: 'Filter collections by author. Provide unique IDs or names of users
+
+            who created the collections.'
+          type: array
+          items:
+            type: string
+        include_metadata:
+          description: Include collection metadata items in the response.
+          default: false
+          type: boolean
+          nullable: true
+        sort_options:
+          description: Sort options.
+          allOf:
+          - $ref: '#/components/schemas/SortOptions'
+    CreateCollectionRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the collection.
+          type: string
+        description:
+          description: Description of the collection.
+          type: string
+        metadata:
+          description: Metadata objects to add to the collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataInput'
+      required:
+      - name
+    CollectionDeleteResponse:
+      type: object
+      properties:
+        metadata_deleted:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: List of metadata objects that were successfully deleted.
+          nullable: true
+        metadata_skipped:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: 'List of metadata objects that were skipped during deletion.
+
+            Objects may be skipped due to lack of permissions, dependencies, or other constraints.'
+          nullable: true
+      description: Response object for delete collection operation.
+    CollectionEntityIdentifier:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Unique identifier of the entity.
+          nullable: true
+        name:
+          type: string
+          description: Name of the entity.
+          nullable: true
+      description: Entity identifier with name.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

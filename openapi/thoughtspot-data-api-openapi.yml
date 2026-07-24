@@ -1,0 +1,551 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Data API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Data
+paths:
+  /api/rest/2.0/metadata/answer/data:
+    post:
+      operationId: fetchAnswerData
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches data from a saved Answer.\n\nRequires at least view access to the saved Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_apis).\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchAnswerDataRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching data of specified metadata object is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerDataResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/liveboard/data:
+    post:
+      operationId: fetchLiveboardData
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets data from a Liveboard object and its visualization.  \n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the GUIDs or names of the visualizations in the API request.\n\nTo include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes. If the new Liveboard experience mode, the transient content includes ad hoc changes to visualizations such as sorting, toggling of legends, and data drill down.\n\nFor more information, and see [Liveboard data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_fetch_liveboard_data_api).\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchLiveboardDataRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching data of specified metadata object is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveboardDataResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/searchdata:
+    post:
+      operationId: searchData
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an Answer from a given data source.\n\nRequires at least view access to the data source object (Worksheet or View). If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nTo search data, specify the data source GUID in `logical_table_identifier`. The data source can be a Worksheet, View, Table, or SQL view.\n\nPass search tokens in the `query_string` attribute in the API request as shown in the following example:\n\n```\n{\n  \"query_string\": \"[sales] by [store]\",\n  \"logical_table_identifier\": \"cd252e5c-b552-49a8-821d-3eadaa049cca\",\n}\n```\n\nFor more information about the `query_string` format and data source attribute, see [Search data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api).  \n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_api).  \n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchDataRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching data of specified metadata object is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchDataResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    SearchDataRequest:
+      type: object
+      properties:
+        query_string:
+          description: Query string with search tokens. For example, <code>[Sales][Region]</code>. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api)
+          type: string
+        logical_table_identifier:
+          description: GUID of the data source object, such as a Worksheet, View, or Table. You can find the GUID of a data object from the UI or via API. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_query) for more details.
+          type: string
+        data_format:
+          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
+          default: COMPACT
+          type: string
+          enum:
+          - FULL
+          - COMPACT
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records to include in a batch.
+          default: 10
+          type: integer
+          format: int32
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        runtime_sort:
+          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+      required:
+      - query_string
+      - logical_table_identifier
+    FetchAnswerDataRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: GUID or name of the Answer.
+          type: string
+        data_format:
+          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
+          default: COMPACT
+          type: string
+          enum:
+          - FULL
+          - COMPACT
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records to include in a batch.
+          default: 10
+          type: integer
+          format: int32
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        runtime_sort:
+          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+      required:
+      - metadata_identifier
+    AnswerContent:
+      type: object
+      required:
+      - available_data_row_count
+      - column_names
+      - data_rows
+      - record_offset
+      - record_size
+      - returned_data_row_count
+      - sampling_ratio
+      properties:
+        available_data_row_count:
+          type: integer
+          format: int32
+          description: Total available data row count.
+        column_names:
+          type: array
+          items:
+            type: string
+          description: Name of the columns.
+        data_rows:
+          type: array
+          items:
+            type: object
+          description: Rows of data set.
+        record_offset:
+          type: integer
+          format: int32
+          description: The starting record number from where the records should be included.
+        record_size:
+          type: integer
+          format: int32
+          description: The number of records that should be included.
+        returned_data_row_count:
+          type: integer
+          format: int32
+          description: Total returned data row count.
+        sampling_ratio:
+          type: number
+          format: float
+          description: Sampling ratio (0 to 1). If the query was sampled, it is the ratio of keys returned in the data set to the total number of keys expected in the query. If the value is 1.0, this means that the complete result is returned.
+    FetchLiveboardDataRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: GUID or name of the Liveboard.
+          type: string
+        visualization_identifiers:
+          description: GUIDs or names of the visualizations on the Liveboard.
+          type: array
+          items:
+            type: string
+        transient_content:
+          description: Transient content of the Liveboard.
+          type: string
+        data_format:
+          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
+          default: COMPACT
+          type: string
+          enum:
+          - FULL
+          - COMPACT
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records to include in a batch.
+          default: 10
+          type: integer
+          format: int32
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        runtime_sort:
+          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+      required:
+      - metadata_identifier
+    SearchDataResponse:
+      type: object
+      required:
+      - contents
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerContent'
+          description: Data content of metadata objects
+      description: Response format associated with the search data API.
+    LiveboardContent:
+      type: object
+      required:
+      - available_data_row_count
+      - column_names
+      - data_rows
+      - record_offset
+      - record_size
+      - returned_data_row_count
+      - sampling_ratio
+      properties:
+        available_data_row_count:
+          type: integer
+          format: int32
+          description: Total available data row count.
+        column_names:
+          type: array
+          items:
+            type: string
+          description: Name of the columns.
+        data_rows:
+          type: array
+          items:
+            type: object
+          description: Rows of data set.
+        record_offset:
+          type: integer
+          format: int32
+          description: The starting record number from where the records should be included.
+        record_size:
+          type: integer
+          format: int32
+          description: The number of records that should be included.
+        returned_data_row_count:
+          type: integer
+          format: int32
+          description: Total returned data row count.
+        sampling_ratio:
+          type: number
+          format: float
+          description: Sampling ratio (0 to 1). If the query was sampled, it is the ratio of keys returned in the data set to the total number of keys expected in the query. If the value is 1.0, this means that the complete result is returned.
+        visualization_id:
+          type: string
+          description: Unique ID of the visualization.
+          nullable: true
+        visualization_name:
+          type: string
+          description: Name of the visualization.
+          nullable: true
+    AnswerDataResponse:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - contents
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object
+        metadata_name:
+          type: string
+          description: Name of the metadata object
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerContent'
+          description: Data content of metadata objects
+      description: Response format associated with fetch data api
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    LiveboardDataResponse:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - contents
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object
+        metadata_name:
+          type: string
+          description: Name of the metadata object
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveboardContent'
+          description: Data content of metadata objects
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

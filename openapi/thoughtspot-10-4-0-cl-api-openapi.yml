@@ -1,0 +1,1295 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 10.4.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 10.4.0.cl
+paths:
+  /api/rest/2.0/ai/conversation/create:
+    post:
+      operationId: createConversation
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.4.0.cl or later</span>
+
+
+        <span class="since-beta-tag">Version: 10.4.0.cl or later</span>
+
+
+        Creates a new conversation session tied to a specific data model for AI-driven natural language querying.
+
+
+        Requires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request.
+
+
+        #### Usage guidelines
+
+
+        The request must include:
+
+        - `metadata_identifier`: the unique ID of the data source that provides context for the conversation
+
+
+        Optionally, you can provide:
+
+        - `tokens`: a token string to set initial context for the conversation (e.g., `"[sales],[item type],[state]"`)
+
+
+        If the request is successful, ThoughtSpot returns a unique `conversation_identifier` that must be passed to `sendMessage` to continue the conversation.
+
+
+        #### Error responses
+
+
+        | Code | Description |
+
+        |------|-------------|
+
+        | 401  | Unauthorized — authentication token is missing, expired, or invalid. |
+
+        | 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view permission on the specified metadata object. |
+
+
+        > ###### Note:
+
+        > * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.
+
+        > * This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConversationRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Common successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '201':
+          description: Common error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '400':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/ai/conversation/{conversation_identifier}/converse:
+    post:
+      operationId: sendMessage
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.4.0.cl or later</span>
+
+
+        Sends a follow-up message to an existing conversation within the context of a data model.
+
+
+        Requires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request. A conversation must first be created using the `createConversation` API.
+
+
+        #### Usage guidelines
+
+
+        The request must include:
+
+        - `conversation_identifier`: the unique session ID returned by `createConversation`
+
+        - `metadata_identifier`: the unique ID of the data source used for the conversation
+
+        - `message`: a natural language string with the follow-up question
+
+
+        If the request is successful, the API returns an array of response messages, each containing:
+
+        - `session_identifier`: the unique ID of the generated response
+
+        - `generation_number`: the generation number of the response
+
+        - `message_type`: the type of the response (e.g., `TSAnswer`)
+
+        - `visualization_type`: the generated visualization type (`Chart`, `Table`, or `Undefined`)
+
+        - `tokens` / `display_tokens`: the search tokens and user-friendly display tokens for the response
+
+
+        #### Error responses
+
+
+        | Code | Description                                                                                                                             |
+
+        |------|-----------------------------------------------------------------------------------------------------------------------------------------|
+
+        | 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                                    |
+
+        | 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view permission on the specified metadata object. |
+
+
+        > ###### Note:
+
+        > * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.
+
+        > * This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+        required: true
+      parameters:
+      - in: path
+        name: conversation_identifier
+        required: true
+        schema:
+          type: string
+        description: Unique identifier of the conversation.
+      responses:
+        '200':
+          description: Common successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseMessage'
+        '201':
+          description: Common error response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/ai/answer/create:
+    post:
+      operationId: singleAnswer
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.4.0.cl or later</span>
+
+
+        Processes a natural language query against a specified data model and returns a single AI-generated answer without requiring a conversation session.
+
+
+        Requires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request.
+
+
+        #### Usage guidelines
+
+
+        The request must include:
+
+        - `query`: a natural language question (e.g., "What were total sales last quarter?")
+
+        - `metadata_identifier`: the unique ID of the data source to query against
+
+
+        If the request is successful, the API returns a response message containing:
+
+        - `session_identifier`: the unique ID of the generated response
+
+        - `generation_number`: the generation number of the response
+
+        - `message_type`: the type of the response (e.g., `TSAnswer`)
+
+        - `visualization_type`: the generated visualization type (`Chart`, `Table`, or `Undefined`)
+
+        - `tokens` / `display_tokens`: the search tokens and user-friendly display tokens for the response
+
+
+        #### Error responses
+
+
+        | Code | Description                                                                                                                             |
+
+        |------|-----------------------------------------------------------------------------------------------------------------------------------------|
+
+        | 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                                    |
+
+        | 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view permission on the specified metadata object. |
+
+
+        > ###### Note:
+
+        > * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.
+
+        > * This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleAnswerRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Common successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '201':
+          description: Common error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/auth/token/custom:
+    post:
+      operationId: getCustomAccessToken
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nCreates an authentication token that provides values for the formula variables in the Row Level Security (RLS) rules for a given user. Recommended for use cases that require Attribute-based access control (ABAC) via RLS.\n\n#### Required privileges\n\nTo add a new user and assign privileges during auto-creation, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege and edit access to the data source are required.\n\nTo configure formula variables for all Orgs on your instance or the Primary Org, cluster administration privileges are required. Org administrators can configure formula variables for their respective Orgs. If Role-Based Access Control (RBAC) is enabled, users with the `CAN_MANAGE_VARIABLES` (**Can manage variables**) role privilege can also create and manage variables for their Org context.\n\n#### Usage guidelines\n\nYou can generate a token by providing a `username` and `password`, or by using a `secret_key`. To generate a `secret_key`, the administrator must enable [Trusted authentication](https://developers.thoughtspot.com/docs/trusted-auth-secret-key) in the **Develop** > **Customizations** > **Security Settings** page.\n\n**Note**:\n* When both `password` and `secret_key` are included in the API request, `password` takes precedence.\n* If [Multi-Factor Authentication (MFA)](https://docs.thoughtspot.com/cloud/latest/authentication-local-mfa) is enabled on your instance, the API login request with `username`  and `password` returns an error. You can switch to token-based authentication with  `secret_key`  or contact ThoughtSpot Support for assistance.\n\nThe token obtained from ThoughtSpot is valid for 5 minutes by default. You can configure the token expiration time as required.\n\n#### ABAC via RLS\n\nTo implement ABAC via RLS and assign security entitlements to users during session creation, generate a token with custom variable values. The values set in the authentication token are applied to the formula variables referenced in RLS rules at the table level, which determines the data each user can access based on their entitlements.\n\nThe variable values can be configured to persist for a specific set of Models in user sessions initiated with the token, allowing different RLS rules to be set for different data models. Once defined, the rules are added to the user's `variable_values` object, after which all sessions will use the persisted values.\n\nFor more information, see [ABAC via tokens Documentation](https://developers.thoughtspot.com/docs/abac-via-rls-variables).\n\n##### Formula variables\nBefore defining variable values, ensure the variables are created and available on your instance. To create a formula variable, you can use the **Create variable** (`/api/rest/2.0/template/variables/create`) REST API endpoint, with the variable `type` set as `Formula_Variable` in the API request.\n\nThe API doesn't support `\"persist_option\": \"RESET\"` and `\"persist_option\": \"NONE\"` when `variable_values` are defined  in the request. If you are using `variable_values` for token generation, you must use other supported persist options such as `APPEND` or `REPLACE`.\n\nIf you want to use `RESET` or `NONE`, do not pass any `variable_values`. In such cases, `variable_values` will remain unaffected.\n\n#### Supported objects\n\nThe supported object type is `LOGICAL_TABLE`. When using `object_id` with `variable_values`, models are supported.\n\n#### Just-in-time provisioning\n\nFor [just-in-time user creation and provisioning](https://developers.thoughtspot.com/docs/just-in-time-provisioning), specify the following attributes in the API request:\n\n* `auto_create`\n* `username`\n* `display_name`\n* `email`\n* `groups`\n\nSet `auto_create` to `true` if the username does not exist in ThoughtSpot. If the username already exists in ThoughtSpot and `auto_create` is set to `true`, user properties such as display name, email, Org and group entitlements will not be updated with new values. Setting `auto_create` to `true` does not create formula variables. Hence, this setting will not be applicable to `variable_values`.\n\n#### Important point to note\nAll options in the token creation APIs that define user access to data in ThoughtSpot will take effect during token creation, not when the token is used for authentication. For example, `auto_create:true` will create the user when the authentication token is created. Persist options such as `APPEND` and `REPLACE` will persist `variable_values` on the user profile when the token is created.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomAccessTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: ABAC token creation was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+              examples:
+                example_1:
+                  description: Custom access token with variable values and APPEND persist option for an existing user
+                  value:
+                    id: 9f8e7d6c-5b4a-3210-fedc-ba9876543210
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_custom_token.signature
+                    org:
+                      id: 0
+                      name: Primary
+                    user:
+                      id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                      name: analyst_user
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                example_2:
+                  description: Custom access token with variable values for a JIT-provisioned user
+                  value:
+                    id: 1a2b3c4d-5e6f-7890-abcd-ef1234567890
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_jit_custom_token.signature
+                    org:
+                      id: 1
+                      name: SalesOrg
+                    user:
+                      id: 3f2e1d4c-9b8a-7e6f-5d4c-3b2a1e0f9d8c
+                      name: new_sales_user@example.com
+                    creation_time_in_millis: 1724278000000
+                    expiration_time_in_millis: 1724278300000
+        '400':
+          description: Invalid request. This could be due to missing or incorrect parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: 'Invalid persistOption: ''APPEND''. Expected: ''RESET'' when resetOption is provided.'
+        '401':
+          description: Unauthorized access. The request could not be authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Invalid credentials. The provided secret key or password is incorrect.
+        '403':
+          description: Forbidden access. The user does not have permission to access this resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Trusted authentication is not enabled for this cluster or org.
+        '409':
+          description: Conflict. A concurrent update to the same template variable was detected and the request could not be applied. Retry the request after serializing concurrent variable updates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while generating the custom access token.
+      security: []
+  /api/rest/2.0/connections/{connection_identifier}/delete:
+    post:
+      operationId: deleteConnectionV2
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nDeletes a connection object.\n\n**Note**: If a connection has dependent objects, make sure you remove its associations before the delete operation.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.4.0.cl
+      parameters:
+      - in: path
+        name: connection_identifier
+        required: true
+        schema:
+          type: string
+        description: Unique ID or name of the connection.
+      responses:
+        '204':
+          description: Connection successfully deleted.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/connections/{connection_identifier}/update:
+    post:
+      operationId: updateConnectionV2
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nUpdates a connection object.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\nTo update a connection object, pass these parameters in your API request:\n\n1. GUID of the connection object.\n2. If you are updating tables or database schema of a connection object:\n   a. Add the updated JSON map of metadata with database, schema, and tables in `data_warehouse_config`.\n   b. Set `validate` to `true`.\n   \n   **NOTE:** If the `authentication_type` is anything other than SERVICE_ACCOUNT, you must explicitly provide the authenticationType property in the payload. If you do not specify authenticationType, the API will default to SERVICE_ACCOUNT as the authentication type.\n\n   * A JSON map of configuration attributes, database details, and table properties in `data_warehouse_config` as shown in the following example:\n   * This is an example of updating a single table in a empty connection:\n   \n      ```\n      {\n        \"authenticationType\": \"SERVICE_ACCOUNT\",\n        \"databases\": [\"DB2\", \"DB3\", \"DEVELOPMENT\"],\n        \"externalDatabases\": [\n          {\n            \"name\": \"DEVELOPMENT\",\n            \"isAutoCreated\": false,\n            \"schemas\": [\n              {\n                \"name\": \"TS_dataset\",\n                \"tables\": [\n                  {\n                    \"name\": \"DEMORENAME\",\n                    \"type\": \"TABLE\",\n                    \"description\": \"\",\n                    \"selected\": true,\n                    \"linked\": true,\n                    \"gid\": 0,\n                    \"datasetId\": \"-1\",\n                    \"subType\": \"\",\n                    \"reportId\": \"\",\n                    \"viewId\": \"\",\n                    \"columns\": [\n                      {\n                        \"name\": \"Col1\",\n                        \"type\": \"VARCHAR\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"Col2\",\n                        \"type\": \"VARCHAR\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"Col3\",\n                        \"type\": \"VARCHAR\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"Col312\",\n                        \"type\": \"VARCHAR\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"Col4\",\n                        \"type\": \"VARCHAR\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      }\n                    ],\n                    \"relationships\": []\n                  }\n                ]\n              }\n            ]\n          }\n        ],\n        \"configuration\": {\n          \"password\": \"\",\n          \"database\": \"DEVELOPMENT\",\n          \"role\": \"DEV\",\n          \"accountName\": \"thoughtspot_partner\",\n          \"warehouse\": \"DEMO_WH\",\n          \"user\": \"DEV_USER\"\n        }\n      }\n      ```\n      \n* This is an example of updating a single table in an existing connection with tables:\n    \n      ```\n      {\n        \"authenticationType\": \"SERVICE_ACCOUNT\",\n        \"databases\": [\"DB2\", \"DB3\", \"DEVELOPMENT\"],\n        \"externalDatabases\": [\n          {\n            \"name\": \"DEVELOPMENT\",\n            \"isAutoCreated\": false,\n            \"schemas\": [\n              {\n                \"name\": \"TS_dataset\",\n                \"tables\": [\n                  {\n                    \"name\": \"CUSTOMER\",\n                    \"type\": \"TABLE\",\n                    \"description\": \"\",\n                    \"selected\": true,\n                    \"linked\": true,\n                    \"gid\": 0,\n                    \"datasetId\": \"-1\",\n                    \"subType\": \"\",\n                    \"reportId\": \"\",\n                    \"viewId\": \"\",\n                    \"columns\": [],\n                    \"relationships\": []\n                  },\n                  {\n                    \"name\": \"tpch5k_falcon_default_schema_users\",\n                    \"type\": \"TABLE\",\n                    \"description\": \"\",\n                    \"selected\": true,\n                    \"linked\": true,\n                    \"gid\": 0,\n                    \"datasetId\": \"-1\",\n                    \"subType\": \"\",\n                    \"reportId\": \"\",\n                    \"viewId\": \"\",\n                    \"columns\": [\n                      {\n                        \"name\": \"user_id\",\n                        \"type\": \"INT64\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"product_id\",\n                        \"type\": \"INT64\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      },\n                      {\n                        \"name\": \"user_cost\",\n                        \"type\": \"INT64\",\n                        \"canImport\": true,\n                        \"selected\": true,\n                        \"description\": \"\",\n                        \"isLinkedActive\": true,\n                        \"isAggregate\": false\n                      }\n                    ],\n                    \"relationships\": []\n                  }\n                ]\n              }\n            ]\n          }\n        ],\n        \"configuration\": {\n          \"password\": \"\",\n          \"database\": \"DEVELOPMENT\",\n          \"role\": \"DEV\",\n          \"accountName\": \"thoughtspot_partner\",\n          \"warehouse\": \"DEMO_WH\",\n          \"user\": \"DEV_USER\"\n        }\n      }\n      ```\n\n3. If you are updating a configuration attribute, connection name, or description, you can set `validate` to `false`.\n\n  **NOTE:** If the `authentication_type` is anything other than SERVICE_ACCOUNT, you must explicitly provide the authenticationType property in the payload. If you do not  specify authenticationType, the API will default to SERVICE_ACCOUNT as the authentication type.\n\n  * A JSON map of configuration attributes in `data_warehouse_config`. The following example shows the configuration attributes for a Snowflake connection:\n   ```\n   {\n      \"configuration\":{\n         \"accountName\":\"thoughtspot_partner\",\n         \"user\":\"tsadmin\",\n         \"password\":\"TestConn123\",\n         \"role\":\"sysadmin\",\n         \"warehouse\":\"MEDIUM_WH\"\n      },\n      \"databases\":[\"DB1\", \"DB2\"],\n      \"externalDatabases\":[\n\n      ]\n   }\n   ```\n\nThe optional `databases` property in `data_warehouse_config` accepts a list of database names. When specified, ThoughtSpot persists this list on the connection and uses it to scope metadata fetching to only the specified databases in subsequent table add and remove operations. If omitted, all databases in the data warehouse are accessible for metadata operations.\n\nThe `databases` and `externalDatabases` serve different purposes. `databases` is a flat list of database names that controls which databases are scanned during metadata operations. `externalDatabases` defines the full table hierarchy and determines which tables are linked into ThoughtSpot.\n\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionV2Request'
+        required: true
+      parameters:
+      - in: path
+        name: connection_identifier
+        required: true
+        schema:
+          type: string
+        description: Unique ID or name of the connection.
+      responses:
+        '204':
+          description: Connection successfully updated.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/async/status:
+    post:
+      operationId: fetchAsyncImportTaskStatus
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nGets information about the status of the TML async import task scheduled using the `/api/rest/2.0/metadata/tml/async/import` API call.\n\nTo fetch the task details, specify the ID of the TML async import task.  \n\nRequires access to the task ID. The API allows users who initiated the asynchronous TML import via `/api/rest/2.0/metadata/tml/async/import` to view the status of their tasks.  Users with administration privilege can view the status of all import tasks initiated by the users in their Org.\n\n#### Usage guidelines\n\nSee [TML API Documentation](https://developers.thoughtspot.com/docs/tml#_fetch_status_of_the_tml_import_task) for usage guidelines.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchAsyncImportTaskStatusRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Async TML Import Task statuses fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAsyncImportStatusResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/async/import:
+    post:
+      operationId: importMetadataTMLAsync
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nSchedules a task to import [TML](https://docs.thoughtspot.com/cloud/latest/tml) files into ThoughtSpot. You can use this API endpoint to process TML objects asynchronously when importing TMLs of large and complex metadata objects into ThoughtSpot. Unlike the synchronous import TML operation, the API processes TML data in the background and returns a task ID, which can be used to check the status of the import task via `/api/rest/2.0/metadata/tml/async/status` API endpoint.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtsSpot**) privilege, and edit access to the TML objects.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### Usage guidelines\n\nSee [Async TML API Documentation](https://developers.thoughtspot.com/docs/tml#_import_tml_objects_asynchronously) for usage guidelines.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.4.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportMetadataTMLAsyncRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Async TML Import Task submitted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    GetAsyncImportStatusResponse:
+      type: object
+      properties:
+        status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
+          description: List of task statuses.
+          nullable: true
+        last_batch:
+          type: boolean
+          description: Indicates whether there are more task statuses to fetch.
+          nullable: true
+    AccessToken:
+      type: object
+      required:
+      - token
+      - org
+      - user
+      - creation_time_in_millis
+      - expiration_time_in_millis
+      properties:
+        id:
+          type: string
+          description: GUID of the auth token.
+          nullable: true
+        token:
+          type: string
+          description: Bearer auth token.
+        org:
+          $ref: '#/components/schemas/OrgInfo'
+          description: Org information for which the token is generated.
+        user:
+          $ref: '#/components/schemas/UserInfo'
+          description: User information for which the token is generated.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Token creation time in milliseconds.
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Token expiration time in milliseconds.
+    SingleAnswerRequest:
+      type: object
+      properties:
+        query:
+          description: A natural language query string to generate the Answer.
+          type: string
+        metadata_identifier:
+          description: ID of the metadata object, such as a Worksheet or Model, to use as a data source for the query.
+          type: string
+      required:
+      - query
+      - metadata_identifier
+    OrgInfo:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Id.
+        name:
+          type: string
+          description: Name.
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    SendMessageRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID of the metadata object, such as a Worksheet or Model, to use as a data source for the conversation.
+          type: string
+        message:
+          description: A message string with the follow-up question to continue the conversation.
+          type: string
+      required:
+      - metadata_identifier
+      - message
+    ImportEPackAsyncTaskStatus:
+      type: object
+      properties:
+        tenant_id:
+          type: string
+          description: GUID of tenant from which the task is initiated.
+          nullable: true
+        org_id:
+          type: integer
+          format: int32
+          description: Organisation ID of the user who initiated the task.
+          nullable: true
+        task_id:
+          type: string
+          description: Unique identifier for the task.
+          nullable: true
+        task_name:
+          type: string
+          description: Name of the task.
+          nullable: true
+        import_response:
+          type: object
+          description: Response of imported objects so far.
+          nullable: true
+        task_status:
+          type: string
+          enum:
+          - COMPLETED
+          - IN_QUEUE
+          - IN_PROGRESS
+          - FAILED
+          description: Current status of the task.
+          nullable: true
+        author_id:
+          type: string
+          description: ID of the user who initiated the task.
+          nullable: true
+        import_policy:
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+          description: Policy used for the import task.
+          nullable: true
+        created_at:
+          type: number
+          format: float
+          description: Time when the task was created (in ms since epoch).
+          nullable: true
+        in_progress_at:
+          type: number
+          format: float
+          description: Time when the task started (in ms since epoch).
+          nullable: true
+        completed_at:
+          type: number
+          format: float
+          description: Time when the task was completed (in ms since epoch).
+          nullable: true
+        total_object_count:
+          type: integer
+          format: int32
+          description: Total number of objects to process.
+          nullable: true
+        object_processed_count:
+          type: integer
+          format: int32
+          description: Number of objects processed so far.
+          nullable: true
+        modified_at:
+          type: number
+          format: float
+          description: Last time the task status was updated (in ms since epoch).
+          nullable: true
+        author_display_name:
+          type: string
+          description: Display name of the user who initiated the task.
+          nullable: true
+    ImportMetadataTMLAsyncRequest:
+      type: object
+      properties:
+        metadata_tmls:
+          description: Details of TML objects.
+          type: array
+          items:
+            type: string
+        create_new:
+          description: If selected, creates TML objects with new GUIDs.
+          default: false
+          type: boolean
+          nullable: true
+        all_orgs_override:
+          description: If import is happening from all orgs context.
+          default: false
+          type: boolean
+          nullable: true
+        import_policy:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Policy to be followed while importing the TML. Valid values are [PARTIAL_OBJECT, PARTIAL, VALIDATE_ONLY, ALL_OR_NONE]'
+          default: PARTIAL_OBJECT
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+        skip_diff_check:
+          description: '<div><span class="since-beta-tag">Version: 10.6.0.cl or later</span></div>
+
+
+            Boolean Flag to skip TML diff check before processing object TMLs.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_large_metadata_validation:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Boolean to indicate if the large metadata validation should be enabled.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_personalized_view_upsert:
+          description: '<div><span class="since-beta-tag">Version: 26.8.0.cl or later</span></div>
+
+
+            Boolean flag to enable update/insert of personalized views in liveboard.'
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - metadata_tmls
+    FetchAsyncImportTaskStatusRequest:
+      type: object
+      properties:
+        task_ids:
+          description: List of task IDs to fetch status for.
+          type: array
+          items:
+            type: string
+        task_status:
+          description: 'List of task statuses to filter on. Valid values: [IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED]'
+          type: array
+          items:
+            type: string
+            enum:
+            - COMPLETED
+            - IN_QUEUE
+            - IN_PROGRESS
+            - FAILED
+        author_identifier:
+          description: Author GUID or name of async import tasks to filter on.
+          type: string
+        record_offset:
+          description: The offset point, starting from where the task status should be included in the response.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of task statuses that should be included in the response starting from offset position.
+          default: 5
+          type: integer
+          format: int32
+        include_import_response:
+          description: Boolean flag to specify whether to include import response in the task status objects.
+          default: false
+          type: boolean
+          nullable: true
+    GetCustomAccessTokenRequest:
+      type: object
+      properties:
+        username:
+          description: Username of the ThoughtSpot user. The username is stored in the `name` attribute of the user object.
+          type: string
+        password:
+          description: Password of the user account
+          default: ''
+          type: string
+        secret_key:
+          description: The secret key string provided by the ThoughtSpot application server. ThoughtSpot generates a secret key when Trusted authentication is enabled.
+          default: ''
+          type: string
+        validity_time_in_sec:
+          description: Token validity duration in seconds
+          default: 300
+          type: integer
+          format: int32
+        org_identifier:
+          description: ID or name of the Org context to log in to. If the Org ID or name is not specified but a secret key is provided, the user will be logged into the Org associated with the secret key. If neither the Org ID/name nor the secret key is provided, the user will be logged into the Org context from their previous login session.
+          type: string
+        persist_option:
+          description: Indicates whether the specified attributes should be persisted or not. RESET and NONE are not applicable if you are setting variable_values.
+          type: string
+          enum:
+          - REPLACE
+          - APPEND
+          - NONE
+          - RESET
+        filter_rules:
+          description: Filter rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterRules'
+        parameter_values:
+          description: 'Allows developers to assign parameter values for existing parameters to a user at login. Note: Using parameter values for row level security use cases will ultimately be deprecated. Developers can still pass data security values via the Custom Access token via the variable_values field and create RLS rules based on custom variables. Please refer to the [ABAC via RLS documentation](https://developers.thoughtspot.com/docs/abac-user-parameters) for more details.'
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterValues'
+        variable_values:
+          description: 'List of variable values where `name` references an existing formula variable and `values` is any value from the corresponding column. <br/>  <span class="since-beta-tag">Version: 10.14.0.cl or later</span>'
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValues'
+        objects:
+          description: Objects on which the parameter and variable values should be applied to
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenAccessScopeObject'
+        email:
+          description: (just-in-time (JIT) provisioning)Email address of the user. Specify this attribute when creating a new user.
+          type: string
+        display_name:
+          description: (just-in-time (JIT) provisioning) Indicates display name of the user. Specify this attribute when creating a new user.
+          type: string
+        groups:
+          description: (just-in-time (JIT) provisioning) ID or name of the groups to which the newly created user belongs. Specify this attribute when creating a new user.
+          type: array
+          items:
+            $ref: '#/components/schemas/Group_Object'
+        auto_create:
+          description: "   Creates a new user if the specified username does not exist in ThoughtSpot. To provision a user just-in-time (JIT), set this attribute to true.\n   \n\nNote: For JIT provisioning of a user, the secret_key is required. New formula variables won't be created.  <br/>  <span class=\"since-beta-tag\">Version: 10.5.0.cl or later</span>"
+          default: true
+          type: boolean
+          nullable: true
+      required:
+      - username
+      - persist_option
+    Conversation:
+      type: object
+      required:
+      - conversation_identifier
+      properties:
+        conversation_identifier:
+          type: string
+          description: Unique identifier of the conversation.
+    FilterRules:
+      type: object
+      required:
+      - column_name
+      - operator
+      - values
+      properties:
+        column_name:
+          type: string
+          description: The name of the column to apply the filter on.
+        operator:
+          type: string
+          enum:
+          - EQ
+          - NE
+          - LT
+          - LE
+          - GT
+          - GE
+          - IN
+          - BW
+          - CONTAINS
+          - BEGINS_WITH
+          - ENDS_WITH
+          - BW_INC
+          - BW_INC_MIN
+          - BW_INC_MAX
+          - LIKE
+          - NOT_IN
+          description: 'The operator to use for filtering. Example: EQ (equals), GT(greater than), etc.'
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on. To get all records, use TS_WILDCARD_ALL as values.
+      description: Filter Rules to be applied on Objects.
+    CreateConversationRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID of the metadata object, such as a Worksheet or Model, to use as a data source for the conversation.
+          type: string
+        tokens:
+          description: Token string to set the context for the conversation. For example,`[sales],[item type],[state]`.
+          type: string
+      required:
+      - metadata_identifier
+    UpdateConnectionV2Request:
+      type: object
+      properties:
+        name:
+          description: Updated name of the connection.
+          type: string
+        description:
+          description: Updated description of the connection.
+          type: string
+        data_warehouse_config:
+          description: Configuration of the data warehouse in JSON.
+          type: object
+        validate:
+          description: Indicates whether to validate the connection details.
+          default: true
+          type: boolean
+          nullable: true
+    Group_Object:
+      type: object
+      properties:
+        identifier:
+          type: string
+          nullable: true
+      description: Groups objects.
+    VariableValues:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the existing formula variable.
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on.
+      description: Variable values.
+    UserInfo:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id.
+        name:
+          type: string
+          description: Name.
+          nullable: true
+    ParameterValues:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the column to apply the filter on.
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on. Only single value is supported currently.
+      description: Filter Rules to be applied on Objects.
+    ResponseMessage:
+      type: object
+      required:
+      - message_type
+      properties:
+        session_identifier:
+          type: string
+          description: Unique identifier of the generated response.
+          nullable: true
+        generation_number:
+          type: integer
+          format: int32
+          description: Generate number of the response.
+          nullable: true
+        message_type:
+          type: string
+          enum:
+          - TSAnswer
+          description: Type of the generated response.
+        visualization_type:
+          type: string
+          enum:
+          - Chart
+          - CHART
+          - Table
+          - TABLE
+          - Undefined
+          - UNDEFINED
+          description: Generated visualization type.
+          nullable: true
+        tokens:
+          type: string
+          description: Tokens for the response.
+          nullable: true
+        display_tokens:
+          type: string
+          description: User friendly tokens for the response.
+          nullable: true
+    TokenAccessScopeObject:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          description: "  Type of object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  \n\n Specify the object type as `LOGICAL_TABLE`."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique name/id of the object.
+      description: Objects on which the filter rules and parameters values should be applied to
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

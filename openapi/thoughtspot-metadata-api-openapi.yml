@@ -1,0 +1,2324 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Metadata API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Metadata
+paths:
+  /api/rest/2.0/metadata/worksheets/convert:
+    post:
+      operationId: convertWorksheetToModel
+      description: "\nConvert worksheets to models <br/>  <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (Can manage data models).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs (Globally Unique Identifiers) specifying the Worksheets to be converted.  \n   - **Usage:**  \n     - Used only when `convert_all` is set to `false`.  \n     - Leave empty or omit when `convert_all` is set to `true`.\n\n2. **exclude_worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs specifying Worksheets to be excluded from conversion.  \n   - **Usage:**  \n     - Useful when `convert_all` is set to `true` and specific Worksheets should not be converted.\n\n3. **convert_all**  \n   - **Description:** Sets the scope of conversion.\n   - **Options:**  \n     - `true`: Converts all Worksheets in the system, except those specified in `exclude_worksheet_ids`.  \n     - `false`: Converts only the Worksheets listed in `worksheet_ids`.\n\n4. **apply_changes**  \n   - **Description:** Specifies whether to apply changes directly to ThoughtSpot or to generate a preview before applying any changes.Used for validation of conversion.\n   - **Options:**  \n     - `true`: Applies conversion changes directly to ThoughtSpot.\n     - `false`: Generates only a preview of the changes and does not apply any changes to ThoughtSpot\n\n---\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the conversion process\n\n2. **Partial Conversion for Testing:**  \n   Test the conversion process by setting `convert_all` to `false` and specifying a small number of `worksheet_ids`.\n\n3. **Verify Dependencies:**  \n   Check for dependent objects, such as Tables and Connections, to avoid invalid references.\n\n4. **Review Changes:**  \n   Use `apply_changes: false` to preview the impact of the conversion before applying changes.\n\n---\n\n## Examples\n\n### Convert Specific Worksheets\n```json\n{\n  \"worksheet_ids\": [\"guid1\", \"guid2\", \"guid3\"],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": false,\n  \"apply_changes\": true\n}\n```\n\n### Convert All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n### Exclude Specific Worksheets While Converting All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [\"abc\"],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertWorksheetToModelRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Conversion of worksheets to model done successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWorksheetToModelConversion'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/copyobject:
+    post:
+      operationId: copyObject
+      description: '
+
+        Makes a copy of an Answer or Liveboard <br/>  <span class="since-beta-tag">Version: 10.3.0.cl or later</span>
+
+
+        Creates a copy of a metadata object.
+
+
+        Requires at least view access to the metadata object being copied.
+
+
+        Upon successful execution, the API creates a copy of the metadata object specified in the API request and returns the ID of the new object.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyObjectRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully created a copy of the object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCopyObject'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/delete:
+    post:
+      operationId: deleteMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the specified metadata object from the ThoughtSpot system.\n\nRequires edit access to the metadata object. \n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Metadata objects successfully deleted.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/export:
+    post:
+      operationId: exportMetadataTML
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports the [TML](https://docs.thoughtspot.com/cloud/latest/tml) representation of metadata objects in JSON or YAML format.\n\nRequires `DATADOWNLOADING` (**Can download Data**) and at least view access to the metadata object.\n\n#### Usage guidelines\n\n* You can export one or several objects by passing metadata object GUIDs in the `metadata` array.\n* When exporting TML content for a Liveboard or Answer object, you can set `export_associated` to `true` to retrieve TML content for underlying Worksheets, Tables, or Views, including the GUID of each object within the headers. When   `export_associated` is set to `true`, consider retrieving one metadata object at a time.\n* Set `export_fqns` to `true` to add FQNs of the referenced objects in the TML content. For example, if you send an API request to retrieve TML for a Liveboard and its associated objects, the API returns the TML content with FQNs of the referenced Worksheet. Exporting TML with FQNs is useful if ThoughtSpot has multiple objects with the same name and you want to eliminate ambiguity when importing TML files into ThoughtSpot. It eliminates the need for adding FQNs of the referenced objects manually during the import operation.\n* To export only the TML of feedbacks associated with an object, set the GUID of the object as `identifier`, and set the `type` as `FEEDBACK` in the `metadata` array.\n* To export the TML of an object along with the feedbacks associated with it, set the GUID of the object as `identifier`, set the `type` as `LOGIAL_TABLE` in the `metadata` array, and set `export_with_associated_feedbacks` in `export_options` to true.\n\nFor more information, see [TML Documentation](https://developers.thoughtspot.com/docs/tml#_export_a_tml).\n\nFor more information on feedbacks, see [Feedback Documentation](https://docs.thoughtspot.com/cloud/latest/sage-feedback).\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportMetadataTMLRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Export TMLs of specified metadata objects is successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/export/batch:
+    post:
+      operationId: exportMetadataTMLBatched
+      description: "\n <span class=\"since-beta-tag\">Version: 10.1.0.cl or later</span>\n\nExports the [TML](https://docs.thoughtspot.com/cloud/latest/tml) representation of metadata objects in JSON or YAML format.\n\n### **Permissions Required**\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and `USERMANAGEMENT` (**Can manage users**) privileges.\n\n#### **Usage Guidelines**\n\nThis API is only applicable for `USER`, `GROUP`, and `ROLES` metadata types.\n\n- `batch_offset` Indicates the starting position within the complete dataset from which the API should begin returning objects. Useful for paginating results efficiently.\n- `batch_size` Specifies the number of objects or items to retrieve in a single request. Helps control response size for better performance.\n- `edoc_format` Defines the format of the TML content. The exported metadata can be in JSON or YAML format.\n- `export_dependent` Specifies whether to include dependent metadata objects in the export. Ensures related objects are also retrieved if needed.\n- `all_orgs_override` Indicates whether the export operation applies across all organizations. Useful for multi-tenant environments where cross-org exports are required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportMetadataTMLBatchedRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Export TMLs of specified metadata objects is successful.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/answer/sql:
+    post:
+      operationId: fetchAnswerSqlQuery
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches the underlying SQL query data for an Answer object.\n\nRequires at least view access to the Answer object.\n\nUpon successful execution, the API returns the SQL queries for the specified object as shown in this example:\n```\n{\n   \"metadata_id\":\"8fbe44a8-46ad-4b16-8d39-184b2fada490\",\n   \"metadata_name\":\"Total sales\",\n   \"metadata_type\":\"ANSWER\",\n   \"sql_queries\":[\n      {\n         \"metadata_id\":\"8fbe44a8-46ad-4b16-8d39-184b2fada490\",\n         \"metadata_name\":\"Total sales -test\",\n         \"sql_query\":\"SELECT \\n  \\\"ta_1\\\".\\\"REGION\\\" \\\"ca_1\\\", \\n  \\\"ta_2\\\".\\\"PRODUCTNAME\\\" \\\"ca_2\\\", \\n  \\\"ta_1\\\".\\\"STORENAME\\\" \\\"ca_3\\\", \\n  CASE\\n    WHEN sum(\\\"ta_3\\\".\\\"SALES\\\") IS NOT NULL THEN sum(\\\"ta_3\\\".\\\"SALES\\\")\\n    ELSE 0\\n  END \\\"ca_4\\\", \\n  CASE\\n    WHEN sum(\\\"ta_3\\\".\\\"QUANTITYPURCHASED\\\") IS NOT NULL THEN sum(\\\"ta_3\\\".\\\"QUANTITYPURCHASED\\\")\\n    ELSE 0\\n  END \\\"ca_5\\\"\\nFROM \\\"RETAILAPPAREL\\\".\\\"PUBLIC\\\".\\\"FACT_RETAPP_SALES\\\" \\\"ta_3\\\"\\n  JOIN \\\"RETAILAPPAREL\\\".\\\"PUBLIC\\\".\\\"DIM_RETAPP_STORES\\\" \\\"ta_1\\\"\\n    ON \\\"ta_3\\\".\\\"STOREID\\\" = \\\"ta_1\\\".\\\"STOREID\\\"\\n  JOIN \\\"RETAILAPPAREL\\\".\\\"PUBLIC\\\".\\\"DIM_RETAPP_PRODUCTS\\\" \\\"ta_2\\\"\\n    ON \\\"ta_3\\\".\\\"PRODUCTID\\\" = \\\"ta_2\\\".\\\"PRODUCTID\\\"\\nGROUP BY \\n  \\\"ca_1\\\", \\n  \\\"ca_2\\\", \\n  \\\"ca_3\\\"\\n\"\n      }\n   ]\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchAnswerSqlQueryRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching SQL query of specified metadata object is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SqlQueryResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/async/status:
+    post:
+      operationId: fetchAsyncImportTaskStatus
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nGets information about the status of the TML async import task scheduled using the `/api/rest/2.0/metadata/tml/async/import` API call.\n\nTo fetch the task details, specify the ID of the TML async import task.  \n\nRequires access to the task ID. The API allows users who initiated the asynchronous TML import via `/api/rest/2.0/metadata/tml/async/import` to view the status of their tasks.  Users with administration privilege can view the status of all import tasks initiated by the users in their Org.\n\n#### Usage guidelines\n\nSee [TML API Documentation](https://developers.thoughtspot.com/docs/tml#_fetch_status_of_the_tml_import_task) for usage guidelines.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchAsyncImportTaskStatusRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Async TML Import Task statuses fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAsyncImportStatusResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/liveboard/sql:
+    post:
+      operationId: fetchLiveboardSqlQuery
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches the underlying SQL query data for a Liveboard object and its visualizations.\n\nRequires at least view access to the Liveboard object.\n\nTo get SQL query data for a Liveboard, specify the GUID of the Liveboard. Optionally, you can add an array of visualization GUIDs to retrieve the SQL query data for visualizations in the Liveboard.\n\nUpon successful execution, the API returns the SQL queries for the specified object as shown in this example:\n```\n{\n  \"metadata_id\": \"fa68ae91-7588-4136-bacd-d71fb12dda69\",\n  \"metadata_name\": \"Total Sales\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"sql_queries\": [\n    {\n      \"metadata_id\": \"b3b6d2b9-089a-490c-8e16-b144650b7843\",\n      \"metadata_name\": \"Total quantity purchased, Total sales by region\",\n      \"sql_query\": \"SELECT \\n  \\\"ta_1\\\".\\\"REGION\\\" \\\"ca_1\\\", \\n  CASE\\n    WHEN sum(\\\"ta_2\\\".\\\"QUANTITYPURCHASED\\\") IS NOT NULL THEN sum(\\\"ta_2\\\".\\\"QUANTITYPURCHASED\\\")\\n    ELSE 0\\n  END \\\"ca_2\\\", \\n  CASE\\n    WHEN sum(\\\"ta_2\\\".\\\"SALES\\\") IS NOT NULL THEN sum(\\\"ta_2\\\".\\\"SALES\\\")\\n    ELSE 0\\n  END \\\"ca_3\\\"\\nFROM \\\"RETAILAPPAREL\\\".\\\"PUBLIC\\\".\\\"FACT_RETAPP_SALES\\\" \\\"ta_2\\\"\\n  JOIN \\\"RETAILAPPAREL\\\".\\\"PUBLIC\\\".\\\"DIM_RETAPP_STORES\\\" \\\"ta_1\\\"\\n    ON \\\"ta_2\\\".\\\"STOREID\\\" = \\\"ta_1\\\".\\\"STOREID\\\"\\nGROUP BY \\\"ca_1\\\"\"\n    }\n  ]\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchLiveboardSqlQueryRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Fetching SQL query of specified metadata object is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SqlQueryResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/import:
+    post:
+      operationId: importMetadataTML
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports [TML](https://docs.thoughtspot.com/cloud/latest/tml) files into ThoughtSpot.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtsSpot**) privilege.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### Usage guidelines\n\n*  Import all related objects in a single TML Import API call. For example, Tables that use the same Connection object and Worksheets connected to these Tables.\n* Include the `fqn` property to distinguish objects that have the same name.\n  For example, if you have multiple Connections or Worksheets with the same name on ThoughtSpot and the Connection or Worksheet referenced in your TML file does not have a unique name to distinguish, it may result in invalid object references.\n  Adding `fqn` helps ThoughtSpot differentiate a Table from another with the same name.\n  We recommend [exporting TML with FQNs](#/http/api-endpoints/metadata/export-metadata-tml) and using these during the import operation.\n* You can upload multiple TML files at a time.\n  If you import a Worksheet along with Liveboards, Answers, and other dependent objects in a single API call, the imported objects will be immediately available for use.\n  When you import only a Worksheet object, it may take some time for the Worksheet to become available in the ThoughtSpot system. Please wait for a few minutes, and then proceed to create an Answer and Liveboard from the newly imported Worksheet.\n\nFor more information, see [TML Documentation](https://developers.thoughtspot.com/docs/tml#_import_a_tml).\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportMetadataTMLRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Import metadata objects using specified TMLs is successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/tml/async/import:
+    post:
+      operationId: importMetadataTMLAsync
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nSchedules a task to import [TML](https://docs.thoughtspot.com/cloud/latest/tml) files into ThoughtSpot. You can use this API endpoint to process TML objects asynchronously when importing TMLs of large and complex metadata objects into ThoughtSpot. Unlike the synchronous import TML operation, the API processes TML data in the background and returns a task ID, which can be used to check the status of the import task via `/api/rest/2.0/metadata/tml/async/status` API endpoint.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtsSpot**) privilege, and edit access to the TML objects.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### Usage guidelines\n\nSee [Async TML API Documentation](https://developers.thoughtspot.com/docs/tml#_import_tml_objects_asynchronously) for usage guidelines.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportMetadataTMLAsyncRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Async TML Import Task submitted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/parameterize:
+    post:
+      operationId: parameterizeMetadata
+      description: '
+
+        Parameterize fields in metadata objects. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>
+
+
+        **Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/metadata/parameterize-fields](/api/rest/2.0/metadata/parameterize-fields) instead.
+
+
+        Allows parameterizing fields in metadata objects in ThoughtSpot.
+
+
+        Requires appropriate permissions to modify the metadata object.
+
+
+        The API endpoint allows parameterizing the following types of metadata objects:
+
+        * Logical Tables
+
+        * Connections
+
+        * Connection Configs
+
+
+        For a Logical Table the field type must be `ATTRIBUTE` and field name can be one of:
+
+        * databaseName
+
+        * schemaName
+
+        * tableName
+
+
+        For a Connection or Connection Config, the field type is always `CONNECTION_PROPERTY`. In this case, field_name specifies the exact property of the Connection or Connection Config that needs to be parameterized.
+
+
+        For Connection Config, the only supported field name is:
+
+        * impersonate_user
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      deprecated: true
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParameterizeMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Parameterize successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/parameterize-fields:
+    post:
+      operationId: parameterizeMetadataFields
+      description: '
+
+        Parameterize multiple fields of metadata objects. For example [schemaName, databaseName] for LOGICAL_TABLE. <br/>  <span class="since-beta-tag">Version: 26.5.0.cl or later</span>
+
+
+        Allows parameterizing multiple fields of metadata objects in ThoughtSpot. For example, you can parameterize [schemaName, databaseName] for LOGICAL_TABLE.
+
+
+        Requires appropriate permissions to modify the metadata object.
+
+
+        The API endpoint allows parameterizing the following types of metadata objects:
+
+        * Logical Tables
+
+        * Connections
+
+        * Connection Configs
+
+
+        For a Logical Table, the field type must be `ATTRIBUTE` and field names can include:
+
+        * databaseName
+
+        * schemaName
+
+        * tableName
+
+
+        For a Connection or Connection Config, the field type is always `CONNECTION_PROPERTY`. In this case, field_names specifies the exact properties of the Connection or Connection Config that need to be parameterized.
+
+
+        For Connection Config, supported field names include:
+
+        * impersonate_user
+
+
+        You can parameterize multiple fields at once by providing an array of field names.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParameterizeMetadataFieldsRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Parameterize successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/search:
+    post:
+      operationId: searchMetadata
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of metadata objects available on the ThoughtSpot system.\n\nThis API endpoint is available to all users who have view access to the object. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges can view data for all metadata objects, including users and groups.\n\n#### Usage guidelines\n\n- To get all metadata objects, send the API request without any attributes.\n- To get metadata objects of a specific type, set the `type` attribute. For example, to fetch a Worksheet, set the type as `LOGICAL_TABLE`.\n- To filter metadata objects within type `LOGICAL_TABLE`, set the `subtypes` attribute. For example, to fetch a Worksheet, set the type as `LOGICAL_TABLE` & subtypes as `[WORKSHEET]`.\n- To get a specific metadata object, specify the GUID.\n- To customize your search and filter the API response, you can use several parameters.\n  You can search for objects created or modified by specific users, by tags applied to the objects, or by using the include parameters like `include_auto_created_objects`, `include_dependent_objects`, `include_headers`, `include_incomplete_objects`, and so on.\n  You can also define sorting options to sort the data retrieved in the API response.\n- To get discoverable objects when linientmodel is enabled you can use `include_discoverable_objects` as true else false. Default value is true.\n- For liveboard metadata type, to get the newer format, set the `liveboard_response_format` as V2. Default value is V1.\n- To retrieve only objects that are published, set the `include_only_published_objects` as true. Default value is false.\n\n**NOTE**: `obj_identifier` is supported for the following object types: `LIVEBOARD`, `ANSWER`, `LOGICAL_TABLE`, `LOGICAL_COLUMN`, `CONNECTION`, `USER_GROUP`, `COLLECTION`. The response includes the `metadata_obj_id` field for objects that have a Custom object ID set.\n\n**NOTE**: The following parameters support pagination of metadata records:\n\n- `tag_identifiers`\n- `type`\n- `subtypes`\n- `created_by_user_identifiers`\n- `modified_by_user_identifiers`\n- `owned_by_user_identifiers`\n- `exclude_objects`\n- `include_auto_created_objects`\n- `favorite_object_options`\n- `include_only_published_objects`\nIf you are using other parameters to search metadata, set `record_size` to `-1` and `record_offset` to `0`.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Metadata objects search result.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetadataSearchResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/unparameterize:
+    post:
+      operationId: unparameterizeMetadata
+      description: '
+
+        Remove parameterization from fields in metadata objects. <br/>  <span class="since-beta-tag">Version: 26.5.0.cl or later</span>
+
+
+        Allows removing parameterization from fields in metadata objects in ThoughtSpot.
+
+
+        Requires appropriate permissions to modify the metadata object.
+
+
+        The API endpoint allows unparameterizing the following types of metadata objects:
+
+        * Logical Tables
+
+        * Connections
+
+        * Connection Configs
+
+
+        For a Logical Table the field type must be `ATTRIBUTE` and field name can be one of:
+
+        * databaseName
+
+        * schemaName
+
+        * tableName
+
+
+        For a Connection or Connection Config, the field type is always `CONNECTION_PROPERTY`. In this case, field_name specifies the exact property of the Connection or Connection Config that needs to be unparameterized.
+
+
+        For Connection Config, the only supported field name is:
+
+        * impersonate_user
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnparameterizeMetadataRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Successfuly removed parameters.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/headers/update:
+    post:
+      operationId: updateMetadataHeader
+      description: "\nUpdate header attributes for a given list of header objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `ORG_ADMINISTRATION` (Can manage orgs).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **headers_update**  \n   - **Description:** List of header objects with their attributes to be updated. Each object contains a list of attributes to be updated in the header.\n   - **Usage:**\n      - You must provide either `identifier` or `obj_identifier`, but not both. Both fields cannot be empty.\n      - When `org_identifier` is set to `-1`, only the `identifier` value is accepted; `obj_identifier` is not allowed.\n\n2. **org_identifier**  \n   - **Description:** GUID (Globally Unique Identifier) or name of the organization.  \n   - **Usage:**\n     - Leaving this field empty assumes that the changes should be applied to the current organization \n     - Provide `org_guid` or `org_name` to uniquely identify the organization where changes need to be applied. .\n     - Provide `-1` if changes have to be applied across all the org.\n\n---\n\n## Note\nCurrently, this API is enabled only for updating the `obj_identifier` attribute. Only `text` will be allowed in attribute's value.\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the update process\n\n---\n\n## Examples\n\n### Only `identifier` is given \n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"obj_identifier\": \"\",\n      \"type\": \"LOGICAL_COLUMN\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgGuid\"\n}\n```\n\n### Only `obj_identifier` is given\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"obj_identifier\": \"custom_object_id\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgName\"\n}\n```\n\n### Executing update for all org `-1`\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n### Optional `type` is not provided\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMetadataHeaderRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Headers update was successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/metadata/update-obj-id:
+    post:
+      operationId: updateMetadataObjId
+      description: "\nUpdate object IDs for given metadata objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.8.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `ORG_ADMINISTRATION` (Can manage orgs).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **metadata**  \n   - **Description:** List of metadata objects to update their object IDs.\n   - **Usage:**\n      - Use either `current_obj_id` alone OR use `metadata_identifier` with `type` (when needed).\n      - When using `metadata_identifier`, the `type` field is required if using a name instead of a GUID.\n      - The `new_obj_id` field is always required.\n\n---\n\n## Note\nThis API is specifically designed for updating object IDs of metadata objects. It internally uses the header update mechanism to perform the changes.\n\n## Best Practices\n\n1. **Backup Before Update:**  \n   Always export metadata as a backup before initiating the update process.\n\n2. **Validation:**\n   - When using `current_obj_id`, ensure it matches the existing object ID exactly.\n   - When using `metadata_identifier` with a name, ensure the `type` is specified correctly.\n   - Verify that the `new_obj_id` follows your naming conventions and is unique within your system.\n\n---\n\n## Examples\n\n### Using current_obj_id\n```json\n{\n  \"metadata\": [\n    {\n      \"current_obj_id\": \"existing_object_id\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Using metadata_identifier with GUID\n```json\n{\n  \"metadata\": [\n    {\n      \"metadata_identifier\": \"01234567-89ab-cdef-0123-456789abcdef\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Using metadata_identifier with name and type\n```json\n{\n  \"metadata\": [\n    {\n      \"metadata_identifier\": \"My Answer\",\n      \"type\": \"ANSWER\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Multiple objects update\n```json\n{\n  \"metadata\": [\n    {\n      \"current_obj_id\": \"existing_object_id_1\",\n      \"new_obj_id\": \"new_object_id_1\"\n    },\n    {\n      \"metadata_identifier\": \"My Worksheet\",\n      \"type\": \"LOGICAL_TABLE\",\n      \"new_obj_id\": \"new_object_id_2\"\n    }\n  ]\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMetadataObjIdRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Headers update was successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Export_Options:
+      type: object
+      properties:
+        include_obj_id_ref:
+          type: boolean
+          default: false
+          description: Boolean Flag to export Object ID of referenced object. This flag will work only after the Object ID feature has been enabled. Please contact support to enable the feature.
+          nullable: true
+        include_guid:
+          type: boolean
+          default: true
+          description: Boolean flag to export guid of the object. This flag will work only after the Object ID feature has been enabled. Please contact support to enable the feature.
+          nullable: true
+        include_obj_id:
+          type: boolean
+          default: false
+          description: Boolean flag to export Object ID of the object. This flag will work only after the Object ID feature has been enabled. Please contact support to enable the feature.
+          nullable: true
+        export_with_associated_feedbacks:
+          type: boolean
+          default: false
+          description: 'Boolean flag indicating whether to export associated feedbacks of the object. This will only be respected when the object can have feedbacks. <br/>  <span class="since-beta-tag">Version: 10.7.0.cl or later</span>'
+          nullable: true
+        export_column_security_rules:
+          type: boolean
+          default: false
+          description: 'Boolean flag indicating whether to export column security rules of the object. This will only be respected when the object can have column security rules and export_associated is true. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
+          nullable: true
+        export_with_column_aliases:
+          type: boolean
+          default: false
+          description: 'Boolean flag indicating whether to export column aliases of the model. This will only be respected when the object can have column aliases. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.13.0.cl or later</span>'
+          nullable: true
+      description: Flags to specify additional options for export. This will only be active when UserDefinedId in TML is enabled.
+    GetAsyncImportStatusResponse:
+      type: object
+      properties:
+        status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
+          description: List of task statuses.
+          nullable: true
+        last_batch:
+          type: boolean
+          description: Indicates whether there are more task statuses to fetch.
+          nullable: true
+    ResponseFailedEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet that failed to convert.
+        error:
+          type: string
+          description: Error details related to the failed conversion.
+      description: Unique ID of the failed worksheet.
+    ParameterizeMetadataRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to parameterize.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to parameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to parameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_name:
+          description: Name of the field which needs to be parameterized.
+          type: string
+        variable_identifier:
+          description: Unique ID or name of the variable to use for parameterization
+          type: string
+      required:
+      - metadata_identifier
+      - field_type
+      - field_name
+      - variable_identifier
+    PrincipalsInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the principal object such as a user or group.
+        type:
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          description: Principal type.
+          nullable: true
+    ResponseSuccessfulEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseSuccessfulEntity'
+      description: Wrapper for the successful entities, as they are inside a 'data' field in the response.
+    ResponseCopyObject:
+      type: object
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object.
+          nullable: true
+    MetadataSearchSortOptions:
+      type: object
+      properties:
+        field_name:
+          type: string
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          - VIEWS
+          - FAVORITES
+          - LAST_ACCESSED
+          description: Name of the field to apply the sort on.
+          nullable: true
+        order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+          nullable: true
+      description: Sort options.
+    UpdateMetadataHeaderRequest:
+      type: object
+      properties:
+        headers_update:
+          description: List of header objects to update.
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderUpdateInput'
+        org_identifier:
+          description: Unique ID or name of the organization.
+          type: string
+      required:
+      - headers_update
+    ConvertWorksheetToModelRequest:
+      type: object
+      properties:
+        worksheet_ids:
+          description: List of Worksheet IDs.
+          type: array
+          items:
+            type: string
+        exclude_worksheet_ids:
+          description: List of Worksheet IDs to be excluded.
+          type: array
+          items:
+            type: string
+        convert_all:
+          description: Indicates whether all the worksheet needs to be converted to models.
+          default: false
+          type: boolean
+          nullable: true
+        apply_changes:
+          description: Indicates whether the changes should be applied to database.
+          default: false
+          type: boolean
+          nullable: true
+    ParameterizeMetadataFieldsRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to parameterize.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to parameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to parameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_names:
+          description: 'JSON array of field names to parameterize. Example: [schemaName, databaseName, tableName]'
+          type: array
+          items:
+            type: string
+        variable_identifier:
+          description: Unique ID or name of the variable to use for parameterization of these fields.
+          type: string
+      required:
+      - metadata_identifier
+      - field_type
+      - field_names
+      - variable_identifier
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    ExportMetadataTMLRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportMetadataTypeInput'
+        export_associated:
+          description: Indicates whether to export associated metadata objects of specified metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        export_fqn:
+          description: 'Adds FQNs of the referenced objects. For example, if you are exporting a Liveboard and its associated objects,
+
+            the API returns the Liveboard TML data with the FQNs of the referenced worksheet.
+
+            If the exported TML data includes FQNs, you don''t need to manually add FQNs of the referenced objects during TML import.'
+          default: false
+          type: boolean
+          nullable: true
+        edoc_format:
+          description: 'TML EDOC content format.
+
+
+            **Note: exporting in YAML format currently requires manual formatting of the output. For more details on the workaround, please click [here](https://developers.thoughtspot.com/docs/known-issues#_version_9_12_0_cl)**'
+          default: JSON
+          type: string
+          enum:
+          - JSON
+          - YAML
+        export_schema_version:
+          description: Indicates whether to export worksheet TML in DEFAULT or V1 or V2 version.
+          default: DEFAULT
+          type: string
+          enum:
+          - DEFAULT
+          - V1
+          - V2
+        export_dependent:
+          description: Indicates whether to export table while exporting connection.
+          default: false
+          type: boolean
+          nullable: true
+        export_connection_as_dependent:
+          description: 'Indicates whether to export connection as dependent while exporting table/worksheet/answer/liveboard.
+
+            This will only be active when export_associated is true.'
+          default: false
+          type: boolean
+          nullable: true
+        all_orgs_override:
+          description: Indicates whether to export is happening from all orgs context.
+          default: false
+          type: boolean
+          nullable: true
+        export_options:
+          description: 'Flags to specify additional options for export. <br/>  <span class="since-beta-tag">Version: 10.6.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/Export_Options'
+      required:
+      - metadata
+    ExportMetadataTypeInput:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CUSTOM_ACTION
+          - USER
+          - USER_GROUP
+          - ROLE
+          - FEEDBACK
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object. Not required if the metadata type is ANSWER when session_id and generation_number is set.
+          nullable: true
+        session_identifier:
+          type: string
+          description: Unique ID of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
+          nullable: true
+        generation_number:
+          type: integer
+          format: int32
+          description: Generation Number of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
+          nullable: true
+      description: MetadataType InputType used in Export MetadataType API
+    ResponseWorksheetToModelConversion:
+      type: object
+      required:
+      - name
+      - success_count
+      - failure_count
+      - incomplete_count
+      - post_upgrade_failed_count
+      - total_time_in_millis
+      - successful_entities
+      - failed_entities
+      - incomplete_entities
+      - post_upgrade_failed_entities
+      properties:
+        name:
+          type: string
+        success_count:
+          type: integer
+          format: int32
+          description: The number of worksheets successfully converted to models.
+        failure_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed to convert.
+        incomplete_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that were incomplete during the conversion process.
+        post_upgrade_failed_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed after an upgrade during the conversion process.
+        total_time_in_millis:
+          type: integer
+          format: int32
+          description: The total time taken to complete the conversion process in milliseconds.
+        successful_entities:
+          $ref: '#/components/schemas/ResponseSuccessfulEntities'
+          description: List of worksheets successfully converted to models.
+        failed_entities:
+          $ref: '#/components/schemas/ResponseFailedEntities'
+          description: List of worksheets that failed to convert.
+        incomplete_entities:
+          $ref: '#/components/schemas/ResponseIncompleteEntities'
+          description: List of worksheets that were incomplete during the conversion.
+        post_upgrade_failed_entities:
+          $ref: '#/components/schemas/ResponsePostUpgradeFailedEntities'
+          description: List of worksheets that failed after an upgrade during the conversion process.
+      description: Name of the conversion process, which involves converting worksheets to models.
+    ResponseIncompleteEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the incomplete worksheet.
+        error:
+          type: string
+          description: Error details related to the incomplete conversion.
+      description: Unique ID of the incomplete worksheet.
+    SqlQueryResponse:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - metadata_type
+      - sql_queries
+      properties:
+        metadata_id:
+          type: string
+          description: Unique identifier of the metadata.
+        metadata_name:
+          type: string
+          description: Name of the metadata.
+        metadata_type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          description: Type of the metadata.
+        sql_queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/SqlQuery'
+          description: SQL query details of metadata objects.
+    ImportEPackAsyncTaskStatus:
+      type: object
+      properties:
+        tenant_id:
+          type: string
+          description: GUID of tenant from which the task is initiated.
+          nullable: true
+        org_id:
+          type: integer
+          format: int32
+          description: Organisation ID of the user who initiated the task.
+          nullable: true
+        task_id:
+          type: string
+          description: Unique identifier for the task.
+          nullable: true
+        task_name:
+          type: string
+          description: Name of the task.
+          nullable: true
+        import_response:
+          type: object
+          description: Response of imported objects so far.
+          nullable: true
+        task_status:
+          type: string
+          enum:
+          - COMPLETED
+          - IN_QUEUE
+          - IN_PROGRESS
+          - FAILED
+          description: Current status of the task.
+          nullable: true
+        author_id:
+          type: string
+          description: ID of the user who initiated the task.
+          nullable: true
+        import_policy:
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+          description: Policy used for the import task.
+          nullable: true
+        created_at:
+          type: number
+          format: float
+          description: Time when the task was created (in ms since epoch).
+          nullable: true
+        in_progress_at:
+          type: number
+          format: float
+          description: Time when the task started (in ms since epoch).
+          nullable: true
+        completed_at:
+          type: number
+          format: float
+          description: Time when the task was completed (in ms since epoch).
+          nullable: true
+        total_object_count:
+          type: integer
+          format: int32
+          description: Total number of objects to process.
+          nullable: true
+        object_processed_count:
+          type: integer
+          format: int32
+          description: Number of objects processed so far.
+          nullable: true
+        modified_at:
+          type: number
+          format: float
+          description: Last time the task status was updated (in ms since epoch).
+          nullable: true
+        author_display_name:
+          type: string
+          description: Display name of the user who initiated the task.
+          nullable: true
+    ResponsePostUpgradeFailedEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponsePostUpgradeFailedEntity'
+      description: Wrapper for the post-upgrade failed entities, as they are inside a 'data' field in the response.
+    HeaderUpdateInput:
+      type: object
+      required:
+      - attributes
+      properties:
+        identifier:
+          type: string
+          description: Unique ID of a specified type to identify the header.
+          nullable: true
+        obj_identifier:
+          type: string
+          description: Custom object identifier to uniquely identify header.
+          nullable: true
+        type:
+          type: string
+          enum:
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LIVEBOARD
+          - ACTION_OBJECT
+          - DATA_SOURCE
+          - USER
+          - USER_GROUP
+          - COLLECTION
+          description: Optional type of the header object.
+          nullable: true
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderAttributeInput'
+          description: List of attributes to update
+      description: Favorite object options.
+    ResponseSuccessfulEntity:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet.
+      description: Unique ID of the worksheet.
+    CopyObjectRequest:
+      type: object
+      properties:
+        description:
+          description: Description of the new object
+          type: string
+        identifier:
+          description: GUID of metadata object to be copied (answer id or liveboard id)
+          type: string
+        type:
+          description: Type of metadata object
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+        title:
+          description: Title of the new object
+          type: string
+      required:
+      - identifier
+    ImportMetadataTMLAsyncRequest:
+      type: object
+      properties:
+        metadata_tmls:
+          description: Details of TML objects.
+          type: array
+          items:
+            type: string
+        create_new:
+          description: If selected, creates TML objects with new GUIDs.
+          default: false
+          type: boolean
+          nullable: true
+        all_orgs_override:
+          description: If import is happening from all orgs context.
+          default: false
+          type: boolean
+          nullable: true
+        import_policy:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Policy to be followed while importing the TML. Valid values are [PARTIAL_OBJECT, PARTIAL, VALIDATE_ONLY, ALL_OR_NONE]'
+          default: PARTIAL_OBJECT
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+        skip_diff_check:
+          description: '<div><span class="since-beta-tag">Version: 10.6.0.cl or later</span></div>
+
+
+            Boolean Flag to skip TML diff check before processing object TMLs.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_large_metadata_validation:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Boolean to indicate if the large metadata validation should be enabled.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_personalized_view_upsert:
+          description: '<div><span class="since-beta-tag">Version: 26.8.0.cl or later</span></div>
+
+
+            Boolean flag to enable update/insert of personalized views in liveboard.'
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - metadata_tmls
+    UnparameterizeMetadataRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to unparameterize.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to unparameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to unparameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_name:
+          description: Name of the field which needs to be unparameterized.
+          type: string
+        value:
+          description: The value to use in place of the variable for the field
+          type: string
+      required:
+      - metadata_identifier
+      - field_type
+      - field_name
+      - value
+    FetchAsyncImportTaskStatusRequest:
+      type: object
+      properties:
+        task_ids:
+          description: List of task IDs to fetch status for.
+          type: array
+          items:
+            type: string
+        task_status:
+          description: 'List of task statuses to filter on. Valid values: [IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED]'
+          type: array
+          items:
+            type: string
+            enum:
+            - COMPLETED
+            - IN_QUEUE
+            - IN_PROGRESS
+            - FAILED
+        author_identifier:
+          description: Author GUID or name of async import tasks to filter on.
+          type: string
+        record_offset:
+          description: The offset point, starting from where the task status should be included in the response.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of task statuses that should be included in the response starting from offset position.
+          default: 5
+          type: integer
+          format: int32
+        include_import_response:
+          description: Boolean flag to specify whether to include import response in the task status objects.
+          default: false
+          type: boolean
+          nullable: true
+    PermissionInput:
+      type: object
+      required:
+      - principal
+      - share_mode
+      properties:
+        principal:
+          $ref: '#/components/schemas/PrincipalsInput'
+          description: Details of users or groups.
+        share_mode:
+          type: string
+          enum:
+          - READ_ONLY
+          - MODIFY
+          - NO_ACCESS
+          description: Object share mode.
+      description: Details of users or groups.
+    UpdateObjIdInput:
+      type: object
+      required:
+      - new_obj_id
+      properties:
+        metadata_identifier:
+          type: string
+          description: GUID or name of the metadata object.
+          nullable: true
+        type:
+          type: string
+          enum:
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LIVEBOARD
+          - ACTION_OBJECT
+          - DATA_SOURCE
+          - USER
+          - USER_GROUP
+          - COLLECTION
+          description: Type of metadata. Required if metadata_identifier is name of the object.
+          nullable: true
+        current_obj_id:
+          type: string
+          description: Current object ID value.
+          nullable: true
+        new_obj_id:
+          type: string
+          description: New object ID value to set.
+      description: Input for updating object ID of a metadata object.
+    ResponsePostUpgradeFailedEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet that failed post-upgrade.
+        error:
+          type: string
+          description: Error details related to the post-upgrade failure.
+      description: Unique ID of the worksheet that failed post-upgrade.
+    SearchMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects such as Liveboards, Answers, and Worksheets.
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataListItemInput'
+        permissions:
+          description: Object permission details to search by.
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionInput'
+        created_by_user_identifiers:
+          description: GUID or name of user who created the metadata object.
+          type: array
+          items:
+            type: string
+        dependent_object_version:
+          description: Version of the dependent table of the metadata objects like Worksheets.
+          default: V1
+          type: string
+          enum:
+          - V1
+          - V2
+        exclude_objects:
+          description: List of metadata objects to exclude from search.
+          type: array
+          items:
+            $ref: '#/components/schemas/ExcludeMetadataListItemInput'
+        favorite_object_options:
+          description: 'Options to sort the API response by objects set as favorites
+
+            for the logged-in user or the users specified in the API request.'
+          allOf:
+          - $ref: '#/components/schemas/FavoriteObjectOptionsInput'
+        include_auto_created_objects:
+          description: Includes system-generated metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        include_dependent_objects:
+          description: 'Includes dependents of the metadata object specified in the API request.
+
+            For example, a worksheet can consist of dependent objects such as Liveboards or Answers.'
+          default: false
+          type: boolean
+          nullable: true
+        dependent_objects_record_size:
+          description: The maximum number of dependents to include per metadata object.
+          default: 50
+          type: integer
+          format: int32
+        include_details:
+          description: Includes complete details of the metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        include_personalised_views:
+          description: 'When set to true and include_details is also true, includes personalised views
+
+            in the metadata_detail for LIVEBOARD objects.'
+          default: false
+          type: boolean
+          nullable: true
+        include_headers:
+          description: Includes headers of the metadata objects.
+          default: true
+          type: boolean
+          nullable: true
+        include_hidden_objects:
+          description: Includes details of the hidden objects, such as a column in a worksheet or a table.
+          default: false
+          type: boolean
+          nullable: true
+        include_incomplete_objects:
+          description: Includes objects with incomplete metadata.
+          default: false
+          type: boolean
+          nullable: true
+        include_visualization_headers:
+          description: Includes visualization headers of the specified Liveboard object.
+          default: false
+          type: boolean
+          nullable: true
+        include_worksheet_search_assist_data:
+          description: 'If search assistance lessons are configured on a worksheet,
+
+            the API returns the search assist data for Worksheet objects.'
+          type: boolean
+          nullable: true
+        modified_by_user_identifiers:
+          description: Includes ID or names of the users who modified the metadata object.
+          type: array
+          items:
+            type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included. It is recommended to use a smaller `record_size` when fetching dependent objects or any of the additional metadata detail options.
+          default: 10
+          type: integer
+          format: int32
+        sort_options:
+          description: Sort options to filter metadata details.
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchSortOptions'
+        tag_identifiers:
+          description: Tags to filter metadata objects by
+          type: array
+          items:
+            type: string
+        include_stats:
+          description: Indicates whether to include stats of the metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        include_discoverable_objects:
+          description: '<div><span class="since-beta-tag">Version: 10.7.0.cl or later</span></div>
+
+
+            Boolean to indicate whether to include discoverable metadata objects.'
+          default: true
+          type: boolean
+          nullable: true
+        show_resolved_parameters:
+          description: '<div><span class="since-beta-tag">Version: 10.9.0.cl or later</span></div>
+
+
+            Indicates whether to show resolved parameterised values.'
+          default: false
+          type: boolean
+          nullable: true
+        liveboard_response_version:
+          description: Indicates the model version of Liveboard to be attached in metadata detail.
+          default: V1
+          type: string
+          enum:
+          - V1
+          - V2
+        include_only_published_objects:
+          description: '<div><span class="since-beta-tag">Version: 10.11.0.cl or later</span></div>
+
+
+            If only published objects should be returned'
+          default: false
+          type: boolean
+          nullable: true
+    SqlQuery:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - sql_query
+      properties:
+        metadata_id:
+          type: string
+          description: Unique identifier of the metadata.
+        metadata_name:
+          type: string
+          description: Name of the metadata.
+        sql_query:
+          type: string
+          description: SQL query of a metadata object.
+      description: Response format associated with fetch SQL query api
+    DeleteMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteMetadataTypeInput'
+        delete_disabled_objects:
+          description: Indicates whether to delete disabled metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - metadata
+    ResponseIncompleteEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseIncompleteEntity'
+      description: Wrapper for the incomplete entities, as they are inside a 'data' field in the response.
+    DeleteMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LOGICAL_RELATIONSHIP
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+      description: MetadataType InputType used in Delete MetadataType API
+    MetadataListItemInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
+          nullable: true
+        obj_identifier:
+          type: string
+          description: CustomObjectId of the metadata.
+          nullable: true
+        name_pattern:
+          type: string
+          description: A pattern to match the case-insensitive name of the metadata object. User % for a wildcard match.
+          nullable: true
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          - INSIGHT_SPEC
+          - COLLECTION
+          description: 'Type of metadata. Required if the name of the object is set as identifier. This attribute is optional when the object GUID is specified as identifier.
+
+            1. Liveboard
+
+            2. Answers
+
+            3. LOGICAL_TABLE for any data object such as table, worksheet or view.
+
+            4. LOGICAL_COLUMN for a column of any data object such as table, worksheet or view.
+
+            5. CONNECTION for creating or modify data connections.
+
+            6. TAG for tag objects.
+
+            7. USER for user objects.
+
+            8. USER_GROUP for group objects.
+
+            9. LOGICAL_RELATIONSHIP for table or worksheet joins. A join combines from one or several data object by using matching values
+
+            10. INSIGHT_SPEC for SpotIQ objects
+
+            11. COLLECTION for collection objects'
+          nullable: true
+        subtypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ONE_TO_ONE_LOGICAL
+            - WORKSHEET
+            - PRIVATE_WORKSHEET
+            - USER_DEFINED
+            - AGGR_WORKSHEET
+            - SQL_VIEW
+          description: 'List of subtype of metadata. Applies for LOGICAL_TABLE type with the following valid values.
+
+            1. ONE_TO_ONE_LOGICAL
+
+            2. WORKSHEET
+
+            3. PRIVATE_WORKSHEET.
+
+            4. USER_DEFINED.
+
+            5. AGGR_WORKSHEET.
+
+            6. SQL_VIEW <br/>  <span class="since-beta-tag">Version: 10.11.0.cl or later</span>'
+          nullable: true
+    FetchAnswerSqlQueryRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID or name of an Answer.
+          type: string
+      required:
+      - metadata_identifier
+    ExcludeMetadataListItemInput:
+      type: object
+      required:
+      - identifier
+      - type
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          - INSIGHT_SPEC
+          - COLLECTION
+          description: 'Type of metadata. Required if the name of the object is set as identifier. This attribute is optional when the object GUID is specified as identifier.
+
+            1. Liveboard
+
+            2. Answers
+
+            3. LOGICAL_TABLE for any data object such as table, worksheet or view
+
+            4. LOGICAL_COLUMN for a column of any data object such as table, worksheet or view
+
+            5. CONNECTION for connection objects
+
+            6. TAG for tag objects
+
+            7. USER for user objects
+
+            8. USER_GROUP for group objects
+
+            9. LOGICAL_RELATIONSHIP for table or worksheet joins. A join combines from one or several data object by using matching values.
+
+            10. INSIGHT_SPEC for SpotIQ objects
+
+            11. COLLECTION for collection objects'
+    ExportMetadataTMLBatchedRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to export, can be one of USER | ROLE | USER_GROUP
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          - ROLE
+        batch_offset:
+          description: Indicates the position within the complete set from where the API should begin returning objects.
+          default: 0
+          type: integer
+          format: int32
+        batch_size:
+          description: Determines the number of objects or items to be retrieved in a single request.
+          default: 20
+          type: integer
+          format: int32
+        edoc_format:
+          description: TML EDOC content format.
+          default: JSON
+          type: string
+          enum:
+          - JSON
+          - YAML
+        export_dependent:
+          description: Indicates whether to export dependent metadata objects of specified metadata objects.
+          default: false
+          type: boolean
+          nullable: true
+        all_orgs_override:
+          description: Indicates whether to export is happening from all orgs context.
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - metadata_type
+    ImportMetadataTMLRequest:
+      type: object
+      properties:
+        metadata_tmls:
+          description: 'Details of TML objects.
+
+
+            **Note: importing TML in YAML format, when coming directly from our Playground, is currently requires manual formatting. For more details on the workaround, please click [here](https://developers.thoughtspot.com/docs/known-issues#_version_9_12_0_cl)**'
+          type: array
+          items:
+            type: string
+        import_policy:
+          description: Specifies the import policy for the TML import.
+          default: PARTIAL
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+        create_new:
+          description: If selected, creates TML objects with new GUIDs.
+          default: false
+          type: boolean
+          nullable: true
+        all_orgs_override:
+          description: If import is happening from all orgs context.
+          default: false
+          type: boolean
+          nullable: true
+        skip_diff_check:
+          description: '<div><span class="since-beta-tag">Version: 10.6.0.cl or later</span></div>
+
+
+            Boolean Flag to skip TML diff check before processing object TMLs.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_large_metadata_validation:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Boolean to indicate if the large metadata validation should be enabled.'
+          default: false
+          type: boolean
+          nullable: true
+        enable_personalized_view_upsert:
+          description: '<div><span class="since-beta-tag">Version: 26.8.0.cl or later</span></div>
+
+
+            Boolean flag to enable update/insert of personalized views in liveboard.'
+          default: false
+          type: boolean
+          nullable: true
+      required:
+      - metadata_tmls
+    HeaderAttributeInput:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: Attribute name to be updated.
+        value:
+          type: string
+          description: Attribute's new value.
+      description: Attribute to update in a header.
+    UpdateMetadataObjIdRequest:
+      type: object
+      properties:
+        metadata:
+          description: List of metadata objects to update their object IDs.
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateObjIdInput'
+      required:
+      - metadata
+    ResponseFailedEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseFailedEntity'
+      description: Wrapper for the failed entities, as they are inside a 'data' field in the response.
+    MetadataSearchResponse:
+      type: object
+      required:
+      - metadata_type
+      properties:
+        metadata_id:
+          type: string
+          description: Unique identifier of the metadata.
+          nullable: true
+        metadata_name:
+          type: string
+          description: Name of the metadata.
+          nullable: true
+        metadata_type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          - INSIGHT_SPEC
+          - COLLECTION
+          description: Type of the metadata.
+        metadata_obj_id:
+          type: string
+          description: 'Custom identifier of the metadata.
+
+            (Available from 10.8.0.cl onwards)'
+          nullable: true
+        dependent_objects:
+          type: object
+          description: Details of dependent objects of the metadata objects.
+          nullable: true
+        incomplete_objects:
+          type: array
+          items:
+            type: object
+          description: Details of incomplete information of the metadata objects if any.
+          nullable: true
+        metadata_detail:
+          type: object
+          description: Complete details of the metadata objects.
+          nullable: true
+        metadata_header:
+          type: object
+          description: Header information of the metadata objects.
+          nullable: true
+        visualization_headers:
+          type: array
+          items:
+            type: object
+          description: Visualization header information of the metadata objects.
+          nullable: true
+        stats:
+          type: object
+          description: Stats of the metadata object. Includes views, favorites, last_accessed.
+          nullable: true
+      description: Metadata Search Response Object.
+    FetchLiveboardSqlQueryRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID or name of the Liveboard.
+          type: string
+        visualization_identifiers:
+          description: Unique ID or name of visualizations.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata_identifier
+    FavoriteObjectOptionsInput:
+      type: object
+      properties:
+        include:
+          type: boolean
+          default: false
+          description: Includes objects marked as favorite for the specified users.
+          nullable: true
+        user_identifiers:
+          type: array
+          items:
+            type: string
+          description: Unique ID or name of the users. If not specified, the favorite objects of current logged in user are returned.
+          nullable: true
+      description: Favorite object options.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

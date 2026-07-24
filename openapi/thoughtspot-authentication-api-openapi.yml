@@ -1,0 +1,2222 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Authentication API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+paths:
+  /api/rest/2.0/auth/configure:
+    post:
+      operationId: configureAuthSettings
+      description: "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nEnables or disables authentication at cluster or org level for the specified auth type. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH` privilege is required.\n\n#### Usage guidelines\n\nUse `cluster_preferences` to enable or disable authentication at the cluster level. Cluster-level settings can only be configured from the Primary Org.\n- `ENABLED` — Generates a new access token if one does not exist. An existing token is preserved.\n- `DISABLED` — Revokes the existing cluster-level access token.\n\nUse `org_preferences` to enable or disable authentication for one or more Orgs. Each entry must include an `org_identifier` (unique ID or name) and an `auth_status`. Org-level configuration requires the per-Org authentication feature to be enabled on your instance.\n- `ENABLED` — Generates a new org-level access token if one does not exist.\n- `DISABLED` — Revokes the existing org-level access token for that Org.\n\nBoth `cluster_preferences` and `org_preferences` are optional. Omitting a field leaves the corresponding settings unchanged. If both are omitted, the API returns `204 No Content` without making any changes.\n\n**Note**: Cluster-level and org-level settings are independent of each other. Enabling or disabling one does not affect the other.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigureAuthSettingsRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Trusted authentication settings configured successfully.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: At least one of cluster_preferences or org_preferences must be provided.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to configure authentication settings.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION or CONTROL_TRUSTED_AUTH privilege required to configure authentication settings.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while configuring authentication settings.
+  /api/rest/2.0/auth/session/user:
+    get:
+      operationId: getCurrentUserInfo
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves details of the current user session for the token provided in the request header.\n\nAny ThoughtSpot user can access this endpoint and send an API request. The data returned in the API response varies according to user's privilege and object access permissions.\n\n**NOTE**: In ThoughtSpot, users with cluster administration privileges can access all Orgs by default. However, unless the administrator is explicitly added to an Org, the Orgs list in the session information returned by the API will include only the Primary Org. To include other Orgs in the API response, you must explicitly add the administrator to each Org in the Admin settings page in the UI or via user REST API.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: Fetch current session user detail successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                example_1:
+                  description: Current user info for an admin user in the primary org
+                  value:
+                    id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    name: tsadmin
+                    display_name: TS Admin
+                    visibility: SHARABLE
+                    author_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    can_change_password: true
+                    complete_detail: true
+                    creation_time_in_millis: 1699900000000
+                    current_org:
+                      id: 0
+                      name: Primary
+                    deleted: false
+                    deprecated: false
+                    account_type: LOCAL_USER
+                    account_status: ACTIVE
+                    email: tsadmin@example.com
+                example_2:
+                  description: Current user info for a SAML user switched to a non-primary org
+                  value:
+                    id: 7e4c9f2a-8b5d-4a1e-9c3b-6d8e2f5a7b4c
+                    name: sales_analyst
+                    display_name: Sales Analyst
+                    visibility: SHARABLE
+                    author_id: 7e4c9f2a-8b5d-4a1e-9c3b-6d8e2f5a7b4c
+                    can_change_password: false
+                    complete_detail: true
+                    creation_time_in_millis: 1699900000000
+                    current_org:
+                      id: 583464508
+                      name: sales_org
+                    deleted: false
+                    deprecated: false
+                    account_type: SAML_USER
+                    account_status: ACTIVE
+                    email: sales_analyst@example.com
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve the current user information.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving current user information.
+  /api/rest/2.0/auth/session/token:
+    get:
+      operationId: getCurrentUserToken
+      description: "\n <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nRetrieves details of the current session token for the bearer token provided in the request header.\n\nThis API endpoint does not create a new token. Instead, it returns details about the token, including the token string, creation time, expiration time, and the associated user.\n\nUse this endpoint to introspect your current session token, debug authentication issues, or when a frontend application needs session token details.\n\nAny ThoughtSpot user with a valid bearer token can access this endpoint and send an API request\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: Fetching token for current user successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTokenResponse'
+              examples:
+                example_1:
+                  description: Standard session token valid for 1 hour
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_token_payload.signature
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724281030000
+                    valid_for_user_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    valid_for_username: tsadmin
+                example_2:
+                  description: Short-lived session token valid for 5 minutes
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_short_token_payload.signature
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                    valid_for_user_id: 7e4c9f2a-8b5d-4a1e-9c3b-6d8e2f5a7b4c
+                    valid_for_username: sales_analyst
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve the current session token.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving the current user session token.
+  /api/rest/2.0/auth/token/custom:
+    post:
+      operationId: getCustomAccessToken
+      description: "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nCreates an authentication token that provides values for the formula variables in the Row Level Security (RLS) rules for a given user. Recommended for use cases that require Attribute-based access control (ABAC) via RLS.\n\n#### Required privileges\n\nTo add a new user and assign privileges during auto-creation, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege and edit access to the data source are required.\n\nTo configure formula variables for all Orgs on your instance or the Primary Org, cluster administration privileges are required. Org administrators can configure formula variables for their respective Orgs. If Role-Based Access Control (RBAC) is enabled, users with the `CAN_MANAGE_VARIABLES` (**Can manage variables**) role privilege can also create and manage variables for their Org context.\n\n#### Usage guidelines\n\nYou can generate a token by providing a `username` and `password`, or by using a `secret_key`. To generate a `secret_key`, the administrator must enable [Trusted authentication](https://developers.thoughtspot.com/docs/trusted-auth-secret-key) in the **Develop** > **Customizations** > **Security Settings** page.\n\n**Note**:\n* When both `password` and `secret_key` are included in the API request, `password` takes precedence.\n* If [Multi-Factor Authentication (MFA)](https://docs.thoughtspot.com/cloud/latest/authentication-local-mfa) is enabled on your instance, the API login request with `username`  and `password` returns an error. You can switch to token-based authentication with  `secret_key`  or contact ThoughtSpot Support for assistance.\n\nThe token obtained from ThoughtSpot is valid for 5 minutes by default. You can configure the token expiration time as required.\n\n#### ABAC via RLS\n\nTo implement ABAC via RLS and assign security entitlements to users during session creation, generate a token with custom variable values. The values set in the authentication token are applied to the formula variables referenced in RLS rules at the table level, which determines the data each user can access based on their entitlements.\n\nThe variable values can be configured to persist for a specific set of Models in user sessions initiated with the token, allowing different RLS rules to be set for different data models. Once defined, the rules are added to the user's `variable_values` object, after which all sessions will use the persisted values.\n\nFor more information, see [ABAC via tokens Documentation](https://developers.thoughtspot.com/docs/abac-via-rls-variables).\n\n##### Formula variables\nBefore defining variable values, ensure the variables are created and available on your instance. To create a formula variable, you can use the **Create variable** (`/api/rest/2.0/template/variables/create`) REST API endpoint, with the variable `type` set as `Formula_Variable` in the API request.\n\nThe API doesn't support `\"persist_option\": \"RESET\"` and `\"persist_option\": \"NONE\"` when `variable_values` are defined  in the request. If you are using `variable_values` for token generation, you must use other supported persist options such as `APPEND` or `REPLACE`.\n\nIf you want to use `RESET` or `NONE`, do not pass any `variable_values`. In such cases, `variable_values` will remain unaffected.\n\n#### Supported objects\n\nThe supported object type is `LOGICAL_TABLE`. When using `object_id` with `variable_values`, models are supported.\n\n#### Just-in-time provisioning\n\nFor [just-in-time user creation and provisioning](https://developers.thoughtspot.com/docs/just-in-time-provisioning), specify the following attributes in the API request:\n\n* `auto_create`\n* `username`\n* `display_name`\n* `email`\n* `groups`\n\nSet `auto_create` to `true` if the username does not exist in ThoughtSpot. If the username already exists in ThoughtSpot and `auto_create` is set to `true`, user properties such as display name, email, Org and group entitlements will not be updated with new values. Setting `auto_create` to `true` does not create formula variables. Hence, this setting will not be applicable to `variable_values`.\n\n#### Important point to note\nAll options in the token creation APIs that define user access to data in ThoughtSpot will take effect during token creation, not when the token is used for authentication. For example, `auto_create:true` will create the user when the authentication token is created. Persist options such as `APPEND` and `REPLACE` will persist `variable_values` on the user profile when the token is created.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomAccessTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: ABAC token creation was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+              examples:
+                example_1:
+                  description: Custom access token with variable values and APPEND persist option for an existing user
+                  value:
+                    id: 9f8e7d6c-5b4a-3210-fedc-ba9876543210
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_custom_token.signature
+                    org:
+                      id: 0
+                      name: Primary
+                    user:
+                      id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                      name: analyst_user
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                example_2:
+                  description: Custom access token with variable values for a JIT-provisioned user
+                  value:
+                    id: 1a2b3c4d-5e6f-7890-abcd-ef1234567890
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_jit_custom_token.signature
+                    org:
+                      id: 1
+                      name: SalesOrg
+                    user:
+                      id: 3f2e1d4c-9b8a-7e6f-5d4c-3b2a1e0f9d8c
+                      name: new_sales_user@example.com
+                    creation_time_in_millis: 1724278000000
+                    expiration_time_in_millis: 1724278300000
+        '400':
+          description: Invalid request. This could be due to missing or incorrect parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: 'Invalid persistOption: ''APPEND''. Expected: ''RESET'' when resetOption is provided.'
+        '401':
+          description: Unauthorized access. The request could not be authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Invalid credentials. The provided secret key or password is incorrect.
+        '403':
+          description: Forbidden access. The user does not have permission to access this resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Trusted authentication is not enabled for this cluster or org.
+        '409':
+          description: Conflict. A concurrent update to the same template variable was detected and the request could not be applied. Retry the request after serializing concurrent variable updates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while generating the custom access token.
+      security: []
+  /api/rest/2.0/auth/token/full:
+    post:
+      operationId: getFullAccessToken
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token for creating a full session in ThoughtSpot for a given user. Recommended for use cases that do not require Attribute-based access control (ABAC) via Row Level Security (RLS).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using the `secret_key` generated for your instance. To generate a `secret_key`, the administrator must enable [Trusted authentication](https://developers.thoughtspot.com/docs/trusted-auth-secret-key) in the **Develop** > **Customizations** > **Security Settings** page.\n\n**Note**:\n* When both `password` and `secret_key` are included in the API request, `password` takes precedence.\n* If [Multi-Factor Authentication (MFA)](https://docs.thoughtspot.com/cloud/latest/authentication-local-mfa) is enabled on your instance, the API login request with `username` and `password` returns an error. You can switch to token-based authentication with  `secret_key` or contact ThoughtSpot Support for assistance.\n\nThe token obtained from ThoughtSpot is valid for 5 minutes by default. You can configure the token expiration time as required.\n\n#### Just-in-time provisioning\n\nFor [just-in-time user creation and provisioning](https://developers.thoughtspot.com/docs/just-in-time-provisioning), specify the following attributes in the API request:\n\n* `auto_create`\n* `username`\n* `display_name`\n* `email`\n* `group_identifiers`\n\nSet `auto_create` to `true` if the username does not exist in ThoughtSpot. If the user already exists in ThoughtSpot and `auto_create` is set to `true`, user properties such as display name, email and group assignment will be updated.\n\nTo add a new user and assign privileges during auto-creation, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege is required.\n\n#### Important point to note\nAll options in the token creation APIs that define user access to data in ThoughtSpot will take effect during token creation, not when the token is used for authentication. For example, `auto_create:true` will create the user when the authentication token is created.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetFullAccessTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Bearer auth token creation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+              examples:
+                example_1:
+                  description: Full-access token generated using cluster secret key
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_full_token.signature
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                    scope:
+                      access_type: FULL
+                      org_id: 0
+                    valid_for_user_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    valid_for_username: tsadmin
+                example_2:
+                  description: Full-access token for a JIT-provisioned user in a specific org
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_jit_full_token.signature
+                    creation_time_in_millis: 1724278000000
+                    expiration_time_in_millis: 1724278300000
+                    scope:
+                      access_type: FULL
+                      org_id: 1
+                    valid_for_user_id: b3d9e1f7-2a4c-4e8b-9d1f-6c5a3b8e7d2f
+                    valid_for_username: jit_analyst@example.com
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: Either secret_key or password must be provided.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Invalid credentials. The provided secret key or password is incorrect.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Trusted authentication is not enabled for this cluster or org.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while generating the full-access token.
+      security: []
+  /api/rest/2.0/auth/token/object:
+    post:
+      operationId: getObjectAccessToken
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token that provides access to a specific metadata object. This object list is intersected with the list of objects the user is allowed to access via group membership. For more information, see [Object security](https://docs.thoughtspot.com/cloud/latest/security-data-object#object_security).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using the `secret_key` generated for your instance. To generate a `secret_key`, the administrator must enable [Trusted authentication](https://developers.thoughtspot.com/docs/trusted-auth-secret-key) in the **Develop** > **Customizations** > **Security Settings** page.\n\n**Note**:\n* When both `password` and `secret_key` are included in the API request, `password` takes precedence.\n* If [Multi-Factor Authentication (MFA)](https://docs.thoughtspot.com/cloud/latest/authentication-local-mfa) is enabled on your instance, the API login request with `username` and `password` returns an error. You can switch to token-based authentication with `secret_key` or contact ThoughtSpot Support for assistance.\n\nThe token obtained from ThoughtSpot is valid for 5 minutes by default. You can configure the token expiration time as required.\n\n#### Just-in-time provisioning\n\nFor [just-in-time user creation and provisioning](https://developers.thoughtspot.com/docs/just-in-time-provisioning), specify the following attributes in the API request:\n\n* `auto_create`\n* `username`\n* `display_name`\n* `email`\n* `group_identifiers`\n\nSet `auto_create` to `true` if the user is not available in ThoughtSpot. If the user already exists in ThoughtSpot and the `auto_create` parameter is set to `true`, user properties such as display name, email, and group assignment will be updated.\n\nTo add a new user and assign privileges, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH`(**Can Enable or Disable Trusted Authentication**) privilege is required.\n\n#### Important point to note\n\nAll options in the token creation APIs that define user access to data in ThoughtSpot will take effect during token creation, not when the token is used for authentication. For example, `auto_create:true` will create the user when the authentication token is created.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetObjectAccessTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Bearer auth token creation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+              examples:
+                example_1:
+                  description: Object-scoped access token for a specific liveboard
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_object_token.signature
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                    scope:
+                      access_type: REPORT_BOOK_VIEW
+                      org_id: 0
+                      metadata_id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    valid_for_user_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    valid_for_username: tsadmin
+                example_2:
+                  description: Object-scoped token with JIT user provisioning
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.example_jit_object_token.signature
+                    creation_time_in_millis: 1724278000000
+                    expiration_time_in_millis: 1724278300000
+                    scope:
+                      access_type: REPORT_BOOK_VIEW
+                      org_id: 0
+                      metadata_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    valid_for_user_id: 7e4c9f2a-8b5d-4a1e-9c3b-6d8e2f5a7b4c
+                    valid_for_username: new_user@example.com
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: Either secret_key or password must be provided.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Invalid credentials. The provided secret key or password is incorrect.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Trusted authentication is not enabled for this cluster or org.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while generating the object-scoped access token.
+      security: []
+  /api/rest/2.0/auth/session/login:
+    post:
+      operationId: login
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a login session for a ThoughtSpot user with Basic authentication.\n\nIn Basic authentication method, REST clients log in to ThoughtSpot using `username` and `password` attributes. On a multi-tenant cluster with Orgs, users can pass the ID of the Org in the API request to log in to a specific Org context.\n\n**Note**: If Multi-Factor Authentication (MFA) is enabled on your instance, the API login request with basic authentication (`username`  and `password` ) returns an error. Contact ThoughtSpot Support for assistance.\n\nA successful login returns a session cookie that can be used in your subsequent API requests.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: User login successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: The specified org_identifier does not refer to a valid or accessible org.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication failed. Verify that the username and password are correct.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: User account is inactive or locked.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error during login.
+  /api/rest/2.0/auth/session/logout:
+    post:
+      operationId: logout
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nLogs out a user from their current session.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '204':
+          description: User logout successful.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: No active session found. User is not logged in.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error during logout.
+  /api/rest/2.0/auth/token/revoke:
+    post:
+      operationId: revokeToken
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nRevokes the authentication token issued for current user session.\n\nThe token of your current session expires when you make a call to the `/api/rest/2.0/auth/token/revoke` endpoint.\nthe users will not be able to access ThoughtSpot objects until a new token is obtained.\n\nTo restart your session, request for a new token from ThoughtSpot. See [Get Full Access Token](#/http/api-endpoints/authentication/get-full-access-token).\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Token successfully revoked.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: Either user_identifier or token must be provided.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to revoke a token.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Insufficient privileges to revoke tokens for another user.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while revoking the token.
+  /api/rest/2.0/auth/search:
+    post:
+      operationId: searchAuthSettings
+      description: "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nReturns the authentication configuration for the specified auth type at cluster and org level. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CONTROL_TRUSTED_AUTH` privilege is required.\n\n#### Usage guidelines\n\nUse `scope` to control which level of settings are returned:\n- `CLUSTER` — Returns cluster-level authentication status and access tokens. Accessible only from the Primary Org.\n- `ORG` — Returns org-level authentication status and access tokens for the current Org. Requires the per-Org authentication feature to be enabled on your instance.\n- If `scope` is omitted, both cluster and org-level settings are returned based on the caller's org context and feature availability.\n\nThe `access_tokens` array in `cluster_preferences` or `org_preferences` is omitted when no token is configured at that level.\n\n**Note**: Access tokens returned in the response are sensitive credentials. Treat them with the same care as passwords.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchAuthSettingsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Authentication settings retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchAuthSettingsResponse'
+              examples:
+                example_1:
+                  value:
+                    auth_type: TRUSTED_AUTH
+                    cluster_preferences:
+                      auth_status: ENABLED
+                      access_tokens:
+                      - key: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    org_preferences:
+                    - org:
+                        id: 583464508
+                        name: sales_org
+                      auth_status: ENABLED
+                      access_tokens:
+                      - key: f9e8d7c6-b5a4-3210-fedc-ba9876543210
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: auth_type must be specified and currently only TRUSTED_AUTH is supported.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve authentication settings.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION or CONTROL_TRUSTED_AUTH privilege required to retrieve authentication settings.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving authentication settings.
+  /api/rest/2.0/auth/token/validate:
+    post:
+      operationId: validateToken
+      description: "\n <span class=\"since-beta-tag\">Version: 9.12.0.cl or later</span>\n\n\nValidates the authentication token specified in the API request.\n\nIf your token is not valid, [Get a new token](#/http/api-endpoints/authentication/get-full-access-token).\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateTokenRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Token validation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenValidationResponse'
+              examples:
+                example_1:
+                  description: Valid full-access token
+                  value:
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                    scope:
+                      access_type: FULL
+                      org_id: 0
+                    valid_for_user_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    token_type: BEARER
+                example_2:
+                  description: Valid object-scoped token
+                  value:
+                    creation_time_in_millis: 1724277430000
+                    expiration_time_in_millis: 1724277730000
+                    scope:
+                      access_type: REPORT_BOOK_VIEW
+                      org_id: 0
+                      metadata_id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    valid_for_user_id: 7e4c9f2a-8b5d-4a1e-9c3b-6d8e2f5a7b4c
+                    token_type: BEARER
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                malformed_token:
+                  summary: Malformed token
+                  description: The token cannot be parsed. Both malformed and expired tokens return error code 10002 — the debug field distinguishes the root cause.
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: The provided token is malformed and cannot be parsed.
+                expired_token:
+                  summary: Expired token
+                  description: The token signature is valid but the token has passed its expiration time. Both malformed and expired tokens return error code 10002 — the debug field distinguishes the root cause.
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcf-ef1234567891
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcf-ef1234567891
+                        debug: The provided token has expired.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to validate a token.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while validating the token.
+components:
+  schemas:
+    User_Object:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          description: "  Type of object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  \n\n Specify the object type as `LOGICAL_TABLE`."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique name/id of the object.
+      description: Objects to apply the User_Object.
+    AccessToken:
+      type: object
+      required:
+      - token
+      - org
+      - user
+      - creation_time_in_millis
+      - expiration_time_in_millis
+      properties:
+        id:
+          type: string
+          description: GUID of the auth token.
+          nullable: true
+        token:
+          type: string
+          description: Bearer auth token.
+        org:
+          $ref: '#/components/schemas/OrgInfo'
+          description: Org information for which the token is generated.
+        user:
+          $ref: '#/components/schemas/UserInfo'
+          description: User information for which the token is generated.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Token creation time in milliseconds.
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Token expiration time in milliseconds.
+    User_Parameter_Options:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/User_Object'
+          nullable: true
+        runtime_filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Runtime_Filters'
+          description: 'Objects to apply the User_Runtime_Filters.
+
+
+            Examples to set the `runtime_filters` :
+
+            ```json
+
+            { "column_name": "Color", "operator": "EQ", "values": ["red"], "persist": false }
+
+            ```'
+          nullable: true
+        runtime_sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Runtime_Sorts'
+          description: 'Objects to apply the User_Runtime_Sorts.
+
+
+            Examples to set the `runtime_sorts` :
+
+            ```json
+
+            { "column_name": "Color", "order": "ASC", "persist": false }
+
+            ```'
+          nullable: true
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Runtime_Parameters'
+          description: 'Objects to apply the Runtime_Parameters.
+
+
+            Examples to set the `parameters` :
+
+            ```json
+
+            { "name": "Color", "values": ["Blue"], "persist": false }
+
+            ```'
+          nullable: true
+      description: 'Define attributes such as Runtime filters and Runtime parameters to send security entitlements to a user session. For more information, see [Documentation](https://developers.thoughtspot.com/docs/abac-user-parameters).
+
+        '
+    AuthClusterPreferencesInput:
+      type: object
+      properties:
+        auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: Enable or disable authentication at the cluster level. When enabled, a new token is generated if one does not exist. When disabled, the existing token is revoked.
+          nullable: true
+      description: Input for cluster-level auth configuration.
+    Token:
+      type: object
+      required:
+      - token
+      - creation_time_in_millis
+      - expiration_time_in_millis
+      - scope
+      - valid_for_user_id
+      - valid_for_username
+      properties:
+        token:
+          type: string
+          description: Bearer auth token.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Token creation time in milliseconds.
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Token expiration time in milliseconds.
+        scope:
+          $ref: '#/components/schemas/Scope'
+          description: Token access scope details
+        valid_for_user_id:
+          type: string
+          description: Username to whom the token is issued.
+        valid_for_username:
+          type: string
+          description: Unique identifier of the user to whom the token is issued.
+    TokenValidationResponse:
+      type: object
+      required:
+      - creation_time_in_millis
+      - expiration_time_in_millis
+      - scope
+      - valid_for_user_id
+      - token_type
+      properties:
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Token creation time in milliseconds.
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Token expiration time in milliseconds.
+        scope:
+          $ref: '#/components/schemas/Scope'
+          description: Token access scope details
+        valid_for_user_id:
+          type: string
+          description: Username to whom the token is issued.
+        token_type:
+          type: string
+          description: Type of token.
+    Object_ID_And_Name:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the object.
+          nullable: true
+        name:
+          type: string
+          description: Name of the object.
+          nullable: true
+      description: The object representation with ID and Name.
+    Runtime_Sorts:
+      type: object
+      properties:
+        column_name:
+          type: string
+          description: The column name to apply filter.
+          nullable: true
+        order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          description: Order for the sort.
+          nullable: true
+        persist:
+          type: boolean
+          default: false
+          description: 'Flag to persist the runtime sorts. <br/>  <span class="since-beta-tag">Version: 9.12.0.cl or later</span>'
+          nullable: true
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/User_Object'
+          description: Object to apply the runtime sort.
+          nullable: true
+      description: Objects to apply the Runtime_Sorts.
+    OrgInfo:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Id.
+        name:
+          type: string
+          description: Name.
+          nullable: true
+    Runtime_Filters:
+      type: object
+      required:
+      - column_name
+      - values
+      - operator
+      properties:
+        column_name:
+          type: string
+          description: The column name to apply filter.
+        values:
+          type: array
+          items:
+            type: string
+          description: Value of the filters.
+        operator:
+          type: string
+          enum:
+          - EQ
+          - NE
+          - LT
+          - LE
+          - GT
+          - GE
+          - IN
+          - BW
+          - CONTAINS
+          - BEGINS_WITH
+          - ENDS_WITH
+          - BW_INC
+          - BW_INC_MIN
+          - BW_INC_MAX
+          - LIKE
+          - NOT_IN
+          description: 'Operator value. Example: EQ'
+        persist:
+          type: boolean
+          default: false
+          description: 'Flag to persist the runtime filters. <br/>  <span class="since-beta-tag">Version: 9.12.0.cl or later</span>'
+          nullable: true
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/User_Object'
+          description: Object to apply the runtime filter.
+          nullable: true
+      description: Objects to apply the Runtime_Filters.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    ValidateTokenRequest:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+    GetTokenResponse:
+      type: object
+      required:
+      - token
+      - creation_time_in_millis
+      - expiration_time_in_millis
+      - valid_for_user_id
+      - valid_for_username
+      properties:
+        token:
+          type: string
+          description: Bearer auth token.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Token creation time in milliseconds.
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Token expiration time in milliseconds.
+        valid_for_user_id:
+          type: string
+          description: Username to whom the token is issued.
+        valid_for_username:
+          type: string
+          description: Unique identifier of the user to whom the token is issued.
+    GetObjectAccessTokenRequest:
+      type: object
+      properties:
+        username:
+          description: Username of the ThoughtSpot user. The username is stored in the `name` attribute of the user object.
+          type: string
+        object_id:
+          description: GUID of the ThoughtSpot metadata object that the user can access. The bearer will only have access to the object specified in the API request.
+          type: string
+        password:
+          description: Password of the user account
+          default: ''
+          type: string
+        secret_key:
+          description: The secret key string provided by the ThoughtSpot application server. ThoughtSpot generates a secret key when Trusted authentication is enabled.
+          default: ''
+          type: string
+        validity_time_in_sec:
+          description: Token validity duration in seconds
+          default: 300
+          type: integer
+          format: int32
+        org_id:
+          description: ID of the Org context to log in to. If the Org ID is not specified and secret key is provided then user will be logged into the org corresponding to the secret key, and if secret key is not provided then user will be logged in to the Org context of their previous login session.
+          type: integer
+          format: int32
+        email:
+          description: Email address of the user. Specify this attribute when creating a new user (just-in-time (JIT) provisioning).
+          type: string
+        display_name:
+          description: Display name of the user. Specify this attribute when creating a new user (just-in-time (JIT) provisioning).
+          type: string
+        auto_create:
+          description: "   Creates a new user if the specified username does not exist in ThoughtSpot. To provision a user just-in-time (JIT), set this attribute to true.\n   \n\nNote: For JIT provisioning of a user, the secret_key is required. "
+          default: false
+          type: boolean
+          nullable: true
+        group_identifiers:
+          description: Unique ID or name of the groups to which you want to assign the new user. You can specify this attribute to dynamically assign privileges during just-in-time (JIT) provisioning.
+          type: array
+          items:
+            type: string
+        user_parameters:
+          description: '<div><span class="since-beta-tag">Version: 9.10.5.cl or later</span><span class="since-beta-tag">Deprecated: 10.4.0.cl and later</span></div>
+
+
+            Define attributes such as Runtime filters and Runtime parameters to send security entitlements to a user session. For more information, see [Documentation](https://developers.thoughtspot.com/docs/abac-user-parameters).'
+          allOf:
+          - $ref: '#/components/schemas/User_Parameter_Options'
+      required:
+      - username
+    Runtime_Parameters:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+        values:
+          type: array
+          items:
+            type: string
+          description: The array of values.
+        persist:
+          type: boolean
+          default: false
+          description: 'Flag to persist the parameters. <br/>  <span class="since-beta-tag">Version: 9.12.0.cl or later</span>'
+          nullable: true
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/User_Object'
+          description: Object to apply the runtime parameter.
+          nullable: true
+      description: Objects to apply the Runtime_Parameters.
+    AuthOrgInfo:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Unique identifier of the org.
+        name:
+          type: string
+          description: Name of the org.
+          nullable: true
+      description: Org identifier returned in auth settings search results.
+    RevokeTokenRequest:
+      type: object
+      properties:
+        user_identifier:
+          type: string
+        token:
+          type: string
+    AuthOrgPreferenceInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: Unique ID or name of the org to configure.
+        auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: Enable or disable authentication for this org. When enabled, a new token is generated if one does not exist. When disabled, the existing token is revoked.
+          nullable: true
+      description: Input for org-level auth configuration.
+    AuthOrgPreference:
+      type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/AuthOrgInfo'
+          description: Org identifier details.
+          nullable: true
+        auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: Whether authentication is enabled or disabled for this org.
+          nullable: true
+        access_tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthSettingsAccessToken'
+          description: Org-level access tokens. Absent when no token is configured or the feature flag is off.
+          nullable: true
+      description: Org-level authentication preferences for a single org.
+    Org:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The ID of the object.
+        name:
+          type: string
+          description: Name of the object.
+      description: The current Org context of the user.
+    FavoriteMetadataItem:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      properties:
+        id:
+          type: string
+          description: Unique ID of the metadata object.
+        name:
+          type: string
+          description: name of the metadata object.
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          description: Username of the ThoughtSpot user
+          type: string
+        password:
+          description: Password of the user account
+          type: string
+        org_identifier:
+          description: ID of the Org context to log in to. If Org ID is not specified, the user will be logged in to the Org context of their previous login session.
+          type: string
+        remember_me:
+          description: A flag to remember the user session. When set to true, a session cookie is created and used in subsequent API requests.
+          default: false
+          type: boolean
+          nullable: true
+    GetCustomAccessTokenRequest:
+      type: object
+      properties:
+        username:
+          description: Username of the ThoughtSpot user. The username is stored in the `name` attribute of the user object.
+          type: string
+        password:
+          description: Password of the user account
+          default: ''
+          type: string
+        secret_key:
+          description: The secret key string provided by the ThoughtSpot application server. ThoughtSpot generates a secret key when Trusted authentication is enabled.
+          default: ''
+          type: string
+        validity_time_in_sec:
+          description: Token validity duration in seconds
+          default: 300
+          type: integer
+          format: int32
+        org_identifier:
+          description: ID or name of the Org context to log in to. If the Org ID or name is not specified but a secret key is provided, the user will be logged into the Org associated with the secret key. If neither the Org ID/name nor the secret key is provided, the user will be logged into the Org context from their previous login session.
+          type: string
+        persist_option:
+          description: Indicates whether the specified attributes should be persisted or not. RESET and NONE are not applicable if you are setting variable_values.
+          type: string
+          enum:
+          - REPLACE
+          - APPEND
+          - NONE
+          - RESET
+        filter_rules:
+          description: Filter rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterRules'
+        parameter_values:
+          description: 'Allows developers to assign parameter values for existing parameters to a user at login. Note: Using parameter values for row level security use cases will ultimately be deprecated. Developers can still pass data security values via the Custom Access token via the variable_values field and create RLS rules based on custom variables. Please refer to the [ABAC via RLS documentation](https://developers.thoughtspot.com/docs/abac-user-parameters) for more details.'
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterValues'
+        variable_values:
+          description: 'List of variable values where `name` references an existing formula variable and `values` is any value from the corresponding column. <br/>  <span class="since-beta-tag">Version: 10.14.0.cl or later</span>'
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValues'
+        objects:
+          description: Objects on which the parameter and variable values should be applied to
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenAccessScopeObject'
+        email:
+          description: (just-in-time (JIT) provisioning)Email address of the user. Specify this attribute when creating a new user.
+          type: string
+        display_name:
+          description: (just-in-time (JIT) provisioning) Indicates display name of the user. Specify this attribute when creating a new user.
+          type: string
+        groups:
+          description: (just-in-time (JIT) provisioning) ID or name of the groups to which the newly created user belongs. Specify this attribute when creating a new user.
+          type: array
+          items:
+            $ref: '#/components/schemas/Group_Object'
+        auto_create:
+          description: "   Creates a new user if the specified username does not exist in ThoughtSpot. To provision a user just-in-time (JIT), set this attribute to true.\n   \n\nNote: For JIT provisioning of a user, the secret_key is required. New formula variables won't be created.  <br/>  <span class=\"since-beta-tag\">Version: 10.5.0.cl or later</span>"
+          default: true
+          type: boolean
+          nullable: true
+      required:
+      - username
+      - persist_option
+    AuthSettingsAccessToken:
+      type: object
+      required:
+      - key
+      properties:
+        key:
+          type: string
+          description: The plaintext token key value.
+      description: An auth settings access token.
+    FilterRules:
+      type: object
+      required:
+      - column_name
+      - operator
+      - values
+      properties:
+        column_name:
+          type: string
+          description: The name of the column to apply the filter on.
+        operator:
+          type: string
+          enum:
+          - EQ
+          - NE
+          - LT
+          - LE
+          - GT
+          - GE
+          - IN
+          - BW
+          - CONTAINS
+          - BEGINS_WITH
+          - ENDS_WITH
+          - BW_INC
+          - BW_INC_MIN
+          - BW_INC_MAX
+          - LIKE
+          - NOT_IN
+          description: 'The operator to use for filtering. Example: EQ (equals), GT(greater than), etc.'
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on. To get all records, use TS_WILDCARD_ALL as values.
+      description: Filter Rules to be applied on Objects.
+    AuthClusterPreferences:
+      type: object
+      properties:
+        auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: Whether authentication is enabled or disabled at the cluster level.
+          nullable: true
+        access_tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthSettingsAccessToken'
+          description: Cluster-level access tokens. Absent when no token is configured.
+          nullable: true
+      description: Cluster-level authentication preferences.
+    SearchAuthSettingsResponse:
+      type: object
+      properties:
+        auth_type:
+          type: string
+          enum:
+          - TRUSTED_AUTH
+          description: Type of authentication mechanism returned.
+          nullable: true
+        cluster_preferences:
+          $ref: '#/components/schemas/AuthClusterPreferences'
+          description: Cluster-level authentication configuration. Present when cluster scope was requested and the caller has ADMINISTRATION or CONTROL_TRUSTED_AUTH privilege.
+          nullable: true
+        org_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthOrgPreference'
+          description: Org-level authentication configurations. Present when org scope was requested and per-org auth feature is enabled.
+          nullable: true
+      description: Response for searchAuthSettings. Contains auth type and cluster/org-level preferences.
+    Group_Object:
+      type: object
+      properties:
+        identifier:
+          type: string
+          nullable: true
+      description: Groups objects.
+    VariableValues:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the existing formula variable.
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on.
+      description: Variable values.
+    UserInfo:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id.
+        name:
+          type: string
+          description: Name.
+          nullable: true
+    User:
+      type: object
+      required:
+      - id
+      - name
+      - display_name
+      - visibility
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user.
+        name:
+          type: string
+          description: Name of the user.
+        display_name:
+          type: string
+          description: Display name of the user.
+        visibility:
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+          description: Visibility of the users. The `SHARABLE` property makes a user visible to other users and group, who can share objects with the user.
+        author_id:
+          type: string
+          description: Unique identifier of author of the user.
+          nullable: true
+        can_change_password:
+          type: boolean
+          description: Defines whether the user can change their password.
+          nullable: true
+        complete_detail:
+          type: boolean
+          description: Defines whether the response has complete detail of the user.
+          nullable: true
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Creation time of the user in milliseconds.
+          nullable: true
+        current_org:
+          $ref: '#/components/schemas/Org'
+          description: Current logged-in Org of the user.
+          nullable: true
+        deleted:
+          type: boolean
+          description: Indicates whether the user is deleted.
+          nullable: true
+        deprecated:
+          type: boolean
+          description: Indicates whether the user is deprecated.
+          nullable: true
+        account_type:
+          type: string
+          enum:
+          - LOCAL_USER
+          - LDAP_USER
+          - SAML_USER
+          - OIDC_USER
+          - REMOTE_USER
+          description: Type of the user account.
+          nullable: true
+        account_status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - EXPIRED
+          - LOCKED
+          - PENDING
+          - SUSPENDED
+          description: Status of the user account.
+          nullable: true
+        email:
+          type: string
+          description: Email of the user.
+          nullable: true
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Expiration time of the user in milliseconds.
+          nullable: true
+        external:
+          type: boolean
+          description: Indicates whether the user is external.
+          nullable: true
+        favorite_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/FavoriteMetadataItem'
+          description: Metadata objects to add to the users' favorites list.
+          nullable: true
+        first_login_time_in_millis:
+          type: number
+          format: float
+          description: Timestamp of the first login session of the user in milliseconds.
+          nullable: true
+        group_mask:
+          type: integer
+          format: int32
+          description: Group mask of the user.
+          nullable: true
+        hidden:
+          type: boolean
+          description: Indicates whether the user is hidden.
+          nullable: true
+        home_liveboard:
+          $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Unique ID or name of the default Liveboard assigned to the user.
+          nullable: true
+        incomplete_details:
+          type: object
+          description: Incomplete details of user if any present.
+          nullable: true
+        is_first_login:
+          type: boolean
+          description: Indicates whether it is first login of the user.
+          nullable: true
+        modification_time_in_millis:
+          type: number
+          format: float
+          description: Last modified time of the user in milliseconds.
+          nullable: true
+        modifier_id:
+          type: string
+          description: Unique identifier of modifier of the user.
+          nullable: true
+        notify_on_share:
+          type: boolean
+          description: User preference for receiving email notifications on shared Answers or Liveboard.
+          nullable: true
+        onboarding_experience_completed:
+          type: boolean
+          description: The user preference for turning off the onboarding experience.
+          nullable: true
+        orgs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Org'
+          description: Orgs to which the user belongs.
+          nullable: true
+        owner_id:
+          type: string
+          description: Unique identifier of owner of the user.
+          nullable: true
+        parent_type:
+          type: string
+          enum:
+          - USER
+          - GROUP
+          description: Parent type of the user.
+          nullable: true
+        privileges:
+          type: array
+          items:
+            type: string
+          description: Privileges which are assigned to the user.
+          nullable: true
+        show_onboarding_experience:
+          type: boolean
+          description: User's preference to revisit the new user onboarding experience.
+          nullable: true
+        super_user:
+          type: boolean
+          description: Indicates whether the user is a super user.
+          nullable: true
+        system_user:
+          type: boolean
+          description: Indicates whether the user is a system user.
+          nullable: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Tags associated with the user.
+          nullable: true
+        tenant_id:
+          type: string
+          description: Unique identifier of tenant of the user.
+          nullable: true
+        user_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Groups to which the user is assigned.
+          nullable: true
+        user_inherited_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Inherited User Groups which the user is part of.
+          nullable: true
+        welcome_email_sent:
+          type: boolean
+          description: Indicates whether welcome email is sent for the user.
+          nullable: true
+        org_privileges:
+          type: object
+          description: Privileges which are assigned to the user with org.
+          nullable: true
+        preferred_locale:
+          type: string
+          description: Locale for the user.
+          nullable: true
+        use_browser_language:
+          type: boolean
+          description: 'Flag to indicate whether to use the browser locale for the user in the UI.
+
+            When set to true, the preferred_locale value is unset and the browser''s
+
+            language setting takes precedence. <br/>  <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
+          nullable: true
+        extended_properties:
+          type: object
+          description: Properties for the user
+          nullable: true
+        extended_preferences:
+          type: object
+          description: Preferences for the user
+          nullable: true
+        user_parameters:
+          type: object
+          description: User Parameters which are specified for the user via JWToken
+          nullable: true
+        access_control_properties:
+          type: object
+          description: Access Control Properties which are specified for the user via JWToken
+          nullable: true
+        variable_values:
+          type: object
+          description: Formula Variables which are specified for the user via JWToken
+          nullable: true
+    ParameterValues:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the column to apply the filter on.
+        values:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: number
+          description: The values to filter on. Only single value is supported currently.
+      description: Filter Rules to be applied on Objects.
+    ConfigureAuthSettingsRequest:
+      type: object
+      properties:
+        auth_type:
+          description: Type of authentication mechanism to configure. Currently supports TRUSTED_AUTH.
+          type: string
+          enum:
+          - TRUSTED_AUTH
+        cluster_preferences:
+          description: Cluster-level authentication preferences. Omit to leave the existing cluster setting unchanged.
+          allOf:
+          - $ref: '#/components/schemas/AuthClusterPreferencesInput'
+        org_preferences:
+          description: Org-level authentication preferences. Each entry identifies an org and the desired status. Omit to leave existing org settings unchanged.
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthOrgPreferenceInput'
+      required:
+      - auth_type
+    SearchAuthSettingsRequest:
+      type: object
+      properties:
+        auth_type:
+          description: Type of authentication mechanism to retrieve settings for. Currently supports TRUSTED_AUTH.
+          type: string
+          enum:
+          - TRUSTED_AUTH
+        scope:
+          description: Scope of auth settings to retrieve. When absent, both cluster and org settings are returned (subject to caller privileges). Set to CLUSTER to retrieve only cluster-level settings, or ORG to retrieve only org-level settings.
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
+      required:
+      - auth_type
+    TokenAccessScopeObject:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          description: "  Type of object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  \n\n Specify the object type as `LOGICAL_TABLE`."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique name/id of the object.
+      description: Objects on which the filter rules and parameters values should be applied to
+    Scope:
+      type: object
+      required:
+      - access_type
+      properties:
+        access_type:
+          type: string
+          description: Object access scope type.
+        org_id:
+          type: integer
+          format: int32
+          description: Unique identifier of the metadata.
+          nullable: true
+        metadata_id:
+          type: string
+          description: Unique identifier of the Org.
+          nullable: true
+    GetFullAccessTokenRequest:
+      type: object
+      properties:
+        username:
+          description: Username of the ThoughtSpot user. The username is stored in the `name` attribute of the user object.
+          type: string
+        password:
+          description: Password of the user account
+          default: ''
+          type: string
+        secret_key:
+          description: The secret key string provided by the ThoughtSpot application server. ThoughtSpot generates a secret key when Trusted authentication is enabled.
+          default: ''
+          type: string
+        validity_time_in_sec:
+          description: Token validity duration in seconds
+          default: 300
+          type: integer
+          format: int32
+        org_id:
+          description: ID of the Org context to log in to. If the Org ID is not specified and secret key is provided then user will be logged into the org corresponding to the secret key, and if secret key is not provided then user will be logged in to the Org context of their previous login session.
+          type: integer
+          format: int32
+        email:
+          description: Email address of the user. Specify this attribute when creating a new user (just-in-time (JIT) provisioning).
+          type: string
+        display_name:
+          description: Indicates display name of the user. Use this parameter to provision a user just-in-time (JIT).
+          type: string
+        auto_create:
+          description: "   Creates a new user if the specified username does not already exist in ThoughtSpot. To provision a user just-in-time (JIT), set this attribute to true.\n   \n\nNote: For JIT provisioning of a user, the secret_key is required. "
+          default: false
+          type: boolean
+          nullable: true
+        group_identifiers:
+          description: ID or name of the groups to which the newly created user belongs. Use this parameter to provision a user just-in-time (JIT).
+          type: array
+          items:
+            type: string
+        user_parameters:
+          description: '<div><span class="since-beta-tag">Version: 9.10.5.cl or later</span><span class="since-beta-tag">Deprecated: 10.4.0.cl and later</span></div>
+
+
+            Define attributes such as Runtime filters and Runtime parameters to send security entitlements to a user session. For more information, see [Documentation](https://developers.thoughtspot.com/docs/abac-user-parameters).'
+          allOf:
+          - $ref: '#/components/schemas/User_Parameter_Options'
+      required:
+      - username
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

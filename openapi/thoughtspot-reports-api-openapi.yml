@@ -1,0 +1,803 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Reports API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Reports
+paths:
+  /api/rest/2.0/report/answer:
+    post:
+      operationId: exportAnswerReport
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.\n\nRequires at least view access to the Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, and `PDF` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege. For an Answer, the `PDF` export is a table PDF, which is why it falls under `CAN_DOWNLOAD_DETAILED_DATA` rather than `CAN_DOWNLOAD_VISUALS`.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Answer and set `file_format`. The default file format is CSV.\n\nUse the `type` parameter to specify whether the Answer being exported is a saved Answer (`SAVED`) or a pinned Answer on a Liveboard (`PINNED`). Defaults to `SAVED`. When using `PINNED`, the `metadata_identifier` must be the container id.\n\n**NOTE**:\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n* HTML rendering is not supported for PDF exports of Answers with tables.\n\nOptionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.  \n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportAnswerReportRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Export report file of specified metadata object is successful.
+          content:
+            application/octet-stream: {}
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/report/liveboard:
+    post:
+      operationId: exportLiveboardReport
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.\nThe default `file_format` is CSV.\n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` and `PDF` require the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To generate a Liveboard report with specific visualizations, add GUIDs or names of the visualizations.\n\n**NOTE**: \n\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n\n* Optionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.\n\n* To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes, including ad hoc changes to visualizations. For more information, see [Liveboard Report API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_liveboard_report_api). \n\n* Starting with ThoughtSpot Cloud 10.9.0.cl release, the Liveboard can be exported in the PNG format in the resolution of your choice. To enable this on your instance, contact ThoughtSpot support. When this feature is enabled, the options `include_cover_page`,`include_filter_page` within the `png_options` will not be available for PNG exports.\n\n* Starting with the ThoughtSpot Cloud 26.2.0.cl release,\n\n  * Liveboards can be exported in CSV format. \n    * All visualizations within a Liveboard can be exported as individual CSV files. \n    * When exporting multiple visualizations or the entire Liveboard, the system returns the report as a compressed ZIP file containing the separate CSV files for each visualization.\n\n  * Liveboards can also be exported in XLSX format. \n    * All selected visualizations are consolidated into a single Excel workbook (.xlsx), with each visualization placed in its own worksheet (tab). \n    * XLSX exports are limited to a maximum of 255 worksheets (tabs) per workbook.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportLiveboardReportRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Export report file of specified metadata object is successful.
+          content:
+            application/octet-stream: {}
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    PngOptionsInput:
+      type: object
+      properties:
+        include_cover_page:
+          type: boolean
+          default: false
+          description: Indicates whether to include the cover page with the Liveboard title.
+          nullable: true
+        include_filter_page:
+          type: boolean
+          default: false
+          description: Indicates whether to include a page with all applied filters.
+          nullable: true
+        personalised_view_id:
+          type: string
+          description: Indicates personalised view of the Liveboard in case of png
+          nullable: true
+        image_resolution:
+          type: integer
+          format: int32
+          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          nullable: true
+        image_scale:
+          type: integer
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          nullable: true
+        include_header:
+          type: boolean
+          default: false
+          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          nullable: true
+    ExportAnswerReportRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: Unique ID or name of the metadata object.
+          type: string
+        session_identifier:
+          description: Unique ID of the answer session.
+          type: string
+        generation_number:
+          description: Generation number of the answer session.
+          type: integer
+          format: int32
+        file_format:
+          description: Export file format.
+          default: CSV
+          type: string
+          enum:
+          - CSV
+          - PDF
+          - XLSX
+          - PNG
+        runtime_filter:
+          description: 'JSON string representing runtime filter.
+
+            { col1:region, op1: EQ, val1: northeast }'
+          type: object
+        runtime_sort:
+          description: 'JSON string representing runtime sort.
+
+            { sortCol1: region, asc1 :true, sortCol2 : date }'
+          type: object
+        runtime_param_override:
+          description: JSON object for setting values of parameters in runtime.
+          type: object
+        regional_settings:
+          description: Options for specific region specific overrides to support date/number/string/currency formatting.
+          allOf:
+          - $ref: '#/components/schemas/RegionalSettingsInput'
+        png_options:
+          description: 'Options for PNG export. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/AnswerPngOptionsInput'
+        personalised_view_identifier:
+          description: 'GUID or name of the personalised view of the Answer object. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          type: string
+        type:
+          description: 'Type of the answer being exported. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          default: SAVED
+          type: string
+          enum:
+          - SAVED
+          - PINNED
+    RegionalSettingsInput:
+      type: object
+      properties:
+        currency_format:
+          type: string
+          description: ISO code to be appended with currency values.
+          nullable: true
+          enum:
+          - ADP
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARA
+          - ARS
+          - ATS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BEF
+          - BGL
+          - BGM
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOP
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BUK
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLE
+          - CLP
+          - CNX
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CSK
+          - CUC
+          - CUP
+          - CVE
+          - CYP
+          - CZK
+          - DDM
+          - DEM
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - ECS
+          - ECV
+          - EEK
+          - EGP
+          - ERN
+          - ESP
+          - ETB
+          - EUR
+          - FIM
+          - FJD
+          - FKP
+          - FRF
+          - GBP
+          - GEK
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GNS
+          - GQE
+          - GRD
+          - GTQ
+          - GWE
+          - GWP
+          - GYD
+          - HKD
+          - HNL
+          - HRD
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - IEP
+          - ILP
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - ITL
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LTL
+          - LTT
+          - LUC
+          - LUF
+          - LUL
+          - LVL
+          - LVR
+          - LYD
+          - MAD
+          - MAF
+          - MCF
+          - MDC
+          - MDL
+          - MGA
+          - MGF
+          - MKD
+          - MLF
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MTL
+          - MTP
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZE
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NLG
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEI
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PTE
+          - PYG
+          - QAR
+          - RHD
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SIT
+          - SKK
+          - SLL
+          - SOS
+          - SRD
+          - SRG
+          - SSP
+          - STN
+          - SUR
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJR
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TPE
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UAK
+          - UGX
+          - USD
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XCD
+          - XDR
+          - XEU
+          - XFO
+          - XFU
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XRE
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YDD
+          - YER
+          - ZAR
+          - ZMW
+        user_locale:
+          type: string
+          description: Indicates the locale to be used for all formattings.
+          nullable: true
+          enum:
+          - en-CA
+          - en-GB
+          - en-US
+          - de-DE
+          - ja-JP
+          - zh-CN
+          - pt-BR
+          - fr-FR
+          - fr-CA
+          - es-US
+          - da-DK
+          - es-ES
+          - fi-FI
+          - sv-SE
+          - nb-NO
+          - pt-PT
+          - nl-NL
+          - it-IT
+          - ru-RU
+          - en-IN
+          - de-CH
+          - en-NZ
+          - es-MX
+          - en-AU
+          - zh-Hant
+          - ko-KR
+          - en-DE
+        number_format_locale:
+          type: string
+          description: Indicates the locale to be used for number formatting.
+          nullable: true
+          enum:
+          - en-CA
+          - en-GB
+          - en-US
+          - de-DE
+          - ja-JP
+          - zh-CN
+          - pt-BR
+          - fr-FR
+          - fr-CA
+          - es-US
+          - da-DK
+          - es-ES
+          - fi-FI
+          - sv-SE
+          - nb-NO
+          - pt-PT
+          - nl-NL
+          - it-IT
+          - ru-RU
+          - en-IN
+          - de-CH
+          - en-NZ
+          - es-MX
+          - en-AU
+          - zh-Hant
+          - ko-KR
+          - en-DE
+        date_format_locale:
+          type: string
+          description: Indicates the locale to be used for date formatting.
+          nullable: true
+          enum:
+          - en-CA
+          - en-GB
+          - en-US
+          - de-DE
+          - ja-JP
+          - zh-CN
+          - pt-BR
+          - fr-FR
+          - fr-CA
+          - es-US
+          - da-DK
+          - es-ES
+          - fi-FI
+          - sv-SE
+          - nb-NO
+          - pt-PT
+          - nl-NL
+          - it-IT
+          - ru-RU
+          - en-IN
+          - de-CH
+          - en-NZ
+          - es-MX
+          - en-AU
+          - zh-Hant
+          - ko-KR
+          - en-DE
+    AnswerPngOptionsInput:
+      type: object
+      properties:
+        x_resolution:
+          type: integer
+          format: int32
+          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          nullable: true
+        y_resolution:
+          type: integer
+          format: int32
+          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          nullable: true
+        scaling:
+          type: integer
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          nullable: true
+    PdfOptionsInput:
+      type: object
+      properties:
+        page_size:
+          type: string
+          enum:
+          - A4
+          - CONTINUOUS
+          description: 'Size of PDF page. `A4` generates a paginated A4 PDF. `CONTINUOUS` generates a continuous PDF that matches the Liveboard layout. Each Liveboard tab has its own page of variable length. Defaults to `A4` if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+          nullable: true
+        zoom_level:
+          type: integer
+          format: int32
+          description: 'Zoom level percentage for the PDF. Only applicable when `page_size` is `CONTINUOUS`. Acceptable values are integers in the range [45, 175]. Defaults to 100 if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+          nullable: true
+        include_cover_page:
+          type: boolean
+          default: true
+          description: Indicates whether to include the cover page with the Liveboard title.
+          nullable: true
+        include_custom_logo:
+          type: boolean
+          default: true
+          description: Indicates whether to include customized wide logo in the footer if available.
+          nullable: true
+        include_filter_page:
+          type: boolean
+          default: true
+          description: Indicates whether to include a page with all applied filters. For `CONTINUOUS` page_size, this parameter indicates whether to include the filter header.
+          nullable: true
+        include_page_number:
+          type: boolean
+          default: true
+          description: Indicates whether to include page number in the footer of each page.
+          nullable: true
+        page_orientation:
+          type: string
+          enum:
+          - PORTRAIT
+          - LANDSCAPE
+          default: PORTRAIT
+          description: Page orientation of the PDF.
+          nullable: true
+        truncate_table:
+          type: boolean
+          default: false
+          description: Indicates whether to include only the first page of the tables.
+          nullable: true
+        page_footer_text:
+          type: string
+          description: Text to include in the footer of each page.
+          nullable: true
+    ExportLiveboardReportRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: GUID or name of the Liveboard object.
+          type: string
+        tab_identifiers:
+          description: 'GUID or name of the tab of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: array
+          items:
+            type: string
+        personalised_view_identifier:
+          description: 'GUID or name of the personalised view of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: string
+        visualization_identifiers:
+          description: 'GUID or name of visualizations on the Liveboard. If this parameter is
+
+            not defined, the API returns a report with all visualizations saved on a Liveboard.'
+          type: array
+          items:
+            type: string
+        transient_content:
+          description: Transient content of the Liveboard.
+          type: string
+        file_format:
+          description: Export file format.
+          default: PDF
+          type: string
+          enum:
+          - PDF
+          - PNG
+          - CSV
+          - XLSX
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, {"col1": "region", "op1": "EQ", "val1": "northeast" }. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        override_filters:
+          description: "Applied to the liveboard and overrides any filters already applied on the same columns in liveboard.\nFollowing example illustrate different kinds of filters:\n{\n  \"override_filters\": [\n    {\n      \"column_name\": \"Color\",\n      \"generic_filter\": {\n        \"op\": \"IN\",\n        \"values\": [\n          \"almond\",\n          \"turquoise\"\n        ]\n      },\n      \"negate\": false\n    },\n    {\n      \"column_name\": \"Commit Date\",\n      \"date_filter\": {\n        \"datePeriod\": \"HOUR\",\n        \"number\": 3,\n        \"type\": \"LAST_N_PERIOD\",\n        \"op\": \"EQ\"\n      }\n    },\n    {\n      \"column_name\": \"Sales\",\n      \"generic_filter\": {\n        \"op\": \"BW_INC\",\n        \"values\": [\n          \"100000\",\n          \"70000\"\n        ]\n      },\n      \"negate\": true\n    }\n  ]\n}"
+          type: object
+        runtime_sort:
+          description: 'JSON string representing runtime sort. For example, {"sortCol1": "region", "asc1" : true}. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        pdf_options:
+          description: Options for PDF export.
+          allOf:
+          - $ref: '#/components/schemas/PdfOptionsInput'
+        png_options:
+          description: Options for PNG export.
+          allOf:
+          - $ref: '#/components/schemas/PngOptionsInput'
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+        regional_settings:
+          description: Options for specific region specific overrides to support date/number/string/currency formatting.
+          allOf:
+          - $ref: '#/components/schemas/RegionalSettingsInput'
+      required:
+      - metadata_identifier
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

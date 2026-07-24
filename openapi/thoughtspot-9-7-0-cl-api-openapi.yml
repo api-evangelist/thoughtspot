@@ -1,0 +1,578 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 9.7.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 9.7.0.cl
+paths:
+  /api/rest/2.0/users/activate:
+    post:
+      operationId: activateUser
+      description: "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nActivates a deactivated user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo activate an inactive user account, the API request body must include the following information:\n\n- Username or the GUID of the user account.\n- Auth token generated for the deactivated user. The auth token is sent in the API response when a user is deactivated.\n- Password for the user account.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 9.7.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateUserRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: User activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/users/deactivate:
+    post:
+      operationId: deactivateUser
+      description: "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nDeactivates a user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo deactivate a user account, the API request body must include the following information:\n\n- Username or the GUID of the user account\n- Base URL of the ThoughtSpot instance\n\nIf the API request is successful, ThoughtSpot returns the activation URL in the response. The activation URL is valid for 14 days and can be used to re-activate the account and reset the password of the deactivated account.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 9.7.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeactivateUserRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: User deactivated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseActivationURL'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    User:
+      type: object
+      required:
+      - id
+      - name
+      - display_name
+      - visibility
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user.
+        name:
+          type: string
+          description: Name of the user.
+        display_name:
+          type: string
+          description: Display name of the user.
+        visibility:
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+          description: Visibility of the users. The `SHARABLE` property makes a user visible to other users and group, who can share objects with the user.
+        author_id:
+          type: string
+          description: Unique identifier of author of the user.
+          nullable: true
+        can_change_password:
+          type: boolean
+          description: Defines whether the user can change their password.
+          nullable: true
+        complete_detail:
+          type: boolean
+          description: Defines whether the response has complete detail of the user.
+          nullable: true
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Creation time of the user in milliseconds.
+          nullable: true
+        current_org:
+          $ref: '#/components/schemas/Org'
+          description: Current logged-in Org of the user.
+          nullable: true
+        deleted:
+          type: boolean
+          description: Indicates whether the user is deleted.
+          nullable: true
+        deprecated:
+          type: boolean
+          description: Indicates whether the user is deprecated.
+          nullable: true
+        account_type:
+          type: string
+          enum:
+          - LOCAL_USER
+          - LDAP_USER
+          - SAML_USER
+          - OIDC_USER
+          - REMOTE_USER
+          description: Type of the user account.
+          nullable: true
+        account_status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - EXPIRED
+          - LOCKED
+          - PENDING
+          - SUSPENDED
+          description: Status of the user account.
+          nullable: true
+        email:
+          type: string
+          description: Email of the user.
+          nullable: true
+        expiration_time_in_millis:
+          type: number
+          format: float
+          description: Expiration time of the user in milliseconds.
+          nullable: true
+        external:
+          type: boolean
+          description: Indicates whether the user is external.
+          nullable: true
+        favorite_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/FavoriteMetadataItem'
+          description: Metadata objects to add to the users' favorites list.
+          nullable: true
+        first_login_time_in_millis:
+          type: number
+          format: float
+          description: Timestamp of the first login session of the user in milliseconds.
+          nullable: true
+        group_mask:
+          type: integer
+          format: int32
+          description: Group mask of the user.
+          nullable: true
+        hidden:
+          type: boolean
+          description: Indicates whether the user is hidden.
+          nullable: true
+        home_liveboard:
+          $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Unique ID or name of the default Liveboard assigned to the user.
+          nullable: true
+        incomplete_details:
+          type: object
+          description: Incomplete details of user if any present.
+          nullable: true
+        is_first_login:
+          type: boolean
+          description: Indicates whether it is first login of the user.
+          nullable: true
+        modification_time_in_millis:
+          type: number
+          format: float
+          description: Last modified time of the user in milliseconds.
+          nullable: true
+        modifier_id:
+          type: string
+          description: Unique identifier of modifier of the user.
+          nullable: true
+        notify_on_share:
+          type: boolean
+          description: User preference for receiving email notifications on shared Answers or Liveboard.
+          nullable: true
+        onboarding_experience_completed:
+          type: boolean
+          description: The user preference for turning off the onboarding experience.
+          nullable: true
+        orgs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Org'
+          description: Orgs to which the user belongs.
+          nullable: true
+        owner_id:
+          type: string
+          description: Unique identifier of owner of the user.
+          nullable: true
+        parent_type:
+          type: string
+          enum:
+          - USER
+          - GROUP
+          description: Parent type of the user.
+          nullable: true
+        privileges:
+          type: array
+          items:
+            type: string
+          description: Privileges which are assigned to the user.
+          nullable: true
+        show_onboarding_experience:
+          type: boolean
+          description: User's preference to revisit the new user onboarding experience.
+          nullable: true
+        super_user:
+          type: boolean
+          description: Indicates whether the user is a super user.
+          nullable: true
+        system_user:
+          type: boolean
+          description: Indicates whether the user is a system user.
+          nullable: true
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Tags associated with the user.
+          nullable: true
+        tenant_id:
+          type: string
+          description: Unique identifier of tenant of the user.
+          nullable: true
+        user_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Groups to which the user is assigned.
+          nullable: true
+        user_inherited_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object_ID_And_Name'
+          description: Inherited User Groups which the user is part of.
+          nullable: true
+        welcome_email_sent:
+          type: boolean
+          description: Indicates whether welcome email is sent for the user.
+          nullable: true
+        org_privileges:
+          type: object
+          description: Privileges which are assigned to the user with org.
+          nullable: true
+        preferred_locale:
+          type: string
+          description: Locale for the user.
+          nullable: true
+        use_browser_language:
+          type: boolean
+          description: 'Flag to indicate whether to use the browser locale for the user in the UI.
+
+            When set to true, the preferred_locale value is unset and the browser''s
+
+            language setting takes precedence. <br/>  <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
+          nullable: true
+        extended_properties:
+          type: object
+          description: Properties for the user
+          nullable: true
+        extended_preferences:
+          type: object
+          description: Preferences for the user
+          nullable: true
+        user_parameters:
+          type: object
+          description: User Parameters which are specified for the user via JWToken
+          nullable: true
+        access_control_properties:
+          type: object
+          description: Access Control Properties which are specified for the user via JWToken
+          nullable: true
+        variable_values:
+          type: object
+          description: Formula Variables which are specified for the user via JWToken
+          nullable: true
+    ResponseActivationURL:
+      type: object
+      properties:
+        activation_link:
+          type: string
+          description: Activation link to activate the user.
+          nullable: true
+      description: The object representation with activation link.
+    DeactivateUserRequest:
+      type: object
+      properties:
+        user_identifier:
+          description: Unique ID or name of the user.
+          type: string
+        base_url:
+          description: Base url of the cluster.
+          type: string
+      required:
+      - user_identifier
+      - base_url
+    Object_ID_And_Name:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the object.
+          nullable: true
+        name:
+          type: string
+          description: Name of the object.
+          nullable: true
+      description: The object representation with ID and Name.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    FavoriteMetadataItem:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      properties:
+        id:
+          type: string
+          description: Unique ID of the metadata object.
+        name:
+          type: string
+          description: name of the metadata object.
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+    Org:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The ID of the object.
+        name:
+          type: string
+          description: Name of the object.
+      description: The current Org context of the user.
+    ActivateUserRequest:
+      type: object
+      properties:
+        user_identifier:
+          description: Unique ID or name of the user.
+          type: string
+        auth_token:
+          description: Auth token for the user.
+          type: string
+        password:
+          description: New password for the user to access the account.
+          type: string
+        properties:
+          description: Properties of the user.
+          type: string
+      required:
+      - user_identifier
+      - auth_token
+      - password
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

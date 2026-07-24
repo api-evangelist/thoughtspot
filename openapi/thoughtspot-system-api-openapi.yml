@@ -1,0 +1,1839 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl System API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: System
+paths:
+  /api/rest/2.0/system/preferences/communication-channels/configure:
+    post:
+      operationId: configureCommunicationChannelPreferences
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.14.0.cl or later</span>
+
+
+        Configure communication channel preferences.
+
+        - Use `cluster_preferences` to update the default preferences for your ThoughtSpot application instance.
+
+        - If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to specify Org-specific preferences that override the defaults.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege are also authorized to perform this action.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigureCommunicationChannelPreferencesRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Communication channel preferences successfully updated.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: RESET operation requires reset_events to be specified.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to configure communication channel preferences.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to configure cluster-level communication channel preferences.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while configuring communication channel preferences.
+  /api/rest/2.0/system/security-settings/configure:
+    post:
+      operationId: configureSecuritySettings
+      description: "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nConfigure security settings for your ThoughtSpot application instance.\n- Use `cluster_preferences` to update cluster-level security settings including CORS whitelisted URLs, CSP settings, SAML redirect URLs, partitioned cookies, and non-embed access configuration.\n- Use `org_preferences` to configure Org-specific security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this allows configuring CORS and non-embed access settings specific to the Org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. Cluster-level SAML and script-src settings require `ADMINISTRATION` privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigureSecuritySettingsRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Successfully configured the security settings.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: groups_identifiers_with_access can only be set when block_full_app_access is true.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to configure security settings.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to configure cluster-level security settings.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while configuring security settings.
+  /api/rest/2.0/system/config:
+    get:
+      operationId: getSystemConfig
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves the current configuration details of the cluster. If the request is successful, the API returns a list configuration settings applied on the cluster.\n\nRequires `ADMINISTRATION`(**Can administer ThoughtSpot**) privilege to view these complete configuration settings of the cluster.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      parameters: []
+      responses:
+        '200':
+          description: Cluster config information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfig'
+              examples:
+                example_1:
+                  value:
+                    onboarding_content_url: ''
+                    saml_enabled: false
+                    okta_enabled: false
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve system configuration.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to retrieve system configuration.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving system configuration.
+  /api/rest/2.0/system:
+    get:
+      operationId: getSystemInformation
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets system information such as the release version, locale, time zone, deployment environment, date format, and date time format of the cluster.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.  \n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      parameters: []
+      responses:
+        '200':
+          description: Cluster information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInfo'
+              examples:
+                example_1:
+                  value:
+                    id: local
+                    name: local
+                    release_version: test
+                    time_zone: America/Los_Angeles
+                    locale: ''
+                    date_format: MM/dd/yyyy
+                    api_version: v1
+                    type: SW
+                    environment: DEV
+                    license: EAE
+                    date_time_format: MM/dd/yyyy h:mm a
+                    time_format: HH:mm:ss
+                    system_user_id: 67e15c06-d153-4924-a4cd-ff615393b60f
+                    super_user_id: 0f0dd0f7-7411-4195-a4aa-0dc6b58413c9
+                    hidden_object_id: 31745bb4-defd-4e8b-8de9-8fd01db78827
+                    system_group_id: 179d8867-cf36-4a8d-a019-63a226fd3196
+                    tsadmin_user_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    admin_group_id: d0326b56-ef23-4c8a-8327-a30e99bcc72b
+                    all_tables_connection_id: bfc6feb4-8dac-402c-8ae8-78b43d318777
+                    all_user_group_id: b25ee394-9d13-49e3-9385-cd97f5b253b4
+                    accept_language: undefined
+                    all_user_group_member_user_count: 13
+                    logical_model_version: 43
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve system information.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to retrieve system information.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving system information.
+  /api/rest/2.0/system/config-overrides:
+    get:
+      operationId: getSystemOverrideInfo
+      description: "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nGets a list of configuration overrides applied on the cluster.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.  \n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      parameters: []
+      responses:
+        '200':
+          description: Cluster configuration which can be overridden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemOverrideInfo'
+              examples:
+                example_1:
+                  description: System configuration overrides. The config_override_info field is a free-form JSON object whose keys are camelCase internal configuration property identifiers as returned by the server.
+                  value:
+                    config_override_info:
+                      maxTableRowsPerPage: 500
+                      enableCustomCalendar: true
+                      allowMultipleOrgs: true
+                      sessionTimeout: 3600
+                example_2:
+                  description: No configuration overrides applied
+                  value:
+                    config_override_info: {}
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve system configuration overrides.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to retrieve system configuration overrides.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving system configuration overrides.
+  /api/rest/2.0/system/preferences/communication-channels/search:
+    post:
+      operationId: searchCommunicationChannelPreferences
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.14.0.cl or later</span>
+
+
+        Fetch communication channel preferences.
+
+        - Use `cluster_preferences` to fetch the default preferences for your ThoughtSpot application instance.
+
+        - If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to fetch any Org-specific preferences that override the defaults.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege are also authorized to perform this action.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCommunicationChannelPreferencesRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Communication channel preferences retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationChannelPreferencesResponse'
+              examples:
+                example_1:
+                  value:
+                    cluster_preferences:
+                    - event_type: LIVEBOARD_SCHEDULE
+                      channels:
+                      - WEBHOOK
+                    org_preferences:
+                    - org:
+                        id: '583464508'
+                        name: test_org
+                      preferences:
+                      - event_type: LIVEBOARD_SCHEDULE
+                        channels:
+                        - EMAIL
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: org_identifier in org_preferences does not match a known org.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to search communication channel preferences.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to retrieve cluster-level communication channel preferences.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while searching communication channel preferences.
+  /api/rest/2.0/system/security-settings/search:
+    post:
+      operationId: searchSecuritySettings
+      description: "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nFetch security settings for your ThoughtSpot application instance.\n- Use `scope: CLUSTER` to retrieve cluster-level security settings, including CORS and CSP allowlists, SAML redirect URLs, and settings that control access to non-embedded pages.\n- Use `scope: ORG` to retrieve Org-level security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this returns CORS and non-embed access settings specific to the Org.\n- If `scope` is not specified, returns both cluster and Org-specific settings based on user privileges.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchSecuritySettingsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Successfully retrieved the list of security settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritySettingsResponse'
+              examples:
+                example_1:
+                  value:
+                    cluster_preferences:
+                      enable_partitioned_cookies: false
+                      cors_whitelisted_urls:
+                      - example.com
+                      csp_settings:
+                        connect_src_urls:
+                        - https://connect.example.com
+                        font_src_urls:
+                        - https://font.example.com
+                        visual_embed_hosts:
+                        - https://embed.example.com
+                        iframe_src_urls:
+                        - https://embed.example.com
+                        img_src_urls:
+                        - https://img.example.com
+                        script_src_urls:
+                          enabled: true
+                          urls:
+                          - https://script.example.com
+                        style_src_urls:
+                        - https://style.example.com
+                      saml_redirect_urls:
+                      - https://saml.example.com
+                      non_embed_access:
+                        block_full_app_access: true
+                    org_preferences:
+                    - org:
+                        id: 0
+                        name: Primary
+                      cors_whitelisted_urls:
+                      - https://cors.example.com
+                      non_embed_access:
+                        block_full_app_access: true
+                        groups_with_access:
+                        - id: '1234567890'
+                          name: Group Name
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: scope must be one of CLUSTER or ORG.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve security settings.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to retrieve cluster-level security settings.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving security settings.
+  /api/rest/2.0/system/config-update:
+    post:
+      operationId: updateSystemConfig
+      description: "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nUpdates the current configuration of the cluster. You must send the configuration data in JSON format.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSystemConfigRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Configuration successfully updated.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: The configuration JSON contains an unknown or unsupported key.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to update system configuration.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: ADMINISTRATION privilege required to update system configuration.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while updating system configuration.
+  /api/rest/2.0/system/communication-channels/validate:
+    post:
+      operationId: validateCommunicationChannel
+      description: '
+
+        <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+
+
+        Validates a communication channel configuration to ensure it is properly set up and can receive events.
+
+        - Use `channel_type` to specify the type of communication channel to validate (e.g., WEBHOOK).
+
+        - Use `channel_identifier` to provide the unique identifier or name for the communication channel.
+
+        - Use `event_type` to specify the event type to validate for this channel.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. For webhook channels, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+
+
+
+        #### Endpoint URL
+
+        '
+      tags:
+      - System
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateCommunicationChannelRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: communication channel configuration validated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationChannelValidateResponse'
+              examples:
+                example_1:
+                  description: Successful webhook validation with HTTP check only
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    channel_name: My Liveboard Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: 9a8b7c6d-5e4f-3210-fedc-ba9876543210
+                    result_code: SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                example_2:
+                  description: Successful webhook validation with both HTTP and S3 storage checks
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    channel_name: S3 Storage Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: b2c3d4e5-f678-9012-bcde-f23456789012
+                    result_code: SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                    - validation_step: STORAGE_FILE_UPLOAD_CHECK
+                      status: SUCCESS
+                      http_status: null
+                      error_message: null
+                      aws_s3_info:
+                        bucket_name: my-webhook-files
+                        file_name: thoughtspot-validation-test.json
+                        object_key: webhooks/thoughtspot-validation-test.json
+                example_3:
+                  description: 'Partial success: HTTP check passed but S3 upload failed'
+                  value:
+                    channel_type: WEBHOOK
+                    channel_id: c3d4e5f6-7890-1234-cdef-345678901234
+                    channel_name: Failed S3 Webhook
+                    event_type: LIVEBOARD_SCHEDULE
+                    job_id: d4e5f678-9012-3456-defa-456789012345
+                    result_code: PARTIAL_SUCCESS
+                    details:
+                    - validation_step: HTTP_CONNECTION_CHECK
+                      status: SUCCESS
+                      http_status: 200
+                      error_message: null
+                      aws_s3_info: null
+                    - validation_step: STORAGE_FILE_UPLOAD_CHECK
+                      status: FAILED
+                      http_status: null
+                      error_message: Access denied. Ensure the IAM role has s3:PutObject permission on the target bucket.
+                      aws_s3_info: null
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: Webhook with the specified channel_identifier was not found.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to validate a communication channel.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Insufficient privileges to validate communication channels.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while validating the communication channel.
+components:
+  schemas:
+    SecuritySettingsClusterPreferences:
+      type: object
+      properties:
+        enable_partitioned_cookies:
+          type: boolean
+          description: Support embedded access when third-party cookies are blocked.
+          nullable: true
+        cors_whitelisted_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed origins for CORS.
+          nullable: true
+        csp_settings:
+          $ref: '#/components/schemas/CspSettings'
+          description: CSP (Content Security Policy) settings.
+          nullable: true
+        saml_redirect_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed redirect hosts for SAML login.
+          nullable: true
+        non_embed_access:
+          $ref: '#/components/schemas/ClusterNonEmbedAccess'
+          description: Non-embed access configuration at cluster level.
+          nullable: true
+        trusted_auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: 'Trusted authentication status at the cluster level. <br/>  <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          nullable: true
+      description: Cluster-level security preferences.
+    ScriptSrcUrlsInput:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether script-src customization is enabled.
+          nullable: true
+        urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
+          nullable: true
+      description: Input for script-src CSP settings.
+    ChannelValidationAwsS3Info:
+      type: object
+      properties:
+        bucket_name:
+          type: string
+          description: Name of the S3 bucket.
+          nullable: true
+        file_name:
+          type: string
+          description: Name of the uploaded file.
+          nullable: true
+        object_key:
+          type: string
+          description: Key of the object in S3 storage.
+          nullable: true
+      description: AWS S3 storage information returned from a validation step.
+    SecuritySettingsClusterPreferencesInput:
+      type: object
+      properties:
+        enable_partitioned_cookies:
+          type: boolean
+          description: Support embedded access when third-party cookies are blocked.
+          nullable: true
+        cors_whitelisted_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed origins for CORS.
+          nullable: true
+        csp_settings:
+          $ref: '#/components/schemas/CspSettingsInput'
+          description: CSP (Content Security Policy) settings.
+          nullable: true
+        saml_redirect_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed redirect hosts for SAML login.
+          nullable: true
+        non_embed_access:
+          $ref: '#/components/schemas/ClusterNonEmbedAccessInput'
+          description: Non-embed access configuration at cluster level.
+          nullable: true
+      description: Input for cluster-level security preferences configuration.
+    OrgChannelConfigResponse:
+      type: object
+      required:
+      - org
+      - preferences
+      properties:
+        org:
+          $ref: '#/components/schemas/OrgDetails'
+          description: Org details
+        preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfig'
+          description: Event-specific communication channel configurations for this org
+    ConfigureCommunicationChannelPreferencesRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Cluster-level default configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfigInput'
+        org_preferences:
+          description: Org-specific configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgChannelConfigInput'
+    CommunicationChannelValidateResponse:
+      type: object
+      required:
+      - channel_type
+      - channel_id
+      - event_type
+      - job_id
+      - result_code
+      properties:
+        channel_type:
+          type: string
+          enum:
+          - WEBHOOK
+          description: Type of communication channel that was validated.
+        channel_id:
+          type: string
+          description: ID of the communication channel (e.g., webhook_id).
+        channel_name:
+          type: string
+          description: Name of the communication channel (e.g., webhook name).
+          nullable: true
+        event_type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Event type that was validated.
+        job_id:
+          type: string
+          description: Unique Job Id of the validation.
+        result_code:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          - PARTIAL_SUCCESS
+          description: Overall result of the validation.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelValidationDetail'
+          description: Detailed results of various validation sub-steps.
+          nullable: true
+      description: Response containing validation results for communication channel configuration.
+    GroupInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group.
+          nullable: true
+        name:
+          type: string
+          description: Name of the group.
+          nullable: true
+      description: Group information for non-embed access.
+    ValidateCommunicationChannelRequest:
+      type: object
+      properties:
+        channel_type:
+          description: Type of communication channel to validate (e.g., WEBHOOK).
+          type: string
+          enum:
+          - WEBHOOK
+        channel_identifier:
+          description: Unique identifier or name for the communication channel.
+          type: string
+        event_type:
+          description: Event type to validate for this channel.
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+      required:
+      - channel_type
+      - channel_identifier
+      - event_type
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    ScriptSrcUrls:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether script-src customization is enabled.
+          nullable: true
+        urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
+          nullable: true
+      description: Script-src CSP settings.
+    SearchSecuritySettingsRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Scope of security settings to retrieve. CLUSTER returns cluster-level settings,
+
+            ORG returns org-level settings for the current org.
+
+            If not specified, returns both cluster and org settings based on user privileges.'
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
+    EventChannelConfig:
+      type: object
+      required:
+      - event_type
+      - channels
+      properties:
+        event_type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of event for which communication channels are configured
+        channels:
+          type: array
+          items:
+            type: string
+            enum:
+            - EMAIL
+            - WEBHOOK
+          description: Communication channels enabled for this event type. Empty array indicates no channels are enabled.
+    SystemOverrideInfo:
+      type: object
+      properties:
+        config_override_info:
+          type: object
+          nullable: true
+    OrgPreferenceSearchCriteriaInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: Unique identifier or name of the org
+        event_types:
+          type: array
+          items:
+            type: string
+            enum:
+            - LIVEBOARD_SCHEDULE
+          description: Event types to search for. If not provided, all event types for this org are returned.
+          nullable: true
+    OrgNonEmbedAccess:
+      type: object
+      properties:
+        block_full_app_access:
+          type: boolean
+          description: Block full application access for non-embedded usage.
+          nullable: true
+        groups_with_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupInfo'
+          description: Groups that have non-embed full app access.
+          nullable: true
+      description: Org-level non-embed access configuration.
+    SystemInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the object
+          nullable: true
+        name:
+          type: string
+          description: Name of the cluster.
+          nullable: true
+        release_version:
+          type: string
+          description: The release version of the cluster.
+          nullable: true
+        time_zone:
+          type: string
+          description: The timezone of the cluster.
+          nullable: true
+        locale:
+          type: string
+          description: The default locale of the cluster.
+          nullable: true
+        date_format:
+          type: string
+          description: The default date format representation of the cluster.
+          nullable: true
+        api_version:
+          type: string
+          description: The API version of the cluster.
+          nullable: true
+        type:
+          type: string
+          description: The deployment type of the cluster.
+          nullable: true
+        environment:
+          type: string
+          description: The deployed environment of the cluster.
+          nullable: true
+        license:
+          type: string
+          description: The license applied to the cluster.
+          nullable: true
+        date_time_format:
+          type: string
+          description: The default date time format representation of the cluster.
+          nullable: true
+        time_format:
+          type: string
+          description: The default time format representation of the cluster.
+          nullable: true
+        system_user_id:
+          type: string
+          description: The unique identifier of system user.
+          nullable: true
+        super_user_id:
+          type: string
+          description: The unique identifier of super user.
+          nullable: true
+        hidden_object_id:
+          type: string
+          description: The unique identifier of hidden object.
+          nullable: true
+        system_group_id:
+          type: string
+          description: The unique identifier of system group.
+          nullable: true
+        tsadmin_user_id:
+          type: string
+          description: The unique identifier of tsadmin user.
+          nullable: true
+        admin_group_id:
+          type: string
+          description: The unique identifier of admin group.
+          nullable: true
+        all_tables_connection_id:
+          type: string
+          description: The unique identifier of all tables connection.
+          nullable: true
+        all_user_group_id:
+          type: string
+          description: The unique identifier of ALL group.
+          nullable: true
+        accept_language:
+          type: string
+          description: The supported accept language by the cluster.
+          nullable: true
+        all_user_group_member_user_count:
+          type: integer
+          format: int32
+          description: The count of users of ALL group.
+          nullable: true
+        logical_model_version:
+          type: integer
+          format: int32
+          description: The version number of logical model of the cluster.
+          nullable: true
+    CspSettings:
+      type: object
+      properties:
+        connect_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for connect-src directive.
+          nullable: true
+        font_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for font-src directive.
+          nullable: true
+        visual_embed_hosts:
+          type: array
+          items:
+            type: string
+          description: Allowed hosts for visual embed (frame-ancestors directive).
+          nullable: true
+        iframe_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for frame-src directive.
+          nullable: true
+        img_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for img-src directive.
+          nullable: true
+        script_src_urls:
+          $ref: '#/components/schemas/ScriptSrcUrls'
+          description: Script-src settings including URLs and enabled flag.
+          nullable: true
+        style_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for style-src directive.
+          nullable: true
+      description: CSP (Content Security Policy) settings.
+    OrgDetails:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique id of the org
+        name:
+          type: string
+          description: Name of the org
+    ClusterNonEmbedAccess:
+      type: object
+      properties:
+        block_full_app_access:
+          type: boolean
+          description: Block full application access for non-embedded usage.
+          nullable: true
+        groups_with_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupInfo'
+          description: 'Groups that have non-embed full app access.
+
+            Only applicable when orgs feature is disabled. Use org_preferences when org feature is enabled.'
+          nullable: true
+      description: Cluster-level non-embed access configuration.
+    SecuritySettingsOrgPreferences:
+      type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/SecuritySettingsOrgDetails'
+          description: Org details (id and name).
+          nullable: true
+        cors_whitelisted_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed origins for CORS for this org.
+          nullable: true
+        non_embed_access:
+          $ref: '#/components/schemas/OrgNonEmbedAccess'
+          description: Non-embed access configuration for this org.
+          nullable: true
+        trusted_auth_status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          description: 'Trusted authentication status for this org. <br/>  <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          nullable: true
+      description: Org-level security preferences.
+    ConfigureSecuritySettingsRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Cluster-level security preferences.
+          allOf:
+          - $ref: '#/components/schemas/SecuritySettingsClusterPreferencesInput'
+        org_preferences:
+          description: Org-level security preferences for the current org.
+          type: array
+          items:
+            $ref: '#/components/schemas/SecuritySettingsOrgPreferencesInput'
+    SystemConfig:
+      type: object
+      properties:
+        onboarding_content_url:
+          type: string
+          nullable: true
+        saml_enabled:
+          type: boolean
+          nullable: true
+        okta_enabled:
+          type: boolean
+          nullable: true
+    ClusterNonEmbedAccessInput:
+      type: object
+      properties:
+        block_full_app_access:
+          type: boolean
+          description: Block full application access for non-embedded usage.
+          nullable: true
+        groups_identifiers_with_access:
+          type: array
+          items:
+            type: string
+          description: 'Group identifiers that are allowed non-embed full app access.
+
+            Can only be set when orgs feature is disabled and block_full_app_access is true.'
+          nullable: true
+      description: Input for cluster-level non-embed access configuration.
+    UpdateSystemConfigRequest:
+      type: object
+      properties:
+        configuration:
+          description: Configuration JSON with the key-value pair of configuration attributes to be updated.
+          type: object
+      required:
+      - configuration
+    EventChannelConfigInput:
+      type: object
+      required:
+      - event_type
+      - channels
+      properties:
+        event_type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of event for which communication channels are configured
+        channels:
+          type: array
+          items:
+            type: string
+            enum:
+            - EMAIL
+            - WEBHOOK
+          description: Communication channels enabled for this event type. Empty array disables all channels for this event.
+    CspSettingsInput:
+      type: object
+      properties:
+        connect_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for connect-src directive.
+          nullable: true
+        font_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for font-src directive.
+          nullable: true
+        visual_embed_hosts:
+          type: array
+          items:
+            type: string
+          description: Allowed hosts for visual embed (frame-ancestors directive).
+          nullable: true
+        iframe_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for frame-src directive.
+          nullable: true
+        img_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for img-src directive.
+          nullable: true
+        script_src_urls:
+          $ref: '#/components/schemas/ScriptSrcUrlsInput'
+          description: Script-src settings including URLs and enabled flag.
+          nullable: true
+        style_src_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed URLs for style-src directive.
+          nullable: true
+      description: Input for CSP (Content Security Policy) settings.
+    ChannelValidationDetail:
+      type: object
+      required:
+      - validation_step
+      - status
+      properties:
+        validation_step:
+          type: string
+          enum:
+          - HTTP_CONNECTION_CHECK
+          - STORAGE_FILE_UPLOAD_CHECK
+          description: The validation step that was performed.
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          description: Status of this validation step.
+        http_status:
+          type: integer
+          format: int32
+          description: HTTP status code returned by the channel (if applicable).
+          nullable: true
+        error_message:
+          type: string
+          description: Error message from the channel or validation process.
+          nullable: true
+        aws_s3_info:
+          $ref: '#/components/schemas/ChannelValidationAwsS3Info'
+          description: AWS S3 storage information from the validation step.
+          nullable: true
+        gcp_gcs_info:
+          $ref: '#/components/schemas/ChannelValidationGcpGcsInfo'
+          description: 'GCP GCS storage information from the validation step. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          nullable: true
+      description: Validation detail result for a sub-step.
+    SearchCommunicationChannelPreferencesRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Event types to search for in cluster-level preferences.
+          type: array
+          items:
+            type: string
+            enum:
+            - LIVEBOARD_SCHEDULE
+        org_preferences:
+          description: Org-specific search criteria.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgPreferenceSearchCriteriaInput'
+    CommunicationChannelPreferencesResponse:
+      type: object
+      properties:
+        cluster_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfig'
+          description: Cluster-level default configurations.
+          nullable: true
+        org_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgChannelConfigResponse'
+          description: Org-specific configurations.
+          nullable: true
+    OrgNonEmbedAccessInput:
+      type: object
+      properties:
+        block_full_app_access:
+          type: boolean
+          description: Block full application access for non-embedded usage.
+          nullable: true
+        groups_identifiers_with_access:
+          type: array
+          items:
+            type: string
+          description: Group identifiers that are allowed non-embed full app access. Can only be set if block_full_app_access is true.
+          nullable: true
+      description: Input for org-level non-embed access configuration.
+    OrgChannelConfigInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: Unique identifier or name of the org
+        operation:
+          type: string
+          enum:
+          - REPLACE
+          - RESET
+          default: REPLACE
+          description: 'Operation to perform. REPLACE: Update preferences (default). RESET: Remove org-specific configurations, causing fallback to cluster-level preferences.'
+          nullable: true
+        preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfigInput'
+          description: Event-specific configurations. Required for REPLACE operation.
+          nullable: true
+        reset_events:
+          type: array
+          items:
+            type: string
+            enum:
+            - LIVEBOARD_SCHEDULE
+          description: Event types to reset. Required for RESET operation. Org-specific configurations for these events will be removed, causing fallback to cluster-level preferences.
+          nullable: true
+    SecuritySettingsResponse:
+      type: object
+      properties:
+        cluster_preferences:
+          $ref: '#/components/schemas/SecuritySettingsClusterPreferences'
+          description: Cluster-level security preferences.
+          nullable: true
+        org_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecuritySettingsOrgPreferences'
+          description: Org-level security preferences.
+          nullable: true
+      description: Response type for security settings search.
+    SecuritySettingsOrgPreferencesInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: Unique identifier or name of the org
+        cors_whitelisted_urls:
+          type: array
+          items:
+            type: string
+          description: Allowed origins for CORS for this org.
+          nullable: true
+        non_embed_access:
+          $ref: '#/components/schemas/OrgNonEmbedAccessInput'
+          description: Non-embed access configuration for this org.
+          nullable: true
+      description: 'Input for org-level security preferences configuration.
+
+        Note: cross-org operations are not supported currently.'
+    ChannelValidationGcpGcsInfo:
+      type: object
+      properties:
+        bucket_name:
+          type: string
+          description: Name of the GCS bucket.
+          nullable: true
+        file_name:
+          type: string
+          description: Name of the uploaded file.
+          nullable: true
+        object_key:
+          type: string
+          description: Key (path) of the object within the GCS bucket.
+          nullable: true
+      description: GCP GCS storage information returned from a validation step.
+    SecuritySettingsOrgDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Unique identifier of the org.
+          nullable: true
+        name:
+          type: string
+          description: Name of the org.
+          nullable: true
+      description: Org details for security settings.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

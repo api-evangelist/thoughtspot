@@ -1,0 +1,461 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Jobs API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Jobs
+paths:
+  /api/rest/2.0/jobs/history/communication-channels/search:
+    post:
+      operationId: searchChannelHistory
+      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nSearches delivery history for communication channels such as webhooks. Returns channel-level delivery status for each job execution record. Use this to monitor channel health and delivery success rates across events.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n**NOTE**: When `channel_type` is `WEBHOOK`, the following constraints apply:\n\n- `job_ids`, `channel_identifiers`, and `events` each accept at most one element.\n- When `job_ids` is provided, it is used as the sole lookup key and other filter fields are ignored.\n- When `job_ids` is not provided, `channel_identifiers` and `events` are both required, each containing exactly one element.\n- Records older than the configured retention period are not returned.\n- Use `start_epoch_time_in_millis` and/or `end_epoch_time_in_millis` to narrow results to a specific time window.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Jobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchChannelHistoryRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Channel status logs retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchChannelHistoryResponse'
+              examples:
+                example_1:
+                  description: Search webhook channel history by channel identifier and event
+                  value:
+                    jobs:
+                    - id: n.6170538a-a4d4-4712-91bf-39b353db2b72
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599720674
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: 90c4f1b0-08c9-4a6c-8e61-49cffd9f1550
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+                    - id: n.5c5bbedb-c425-48c0-8b54-a17267b08e7c
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599600508
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: b9834966-fe85-4fa9-8a10-9889c01d4826
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+                example_2:
+                  description: Search webhook channel history by job ID
+                  value:
+                    jobs:
+                    - id: n.5c5bbedb-c425-48c0-8b54-a17267b08e7c
+                      status: SUCCESS
+                      creation_time_in_millis: 1771599600508
+                      event:
+                        type: LIVEBOARD_SCHEDULE
+                        id: 2bb2ff83-b8d9-4d2b-8913-b2589bb6831b
+                        name: schedule-identifier
+                        run_id: b9834966-fe85-4fa9-8a10-9889c01d4826
+                      recipients:
+                      - type: USER
+                        id: d211f619-8b72-45d3-92a7-69dde41159c7
+                        name: admin-user
+                        email: admin@example.com
+                      detail: ''
+                      try_count: 1
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_request:
+                  summary: Invalid request
+                  value:
+                    error:
+                      message:
+                        code: 10002
+                        incident_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        trace_id_guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        debug: channel_type must be specified. Currently only WEBHOOK is supported.
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unauthorized_access:
+                  summary: Unauthorized access
+                  value:
+                    error:
+                      message:
+                        code: 10097
+                        incident_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        trace_id_guid: b2c3d4e5-f678-9012-bcde-f23456789012
+                        debug: Authentication required to retrieve channel delivery history.
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden_access:
+                  summary: Forbidden access
+                  value:
+                    error:
+                      message:
+                        code: 10023
+                        incident_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        trace_id_guid: c3d4e5f6-7890-1234-cdef-345678901234
+                        debug: Insufficient privileges to retrieve channel delivery history.
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpected_error:
+                  summary: Unexpected error
+                  value:
+                    error:
+                      message:
+                        code: 10038
+                        incident_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        trace_id_guid: d4e5f678-9012-3456-defa-456789012345
+                        debug: Unexpected server error while retrieving channel delivery history.
+components:
+  schemas:
+    ChannelHistoryEventInfo:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        id:
+          type: string
+          description: Unique ID of the event.
+        name:
+          type: string
+          description: Name of the event.
+          nullable: true
+        run_id:
+          type: string
+          description: Unique run ID for this event execution.
+          nullable: true
+      description: Event metadata for the triggering event associated with a job.
+    JobRecipient:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - USER
+          - EXTERNAL
+          description: Type of the recipient.
+        id:
+          type: string
+          description: Unique ID of the recipient.
+          nullable: true
+        name:
+          type: string
+          description: Name of the recipient.
+          nullable: true
+        email:
+          type: string
+          description: Email of the recipient.
+          nullable: true
+      description: A recipient (user, group, or external) for a job execution.
+    SearchChannelHistoryRequest:
+      type: object
+      properties:
+        channel_type:
+          description: Type of communication channel to search history for.
+          type: string
+          enum:
+          - WEBHOOK
+        job_ids:
+          description: List of job execution record IDs to retrieve.
+          type: array
+          items:
+            type: string
+        channel_identifiers:
+          description: List of channel IDs or names to filter by.
+          type: array
+          items:
+            type: string
+        channel_status:
+          description: Filter by channel delivery status.
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+        events:
+          description: Filter by events that triggered the channel.
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryEventInput'
+        start_epoch_time_in_millis:
+          description: Filter records created on or after this time (epoch milliseconds).
+          type: number
+          format: float
+        end_epoch_time_in_millis:
+          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          type: number
+          format: float
+      required:
+      - channel_type
+    SearchChannelHistoryResponse:
+      type: object
+      required:
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
+    ChannelHistoryEventInput:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        identifier:
+          type: string
+          description: Unique ID or name of the event.
+          nullable: true
+      description: Event specification for channel history search.
+    ChannelHistoryJob:
+      type: object
+      required:
+      - id
+      - status
+      - creation_time_in_millis
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this job.
+        status:
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+          description: Delivery status of this job.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Timestamp when this job was created (epoch milliseconds).
+        event:
+          $ref: '#/components/schemas/ChannelHistoryEventInfo'
+          description: Event metadata for the triggering event associated with this job.
+          nullable: true
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobRecipient'
+          description: The users, groups or external recipients for this job.
+          nullable: true
+        detail:
+          type: string
+          description: Additional delivery details such as HTTP response code or error message.
+          nullable: true
+        try_count:
+          type: integer
+          format: int32
+          description: Number of attempts made. 1 indicates first attempt.
+          nullable: true
+      description: A single job execution record for a channel.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

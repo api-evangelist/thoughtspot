@@ -1,0 +1,441 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Input Tables API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Input Tables
+paths:
+  /api/rest/2.0/input-tables/create:
+    post:
+      operationId: createInputTable
+      description: "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nCreates an input table and links it to a ThoughtSpot model (worksheet). An input table is a user-editable table stored in the model's external Cloud Data Warehouse (CDW) connection. It lets analysts enter or import data directly from the ThoughtSpot UI without requiring access to the underlying warehouse.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required.\n\n#### Usage guidelines\n\nTo create an input table, provide the following in the request body:\n\n* **`table_name`** — Physical name of the table to create in the external warehouse.\n* **`model_identifier`** — GUID or name of the model (worksheet) to link the input table to. The connection, database, and schema used to create the physical table are derived from this model's metadata.\n* **`table_definition`** — Describes the table schema:\n  * `referenced_columns` — List of column GUIDs from the linked model to include as read-only reference columns in the input table. These columns anchor the input data to existing model dimensions.\n  * `new_columns` — List of new editable columns to create. Each column requires:\n    * `name` — Column display name.\n    * `data_type` — Warehouse data type (for example, `VARCHAR`, `DOUBLE`, `DATE`).\n    * `type` — Semantic role of the column: `ATTRIBUTE` for dimension columns or `MEASURE` for numeric columns.\n\n**Note**: The physical table is created in the same connection, database, and schema as the linked model. Ensure the connection user has `CREATE TABLE` permissions in the target schema.\n\n#### Examples\n\nCreate an input table with one referenced model column and one new editable measure column:\n\n```json\n{\n  \"table_name\": \"Sales Region Targets\",\n  \"model_identifier\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"table_definition\": {\n    \"referenced_columns\": [\"c7d8e9f0-1234-5678-abcd-ef0987654321\"],\n    \"new_columns\": [\n      {\n        \"name\": \"target_revenue\",\n        \"data_type\": \"DOUBLE\",\n        \"type\": \"MEASURE\"\n      }\n    ]\n  }\n}\n```\n\nCreate an input table with multiple new editable columns and no referenced columns:\n\n```json\n{\n  \"table_name\": \"Budget Adjustments\",\n  \"model_identifier\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"table_definition\": {\n    \"referenced_columns\": [],\n    \"new_columns\": [\n      {\n        \"name\": \"region\",\n        \"data_type\": \"VARCHAR\",\n        \"type\": \"ATTRIBUTE\"\n      },\n      {\n        \"name\": \"adjustment_amount\",\n        \"data_type\": \"DOUBLE\",\n        \"type\": \"MEASURE\"\n      },\n      {\n        \"name\": \"effective_date\",\n        \"data_type\": \"DATE\",\n        \"type\": \"ATTRIBUTE\"\n      }\n    ]\n  }\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Input Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInputTableRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Input table created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputTableResponse'
+              examples:
+                example_1:
+                  summary: Input table created successfully
+                  value:
+                    input_table_identifier: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        '400':
+          description: Bad request — invalid payload, no columns selected, or upload disabled on the connection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden — caller does not have MODIFY permission on the model.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/input-tables/{input_table_identifier}/delete:
+    post:
+      operationId: deleteInputTable
+      description: "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nDeletes an input table. This operation unlinks the input table from its owner model, removes it from the connection metadata, and drops the physical table from the Cloud Data Warehouse (CDW). This action is irreversible — all data stored in the input table is permanently deleted.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required.\n\n#### Usage guidelines\n\nSpecify the GUID of the input table to delete as the `input_table_identifier` path parameter. The owner model (worksheet) is derived from the input table's metadata and is used to locate and clean up the associated connection entry.\n\n**Note**: Deleting an input table does not delete the linked model. However, any Answers or Liveboards that reference columns from the deleted input table will lose access to that data and may return errors until the affected visualizations are updated.\n\n#### Example\n\nPass the input table GUID as a path parameter. This endpoint has no request body.\n\n```\nDELETE /api/rest/2.0/input-tables/a1b2c3d4-e5f6-7890-abcd-ef1234567890/delete\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Input Tables
+      parameters:
+      - in: path
+        name: input_table_identifier
+        required: true
+        schema:
+          type: string
+        description: Unique ID of the input table to delete.
+      responses:
+        '204':
+          description: Successfully deleted the input table and dropped the physical CDW table.
+        '400':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/input-tables/{input_table_identifier}/update:
+    post:
+      operationId: updateInputTable
+      description: "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nWrites rows of data into an existing input table. The supplied rows replace the current contents of the table: each call serializes the provided values to CSV and loads them into the input table via DataManager, overwriting any previously stored rows.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required. The caller must also have `MODIFY` permission on the input table object.\n\n#### Usage guidelines\n\nSpecify the input table GUID as the `input_table_identifier` path parameter and provide the row data in the request body:\n\n* **`columns`** — Ordered list of column names to write. Column names must exactly match the names defined when the input table was created. Only the listed columns are written; unlisted columns retain their existing values.\n* **`rows`** — List of rows to load. Each row is an array of string values in the same order as `columns`. All cell values must be passed as strings regardless of the column's underlying data type.\n\n**Note**: Each call fully replaces the previously loaded rows. To clear the table, send an empty `rows` array. Partial updates to individual rows are not supported; re-submit all rows on every write.\n\n#### Examples\n\nWrite two rows to an input table. Pass the input table GUID as the\n`input_table_identifier` path parameter:\n\n```\nPOST /api/rest/2.0/input-tables/{input_table_identifier}/update\n```\n\n```json\n{\n  \"columns\": [\"region\", \"target_revenue\", \"effective_date\"],\n  \"rows\": [\n    [\"West\", \"1500000\", \"2025-01-01\"],\n    [\"East\", \"2000000\", \"2025-01-01\"]\n  ]\n}\n```\n\nThe response returns the number of rows written:\n\n```json\n{ \"rows_loaded\": 2 }\n```\n\nClear all rows from an input table:\n\n```json\n{\n  \"columns\": [\"region\", \"target_revenue\"],\n  \"rows\": []\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Input Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInputTableRequest'
+        required: true
+      parameters:
+      - in: path
+        name: input_table_identifier
+        required: true
+        schema:
+          type: string
+        description: Unique ID of the input table to update.
+      responses:
+        '200':
+          description: Rows loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputTableUpdateResponse'
+              examples:
+                example_1:
+                  summary: Rows loaded successfully
+                  value:
+                    rows_loaded: 3
+        '400':
+          description: Malformed request or unknown column name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden — caller does not have MODIFY permission on the input table.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Input table not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateInputTableRequest:
+      type: object
+      properties:
+        table_name:
+          description: Physical table name to create in the external warehouse.
+          type: string
+        model_identifier:
+          description: 'Unique ID or name of the model (worksheet) to link the
+
+            input table to.'
+          type: string
+        table_definition:
+          description: 'Definition of the input table, including new columns
+
+            and referenced model columns.'
+          allOf:
+          - $ref: '#/components/schemas/InputTableDefinitionInput'
+      required:
+      - table_name
+      - model_identifier
+      - table_definition
+    InputColumnSchemaInput:
+      type: object
+      required:
+      - name
+      - data_type
+      - type
+      properties:
+        name:
+          type: string
+          description: Name of the column.
+        data_type:
+          type: string
+          description: 'Physical data type of the column as recognized by the connected
+
+            warehouse (for example, VARCHAR, INT64, DOUBLE, BOOL, DATE).
+
+            The accepted values depend on the underlying Cloud Data Warehouse.'
+        type:
+          type: string
+          enum:
+          - ATTRIBUTE
+          - MEASURE
+          description: 'Semantic role of the column in ThoughtSpot. Use ATTRIBUTE for
+
+            dimensional data such as text, dates, and identifiers, and
+
+            MEASURE for numeric or aggregatable values.'
+        allowed_values:
+          type: array
+          items:
+            type: string
+          description: 'Optional list of permitted values for the column. When provided,
+
+            data written to this column is restricted to these values. Omit
+
+            or leave empty to allow any value supported by the data type. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
+          nullable: true
+      description: Schema definition for a single input column.
+    InputTableResponse:
+      type: object
+      properties:
+        input_table_identifier:
+          type: string
+          description: Unique ID of the newly created input table.
+          nullable: true
+    InputTableUpdateResponse:
+      type: object
+      properties:
+        rows_loaded:
+          type: integer
+          format: int32
+          description: Number of rows successfully written to the input table.
+          nullable: true
+      description: Response returned after successfully writing rows to an input table.
+    UpdateInputTableRequest:
+      type: object
+      properties:
+        columns:
+          description: 'Names of the columns being written, in the same order as
+
+            the values in each row.'
+          type: array
+          items:
+            type: string
+        rows:
+          description: 'Rows to write into the input table. Each row is an array
+
+            of string values aligned positionally with columns.'
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - columns
+      - rows
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    InputTableDefinitionInput:
+      type: object
+      required:
+      - new_columns
+      - referenced_columns
+      properties:
+        new_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputColumnSchemaInput'
+          description: New input-only columns to create in the table.
+        referenced_columns:
+          type: array
+          items:
+            type: string
+          description: 'Column IDs from the linked model to include in the table.
+
+            Pass an empty array to create an input table with no reference
+
+            columns from the model.'
+      description: Definition of the input table schema.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

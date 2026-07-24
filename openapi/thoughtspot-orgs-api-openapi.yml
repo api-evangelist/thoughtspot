@@ -1,0 +1,458 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Orgs API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Orgs
+paths:
+  /api/rest/2.0/orgs/create:
+    post:
+      operationId: createOrg
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates an Org object.\n\nTo use this API, the [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview) feature must be enabled in your cluster.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Orgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Organization successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgResponse'
+              examples:
+                example_1:
+                  value:
+                    id: 1980035173
+                    name: test_org
+                    status: ACTIVE
+                    description: test_org
+                    visibility: SHOW
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/orgs/{org_identifier}/delete:
+    post:
+      operationId: deleteOrg
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes an Org object from the ThoughtSpot system.\n\nRequires cluster administration (**Can administer Org**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\nWhen you delete an Org, all its users and objects created in that Org context are removed. However, if the users in the deleted Org also exists in other Orgs, they are removed only from the deleted Org.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Orgs
+      parameters:
+      - in: path
+        name: org_identifier
+        required: true
+        schema:
+          type: string
+        description: ID or name of the Org
+      responses:
+        '204':
+          description: Organization successfully deleted.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/orgs/search:
+    post:
+      operationId: searchOrgs
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of Orgs configured on the ThoughtSpot system. To get details of a specific Org, specify the Org ID or name. You can also pass parameters such as status, visibility, and user identifiers to get a specific list of Orgs.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Orgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchOrgsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Organization search result.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgResponse'
+              examples:
+                example_1:
+                  value:
+                  - id: 0
+                    name: Primary
+                    status: ACTIVE
+                    description: Primary Org
+                    visibility: SHOW
+                  - id: 583464508
+                    name: test_org
+                    status: ACTIVE
+                    description: test_org
+                    visibility: SHOW
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/orgs/{org_identifier}/update:
+    post:
+      operationId: updateOrg
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates an Org object. You can modify Org properties such as name, description, and user associations.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Orgs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgRequest'
+        required: true
+      parameters:
+      - in: path
+        name: org_identifier
+        required: true
+        schema:
+          type: string
+        description: ID or name of the Org
+      responses:
+        '204':
+          description: Organization successfully updated.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UpdateOrgRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the Org
+          type: string
+        description:
+          description: Description of the Org
+          type: string
+        user_identifiers:
+          description: Add Users to an Org
+          type: array
+          items:
+            type: string
+        group_identifiers:
+          description: Add Default Groups to an Org
+          type: array
+          items:
+            type: string
+        operation:
+          description: Type of update operation. Default operation type is ADD
+          default: ADD
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+    OrgResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Unique identifier of the Org.
+          nullable: true
+        name:
+          type: string
+          description: Name of the Org.
+          nullable: true
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - IN_ACTIVE
+          description: Status of the Org.
+          nullable: true
+        description:
+          type: string
+          description: Description of the Org.
+          nullable: true
+        visibility:
+          type: string
+          enum:
+          - SHOW
+          - HIDDEN
+          description: Visibility of the Org.
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    CreateOrgRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the Org.
+          type: string
+        description:
+          description: Description of the Org.
+          type: string
+      required:
+      - name
+    SearchOrgsRequest:
+      type: object
+      properties:
+        org_identifier:
+          description: ID or name of the Org
+          type: string
+        description:
+          description: Description of the Org
+          type: string
+        visibility:
+          description: Visibility of the Org
+          type: string
+          enum:
+          - SHOW
+          - HIDDEN
+        status:
+          description: Status of the Org
+          type: string
+          enum:
+          - ACTIVE
+          - IN_ACTIVE
+        user_identifiers:
+          description: GUIDs or names of the users for which you want to retrieve the Orgs data
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

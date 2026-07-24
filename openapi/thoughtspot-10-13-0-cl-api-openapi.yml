@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl 10.13.0.cl API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: 10.13.0.cl
+paths:
+  /api/rest/2.0/ai/relevant-questions/:
+    post:
+      operationId: getRelevantQuestions
+      description: "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.13.0.cl or later</span>\n\nBreaks down a natural language query into a series of smaller analytical sub-questions, each mapped to a relevant data source.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view-level access to the referenced metadata objects.\n\n#### Usage guidelines\n\nThe request must include:\n- `query`: the natural language question to decompose into analytical sub-questions\n- `metadata_context`: at least one of the following context identifiers to guide question generation:\n  - `conversation_identifier` — an existing conversation session ID\n  - `answer_identifiers` — a list of Answer GUIDs\n  - `liveboard_identifiers` — a list of Liveboard GUIDs\n  - `data_source_identifiers` — a list of data source GUIDs\n\nOptional parameters for refining the output:\n- `ai_context`: additional context to improve response quality\n  - `content` — supplementary text or CSV data as string input\n  - `instructions` — custom text instructions for the AI system\n- `limit_relevant_questions`: maximum number of questions to return (default: `5`)\n- `bypass_cache`: if `true`, forces fresh computation instead of returning cached results\n\nIf the request is successful, the API returns a list of relevant analytical questions, each containing:\n- `query`: the generated sub-question\n- `data_source_identifier`: the unique ID of the data source the question targets\n- `data_source_name`: the display name of the corresponding data source\n\n#### Error responses\n\n| Code | Description                                                                                                                           |\n|------|---------------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                                  |\n| 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view access to the referenced metadata objects. |\n\n> ###### Note:\n> * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> * This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - 10.13.0.cl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRelevantQuestionsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Common successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eureka_GetRelevantQuestionsResponse'
+        '201':
+          description: Common error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eureka_GetRelevantQuestionsResponse'
+        '400':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    GetRelevantQuestionsRequest:
+      type: object
+      properties:
+        metadata_context:
+          description: metadata for the query to enable generation of relevant sub-questions; at least one context identifier is required.
+          allOf:
+          - $ref: '#/components/schemas/MetadataContext'
+        limit_relevant_questions:
+          description: Maximum number of relevant questions that is allowed in the response, default = 5.
+          type: integer
+          format: int32
+        bypass_cache:
+          description: If true, results are not returned from cache & calculated every time.
+          type: boolean
+          nullable: true
+        query:
+          description: A user query that requires breaking down into smaller, more manageable analytical questions to facilitate better understanding and analysis. Must be a non-empty string.
+          type: string
+        ai_context:
+          description: Additional context to guide the response.
+          allOf:
+          - $ref: '#/components/schemas/AIContext'
+      required:
+      - metadata_context
+      - query
+    AIContext:
+      type: object
+      properties:
+        instructions:
+          type: array
+          items:
+            type: string
+          description: User specific text instructions sent to AI system for processing the query.
+          nullable: true
+        content:
+          type: array
+          items:
+            type: string
+          description: User provided content like text data, csv data as a string message to provide context & potentially improve the quality of the response.
+          nullable: true
+    eureka_RelevantQuestion:
+      type: object
+      properties:
+        query:
+          type: string
+          description: NL query that can be run using spotter aka natural language search to get an AI generated answer.
+          nullable: true
+        data_source_identifier:
+          type: string
+          description: Unique identifier of the data source on which this query can be run on.
+          nullable: true
+        data_source_name:
+          type: string
+          description: Display name of the data source on which this query can be run on.
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    eureka_GetRelevantQuestionsResponse:
+      type: object
+      properties:
+        relevant_questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/eureka_RelevantQuestion'
+          description: List of relevant questions that can be run on their respective data sources.
+          nullable: true
+    MetadataContext:
+      type: object
+      properties:
+        data_source_identifiers:
+          type: array
+          items:
+            type: string
+          description: List of data_source_identifiers to provide context for breaking down user query into analytical queries that can be run on them.
+          nullable: true
+        answer_identifiers:
+          type: array
+          items:
+            type: string
+          description: List of answer unique identifiers (GUIDs) whose data will be used to guide the response.
+          nullable: true
+        conversation_identifier:
+          type: string
+          description: Unique identifier to denote current conversation.
+          nullable: true
+        liveboard_identifiers:
+          type: array
+          items:
+            type: string
+          description: List of liveboard unique identifiers (GUIDs) whose data will be used to guide the response.
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl

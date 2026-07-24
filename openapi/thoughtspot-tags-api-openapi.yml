@@ -1,0 +1,590 @@
+openapi: 3.0.0
+info:
+  title: ThoughtSpot Public REST 10.1.0.cl Tags API
+  version: '2.0'
+servers:
+- url: '{base-url}'
+  variables:
+    base-url:
+      default: https://localhost:443
+security:
+- bearerAuth: []
+tags:
+- name: Tags
+paths:
+  /api/rest/2.0/tags/assign:
+    post:
+      operationId: assignTag
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAssigns tags to Liveboards, Answers, Tables, and Worksheets.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignTagRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Tags successfully assigned.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/tags/create:
+    post:
+      operationId: createTag
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a tag object.\n\nTags are labels that identify a metadata object. For example, you can create a tag to designate subject areas, such as sales, HR, marketing, and finance.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Tag successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+              examples:
+                example_1:
+                  value:
+                    name: test5
+                    id: 6abf5aec-3485-4f83-b25f-8c55b92e2b20
+                    color: '#342323'
+                    deleted: false
+                    hidden: false
+                    external: false
+                    deprecated: false
+                    creation_time_in_millis: 1685441468684
+                    modification_time_in_millis: 1685441468684
+                    author_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    modifier_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    owner_id: 6abf5aec-3485-4f83-b25f-8c55b92e2b20
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/tags/{tag_identifier}/delete:
+    post:
+      operationId: deleteTag
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes a tag object from the ThoughtSpot system\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      parameters:
+      - in: path
+        name: tag_identifier
+        required: true
+        schema:
+          type: string
+        description: Tag identifier Tag name or Tag id.
+      responses:
+        '204':
+          description: Tag successfully deleted.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/tags/search:
+    post:
+      operationId: searchTags
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of tag objects available on the ThoughtSpot system. To get details of a specific tag object, specify the GUID or name.\n\nAny authenticated user can search for tag objects.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchTagsRequest'
+        required: true
+      parameters: []
+      responses:
+        '200':
+          description: Tags search result.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+              examples:
+                example_1:
+                  value:
+                  - name: test4
+                    id: 0935bbb5-17e2-43ab-b657-da6bf347cbb4
+                    color: '#342323'
+                    deleted: false
+                    hidden: false
+                    external: false
+                    deprecated: false
+                    creation_time_in_millis: 1684937524885
+                    modification_time_in_millis: 1684937524885
+                    author_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    modifier_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    owner_id: 0935bbb5-17e2-43ab-b657-da6bf347cbb4
+                  - name: test6
+                    id: 65a5c39a-daf5-4cae-975f-44283628494e
+                    color: '#342323'
+                    deleted: false
+                    hidden: false
+                    external: false
+                    deprecated: false
+                    creation_time_in_millis: 1684988834183
+                    modification_time_in_millis: 1684988887888
+                    author_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    modifier_id: 59481331-ee53-42be-a548-bd87be6ddd4a
+                    owner_id: 65a5c39a-daf5-4cae-975f-44283628494e
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/tags/unassign:
+    post:
+      operationId: unassignTag
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the tags applied to a Liveboard, Answer, Table, or Worksheet.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnassignTagRequest'
+        required: true
+      parameters: []
+      responses:
+        '204':
+          description: Tags successfully unassigned.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/rest/2.0/tags/{tag_identifier}/update:
+    post:
+      operationId: updateTag
+      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates a tag object.\n\nYou can modify the `name` and `color` properties of a tag object.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      tags:
+      - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagRequest'
+        required: true
+      parameters:
+      - in: path
+        name: tag_identifier
+        required: true
+        schema:
+          type: string
+        description: Name or Id of the tag.
+      responses:
+        '204':
+          description: Tag successfully updated.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UpdateTagRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
+    UnassignTagRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata
+      - tag_identifiers
+    TagMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  1. LIVEBOARD\n  2. ANSWERS\n  3. LOGICAL_TABLE for any data object such as table, worksheet or view.\n  4. LOGICAL_COLUMN for a column of any data object such as tables, worksheets or views."
+          nullable: true
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
+    SearchTagsRequest:
+      type: object
+      properties:
+        tag_identifier:
+          description: Name or Id of the tag.
+          type: string
+        name_pattern:
+          description: A pattern to match case-insensitive name of the Tag object.
+          type: string
+        color:
+          description: Color of the tag.
+          type: string
+    AssignTagRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata
+      - tag_identifiers
+    Tag:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        color:
+          type: string
+          nullable: true
+        deleted:
+          type: boolean
+          nullable: true
+        hidden:
+          type: boolean
+          nullable: true
+        external:
+          type: boolean
+          nullable: true
+        deprecated:
+          type: boolean
+          nullable: true
+        creation_time_in_millis:
+          type: number
+          format: float
+          nullable: true
+        modification_time_in_millis:
+          type: number
+          format: float
+          nullable: true
+        author_id:
+          type: string
+          nullable: true
+        modifier_id:
+          type: string
+          nullable: true
+        owner_id:
+          type: string
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          nullable: true
+    CreateTagRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
+      required:
+      - name
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-roles:
+- name: 26.2.0.cl
+  id: 26.2.0.cl
+  tags:
+  - 26.2.0.cl
+  description: Roles for version 26.2.0.cl
+- name: 10.4.0.cl
+  id: 10.4.0.cl
+  tags:
+  - 10.4.0.cl
+  description: Roles for version 10.4.0.cl
+- name: 26.7.0.cl
+  id: 26.7.0.cl
+  tags:
+  - 26.7.0.cl
+  description: Roles for version 26.7.0.cl
+- name: 26.8.0.cl
+  id: 26.8.0.cl
+  tags:
+  - 26.8.0.cl
+  description: Roles for version 26.8.0.cl
+- name: 26.6.0.cl
+  id: 26.6.0.cl
+  tags:
+  - 26.6.0.cl
+  description: Roles for version 26.6.0.cl
+- name: 10.15.0.cl
+  id: 10.15.0.cl
+  tags:
+  - 10.15.0.cl
+  description: Roles for version 10.15.0.cl
+- name: 10.13.0.cl
+  id: 10.13.0.cl
+  tags:
+  - 10.13.0.cl
+  description: Roles for version 10.13.0.cl
+- name: 26.9.0.cl
+  id: 26.9.0.cl
+  tags:
+  - 26.9.0.cl
+  description: Roles for version 26.9.0.cl
+- name: 10.7.0.cl
+  id: 10.7.0.cl
+  tags:
+  - 10.7.0.cl
+  description: Roles for version 10.7.0.cl
+- name: 26.5.0.cl
+  id: 26.5.0.cl
+  tags:
+  - 26.5.0.cl
+  description: Roles for version 26.5.0.cl
+- name: 9.0.0.cl
+  id: 9.0.0.cl
+  tags:
+  - 9.0.0.cl
+  description: Roles for version 9.0.0.cl
+- name: 9.4.0.cl
+  id: 9.4.0.cl
+  tags:
+  - 9.4.0.cl
+  description: Roles for version 9.4.0.cl
+- name: 9.12.0.cl
+  id: 9.12.0.cl
+  tags:
+  - 9.12.0.cl
+  description: Roles for version 9.12.0.cl
+- name: 26.4.0.cl
+  id: 26.4.0.cl
+  tags:
+  - 26.4.0.cl
+  description: Roles for version 26.4.0.cl
+- name: 10.12.0.cl
+  id: 10.12.0.cl
+  tags:
+  - 10.12.0.cl
+  description: Roles for version 10.12.0.cl
+- name: 9.2.0.cl
+  id: 9.2.0.cl
+  tags:
+  - 9.2.0.cl
+  description: Roles for version 9.2.0.cl
+- name: 9.9.0.cl
+  id: 9.9.0.cl
+  tags:
+  - 9.9.0.cl
+  description: Roles for version 9.9.0.cl
+- name: 9.6.0.cl
+  id: 9.6.0.cl
+  tags:
+  - 9.6.0.cl
+  description: Roles for version 9.6.0.cl
+- name: 10.10.0.cl
+  id: 10.10.0.cl
+  tags:
+  - 10.10.0.cl
+  description: Roles for version 10.10.0.cl
+- name: 10.6.0.cl
+  id: 10.6.0.cl
+  tags:
+  - 10.6.0.cl
+  description: Roles for version 10.6.0.cl
+- name: 10.3.0.cl
+  id: 10.3.0.cl
+  tags:
+  - 10.3.0.cl
+  description: Roles for version 10.3.0.cl
+- name: 10.1.0.cl
+  id: 10.1.0.cl
+  tags:
+  - 10.1.0.cl
+  description: Roles for version 10.1.0.cl
+- name: 10.9.0.cl
+  id: 10.9.0.cl
+  tags:
+  - 10.9.0.cl
+  description: Roles for version 10.9.0.cl
+- name: 10.8.0.cl
+  id: 10.8.0.cl
+  tags:
+  - 10.8.0.cl
+  description: Roles for version 10.8.0.cl
+- name: 9.5.0.cl
+  id: 9.5.0.cl
+  tags:
+  - 9.5.0.cl
+  description: Roles for version 9.5.0.cl
+- name: 26.3.0.cl
+  id: 26.3.0.cl
+  tags:
+  - 26.3.0.cl
+  description: Roles for version 26.3.0.cl
+- name: 10.14.0.cl
+  id: 10.14.0.cl
+  tags:
+  - 10.14.0.cl
+  description: Roles for version 10.14.0.cl
+- name: 9.7.0.cl
+  id: 9.7.0.cl
+  tags:
+  - 9.7.0.cl
+  description: Roles for version 9.7.0.cl
