@@ -1,0 +1,2777 @@
+{
+  "info": {
+    "_postman_id": "bb5c2bbb-4d19-4f57-ab5f-4bb6b230b532",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.9.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:14:18.000Z",
+    "updatedAt": "2026-07-28T03:14:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bb5c2bbb-4d19-4f57-ab5f-4bb6b230b532"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "ai",
+                  "item": [
+                    {
+                      "name": "agent",
+                      "item": [
+                        {
+                          "name": "conversations",
+                          "item": [
+                            {
+                              "name": "{conversation_identifier}",
+                              "item": [
+                                {
+                                  "name": "get-shared-content",
+                                  "item": [
+                                    {
+                                      "name": "get Shared Content",
+                                      "id": "6b985e4d-1246-4609-9e56-72297f0f3bef",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "ai",
+                                            "agent",
+                                            "conversations",
+                                            ":conversation_identifier",
+                                            "get-shared-content"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "794a89fd-6c55-4c0d-9753-b525409732d8",
+                                              "key": "conversation_identifier",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the source conversation."
+                                            }
+                                          ]
+                                        },
+                                        "description": "\nReturns the full read-only view of a shared conversation, including ordered\nmessages and data source metadata. Accessible by the conversation owner and\nany principal (user or group) that has been granted access.\nRequires `CAN_USE_SPOTTER` privilege. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nReturns the full read-only view of a shared conversation, including ordered messages and data source metadata. Accessible by the conversation owner and any principal (user or group) that has been granted access via `shareConversation`.\n\nUse this endpoint to render a shared conversation in a UI or to retrieve its content for post-processing. The full answer payload is not embedded in messages \u2014 fetch it separately via `loadAnswer` using the `shared_conversation_id` from this response as the `conversation_identifier` parameter, along with the `answer_id` from each `answer` response item.\n\n> **Important**: `shared_conversation_id` is not the same as `conversation_id`. It identifies the shared snapshot, which is a separate internal object from the source conversation. You must use the `shared_conversation_id` value \u2014 not `conversation_id` \u2014 as the `conversation_identifier` parameter when calling `loadAnswer` to hydrate answers from a shared view.\n\n#### Usage guidelines\n\nThe request must include:\n\n- `conversation_identifier` _(query parameter)_: the unique ID of the source conversation.\n\n#### Response fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `conversation_id` | `String` | Echoes the request parameter. |\n| `shared_conversation_id` | `String` | Identifier for the shared snapshot. **This is not the same as `conversation_id`.** Pass this value as the `conversation_identifier` parameter in `loadAnswer` calls. It changes each time the snapshot is refreshed via `shareConversation` with `refresh_shared_content: true` \u2014 re-fetch this response to get the current value before calling `loadAnswer`. |\n| `conversation_title` | `String` | Display title of the conversation. `null` if no title was set. |\n| `data_sources` | `DataSourceEntry[]` | Data sources used by the conversation, each with an `id` and display `name`. |\n| `messages` | `ConversationMessage[]` | Ordered conversation messages, oldest to newest. Same structure as returned by `getConversation`. Empty when the conversation has no messages. |\n| `code_execution_files` | `CodeExecutionFileMetadata[]` | Sanitized metadata for files generated by the code-execution tool. Empty when there are none. |\n\n#### DataSourceEntry fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `id` | `String` | Unique identifier of the data source. |\n| `name` | `String` | Display name of the data source. |\n\n#### CodeExecutionFileMetadata fields\n\nEach entry in the `code_execution_files` array contains:\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `file_id` | `String` | Unique identifier of the file. |\n| `display_name` | `String` | Human-readable file name. |\n| `file_type` | `String` | File type such as `csv`, `pdf`, or `png`. |\n| `created_time_in_millis` | `Long` | Milliseconds since Unix epoch when the file was created. |\n| `expired` | `Boolean` | When `true`, the underlying file is no longer retrievable from code-execution storage; UIs should disable download and preview. |\n\n#### Loading answer payloads\n\nEach `answer` response item in `messages[].response_items` contains an `answer_id` field. To retrieve the full answer payload (TML tokens, visualization metadata, chart config), call `loadAnswer` with:\n\n- `conversation_identifier`: the `shared_conversation_id` from **this** response (not `conversation_id`)\n- `answer_identifier`: the `answer_id` from the `answer` item\n\nIf the snapshot has been refreshed since you last called `getSharedContent`, the `shared_conversation_id` will have changed. Always use the `shared_conversation_id` from the most recent `getSharedContent` response; stale values return 404.\n\n#### Example request\n\n```bash\nGET /api/rest/2.0/ai/agent/conversations/{conversation_identifier}/get-shared-content\n```\n\n#### Example response\n\n```json\n{\n  \"conversation_id\": \"conv-abc-123\",\n  \"shared_conversation_id\": \"snap-xyz-456\",\n  \"conversation_title\": \"Sales by Region Q1\",\n  \"data_sources\": [{ \"id\": \"ds-001\", \"name\": \"Retail Sales\" }],\n  \"messages\": [\n    {\n      \"message_id\": \"node-u-01\",\n      \"timestamp_in_millis\": 1744000000000,\n      \"user_prompt\": {\n        \"message\": {\n          \"message_id\": \"msg-u-01\",\n          \"content\": \"Show me revenue by region.\"\n        },\n        \"attachments\": []\n      },\n      \"response_items\": [\n        {\n          \"type\": \"tool_call\",\n          \"tool_call_id\": \"toolu-01\",\n          \"tool_name\": \"search_datasets\",\n          \"step_title\": \"Searching datasets\",\n          \"arguments\": { \"query\": \"revenue by region\" },\n          \"timestamp_in_millis\": 1744000001000,\n          \"is_thinking\": false\n        },\n        {\n          \"type\": \"answer\",\n          \"answer_id\": \"ans-01\",\n          \"tool_call_id\": \"toolu-02\",\n          \"tool_name\": \"fetch_and_visualize\",\n          \"step_title\": \"Visualizing\",\n          \"timestamp_in_millis\": 1744000004000,\n          \"is_thinking\": false\n        },\n        {\n          \"type\": \"text\",\n          \"content\": \"Revenue is highest in APAC.\",\n          \"content_type\": \"TEXT_MARKDOWN\",\n          \"timestamp_in_millis\": 1744000005000,\n          \"is_thinking\": false,\n          \"step_title\": null,\n          \"file_reference\": null\n        }\n      ]\n    }\n  ],\n  \"code_execution_files\": [\n    {\n      \"file_id\": \"revenue_by_region.csv\",\n      \"display_name\": \"revenue_by_region.csv\",\n      \"file_type\": \"csv\",\n      \"created_time_in_millis\": 1744027200000,\n      \"expired\": false\n    }\n  ]\n}\n```\n\nFor the `ConversationMessage` field structure, see `getConversation`.\n\n#### Error responses\n\n| Code | Description |\n| --- | --- |\n| 401 | Unauthorized \u2014 authentication token is missing, expired, or invalid. |\n| 403 | Forbidden \u2014 the caller is neither the conversation owner nor a principal with access, or does not have `CAN_USE_SPOTTER` privilege. |\n| 404 | Not Found \u2014 no active shared view exists for the given conversation identifier. |\n\n> ###### Note:\n>\n> - The shared view is a point-in-time copy of the conversation. It may not reflect edits made after sharing. Check `is_shared_content_outdated` via `getShareInfo` and use `shareConversation` with `refresh_shared_content: true` to update.\n> - This endpoint requires Spotter \u2014 please contact ThoughtSpot Support to enable Spotter on your cluster.\n<span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\n\n\n\n#### Endpoint URL\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "18447c0a-49fd-4d50-a540-298b10ca9e4f",
+                                          "name": "Common successful response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"conversation_id\": \"<string>\",\n  \"shared_conversation_id\": \"<string>\",\n  \"data_sources\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"messages\": [\n    {\n      \"message_id\": \"<string>\",\n      \"timestamp_in_millis\": {},\n      \"user_prompt\": {\n        \"message\": {\n          \"message_id\": \"<string>\",\n          \"content\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"message_id\": \"<string>\",\n      \"timestamp_in_millis\": {},\n      \"user_prompt\": {\n        \"message\": {\n          \"message_id\": \"<string>\",\n          \"content\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"code_execution_files\": [\n    {\n      \"file_id\": \"<string>\",\n      \"expired\": \"<boolean>\",\n      \"display_name\": \"<string>\",\n      \"file_type\": \"<string>\",\n      \"created_time_in_millis\": {}\n    },\n    {\n      \"file_id\": \"<string>\",\n      \"expired\": \"<boolean>\",\n      \"display_name\": \"<string>\",\n      \"file_type\": \"<string>\",\n      \"created_time_in_millis\": {}\n    }\n  ],\n  \"conversation_title\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-18447c0a-49fd-4d50-a540-298b10ca9e4f"
+                                        },
+                                        {
+                                          "id": "7ece31d9-7ed0-48af-ba9b-310e6837c154",
+                                          "name": "Common error response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Created",
+                                          "code": 201,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"conversation_id\": \"<string>\",\n  \"shared_conversation_id\": \"<string>\",\n  \"data_sources\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"messages\": [\n    {\n      \"message_id\": \"<string>\",\n      \"timestamp_in_millis\": {},\n      \"user_prompt\": {\n        \"message\": {\n          \"message_id\": \"<string>\",\n          \"content\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"message_id\": \"<string>\",\n      \"timestamp_in_millis\": {},\n      \"user_prompt\": {\n        \"message\": {\n          \"message_id\": \"<string>\",\n          \"content\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"code_execution_files\": [\n    {\n      \"file_id\": \"<string>\",\n      \"expired\": \"<boolean>\",\n      \"display_name\": \"<string>\",\n      \"file_type\": \"<string>\",\n      \"created_time_in_millis\": {}\n    },\n    {\n      \"file_id\": \"<string>\",\n      \"expired\": \"<boolean>\",\n      \"display_name\": \"<string>\",\n      \"file_type\": \"<string>\",\n      \"created_time_in_millis\": {}\n    }\n  ],\n  \"conversation_title\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-7ece31d9-7ed0-48af-ba9b-310e6837c154"
+                                        },
+                                        {
+                                          "id": "2689380a-f899-46b0-b83b-b35b6fa1978c",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-2689380a-f899-46b0-b83b-b35b6fa1978c"
+                                        },
+                                        {
+                                          "id": "2a62a4cd-ee18-43d1-8716-41657eec0153",
+                                          "name": "Unauthorized access.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-2a62a4cd-ee18-43d1-8716-41657eec0153"
+                                        },
+                                        {
+                                          "id": "698b6390-dec7-4d3d-bd82-0a4a1e0ea067",
+                                          "name": "Forbidden access.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-698b6390-dec7-4d3d-bd82-0a4a1e0ea067"
+                                        },
+                                        {
+                                          "id": "82def2e9-8751-4cd5-baa8-c24f86d13180",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-shared-content"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Internal Server Error",
+                                          "code": 500,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-82def2e9-8751-4cd5-baa8-c24f86d13180"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T03:14:18.000Z",
+                                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                                      "uid": "35240-6b985e4d-1246-4609-9e56-72297f0f3bef"
+                                    }
+                                  ],
+                                  "id": "222f7bab-16fe-4fdd-ae25-ed1d71e4f965",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-222f7bab-16fe-4fdd-ae25-ed1d71e4f965"
+                                },
+                                {
+                                  "name": "get-share-info",
+                                  "item": [
+                                    {
+                                      "name": "get Share Info",
+                                      "id": "49666f6c-50a5-4bc2-bd91-10db11320586",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "ai",
+                                            "agent",
+                                            "conversations",
+                                            ":conversation_identifier",
+                                            "get-share-info"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "0b92fa65-100e-43d2-b0dc-b8b4a57ceaca",
+                                              "key": "conversation_identifier",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the conversation."
+                                            }
+                                          ]
+                                        },
+                                        "description": "\nReturns the current share state for a conversation the caller owns: whether\nthe shared view is outdated relative to the latest conversation content, and\nthe list of principals that currently have access.\nRequires `CAN_USE_SPOTTER` privilege and ownership of the specified conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nReturns the current share state for a conversation the caller owns: whether the shared view reflects the latest conversation content, and the list of principals that currently have access.\n\nUse this endpoint to render a share management UI, audit who has access to a conversation, or determine whether the shared view needs to be refreshed before sending a link.\n\nRequires ownership of the specified conversation.\n\n#### Usage guidelines\n\nThe request must include:\n\n- `conversation_identifier` _(query parameter)_: the unique ID of the conversation, as returned by `createAgentConversation` or `getConversationList`.\n\n#### Response fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `conversation_id` | `String` | Echoes the request parameter. |\n| `is_shared_content_outdated` | `Boolean` | `true` when the shared view was generated before the last edit to the conversation and does not reflect the latest content. `false` when the shared view is current. `null` when the conversation has never been shared. |\n| `principals` | `ConversationPrincipalInfo[]` | List of principals with access. Empty when no access has been granted. The conversation owner is never included. |\n\n#### ConversationPrincipalInfo fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `id` | `String` | Unique identifier of the user or group. |\n| `type` | `Principals` | `USER` for individual users, `USER_GROUP` for groups. |\n| `display_name` | `String` | Display name as shown in the ThoughtSpot UI. |\n| `name` | `String` | Internal name of the user or group. |\n| `permission` | `String` | Access level. Always `READ_ONLY` for shared conversations. |\n\n#### Example request\n\n```bash\nGET /api/rest/2.0/ai/agent/conversations/{conversation_identifier}/get-share-info\n```\n\n#### Example response \u2014 conversation shared and current\n\n```json\n{\n  \"conversation_id\": \"conv-abc-123\",\n  \"is_shared_content_outdated\": false,\n  \"principals\": [\n    {\n      \"id\": \"user-001\",\n      \"type\": \"USER\",\n      \"display_name\": \"Alice Example\",\n      \"name\": \"alice.example\",\n      \"permission\": \"READ_ONLY\"\n    },\n    {\n      \"id\": \"group-001\",\n      \"type\": \"USER_GROUP\",\n      \"display_name\": \"Sales Team\",\n      \"name\": \"sales-team\",\n      \"permission\": \"READ_ONLY\"\n    }\n  ]\n}\n```\n\n#### Example response \u2014 conversation never shared\n\n```json\n{\n  \"conversation_id\": \"conv-abc-123\",\n  \"is_shared_content_outdated\": null,\n  \"principals\": []\n}\n```\n\n#### Example response \u2014 shared view outdated\n\n```json\n{\n  \"conversation_id\": \"conv-abc-123\",\n  \"is_shared_content_outdated\": true,\n  \"principals\": [\n    {\n      \"id\": \"user-001\",\n      \"type\": \"USER\",\n      \"display_name\": \"Alice Example\",\n      \"name\": \"alice.example\",\n      \"permission\": \"READ_ONLY\"\n    }\n  ]\n}\n```\n\nWhen `is_shared_content_outdated` is `true`, call `shareConversation` with `refresh_shared_content: true` to update the shared view with the latest conversation content.\n\n#### Error responses\n\n| Code | Description |\n| --- | --- |\n| 401 | Unauthorized \u2014 authentication token is missing, expired, or invalid. |\n| 403 | Forbidden \u2014 the caller does not own the specified conversation, or does not have `CAN_USE_SPOTTER` privilege. |\n| 404 | Not Found \u2014 no conversation exists with the given identifier for the authenticated user. |\n\n> ###### Note:\n>\n> - This endpoint requires Spotter \u2014 please contact ThoughtSpot Support to enable Spotter on your cluster.\n<span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\n\n\n\n#### Endpoint URL\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "d0302b67-6749-459d-9ae2-b959e64845ed",
+                                          "name": "Common successful response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"conversation_id\": \"<string>\",\n  \"principals\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"USER_GROUP\",\n      \"display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"permission\": \"NO_ACCESS\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"USER_GROUP\",\n      \"display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"permission\": \"MODIFY\"\n    }\n  ],\n  \"is_shared_content_outdated\": \"<boolean>\"\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-d0302b67-6749-459d-9ae2-b959e64845ed"
+                                        },
+                                        {
+                                          "id": "814e8971-025e-426a-80aa-e416e82063ab",
+                                          "name": "Common error response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Created",
+                                          "code": 201,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"conversation_id\": \"<string>\",\n  \"principals\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"USER_GROUP\",\n      \"display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"permission\": \"NO_ACCESS\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"USER_GROUP\",\n      \"display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"permission\": \"MODIFY\"\n    }\n  ],\n  \"is_shared_content_outdated\": \"<boolean>\"\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-814e8971-025e-426a-80aa-e416e82063ab"
+                                        },
+                                        {
+                                          "id": "2aaf1fb1-1280-4cd5-8b27-740e31b77bee",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-2aaf1fb1-1280-4cd5-8b27-740e31b77bee"
+                                        },
+                                        {
+                                          "id": "ff9ea2ab-23dc-4c31-b9d1-2d4f1dc382f2",
+                                          "name": "Unauthorized access.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-ff9ea2ab-23dc-4c31-b9d1-2d4f1dc382f2"
+                                        },
+                                        {
+                                          "id": "6cb42c1e-b7d7-4950-8531-ff0a7570babd",
+                                          "name": "Forbidden access.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-6cb42c1e-b7d7-4950-8531-ff0a7570babd"
+                                        },
+                                        {
+                                          "id": "e3195b32-3628-4ce1-9c70-38552c6f2e69",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "get-share-info"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Internal Server Error",
+                                          "code": 500,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-e3195b32-3628-4ce1-9c70-38552c6f2e69"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T03:14:18.000Z",
+                                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                                      "uid": "35240-49666f6c-50a5-4bc2-bd91-10db11320586"
+                                    }
+                                  ],
+                                  "id": "f1853f16-7a23-4d45-95d9-a0f53a0d60fc",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-f1853f16-7a23-4d45-95d9-a0f53a0d60fc"
+                                },
+                                {
+                                  "name": "share",
+                                  "item": [
+                                    {
+                                      "name": "share Conversation",
+                                      "id": "fa7f3edd-78ba-4cba-b930-68ef2e9a9f2f",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "ai",
+                                            "agent",
+                                            "conversations",
+                                            ":conversation_identifier",
+                                            "share"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "b1fbc281-48c8-4991-a366-24b0f4d6e63d",
+                                              "key": "conversation_identifier",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the conversation to share."
+                                            }
+                                          ]
+                                        },
+                                        "description": "\nGrants or revokes access to a shared conversation for one or more principals\n(users or groups). When principals are added, a read-only shared view of the\nconversation is created from its current state. Use `refresh_shared_content`\nto regenerate the shared view with the latest conversation content.\nRequires `CAN_USE_SPOTTER` privilege and ownership of the specified conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nGrants or revokes access to a shared conversation for one or more principals (users or groups). When principals are added, a read-only shared view of the conversation is created from its current state. The shared view is a point-in-time copy \u2014 use `refresh_shared_content` to regenerate it with the latest conversation content.\n\nRequires ownership of the specified conversation. Only the user who created the conversation can manage its share access.\n\n#### Usage guidelines\n\nThe conversation to share is identified by the `{conversation_identifier}` URL path parameter. At least one of the following must be true: `grant` is non-empty, `revoke` is non-empty, or `refresh_shared_content` is `true`. A principal cannot appear in both lists in the same request.\n\n| Field | Type | Default | Description |\n| --- | --- | --- | --- |\n| `refresh_shared_content` | `Boolean` | `false` | When `true`, always regenerates the shared view from the latest conversation state, even if a shared view already exists. When `false`, reuses the existing shared view. |\n| `grant` | `PrincipalRefInput[]` | `[]` | Principals to grant read-only access. |\n| `revoke` | `PrincipalRefInput[]` | `[]` | Principals to revoke access from. |\n| `notify_on_share` | `Boolean` | `true` | *(available from 26.10.0.cl)* When `true`, newly granted principals are notified of the share. When `false`, access is granted without sending a notification. Has no effect on principals passed in `revoke`, and does not re-notify a principal who already had access. |\n\n#### PrincipalRefInput fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `principal_identifier` | `String` | Unique identifier of the user or group. |\n| `principal_type` | `Principals` | `USER` for individual users, `USER_GROUP` for groups. |\n\n#### Example request \u2014 granting access\n\n```bash\nPOST /api/rest/2.0/ai/agent/conversations/{conversation_identifier}/share\n```\n\n```json\n{\n  \"refresh_shared_content\": false,\n  \"grant\": [\n    { \"principal_identifier\": \"user-001\", \"principal_type\": \"USER\" },\n    { \"principal_identifier\": \"group-001\", \"principal_type\": \"USER_GROUP\" }\n  ],\n  \"revoke\": [],\n  \"notify_on_share\": true\n}\n```\n\n#### Example request \u2014 revoking access\n\n```json\n{\n  \"refresh_shared_content\": false,\n  \"grant\": [],\n  \"revoke\": [\n    { \"principal_identifier\": \"user-001\", \"principal_type\": \"USER\" }\n  ]\n}\n```\n\nSet `refresh_shared_content: true` with empty `grant` and `revoke` to regenerate the shared snapshot for existing recipients without changing access. Combine with non-empty `grant` or `revoke` to update access and refresh the snapshot in a single call.\n\n#### Error responses\n\n| Code | Description |\n| --- | --- |\n| 401 | Unauthorized \u2014 authentication token is missing, expired, or invalid. |\n| 403 | Forbidden \u2014 the caller does not own the specified conversation, or does not have `CAN_USE_SPOTTER` privilege. |\n| 404 | Not Found \u2014 no conversation exists with the given identifier for the authenticated user. |\n| 422 | Unprocessable \u2014 `refresh_shared_content` is `false` and both `grant` and `revoke` are empty, or a principal appears in both lists. |\n\n> ###### Note:\n>\n> - The shared view is a read-only snapshot of the conversation at the time of sharing. Recipients cannot send messages or modify the conversation.\n> - Use `getShareInfo` to check whether the shared view is outdated relative to the current conversation state.\n> - `notify_on_share: false` only suppresses the share notification; access is still granted.\n> - This endpoint requires Spotter \u2014 please contact ThoughtSpot Support to enable Spotter on your cluster.\n<span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\n\n\n\n#### Endpoint URL\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "d8f88697-1439-4bc6-96a2-7d64c5a45400",
+                                          "name": "Successfully updated the share access for the conversation.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "share"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "No Content",
+                                          "code": 204,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-d8f88697-1439-4bc6-96a2-7d64c5a45400"
+                                        },
+                                        {
+                                          "id": "bff57254-a33e-4cd2-9f9c-51c12cfca078",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "share"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-bff57254-a33e-4cd2-9f9c-51c12cfca078"
+                                        },
+                                        {
+                                          "id": "82c6aa9e-7518-44b2-9ca5-afbc00641ef3",
+                                          "name": "Unauthorized access.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "share"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-82c6aa9e-7518-44b2-9ca5-afbc00641ef3"
+                                        },
+                                        {
+                                          "id": "299aca0c-a680-4b13-8b25-8205c950f768",
+                                          "name": "Forbidden access.",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "share"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-299aca0c-a680-4b13-8b25-8205c950f768"
+                                        },
+                                        {
+                                          "id": "502a4903-ef21-4d2f-a0ab-cf5c5ca7162d",
+                                          "name": "Operation failed",
+                                          "originalRequest": {
+                                            "method": "POST",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"grant\": [],\n  \"revoke\": [],\n  \"refresh_shared_content\": false,\n  \"notify_on_share\": true\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "rest",
+                                                "2.0",
+                                                "ai",
+                                                "agent",
+                                                "conversations",
+                                                ":conversation_identifier",
+                                                "share"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "conversation_identifier"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Internal Server Error",
+                                          "code": 500,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"error\": {}\n}",
+                                          "createdAt": "2026-07-28T03:14:18.000Z",
+                                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                                          "uid": "35240-502a4903-ef21-4d2f-a0ab-cf5c5ca7162d"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T03:14:18.000Z",
+                                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                                      "uid": "35240-fa7f3edd-78ba-4cba-b930-68ef2e9a9f2f"
+                                    }
+                                  ],
+                                  "id": "17ad1e87-e3e7-4945-85dd-9e4d71a477ba",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-17ad1e87-e3e7-4945-85dd-9e4d71a477ba"
+                                }
+                              ],
+                              "id": "9fde7fb5-e972-40f2-998f-924a57daf57b",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-9fde7fb5-e972-40f2-998f-924a57daf57b"
+                            }
+                          ],
+                          "id": "96250884-d105-4971-841b-f1e12118f65d",
+                          "createdAt": "2026-07-28T03:14:18.000Z",
+                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                          "uid": "35240-96250884-d105-4971-841b-f1e12118f65d"
+                        }
+                      ],
+                      "id": "a8924667-d70c-4e69-bc08-55c237bf36ff",
+                      "createdAt": "2026-07-28T03:14:18.000Z",
+                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                      "uid": "35240-a8924667-d70c-4e69-bc08-55c237bf36ff"
+                    }
+                  ],
+                  "id": "a816632a-55fc-4186-8edb-c9761d58234f",
+                  "createdAt": "2026-07-28T03:14:18.000Z",
+                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                  "uid": "35240-a816632a-55fc-4186-8edb-c9761d58234f"
+                },
+                {
+                  "name": "semantic-integrations",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create Semantic Integration",
+                          "id": "c85019ba-7737-4576-839a-40e50521664c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "semantic-integrations",
+                                "create"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nCreates a new semantic integration in ThoughtSpot from a CDW semantic view.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About create semantic integration\n\nA semantic integration imports an externally defined semantic view from a Cloud Data Warehouse (CDW) into ThoughtSpot. The API resolves the source semantic view from the specified `connection_identifier`, `database_name`, `schema_name`, and `semantic_view_name`, generates a ThoughtSpot model from it, and returns the model GUID along with a per-formula import report (`semantic_report`) summarizing how many formulas were successfully imported, failed, or skipped.\n\n- `connection_identifier`, `name`, `database_name`, `schema_name`, `semantic_view_name`, and `type` are required.\n- `name` must be unique across the user's organization. The integration's display name is also used as the generated model name.\n- Supported `type` values are listed in the `SemanticIntegrationType` enum (currently `RDBMS_SNOWFLAKE`).\n- The response includes a `semantic_report.summary` with `total`, `imported`, `failed`, and `skipped` counts, and a `formulas` array with the per-formula translation details.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "ad3501ba-09cc-4c2a-852f-309e92e74e6d",
+                              "name": "Semantic integration created successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"semantic_report\": {\n    \"summary\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"formulas\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"IMPORTED\",\n        \"change_status\": \"UPDATED\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"IMPORTED\",\n        \"change_status\": \"NEW\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-ad3501ba-09cc-4c2a-852f-309e92e74e6d"
+                            },
+                            {
+                              "id": "64121e8f-3245-45b1-8496-70c76280b1ed",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-64121e8f-3245-45b1-8496-70c76280b1ed"
+                            },
+                            {
+                              "id": "672435b5-8717-46e9-961d-c9416760f5cd",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-672435b5-8717-46e9-961d-c9416760f5cd"
+                            },
+                            {
+                              "id": "59e9c801-acb0-419f-aead-30cd06f1bfe8",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-59e9c801-acb0-419f-aead-30cd06f1bfe8"
+                            },
+                            {
+                              "id": "7979c446-f58e-4101-bce0-c4f1ab3544fe",
+                              "name": "Connection not found.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-7979c446-f58e-4101-bce0-c4f1ab3544fe"
+                            },
+                            {
+                              "id": "3a8fb5ae-16bb-41a1-b4df-f402467dbccc",
+                              "name": "Duplicate integration name.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Conflict",
+                              "code": 409,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-3a8fb5ae-16bb-41a1-b4df-f402467dbccc"
+                            },
+                            {
+                              "id": "b2fced4d-b7c1-43ce-95b0-b84423935d13",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-b2fced4d-b7c1-43ce-95b0-b84423935d13"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:14:18.000Z",
+                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                          "uid": "35240-c85019ba-7737-4576-839a-40e50521664c"
+                        }
+                      ],
+                      "id": "5c2d9a3f-d3fb-468b-9205-6612ac3de1b2",
+                      "createdAt": "2026-07-28T03:14:18.000Z",
+                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                      "uid": "35240-5c2d9a3f-d3fb-468b-9205-6612ac3de1b2"
+                    },
+                    {
+                      "name": "{semantic_integration_identifier}",
+                      "item": [
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete Semantic Integration",
+                              "id": "f50e1cc8-3ade-4b49-a10f-34947099cc29",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    ":semantic_integration_identifier",
+                                    "delete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "dac8e887-9bcc-4460-b0b1-36916e64b3af",
+                                      "key": "semantic_integration_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) ID or name of the semantic integration to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nDeletes a semantic integration and its associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About delete semantic integration\n\nRemoves the specified semantic integration and its generated ThoughtSpot model from the system.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to delete.\n- Deletions cannot be undone. Re-import the integration with `createSemanticIntegration` if needed.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "16a14b6d-7f71-4071-aad7-5eb93c628e4c",
+                                  "name": "Semantic integration deleted successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-16a14b6d-7f71-4071-aad7-5eb93c628e4c"
+                                },
+                                {
+                                  "id": "758e13af-6f18-4d17-8df7-3c836360a653",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-758e13af-6f18-4d17-8df7-3c836360a653"
+                                },
+                                {
+                                  "id": "f8fde235-8275-4e2f-9cd3-3096dc1d7077",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-f8fde235-8275-4e2f-9cd3-3096dc1d7077"
+                                },
+                                {
+                                  "id": "771bf4d7-582f-44bb-bd80-4400a711457f",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-771bf4d7-582f-44bb-bd80-4400a711457f"
+                                },
+                                {
+                                  "id": "601654a6-f882-4d6f-9ab8-07a6538b630b",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-601654a6-f882-4d6f-9ab8-07a6538b630b"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-f50e1cc8-3ade-4b49-a10f-34947099cc29"
+                            }
+                          ],
+                          "id": "001c81ce-d6ef-4444-94d9-3feb6cc9e9da",
+                          "createdAt": "2026-07-28T03:14:18.000Z",
+                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                          "uid": "35240-001c81ce-d6ef-4444-94d9-3feb6cc9e9da"
+                        },
+                        {
+                          "name": "import",
+                          "item": [
+                            {
+                              "name": "import Semantic Integration",
+                              "id": "8c80011b-031c-4e90-aff7-7e7df09e4724",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    ":semantic_integration_identifier",
+                                    "import"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1448f323-fed3-4154-9d27-abc920c20b1c",
+                                      "key": "semantic_integration_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) ID or name of the semantic integration to import updates for."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nImports semantic updates for an existing semantic integration from its CDW source and refreshes the associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About import semantic integration\n\nRe-imports the semantic view from the CDW for the specified integration and rebuilds the corresponding ThoughtSpot model. Use this after the source semantic view has been updated in the CDW (added, removed, or modified formulas, dimensions, or measures) to bring the ThoughtSpot model back in line.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to import updates for.\n- Import preserves the integration's GUID, name, and `model_id`; only the underlying formula set is refreshed.\n- The response includes the same `semantic_report` as create, with an additional `change_status` per formula indicating whether each formula is `NEW`, `UPDATED`, or `UNCHANGED` since the previous import.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "ea5bcef9-c92e-4c54-81ab-08c13e374361",
+                                  "name": "Semantic integration imported successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"semantic_report\": {\n    \"summary\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"formulas\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"IMPORTED\",\n        \"change_status\": \"UPDATED\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"IMPORTED\",\n        \"change_status\": \"NEW\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-ea5bcef9-c92e-4c54-81ab-08c13e374361"
+                                },
+                                {
+                                  "id": "31452d5e-953c-43c7-a43b-9854f22d98f4",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-31452d5e-953c-43c7-a43b-9854f22d98f4"
+                                },
+                                {
+                                  "id": "f817a686-9002-40bb-8e77-f74e12967f9c",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-f817a686-9002-40bb-8e77-f74e12967f9c"
+                                },
+                                {
+                                  "id": "95a71746-042c-4fa7-949a-c5bcd6fdf17d",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-95a71746-042c-4fa7-949a-c5bcd6fdf17d"
+                                },
+                                {
+                                  "id": "6707b0e8-2f59-4e33-817c-1160e20cf0ef",
+                                  "name": "Semantic integration not found.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-6707b0e8-2f59-4e33-817c-1160e20cf0ef"
+                                },
+                                {
+                                  "id": "c5d172f9-8918-45bc-8ec3-38038b9eae40",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:18.000Z",
+                                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                                  "uid": "35240-c5d172f9-8918-45bc-8ec3-38038b9eae40"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-8c80011b-031c-4e90-aff7-7e7df09e4724"
+                            }
+                          ],
+                          "id": "8786b324-79ba-4d13-8653-383e41249de6",
+                          "createdAt": "2026-07-28T03:14:18.000Z",
+                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                          "uid": "35240-8786b324-79ba-4d13-8653-383e41249de6"
+                        }
+                      ],
+                      "id": "dfe39c17-6d8e-49a4-94ca-78294356ff49",
+                      "createdAt": "2026-07-28T03:14:18.000Z",
+                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                      "uid": "35240-dfe39c17-6d8e-49a4-94ca-78294356ff49"
+                    },
+                    {
+                      "name": "search",
+                      "item": [
+                        {
+                          "name": "search Semantic Integrations",
+                          "id": "86775c8b-8817-4e5e-941f-fd3ccf00c0a7",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "semantic-integrations",
+                                "search"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nSearches and lists semantic integrations available to the authenticated user in the current organization, with optional filters, sort, and pagination.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About search semantic integrations\n\nReturns a paginated batch of semantic integrations, each with its identifier, name, description, source connection, generated model identifier, author, creation/modification timestamps, and associated tags. Use the filters to narrow results by author, connection, tag, or name pattern.\n\n- `pattern` matches the integration name as a case-insensitive substring.\n- `author_identifiers` and `connection_identifiers` accept either GUIDs or names.\n- `sort_options.field_name` defaults to `MODIFIED_TIME`; set `sort_options.order` to `ASC` or `DESC` to control sort direction.\n- `record_offset` and `record_size` control pagination. Use `record_size: 0` to return all matching records in a single response.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "53fc06ea-52b5-4de9-9d26-185f5890f51b",
+                              "name": "Semantic integrations retrieved successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"model_name\": \"<string>\",\n    \"import_type\": \"CDW\",\n    \"type\": \"RDBMS_SNOWFLAKE\",\n    \"connection_id\": \"<string>\",\n    \"connection_name\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"author_name\": \"<string>\",\n    \"creation_time_in_millis\": \"<float>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"model_name\": \"<string>\",\n    \"import_type\": \"CDW\",\n    \"type\": \"RDBMS_SNOWFLAKE\",\n    \"connection_id\": \"<string>\",\n    \"connection_name\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"author_name\": \"<string>\",\n    \"creation_time_in_millis\": \"<float>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  }\n]",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-53fc06ea-52b5-4de9-9d26-185f5890f51b"
+                            },
+                            {
+                              "id": "fac28884-cbab-476b-b02a-d7e6e47dcc96",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-fac28884-cbab-476b-b02a-d7e6e47dcc96"
+                            },
+                            {
+                              "id": "3071f630-f115-47a7-8711-c1b4599ee4f3",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-3071f630-f115-47a7-8711-c1b4599ee4f3"
+                            },
+                            {
+                              "id": "4f61fd87-c581-4577-87c8-431ab1a7a78f",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-4f61fd87-c581-4577-87c8-431ab1a7a78f"
+                            },
+                            {
+                              "id": "c84c206a-d339-47cc-a2ea-6a2e9f7f6617",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"CREATED_TIME\",\n    \"order\": \"DESC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:18.000Z",
+                              "updatedAt": "2026-07-28T03:14:18.000Z",
+                              "uid": "35240-c84c206a-d339-47cc-a2ea-6a2e9f7f6617"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:14:18.000Z",
+                          "updatedAt": "2026-07-28T03:14:18.000Z",
+                          "uid": "35240-86775c8b-8817-4e5e-941f-fd3ccf00c0a7"
+                        }
+                      ],
+                      "id": "5f3589a3-7572-41a3-b68e-7c3e7c641444",
+                      "createdAt": "2026-07-28T03:14:18.000Z",
+                      "updatedAt": "2026-07-28T03:14:18.000Z",
+                      "uid": "35240-5f3589a3-7572-41a3-b68e-7c3e7c641444"
+                    }
+                  ],
+                  "id": "cea2e2c5-ee67-4acb-bf81-a00915938db7",
+                  "createdAt": "2026-07-28T03:14:18.000Z",
+                  "updatedAt": "2026-07-28T03:14:18.000Z",
+                  "uid": "35240-cea2e2c5-ee67-4acb-bf81-a00915938db7"
+                }
+              ],
+              "id": "41043038-9042-477a-b6d4-24336bbcc2b2",
+              "createdAt": "2026-07-28T03:14:18.000Z",
+              "updatedAt": "2026-07-28T03:14:18.000Z",
+              "uid": "35240-41043038-9042-477a-b6d4-24336bbcc2b2"
+            }
+          ],
+          "id": "cb830702-b9ef-4761-8187-a78e459ef5c5",
+          "createdAt": "2026-07-28T03:14:18.000Z",
+          "updatedAt": "2026-07-28T03:14:18.000Z",
+          "uid": "35240-cb830702-b9ef-4761-8187-a78e459ef5c5"
+        }
+      ],
+      "id": "750afcc7-bb26-44df-9eb6-759d0e486e35",
+      "createdAt": "2026-07-28T03:14:18.000Z",
+      "updatedAt": "2026-07-28T03:14:18.000Z",
+      "uid": "35240-750afcc7-bb26-44df-9eb6-759d0e486e35"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

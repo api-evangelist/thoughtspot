@@ -1,0 +1,418 @@
+{
+  "info": {
+    "_postman_id": "fa7c71d2-715e-4cef-9670-d2d9fcc9304c",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.9.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:50.000Z",
+    "updatedAt": "2026-07-28T03:13:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fa7c71d2-715e-4cef-9670-d2d9fcc9304c"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "metadata",
+                  "item": [
+                    {
+                      "name": "parameterize",
+                      "item": [
+                        {
+                          "name": "parameterize Metadata",
+                          "id": "8ab87b81-9f30-4462-99fc-65be20709c26",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "metadata",
+                                "parameterize"
+                              ]
+                            },
+                            "description": "\nParameterize fields in metadata objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.9.0.cl or later</span>\n\n**Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/metadata/parameterize-fields](/api/rest/2.0/metadata/parameterize-fields) instead.\n\nAllows parameterizing fields in metadata objects in ThoughtSpot.\n\nRequires appropriate permissions to modify the metadata object.\n\nThe API endpoint allows parameterizing the following types of metadata objects:\n* Logical Tables\n* Connections\n* Connection Configs\n\nFor a Logical Table the field type must be `ATTRIBUTE` and field name can be one of:\n* databaseName\n* schemaName\n* tableName\n\nFor a Connection or Connection Config, the field type is always `CONNECTION_PROPERTY`. In this case, field_name specifies the exact property of the Connection or Connection Config that needs to be parameterized.\n\nFor Connection Config, the only supported field name is:\n* impersonate_user\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "3d724aa4-afc0-4862-b8cc-078092232464",
+                              "name": "Parameterize successful.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "parameterize"
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:50.000Z",
+                              "updatedAt": "2026-07-28T03:13:50.000Z",
+                              "uid": "35240-3d724aa4-afc0-4862-b8cc-078092232464"
+                            },
+                            {
+                              "id": "9ca7b7d0-7587-4a34-8929-f8a32a5ceea5",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "parameterize"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:50.000Z",
+                              "updatedAt": "2026-07-28T03:13:50.000Z",
+                              "uid": "35240-9ca7b7d0-7587-4a34-8929-f8a32a5ceea5"
+                            },
+                            {
+                              "id": "db51e8fa-ccda-457c-aeea-d6d766e04f93",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "parameterize"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:50.000Z",
+                              "updatedAt": "2026-07-28T03:13:50.000Z",
+                              "uid": "35240-db51e8fa-ccda-457c-aeea-d6d766e04f93"
+                            },
+                            {
+                              "id": "75a22a4c-a5d1-4176-94a2-286a242ca9ee",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "parameterize"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:50.000Z",
+                              "updatedAt": "2026-07-28T03:13:50.000Z",
+                              "uid": "35240-75a22a4c-a5d1-4176-94a2-286a242ca9ee"
+                            },
+                            {
+                              "id": "2e6943ec-ea5b-493a-91d2-be0590110ebe",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"field_type\": \"ATTRIBUTE\",\n  \"field_name\": \"<string>\",\n  \"variable_identifier\": \"<string>\",\n  \"metadata_type\": \"CONNECTION_CONFIG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/parameterize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "parameterize"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:50.000Z",
+                              "updatedAt": "2026-07-28T03:13:50.000Z",
+                              "uid": "35240-2e6943ec-ea5b-493a-91d2-be0590110ebe"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:50.000Z",
+                          "updatedAt": "2026-07-28T03:13:50.000Z",
+                          "uid": "35240-8ab87b81-9f30-4462-99fc-65be20709c26"
+                        }
+                      ],
+                      "id": "fed30719-e746-45e6-8bc0-b301096bf321",
+                      "createdAt": "2026-07-28T03:13:50.000Z",
+                      "updatedAt": "2026-07-28T03:13:50.000Z",
+                      "uid": "35240-fed30719-e746-45e6-8bc0-b301096bf321"
+                    }
+                  ],
+                  "id": "6f082694-b812-4604-91ff-727e91b94f25",
+                  "createdAt": "2026-07-28T03:13:50.000Z",
+                  "updatedAt": "2026-07-28T03:13:50.000Z",
+                  "uid": "35240-6f082694-b812-4604-91ff-727e91b94f25"
+                }
+              ],
+              "id": "3df77075-fe6b-48be-a844-e595ced9db77",
+              "createdAt": "2026-07-28T03:13:50.000Z",
+              "updatedAt": "2026-07-28T03:13:50.000Z",
+              "uid": "35240-3df77075-fe6b-48be-a844-e595ced9db77"
+            }
+          ],
+          "id": "b105aa8c-0f0b-43ce-b3ff-f9877d2695ec",
+          "createdAt": "2026-07-28T03:13:50.000Z",
+          "updatedAt": "2026-07-28T03:13:50.000Z",
+          "uid": "35240-b105aa8c-0f0b-43ce-b3ff-f9877d2695ec"
+        }
+      ],
+      "id": "e4140e9f-f91c-4472-b82b-e9269dbe65a7",
+      "createdAt": "2026-07-28T03:13:50.000Z",
+      "updatedAt": "2026-07-28T03:13:50.000Z",
+      "uid": "35240-e4140e9f-f91c-4472-b82b-e9269dbe65a7"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

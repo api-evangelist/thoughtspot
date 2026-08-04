@@ -1,0 +1,61 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/thoughtspot-rest-v2-openapi-original.json + developers.thoughtspot.com
+api: openapi/thoughtspot-rest-v2-openapi-original.json
+authentication:
+  style: 'bearer token (Authorization: Bearer <access_token>)'
+  detail: authentication/thoughtspot-authentication.yml
+base_path: /api/rest/2.0
+versioning:
+  scheme: uri-path
+  current: v2.0
+  legacy: v1 REST API (/api/rest/1.0 — deprecated in favor of v2.0)
+  detail: lifecycle/thoughtspot-lifecycle.yml
+pagination:
+  style: offset-limit
+  params:
+  - name: record_offset
+    location: request body (search operations)
+    description: Zero-based offset of the first record to return.
+  - name: record_size
+    location: request body (search operations)
+    description: Maximum number of records to return in the page.
+  also:
+  - offset (query, some list endpoints)
+  - limit (query, some list endpoints)
+  notes: >-
+    Search-style POST operations (metadata/search, users/search, etc.) page via
+    record_offset + record_size in the JSON request body; a few GET list
+    endpoints accept offset/limit query params.
+identifiers:
+  style: >-
+    Objects are addressed by GUID (identifier) or name; most search endpoints
+    accept a list of identifiers plus type filters.
+request_response:
+  content_type: application/json
+  error_envelope: '{ "error": {...} }'
+  error_detail: errors/thoughtspot-problem-types.yml
+idempotency:
+  supported: true
+  mechanism: >-
+    ThoughtSpot models mutations as explicit create/update/delete operations
+    keyed on stable object identifiers (GUIDs). Update and delete operations are
+    naturally idempotent — repeating an update to the same target state, or
+    deleting an already-deleted object, converges rather than duplicating.
+    Create operations that accept a caller-supplied unique name/identifier are
+    idempotent on that key. There is no separate Idempotency-Key header in the
+    v2.0 REST API; idempotency is identifier-based.
+  header: null
+  scope: per-object-identifier
+webhooks:
+  supported: true
+  detail: asyncapi/thoughtspot-webhooks.yml
+rate_limiting:
+  documented: >-
+    ThoughtSpot enforces per-instance concurrency/throughput limits (notably on
+    data/search and export operations) rather than a published fixed
+    requests-per-minute quota; limits vary by deployment tier.
+docs:
+- https://developers.thoughtspot.com/docs/rest-apiv2-reference
+- https://developers.thoughtspot.com/docs/rest-api-getstarted
+- https://developers.thoughtspot.com/docs/api-authv2

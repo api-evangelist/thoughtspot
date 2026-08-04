@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/thoughtspot-rest-v2-openapi-original.json
+docs: https://developers.thoughtspot.com/docs/api-authv2
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+  token_endpoints:
+  - POST /api/rest/2.0/auth/token/full
+  - POST /api/rest/2.0/auth/token/object
+  - GET /api/rest/2.0/auth/session/token
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  in: header
+  header: Authorization
+  format: 'Bearer <access_token>'
+  sources:
+  - openapi/thoughtspot-rest-v2-openapi-original.json
+notes:
+  overview: >-
+    The ThoughtSpot Public REST API v2.0 uses bearer-token authentication. All
+    191 operations require an Authorization header carrying an access token
+    (global security requirement bearerAuth on every operation).
+  obtaining_tokens:
+  - >-
+    Full access token — POST /api/rest/2.0/auth/token/full with username +
+    password (or secret_key for trusted auth) returns a bearer token with the
+    caller's full privileges. operationId getFullAccessToken.
+  - >-
+    Object/scoped access token — POST /api/rest/2.0/auth/token/object issues a
+    token scoped to specific metadata objects for embed use cases. operationId
+    getObjectAccessToken.
+  - >-
+    Current user token — GET /api/rest/2.0/auth/session/token returns a token
+    for the currently logged-in session. operationId getCurrentUserToken.
+  login_sso:
+  - Trusted authentication (secret_key based) for embedded deployments.
+  - SAML 2.0 and OpenID Connect (OIDC) for interactive user login (SSO).
+  session:
+  - >-
+    Session-based login (POST /api/rest/2.0/auth/session/login) and logout
+    (POST /api/rest/2.0/auth/session/logout) are also supported alongside
+    token auth.
+docs_pages:
+- https://developers.thoughtspot.com/docs/api-authv2
+- https://developers.thoughtspot.com/docs/api-auth-session
+- https://developers.thoughtspot.com/docs/rest-api-getstarted

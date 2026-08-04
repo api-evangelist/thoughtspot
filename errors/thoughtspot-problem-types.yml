@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/thoughtspot-rest-v2-openapi-original.json
+format: json
+media_type: application/json
+envelope:
+  schema: '#/components/schemas/ErrorResponse'
+  shape: '{ "error": { ... } }'
+  notes: >-
+    All error responses return application/json with an ErrorResponse envelope
+    carrying a nullable `error` object (message/code details). ThoughtSpot does
+    NOT use RFC 9457 application/problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Invalid or malformed request parameters/body.
+  occurrences: 191
+- status: 401
+  title: Unauthorized
+  meaning: Missing, invalid, or expired bearer token.
+  occurrences: 187
+- status: 403
+  title: Forbidden
+  meaning: Authenticated caller lacks the privilege for the operation or object.
+  occurrences: 191
+- status: 404
+  title: Not Found
+  meaning: Referenced object (metadata, user, connection, etc.) does not exist.
+  occurrences: 12
+- status: 409
+  title: Conflict
+  meaning: Request conflicts with current state (e.g. duplicate identifier).
+  occurrences: 3
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server-side failure.
+  occurrences: 191
+notes: >-
+  Derived from the 191-operation OpenAPI v2.0 response inventory. Every
+  operation documents 400/401/403/500; a subset add 404 (12) and 409 (3), and
+  write operations return 201/204. Titles/meanings are standard HTTP semantics;
+  ThoughtSpot's error body detail lives in the nullable `error` object.

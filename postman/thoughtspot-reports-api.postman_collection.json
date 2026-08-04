@@ -1,0 +1,785 @@
+{
+  "info": {
+    "_postman_id": "eb5eb37c-f94b-4755-817d-7f0534ad646a",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:11.000Z",
+    "updatedAt": "2026-07-28T03:16:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eb5eb37c-f94b-4755-817d-7f0534ad646a"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "report",
+                  "item": [
+                    {
+                      "name": "answer",
+                      "item": [
+                        {
+                          "name": "export Answer Report",
+                          "id": "00b836a5-f888-4db9-ad76-0412aa915f6c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/octet-stream"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "report",
+                                "answer"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.\n\nRequires at least view access to the Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, and `PDF` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege. For an Answer, the `PDF` export is a table PDF, which is why it falls under `CAN_DOWNLOAD_DETAILED_DATA` rather than `CAN_DOWNLOAD_VISUALS`.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Answer and set `file_format`. The default file format is CSV.\n\nUse the `type` parameter to specify whether the Answer being exported is a saved Answer (`SAVED`) or a pinned Answer on a Liveboard (`PINNED`). Defaults to `SAVED`. When using `PINNED`, the `metadata_identifier` must be the container id.\n\n**NOTE**:\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n* HTML rendering is not supported for PDF exports of Answers with tables.\n\nOptionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.  \n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "c0373ecd-c501-4a8d-8643-d18fd1b0ed5f",
+                              "name": "Export report file of specified metadata object is successful.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/octet-stream"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "answer"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/octet-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-c0373ecd-c501-4a8d-8643-d18fd1b0ed5f"
+                            },
+                            {
+                              "id": "29df261a-2f19-4d09-b5ae-2b9217e88b83",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "answer"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-29df261a-2f19-4d09-b5ae-2b9217e88b83"
+                            },
+                            {
+                              "id": "5570cde7-4eb2-4742-9278-fa8b69a49c47",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "answer"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-5570cde7-4eb2-4742-9278-fa8b69a49c47"
+                            },
+                            {
+                              "id": "499d90f9-3155-48d9-8ded-226375d74b6f",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "answer"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-499d90f9-3155-48d9-8ded-226375d74b6f"
+                            },
+                            {
+                              "id": "5a380ef4-88fd-4255-9787-107844fcdf88",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"AUD\",\n    \"user_locale\": \"fr-CA\",\n    \"number_format_locale\": \"ja-JP\",\n    \"date_format_locale\": \"es-US\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/answer",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "answer"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-5a380ef4-88fd-4255-9787-107844fcdf88"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:12.000Z",
+                          "updatedAt": "2026-07-28T03:16:12.000Z",
+                          "uid": "35240-00b836a5-f888-4db9-ad76-0412aa915f6c"
+                        }
+                      ],
+                      "id": "6fb68b53-bf89-4a07-8577-46dfc00fb8f4",
+                      "createdAt": "2026-07-28T03:16:12.000Z",
+                      "updatedAt": "2026-07-28T03:16:12.000Z",
+                      "uid": "35240-6fb68b53-bf89-4a07-8577-46dfc00fb8f4"
+                    },
+                    {
+                      "name": "liveboard",
+                      "item": [
+                        {
+                          "name": "export Liveboard Report",
+                          "id": "68a96c6d-fb46-4526-9116-df185669a239",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/octet-stream"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "report",
+                                "liveboard"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.\nThe default `file_format` is CSV.\n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` and `PDF` require the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To generate a Liveboard report with specific visualizations, add GUIDs or names of the visualizations.\n\n**NOTE**: \n\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n\n* Optionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.\n\n* To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes, including ad hoc changes to visualizations. For more information, see [Liveboard Report API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_liveboard_report_api). \n\n* Starting with ThoughtSpot Cloud 10.9.0.cl release, the Liveboard can be exported in the PNG format in the resolution of your choice. To enable this on your instance, contact ThoughtSpot support. When this feature is enabled, the options `include_cover_page`,`include_filter_page` within the `png_options` will not be available for PNG exports.\n\n* Starting with the ThoughtSpot Cloud 26.2.0.cl release,\n\n  * Liveboards can be exported in CSV format. \n    * All visualizations within a Liveboard can be exported as individual CSV files. \n    * When exporting multiple visualizations or the entire Liveboard, the system returns the report as a compressed ZIP file containing the separate CSV files for each visualization.\n\n  * Liveboards can also be exported in XLSX format. \n    * All selected visualizations are consolidated into a single Excel workbook (.xlsx), with each visualization placed in its own worksheet (tab). \n    * XLSX exports are limited to a maximum of 255 worksheets (tabs) per workbook.\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "8c5b3b2e-18ff-434f-9d2e-41d95b152e5b",
+                              "name": "Export report file of specified metadata object is successful.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/octet-stream"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "liveboard"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/octet-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-8c5b3b2e-18ff-434f-9d2e-41d95b152e5b"
+                            },
+                            {
+                              "id": "1600b8ad-9a59-426f-9798-4328958b80cf",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "liveboard"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-1600b8ad-9a59-426f-9798-4328958b80cf"
+                            },
+                            {
+                              "id": "b020fe96-a747-43ee-aeef-aca292070116",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "liveboard"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-b020fe96-a747-43ee-aeef-aca292070116"
+                            },
+                            {
+                              "id": "fd1db3e1-524d-4735-ade4-cba27be50503",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "liveboard"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-fd1db3e1-524d-4735-ade4-cba27be50503"
+                            },
+                            {
+                              "id": "d50beced-a6af-4104-9c2a-08c2099a88b7",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": {},\n  \"override_filters\": {},\n  \"runtime_sort\": {},\n  \"pdf_options\": {\n    \"page_size\": \"CONTINUOUS\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": {},\n  \"regional_settings\": {\n    \"currency_format\": \"YER\",\n    \"user_locale\": \"ko-KR\",\n    \"number_format_locale\": \"en-DE\",\n    \"date_format_locale\": \"fr-CA\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/report/liveboard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "report",
+                                    "liveboard"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:12.000Z",
+                              "updatedAt": "2026-07-28T03:16:12.000Z",
+                              "uid": "35240-d50beced-a6af-4104-9c2a-08c2099a88b7"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:12.000Z",
+                          "updatedAt": "2026-07-28T03:16:12.000Z",
+                          "uid": "35240-68a96c6d-fb46-4526-9116-df185669a239"
+                        }
+                      ],
+                      "id": "d6988b34-fd28-4804-b20b-abd272297222",
+                      "createdAt": "2026-07-28T03:16:12.000Z",
+                      "updatedAt": "2026-07-28T03:16:12.000Z",
+                      "uid": "35240-d6988b34-fd28-4804-b20b-abd272297222"
+                    }
+                  ],
+                  "id": "f924e0de-794e-4f54-8495-a608412690fd",
+                  "createdAt": "2026-07-28T03:16:12.000Z",
+                  "updatedAt": "2026-07-28T03:16:12.000Z",
+                  "uid": "35240-f924e0de-794e-4f54-8495-a608412690fd"
+                }
+              ],
+              "id": "ab345d5a-326f-414e-b708-ad4424587732",
+              "createdAt": "2026-07-28T03:16:12.000Z",
+              "updatedAt": "2026-07-28T03:16:12.000Z",
+              "uid": "35240-ab345d5a-326f-414e-b708-ad4424587732"
+            }
+          ],
+          "id": "93b6073e-7da1-4904-bd8b-8fc4965b5ca7",
+          "createdAt": "2026-07-28T03:16:12.000Z",
+          "updatedAt": "2026-07-28T03:16:12.000Z",
+          "uid": "35240-93b6073e-7da1-4904-bd8b-8fc4965b5ca7"
+        }
+      ],
+      "id": "c192a704-69aa-4b1e-ad1e-9dbfecc88e33",
+      "createdAt": "2026-07-28T03:16:12.000Z",
+      "updatedAt": "2026-07-28T03:16:12.000Z",
+      "uid": "35240-c192a704-69aa-4b1e-ad1e-9dbfecc88e33"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

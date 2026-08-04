@@ -1,0 +1,2623 @@
+{
+  "info": {
+    "_postman_id": "63a00f4f-d3cb-4e00-9d9e-ffa3cd768e6d",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Variable API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:47.000Z",
+    "updatedAt": "2026-07-28T03:16:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-63a00f4f-d3cb-4e00-9d9e-ffa3cd768e6d"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "template",
+                  "item": [
+                    {
+                      "name": "variables",
+                      "item": [
+                        {
+                          "name": "create",
+                          "item": [
+                            {
+                              "name": "create Variable",
+                              "id": "9bb22784-b732-46c1-aaa7-bfd274e1b2ff",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "template",
+                                    "variables",
+                                    "create"
+                                  ]
+                                },
+                                "description": "\nCreate a variable which can be used for parameterizing metadata objects <br/>  <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nAllows creating a variable which can be used for parameterizing metadata objects in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint supports the following types of variables:\n* CONNECTION_PROPERTY - For connection properties\n* TABLE_MAPPING - For table mappings\n* CONNECTION_PROPERTY_PER_PRINCIPAL - For connection properties per principal. In order to use this please contact support to enable this.\n* FORMULA_VARIABLE - For Formula variables, introduced in 10.15.0.cl\n\nWhen creating a variable, you need to specify:\n* The variable type\n* A unique name for the variable\n* Whether the variable contains sensitive values (defaults to false)\n* The data type of the variable, only specify for formula variables (defaults to null)\n\nThe operation will fail if:\n* The user lacks required permissions\n* The variable name already exists\n* The variable type is invalid\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "eb75f56d-c56d-4145-9879-1ea5e1fb5def",
+                                  "name": "Create variable is successful.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "create"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variable_type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n  \"sensitive\": \"<boolean>\",\n  \"values\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"value\": \"<string>\",\n      \"value_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"value\": \"<string>\",\n      \"value_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"org\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-eb75f56d-c56d-4145-9879-1ea5e1fb5def"
+                                },
+                                {
+                                  "id": "e6e53e40-d835-4d84-b7fe-e84ec8829ac6",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "create"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-e6e53e40-d835-4d84-b7fe-e84ec8829ac6"
+                                },
+                                {
+                                  "id": "c8748f91-5e8e-4c78-90a5-1ae793ce489c",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "create"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-c8748f91-5e8e-4c78-90a5-1ae793ce489c"
+                                },
+                                {
+                                  "id": "8e314f02-f90b-454c-a71b-c76a49aa2f99",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "create"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-8e314f02-f90b-454c-a71b-c76a49aa2f99"
+                                },
+                                {
+                                  "id": "22484b9f-ff07-472d-b29d-abc68caf3f2a",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"type\": \"TABLE_MAPPING\",\n  \"name\": \"<string>\",\n  \"is_sensitive\": false,\n  \"data_type\": \"DATE_TIME\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/create",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "create"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-22484b9f-ff07-472d-b29d-abc68caf3f2a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-9bb22784-b732-46c1-aaa7-bfd274e1b2ff"
+                            }
+                          ],
+                          "id": "b47f98e5-7ccd-41c9-a6e9-5a378290d264",
+                          "createdAt": "2026-07-28T03:16:48.000Z",
+                          "updatedAt": "2026-07-28T03:16:48.000Z",
+                          "uid": "35240-b47f98e5-7ccd-41c9-a6e9-5a378290d264"
+                        },
+                        {
+                          "name": "{identifier}",
+                          "item": [
+                            {
+                              "name": "delete",
+                              "item": [
+                                {
+                                  "name": "delete Variable",
+                                  "id": "4c148b1f-eb77-45dc-8057-2fc7a52eb9b8",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        ":identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "01e7348c-deed-44f8-9a43-a0d41f852441",
+                                          "key": "identifier",
+                                          "value": "<string>",
+                                          "description": "(Required) Unique id or name of the variable"
+                                        }
+                                      ]
+                                    },
+                                    "description": "\nDelete a variable <br/>  <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\n**Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/template/variables/delete](/api/rest/2.0/template/variables/delete) instead.\n\nAllows deleting a variable from ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint requires:\n* The variable identifier (ID or name)\n\nThe operation will fail if:\n* The user lacks required permissions\n* The variable doesn't exist\n* The variable is being used by other objects \n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "cd5ab664-4928-49d4-9e9a-6c5cc78d549a",
+                                      "name": "Deleting the variable is successful.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "delete"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-cd5ab664-4928-49d4-9e9a-6c5cc78d549a"
+                                    },
+                                    {
+                                      "id": "a6eafba9-f437-47c2-a116-007712feed11",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "delete"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-a6eafba9-f437-47c2-a116-007712feed11"
+                                    },
+                                    {
+                                      "id": "a1405d90-f8a7-4adb-888f-00cb7f54d557",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "delete"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-a1405d90-f8a7-4adb-888f-00cb7f54d557"
+                                    },
+                                    {
+                                      "id": "c2784f6c-c278-4752-997d-eb9170a7d991",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "delete"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-c2784f6c-c278-4752-997d-eb9170a7d991"
+                                    },
+                                    {
+                                      "id": "d26cfa35-493c-4ad7-a84c-365f4ee50455",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/delete",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "delete"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-d26cfa35-493c-4ad7-a84c-365f4ee50455"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-4c148b1f-eb77-45dc-8057-2fc7a52eb9b8"
+                                }
+                              ],
+                              "id": "714069de-64be-4aff-bda4-9879238bc8c1",
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-714069de-64be-4aff-bda4-9879238bc8c1"
+                            },
+                            {
+                              "name": "update-values",
+                              "item": [
+                                {
+                                  "name": "put Variable Values",
+                                  "id": "32c46dd9-d51c-4665-9e92-983348ad2bd1",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        ":identifier",
+                                        "update-values"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "6a9974e8-c8a2-493e-9145-25760a854279",
+                                          "key": "identifier",
+                                          "value": "<string>",
+                                          "description": "(Required) Unique ID or name of the variable"
+                                        }
+                                      ]
+                                    },
+                                    "description": "\nUpdate values for a variable <br/>  <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nAllows updating values for a specific variable in ThoughtSpot.\n\nRequires ADMINISTRATION role.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint allows:\n* Adding new values to the variable\n* Replacing existing values\n* Deleting values from the variable\n* Resetting all values\n\nWhen updating variable values, you need to specify:\n* The variable identifier (ID or name)\n* The values to add/replace/remove\n* The operation to perform (ADD, REPLACE, REMOVE, RESET)\n\nBehaviour based on operation type:\n* ADD - Adds values to the variable if this is a list type variable, else same as replace.\n* REPLACE - Replaces all values of a given set of constraints with the current set of values.\n* REMOVE - Removes any values which match the set of conditions of the variables if this is a list type variable, else clears value.\n* RESET - Removes all constraints for the given variable, scope is ignored\n\n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "bbd710ba-8ee7-4921-a872-15cf1f203954",
+                                      "name": "Variable values updated successfully.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update-values"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-bbd710ba-8ee7-4921-a872-15cf1f203954"
+                                    },
+                                    {
+                                      "id": "e2dbbc23-ce59-4568-a236-1f0c1353bd27",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update-values"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-e2dbbc23-ce59-4568-a236-1f0c1353bd27"
+                                    },
+                                    {
+                                      "id": "b42f4066-f944-48f6-82d7-65f623fc6446",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update-values"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-b42f4066-f944-48f6-82d7-65f623fc6446"
+                                    },
+                                    {
+                                      "id": "12836a4b-1eda-446f-b423-7985e62b202e",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update-values"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-12836a4b-1eda-446f-b423-7985e62b202e"
+                                    },
+                                    {
+                                      "id": "bbca48f3-32f3-4236-bd22-3777abdf1edd",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"variable_assignment\": [\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"assigned_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ],\n  \"operation\": \"RESET\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update-values",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update-values"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-bbca48f3-32f3-4236-bd22-3777abdf1edd"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-32c46dd9-d51c-4665-9e92-983348ad2bd1"
+                                }
+                              ],
+                              "id": "0932094b-14aa-4bfc-bfc6-beb27eea322f",
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-0932094b-14aa-4bfc-bfc6-beb27eea322f"
+                            },
+                            {
+                              "name": "update",
+                              "item": [
+                                {
+                                  "name": "update Variable",
+                                  "id": "2e5c3e7b-7c82-4d69-a529-d9ff6be9da2d",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        ":identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "e84d4f7e-9886-407e-aaec-54652d304092",
+                                          "key": "identifier",
+                                          "value": "<string>",
+                                          "description": "(Required) Unique id or name of the variable to update."
+                                        }
+                                      ]
+                                    },
+                                    "description": "\nUpdate a variable's name <br/>  <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nAllows updating a variable's name in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint allows updating:\n* The variable name\n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "b2480305-3c6f-4304-8834-9382299be751",
+                                      "name": "Variable name updated successfully.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-b2480305-3c6f-4304-8834-9382299be751"
+                                    },
+                                    {
+                                      "id": "d854ec6f-b0f1-45d5-ac62-1abb91cbe4fc",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-d854ec6f-b0f1-45d5-ac62-1abb91cbe4fc"
+                                    },
+                                    {
+                                      "id": "29414918-fee9-4b66-b7ed-b9b417d9c1e2",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-29414918-fee9-4b66-b7ed-b9b417d9c1e2"
+                                    },
+                                    {
+                                      "id": "86032945-60bd-4cfa-8dcd-370ba6911715",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-86032945-60bd-4cfa-8dcd-370ba6911715"
+                                    },
+                                    {
+                                      "id": "052f338b-e688-4f0a-b121-33c161b02393",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/template/variables/:identifier/update",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "template",
+                                            "variables",
+                                            ":identifier",
+                                            "update"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "identifier"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:48.000Z",
+                                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                                      "uid": "35240-052f338b-e688-4f0a-b121-33c161b02393"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-2e5c3e7b-7c82-4d69-a529-d9ff6be9da2d"
+                                }
+                              ],
+                              "id": "3a30d092-cf1b-4640-a703-ff9a749910a4",
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-3a30d092-cf1b-4640-a703-ff9a749910a4"
+                            }
+                          ],
+                          "id": "e77fe9a6-115d-46ac-8f7d-19bccedff3a5",
+                          "createdAt": "2026-07-28T03:16:48.000Z",
+                          "updatedAt": "2026-07-28T03:16:48.000Z",
+                          "uid": "35240-e77fe9a6-115d-46ac-8f7d-19bccedff3a5"
+                        },
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete Variables",
+                              "id": "9f49a99a-c56b-4cbd-9a1c-deb5cd86d927",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "template",
+                                    "variables",
+                                    "delete"
+                                  ]
+                                },
+                                "description": "\nDelete variable(s) <br/>  <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nAllows deleting multiple variables from ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint requires:\n* The variable identifiers (IDs or names)\n\nThe operation will fail if:\n* The user lacks required permissions\n* Any of the variables don't exist\n* Any of the variables are being used by other objects\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "f14b19a6-7155-445f-8197-c9f13a2e3f4b",
+                                  "name": "Deletion of variable(s) is successful.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "delete"
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-f14b19a6-7155-445f-8197-c9f13a2e3f4b"
+                                },
+                                {
+                                  "id": "7421def0-f32d-4914-a716-3bbb52d0d600",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "delete"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-7421def0-f32d-4914-a716-3bbb52d0d600"
+                                },
+                                {
+                                  "id": "479a723f-dc1b-4139-b9b5-f7983ab17d88",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "delete"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-479a723f-dc1b-4139-b9b5-f7983ab17d88"
+                                },
+                                {
+                                  "id": "6971d8f3-6507-4b78-8f91-0fe180652728",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "delete"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-6971d8f3-6507-4b78-8f91-0fe180652728"
+                                },
+                                {
+                                  "id": "009f2cd7-e2fe-4def-844b-10fef34ae966",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "delete"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-009f2cd7-e2fe-4def-844b-10fef34ae966"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-9f49a99a-c56b-4cbd-9a1c-deb5cd86d927"
+                            }
+                          ],
+                          "id": "ddd6440e-df12-4b10-8d97-d65cdf8f76a7",
+                          "createdAt": "2026-07-28T03:16:48.000Z",
+                          "updatedAt": "2026-07-28T03:16:48.000Z",
+                          "uid": "35240-ddd6440e-df12-4b10-8d97-d65cdf8f76a7"
+                        },
+                        {
+                          "name": "search",
+                          "item": [
+                            {
+                              "name": "search Variables",
+                              "id": "eea11f41-4b57-4443-a49d-8a8afb4728c0",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "template",
+                                    "variables",
+                                    "search"
+                                  ]
+                                },
+                                "description": "\nSearch variables <br/>  <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nAllows searching for variables in ThoughtSpot.\n\nRequires ADMINISTRATION role.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint supports searching variables by:\n* Variable identifier (ID or name)\n* Variable type\n* Name pattern (case-insensitive, supports % for wildcard)\n\nThe search results can be formatted in three ways:\n* METADATA - Returns only variable metadata (default)\n* METADATA_AND_VALUES - Returns variable metadata and values\n\nThe values can be filtered by scope:\n* org_identifier\n* principal_identifier\n* model_identifier\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "456dafc8-d267-4fb2-956d-58997be318b5",
+                                  "name": "List of variables is successful.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"variable_type\": \"FORMULA_VARIABLE\",\n    \"sensitive\": \"<boolean>\",\n    \"values\": [\n      {\n        \"org_identifier\": \"<string>\",\n        \"value\": \"<string>\",\n        \"value_list\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"principal_type\": \"USER_GROUP\",\n        \"principal_identifier\": \"<string>\",\n        \"model_identifier\": \"<string>\",\n        \"priority\": \"<integer>\"\n      },\n      {\n        \"org_identifier\": \"<string>\",\n        \"value\": \"<string>\",\n        \"value_list\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"principal_type\": \"USER_GROUP\",\n        \"principal_identifier\": \"<string>\",\n        \"model_identifier\": \"<string>\",\n        \"priority\": \"<integer>\"\n      }\n    ],\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"variable_type\": \"TABLE_MAPPING\",\n    \"sensitive\": \"<boolean>\",\n    \"values\": [\n      {\n        \"org_identifier\": \"<string>\",\n        \"value\": \"<string>\",\n        \"value_list\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"principal_type\": \"USER_GROUP\",\n        \"principal_identifier\": \"<string>\",\n        \"model_identifier\": \"<string>\",\n        \"priority\": \"<integer>\"\n      },\n      {\n        \"org_identifier\": \"<string>\",\n        \"value\": \"<string>\",\n        \"value_list\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"principal_type\": \"USER\",\n        \"principal_identifier\": \"<string>\",\n        \"model_identifier\": \"<string>\",\n        \"priority\": \"<integer>\"\n      }\n    ],\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  }\n]",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-456dafc8-d267-4fb2-956d-58997be318b5"
+                                },
+                                {
+                                  "id": "586c25e6-8c29-455c-ad78-675058712fe0",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-586c25e6-8c29-455c-ad78-675058712fe0"
+                                },
+                                {
+                                  "id": "a88c4288-1af8-4873-9048-fe74ffb6ce2b",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-a88c4288-1af8-4873-9048-fe74ffb6ce2b"
+                                },
+                                {
+                                  "id": "cd8d4afd-ab28-429f-98a1-c7c45cdd7cac",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-cd8d4afd-ab28-429f-98a1-c7c45cdd7cac"
+                                },
+                                {
+                                  "id": "13cbd08a-dfde-4f60-a3a2-a378e3770a74",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_details\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"CONNECTION_PROPERTY_PER_PRINCIPAL\",\n      \"name_pattern\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"USER_PROPERTY\",\n      \"name_pattern\": \"<string>\"\n    }\n  ],\n  \"value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"response_content\": \"METADATA\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-13cbd08a-dfde-4f60-a3a2-a378e3770a74"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-eea11f41-4b57-4443-a49d-8a8afb4728c0"
+                            }
+                          ],
+                          "id": "cef43da2-73a9-42a0-8b5f-c856555d5bbb",
+                          "createdAt": "2026-07-28T03:16:48.000Z",
+                          "updatedAt": "2026-07-28T03:16:48.000Z",
+                          "uid": "35240-cef43da2-73a9-42a0-8b5f-c856555d5bbb"
+                        },
+                        {
+                          "name": "update-values",
+                          "item": [
+                            {
+                              "name": "update Variable Values",
+                              "id": "a07c3c93-3b8e-4ecb-b93e-9bbebe2d55cb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "template",
+                                    "variables",
+                                    "update-values"
+                                  ]
+                                },
+                                "description": "\nUpdate values for multiple variables <br/>  <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\n**Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/template/variables/{identifier}/update-values](/api/rest/2.0/template/variables/%7Bidentifier%7D/update-values) instead.\n\nAllows updating values for multiple variables in ThoughtSpot.\n\nRequires ADMINISTRATION role.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint allows:\n* Adding new values to variables\n* Replacing existing values\n* Deleting values from variables\n\nWhen updating variable values, you need to specify:\n* The variable identifiers\n* The values to add/replace/remove for each variable\n* The operation to perform (ADD, REPLACE, REMOVE, RESET)\n\nBehaviour based on operation type:\n* ADD - Adds values to the variable if this is a list type variable, else same as replace.\n* REPLACE - Replaces all values of a given set of constraints with the current set of values.\n* REMOVE - Removes any values which match the set of conditions of the variables if this is a list type variable, else clears value.\n* RESET - Removes all constrains for a given variable, scope is ignored\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "5faadc17-a83f-4647-a658-82889c515e46",
+                                  "name": "Variable values updated successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "update-values"
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-5faadc17-a83f-4647-a658-82889c515e46"
+                                },
+                                {
+                                  "id": "70be7f92-2bed-4231-8aac-d13846edc391",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "update-values"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-70be7f92-2bed-4231-8aac-d13846edc391"
+                                },
+                                {
+                                  "id": "739e2715-f3f9-445c-8abd-5a4c54e9acc0",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "update-values"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-739e2715-f3f9-445c-8abd-5a4c54e9acc0"
+                                },
+                                {
+                                  "id": "5c8c3434-83f5-4bfe-b33c-f498b51fa434",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "update-values"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-5c8c3434-83f5-4bfe-b33c-f498b51fa434"
+                                },
+                                {
+                                  "id": "cc2617e8-60cc-45cc-8063-f2a40657c3dc",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"variable_assignment\": [\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"ADD\"\n    },\n    {\n      \"variable_identifier\": \"<string>\",\n      \"variable_values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"operation\": \"REPLACE\"\n    }\n  ],\n  \"variable_value_scope\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"principal_type\": \"USER_GROUP\",\n      \"principal_identifier\": \"<string>\",\n      \"model_identifier\": \"<string>\",\n      \"priority\": \"<integer>\"\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/template/variables/update-values",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "template",
+                                        "variables",
+                                        "update-values"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:48.000Z",
+                                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                                  "uid": "35240-cc2617e8-60cc-45cc-8063-f2a40657c3dc"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:48.000Z",
+                              "updatedAt": "2026-07-28T03:16:48.000Z",
+                              "uid": "35240-a07c3c93-3b8e-4ecb-b93e-9bbebe2d55cb"
+                            }
+                          ],
+                          "id": "b2404f2e-6c50-447a-8819-6177fd362c57",
+                          "createdAt": "2026-07-28T03:16:48.000Z",
+                          "updatedAt": "2026-07-28T03:16:48.000Z",
+                          "uid": "35240-b2404f2e-6c50-447a-8819-6177fd362c57"
+                        }
+                      ],
+                      "id": "cabc4652-63b3-4f6f-9ec6-8a5555d8c4e0",
+                      "createdAt": "2026-07-28T03:16:48.000Z",
+                      "updatedAt": "2026-07-28T03:16:48.000Z",
+                      "uid": "35240-cabc4652-63b3-4f6f-9ec6-8a5555d8c4e0"
+                    }
+                  ],
+                  "id": "4832a8bd-4116-42d1-8327-75fc7d8ce7be",
+                  "createdAt": "2026-07-28T03:16:48.000Z",
+                  "updatedAt": "2026-07-28T03:16:48.000Z",
+                  "uid": "35240-4832a8bd-4116-42d1-8327-75fc7d8ce7be"
+                }
+              ],
+              "id": "a40404fa-fc43-4f80-9a85-563dfd938560",
+              "createdAt": "2026-07-28T03:16:48.000Z",
+              "updatedAt": "2026-07-28T03:16:48.000Z",
+              "uid": "35240-a40404fa-fc43-4f80-9a85-563dfd938560"
+            }
+          ],
+          "id": "70b06e75-ae28-4d63-94cc-dd1fed7ad644",
+          "createdAt": "2026-07-28T03:16:48.000Z",
+          "updatedAt": "2026-07-28T03:16:48.000Z",
+          "uid": "35240-70b06e75-ae28-4d63-94cc-dd1fed7ad644"
+        }
+      ],
+      "id": "c4652ba7-76c7-427a-b1d9-1c2189d99753",
+      "createdAt": "2026-07-28T03:16:48.000Z",
+      "updatedAt": "2026-07-28T03:16:48.000Z",
+      "uid": "35240-c4652ba7-76c7-427a-b1d9-1c2189d99753"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

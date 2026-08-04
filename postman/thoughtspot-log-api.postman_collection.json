@@ -1,0 +1,427 @@
+{
+  "info": {
+    "_postman_id": "e695c5c5-b444-491d-963d-3818c8e10269",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Log API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:00.000Z",
+    "updatedAt": "2026-07-28T03:16:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e695c5c5-b444-491d-963d-3818c8e10269"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "logs",
+                  "item": [
+                    {
+                      "name": "fetch",
+                      "item": [
+                        {
+                          "name": "fetch Logs",
+                          "id": "abd78d29-ddda-4897-81c7-43bb004f5913",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "logs",
+                                "fetch"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches security audit logs.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the [Admin Control](https://developers.thoughtspot.com/docs/rbac#_admin_control) privileges are required.\n\n\n#### Usage guidelines\n\nBy default, the API retrieves logs for the last 24 hours. You can set a custom duration in EPOCH time. Make sure the log duration specified in your API request doesn\u2019t exceed 24 hours. If you must fetch logs for a longer time range, modify the duration and make multiple sequential API requests.\n\nUpon successful execution, the API returns logs with the following information:\n* timestamp of the event\n* event ID\n* event type\n* name and GUID of the user\n* IP address of ThoughtSpot instance\n\nFor more information see [Audit logs Documentation](https://developers.thoughtspot.com/docs/audit-logs).\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "04da37b3-49c2-46b0-a629-be02d544ec47",
+                              "name": "Log fetched successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "logs",
+                                    "fetch"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"date\": \"<string>\",\n    \"log\": \"<string>\"\n  },\n  {\n    \"date\": \"<string>\",\n    \"log\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T03:16:01.000Z",
+                              "updatedAt": "2026-07-28T03:16:01.000Z",
+                              "uid": "35240-04da37b3-49c2-46b0-a629-be02d544ec47"
+                            },
+                            {
+                              "id": "d8631df5-d245-48e1-b4a9-02ae85c0609d",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "logs",
+                                    "fetch"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:01.000Z",
+                              "updatedAt": "2026-07-28T03:16:01.000Z",
+                              "uid": "35240-d8631df5-d245-48e1-b4a9-02ae85c0609d"
+                            },
+                            {
+                              "id": "5bed755b-d578-428f-abe4-696051976b97",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "logs",
+                                    "fetch"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:01.000Z",
+                              "updatedAt": "2026-07-28T03:16:01.000Z",
+                              "uid": "35240-5bed755b-d578-428f-abe4-696051976b97"
+                            },
+                            {
+                              "id": "b4628efd-2857-4d3c-9702-2c10af84073b",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "logs",
+                                    "fetch"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:01.000Z",
+                              "updatedAt": "2026-07-28T03:16:01.000Z",
+                              "uid": "35240-b4628efd-2857-4d3c-9702-2c10af84073b"
+                            },
+                            {
+                              "id": "6476a21d-5974-4504-8e82-2dcdebbd4bd9",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"log_type\": \"SECURITY_AUDIT\",\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\",\n  \"get_all_logs\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/logs/fetch",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "logs",
+                                    "fetch"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:01.000Z",
+                              "updatedAt": "2026-07-28T03:16:01.000Z",
+                              "uid": "35240-6476a21d-5974-4504-8e82-2dcdebbd4bd9"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:01.000Z",
+                          "updatedAt": "2026-07-28T03:16:01.000Z",
+                          "uid": "35240-abd78d29-ddda-4897-81c7-43bb004f5913"
+                        }
+                      ],
+                      "id": "1e58368c-db00-4a82-839f-e67ea3dfc0c4",
+                      "createdAt": "2026-07-28T03:16:01.000Z",
+                      "updatedAt": "2026-07-28T03:16:01.000Z",
+                      "uid": "35240-1e58368c-db00-4a82-839f-e67ea3dfc0c4"
+                    }
+                  ],
+                  "id": "77b7acfb-939f-40a1-9b59-77bb3916732a",
+                  "createdAt": "2026-07-28T03:16:01.000Z",
+                  "updatedAt": "2026-07-28T03:16:01.000Z",
+                  "uid": "35240-77b7acfb-939f-40a1-9b59-77bb3916732a"
+                }
+              ],
+              "id": "f794b021-dfc8-4e44-91f5-bcfd9efd1f64",
+              "createdAt": "2026-07-28T03:16:01.000Z",
+              "updatedAt": "2026-07-28T03:16:01.000Z",
+              "uid": "35240-f794b021-dfc8-4e44-91f5-bcfd9efd1f64"
+            }
+          ],
+          "id": "c4ecbf34-1329-448f-a850-b3eacb9c28a7",
+          "createdAt": "2026-07-28T03:16:01.000Z",
+          "updatedAt": "2026-07-28T03:16:01.000Z",
+          "uid": "35240-c4ecbf34-1329-448f-a850-b3eacb9c28a7"
+        }
+      ],
+      "id": "d7cf22bf-9e8f-404b-9741-9be9c50bca97",
+      "createdAt": "2026-07-28T03:16:01.000Z",
+      "updatedAt": "2026-07-28T03:16:01.000Z",
+      "uid": "35240-d7cf22bf-9e8f-404b-9741-9be9c50bca97"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

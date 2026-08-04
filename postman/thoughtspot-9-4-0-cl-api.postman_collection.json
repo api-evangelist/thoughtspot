@@ -1,0 +1,1784 @@
+{
+  "info": {
+    "_postman_id": "eae7eaeb-f9f0-4035-a97c-c5c72fb43535",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 9.4.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:14:32.000Z",
+    "updatedAt": "2026-07-28T03:14:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eae7eaeb-f9f0-4035-a97c-c5c72fb43535"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "auth",
+                  "item": [
+                    {
+                      "name": "session",
+                      "item": [
+                        {
+                          "name": "token",
+                          "item": [
+                            {
+                              "name": "get Current User Token",
+                              "id": "6a6a154f-99a5-468b-8af2-0ad113f708a7",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "auth",
+                                    "session",
+                                    "token"
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nRetrieves details of the current session token for the bearer token provided in the request header.\n\nThis API endpoint does not create a new token. Instead, it returns details about the token, including the token string, creation time, expiration time, and the associated user.\n\nUse this endpoint to introspect your current session token, debug authentication issues, or when a frontend application needs session token details.\n\nAny ThoughtSpot user with a valid bearer token can access this endpoint and send an API request\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "55102836-4591-40de-ab46-73839c29ae50",
+                                  "name": "Fetching token for current user successful.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "auth",
+                                        "session",
+                                        "token"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"token\": \"<string>\",\n  \"creation_time_in_millis\": \"<float>\",\n  \"expiration_time_in_millis\": \"<float>\",\n  \"valid_for_user_id\": \"<string>\",\n  \"valid_for_username\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-55102836-4591-40de-ab46-73839c29ae50"
+                                },
+                                {
+                                  "id": "7207138d-78c5-4e01-bd84-9c568cd9153d",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "auth",
+                                        "session",
+                                        "token"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-7207138d-78c5-4e01-bd84-9c568cd9153d"
+                                },
+                                {
+                                  "id": "710cb295-f1ce-4e23-ab1c-20780e8489bf",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "auth",
+                                        "session",
+                                        "token"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-710cb295-f1ce-4e23-ab1c-20780e8489bf"
+                                },
+                                {
+                                  "id": "31d923a2-4645-47af-8e3b-a9d5759e8f63",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "auth",
+                                        "session",
+                                        "token"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-31d923a2-4645-47af-8e3b-a9d5759e8f63"
+                                },
+                                {
+                                  "id": "0ecc9ffc-25ca-493d-96b7-d6f945fe4074",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/auth/session/token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "auth",
+                                        "session",
+                                        "token"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-0ecc9ffc-25ca-493d-96b7-d6f945fe4074"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-6a6a154f-99a5-468b-8af2-0ad113f708a7"
+                            }
+                          ],
+                          "id": "37fa9004-b404-4366-a206-613a35156929",
+                          "createdAt": "2026-07-28T03:14:33.000Z",
+                          "updatedAt": "2026-07-28T03:14:33.000Z",
+                          "uid": "35240-37fa9004-b404-4366-a206-613a35156929"
+                        }
+                      ],
+                      "id": "7b2367e4-b75b-451d-ae7e-d61091a69522",
+                      "createdAt": "2026-07-28T03:14:33.000Z",
+                      "updatedAt": "2026-07-28T03:14:33.000Z",
+                      "uid": "35240-7b2367e4-b75b-451d-ae7e-d61091a69522"
+                    }
+                  ],
+                  "id": "89b81b43-c95b-4407-a157-0887d166ef2e",
+                  "createdAt": "2026-07-28T03:14:33.000Z",
+                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                  "uid": "35240-89b81b43-c95b-4407-a157-0887d166ef2e"
+                },
+                {
+                  "name": "schedules",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create Schedule",
+                          "id": "8cacd5f0-99b8-4873-bc0e-c94e8350f616",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "schedules",
+                                "create"
+                              ]
+                            },
+                            "description": "\nCreate schedule. <br/>  <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nCreates a Liveboard schedule job.\n\nRequires at least edit access to Liveboards. To create a schedule on behalf of another user, you need  `ADMINISTRATION` (**Can administer Org**) or `JOBSCHEDULING` (**Can schedule for others**) privilege and edit access to the Liveboard.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `JOBSCHEDULING` (**Can schedule for others**) privilege is required.\n\nIf RBAC is enabled, creating a schedule also requires the download privilege that corresponds to the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PDF` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\n#### Usage guidelines\n\n* The description text is mandatory.  The description text appears as **Description: <your content>** in the Liveboard schedule email notifications.\n* For Liveboards with both charts and tables, schedule creation is only supported in PDF and XLS formats. Schedules created in CSV formats for such Liveboards will fail to run. If `PDF` is set as the `file_format`, enable `pdf_options` to get the correct attachment. Not doing so may cause the attachment to be rendered empty.\n* To include only specific visualizations, specify the visualization GUIDs in the `visualization_identifiers` array.\n* You can schedule a Liveboard job to run periodically by setting frequency parameters. You can set the schedule to run daily, weekly, monthly or every n minutes or hours. The scheduled job can also be configured to run at a specific time of the day or on specific days of the week or month. Please ensure that when setting the schedule frequency for _minute of the object_, only values that are multiples of 5 are included.\n* If the `frequency` parameters are defined, you can set the time zone to a value that matches your server's time zone. For example, `US/Central`, `Etc/UTC`, `CET`. The default time zone is `America/Los_Angeles`.\n\nFor more information about Liveboard jobs, see [ThoughtSpot Product Documentation](https://docs.thoughtspot.com/cloud/latest/liveboard-schedule).\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "22b2bb9b-15a0-4e96-9c80-a934d8e480fa",
+                              "name": "Schedule successfully created.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"author\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"creation_time_in_millis\": {},\n  \"file_format\": \"<string>\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"id\": \"<string>\",\n  \"metadata\": {\n    \"id\": \"<string>\",\n    \"type\": \"LIVEBOARD\",\n    \"name\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"time_zone\": \"<string>\",\n  \"description\": \"<string>\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"status\": \"<string>\",\n  \"history_runs\": [\n    {\n      \"id\": \"<string>\",\n      \"start_time_in_millis\": \"<integer>\",\n      \"end_time_in_millis\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"start_time_in_millis\": \"<integer>\",\n      \"end_time_in_millis\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ],\n  \"personalised_view_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-22b2bb9b-15a0-4e96-9c80-a934d8e480fa"
+                            },
+                            {
+                              "id": "da045175-c6b0-4cea-b3b4-2bcf6d59a043",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-da045175-c6b0-4cea-b3b4-2bcf6d59a043"
+                            },
+                            {
+                              "id": "642ddac4-cbb6-4d39-a14e-44c8a5f7d16d",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-642ddac4-cbb6-4d39-a14e-44c8a5f7d16d"
+                            },
+                            {
+                              "id": "087347f0-2d66-4842-a4c0-d37c7f322367",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-087347f0-2d66-4842-a4c0-d37c7f322367"
+                            },
+                            {
+                              "id": "c48bd74e-4927-4b79-8aeb-38404d261c4e",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"time_zone\": \"America/Los_Angeles\",\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"file_format\": \"PDF\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"TAB_BASED\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-c48bd74e-4927-4b79-8aeb-38404d261c4e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:14:33.000Z",
+                          "updatedAt": "2026-07-28T03:14:33.000Z",
+                          "uid": "35240-8cacd5f0-99b8-4873-bc0e-c94e8350f616"
+                        }
+                      ],
+                      "id": "d1576b57-c133-4d48-a52c-b73107a079a0",
+                      "createdAt": "2026-07-28T03:14:33.000Z",
+                      "updatedAt": "2026-07-28T03:14:33.000Z",
+                      "uid": "35240-d1576b57-c133-4d48-a52c-b73107a079a0"
+                    },
+                    {
+                      "name": "{schedule_identifier}",
+                      "item": [
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete Schedule",
+                              "id": "2a9f9dc5-9f48-4103-a8e9-acd0971ae267",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    ":schedule_identifier",
+                                    "delete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6a874f82-c139-4666-848b-6d6b342e5477",
+                                      "key": "schedule_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique ID or name of the scheduled job."
+                                    }
+                                  ]
+                                },
+                                "description": "\nDeletes a scheduled job. <br/>  <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nDeletes a scheduled Liveboard job.\n\nRequires at least edit access to Liveboard or `ADMINISTRATION` (**Can administer Org**) privilege.   \nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `JOBSCHEDULING` (**Can schedule for others**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "342c47f8-b6e2-4de7-9da2-5009baa56451",
+                                  "name": "Schedule successfully deleted.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-342c47f8-b6e2-4de7-9da2-5009baa56451"
+                                },
+                                {
+                                  "id": "97b47ffd-ba3c-441b-b53a-aab8f57d6926",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-97b47ffd-ba3c-441b-b53a-aab8f57d6926"
+                                },
+                                {
+                                  "id": "1ae0421d-449c-43f3-a582-45dfac48e8bf",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-1ae0421d-449c-43f3-a582-45dfac48e8bf"
+                                },
+                                {
+                                  "id": "70f7c482-729f-4021-b6a0-130d5a86020c",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-70f7c482-729f-4021-b6a0-130d5a86020c"
+                                },
+                                {
+                                  "id": "bb31270c-6fe1-4666-a1d3-68e0eb860586",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-bb31270c-6fe1-4666-a1d3-68e0eb860586"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-2a9f9dc5-9f48-4103-a8e9-acd0971ae267"
+                            }
+                          ],
+                          "id": "1dcdc611-f1ea-40b6-abb0-544d229b3a03",
+                          "createdAt": "2026-07-28T03:14:33.000Z",
+                          "updatedAt": "2026-07-28T03:14:33.000Z",
+                          "uid": "35240-1dcdc611-f1ea-40b6-abb0-544d229b3a03"
+                        },
+                        {
+                          "name": "update",
+                          "item": [
+                            {
+                              "name": "update Schedule",
+                              "id": "459059f5-a5dd-4f32-8c10-135b994d8120",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    ":schedule_identifier",
+                                    "update"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "71dc7718-7bfc-491b-b888-911b18e63a13",
+                                      "key": "schedule_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique ID or name of the schedule."
+                                    }
+                                  ]
+                                },
+                                "description": "\nUpdate schedule. <br/>  <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nUpdates a scheduled Liveboard job.\n\nRequires at least edit access to Liveboards. To update a schedule on behalf of another user, you need `ADMINISTRATION` (**Can administer Org**) or `JOBSCHEDULING` (**Can schedule for others**) privilege and edit access to the Liveboard.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `JOBSCHEDULING` (**Can schedule for others**) privilege is required.\n\nIf RBAC is enabled, changing a schedule's `file_format` also requires the download privilege that corresponds to the selected format: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PDF` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\nThe API endpoint allows you to pause a scheduled job, change the status of a paused job. You can also edit the recipients list, frequency of the job, format of the file to send to the recipients in email notifications, PDF options, and time zone setting.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "825db69f-49a1-4606-b249-83c076924ed3",
+                                  "name": "Schedule successfully updated.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-825db69f-49a1-4606-b249-83c076924ed3"
+                                },
+                                {
+                                  "id": "6948c50a-772c-471a-9dd7-e22be4b02449",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-6948c50a-772c-471a-9dd7-e22be4b02449"
+                                },
+                                {
+                                  "id": "e7ab424f-1edc-4f21-98f9-cd08ad5ae048",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-e7ab424f-1edc-4f21-98f9-cd08ad5ae048"
+                                },
+                                {
+                                  "id": "dd1a612c-e7c3-4f08-987d-44b62f9829da",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-dd1a612c-e7c3-4f08-987d-44b62f9829da"
+                                },
+                                {
+                                  "id": "99857726-d8d6-4394-91a5-d6102f4c21f9",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"metadata_type\": \"LIVEBOARD\",\n  \"metadata_identifier\": \"<string>\",\n  \"file_format\": \"CSV\",\n  \"liveboard_options\": {\n    \"visualization_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pdf_options\": {\n    \"complete_liveboard\": \"<boolean>\",\n    \"include_cover_page\": \"<boolean>\",\n    \"include_custom_logo\": \"<boolean>\",\n    \"include_filter_page\": \"<boolean>\",\n    \"include_page_number\": \"<boolean>\",\n    \"page_footer_text\": \"<string>\",\n    \"page_orientation\": \"<string>\",\n    \"page_size\": \"A4\",\n    \"truncate_table\": \"<boolean>\"\n  },\n  \"time_zone\": \"Africa/Bangui\",\n  \"frequency\": {\n    \"cron_expression\": {\n      \"day_of_month\": \"<string>\",\n      \"day_of_week\": \"<string>\",\n      \"hour\": \"<string>\",\n      \"minute\": \"<string>\",\n      \"month\": \"<string>\",\n      \"second\": \"<string>\"\n    }\n  },\n  \"recipient_details\": {\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"principals\": [\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"identifier\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": \"ACTIVE\",\n  \"personalised_view_id\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/schedules/:schedule_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "schedules",
+                                        ":schedule_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "schedule_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:14:33.000Z",
+                                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                                  "uid": "35240-99857726-d8d6-4394-91a5-d6102f4c21f9"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-459059f5-a5dd-4f32-8c10-135b994d8120"
+                            }
+                          ],
+                          "id": "1d9c9de9-1e75-4d40-b4b0-868359dfb7a7",
+                          "createdAt": "2026-07-28T03:14:33.000Z",
+                          "updatedAt": "2026-07-28T03:14:33.000Z",
+                          "uid": "35240-1d9c9de9-1e75-4d40-b4b0-868359dfb7a7"
+                        }
+                      ],
+                      "id": "661f2407-fba2-4d56-99b8-bae48bf6433b",
+                      "createdAt": "2026-07-28T03:14:33.000Z",
+                      "updatedAt": "2026-07-28T03:14:33.000Z",
+                      "uid": "35240-661f2407-fba2-4d56-99b8-bae48bf6433b"
+                    },
+                    {
+                      "name": "search",
+                      "item": [
+                        {
+                          "name": "search Schedules",
+                          "id": "ba58f9eb-247f-4557-b05c-8edc103bd05c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "schedules",
+                                "search"
+                              ]
+                            },
+                            "description": "\nSearch Schedules <br/>  <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nGets a list of scheduled jobs configured for a Liveboard.\n\nTo get details of a specific scheduled job, specify the name or GUID of the scheduled job.\n\nRequires at least view access to Liveboards.\n\n**NOTE**: When filtering schedules by parameters other than `metadata`, set `record_size` to `-1` and `record_offset` to `0` for accurate results.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "783013d3-161b-44b8-8f00-c3daf9f94059",
+                              "name": "Schedule search result.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"author\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"creation_time_in_millis\": {},\n    \"file_format\": \"<string>\",\n    \"frequency\": {\n      \"cron_expression\": {\n        \"day_of_month\": \"<string>\",\n        \"day_of_week\": \"<string>\",\n        \"hour\": \"<string>\",\n        \"minute\": \"<string>\",\n        \"month\": \"<string>\",\n        \"second\": \"<string>\"\n      }\n    },\n    \"id\": \"<string>\",\n    \"metadata\": {\n      \"id\": \"<string>\",\n      \"type\": \"LIVEBOARD\",\n      \"name\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"recipient_details\": {\n      \"emails\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"principals\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    \"time_zone\": \"<string>\",\n    \"description\": \"<string>\",\n    \"liveboard_options\": {\n      \"visualization_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"pdf_options\": {\n      \"complete_liveboard\": \"<boolean>\",\n      \"include_cover_page\": \"<boolean>\",\n      \"include_custom_logo\": \"<boolean>\",\n      \"include_filter_page\": \"<boolean>\",\n      \"include_page_number\": \"<boolean>\",\n      \"page_footer_text\": \"<string>\",\n      \"page_orientation\": \"<string>\",\n      \"page_size\": \"A4\",\n      \"truncate_table\": \"<boolean>\"\n    },\n    \"status\": \"<string>\",\n    \"history_runs\": [\n      {\n        \"id\": \"<string>\",\n        \"start_time_in_millis\": \"<integer>\",\n        \"end_time_in_millis\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"detail\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"start_time_in_millis\": \"<integer>\",\n        \"end_time_in_millis\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"detail\": \"<string>\"\n      }\n    ],\n    \"personalised_view_id\": \"<string>\"\n  },\n  {\n    \"author\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"creation_time_in_millis\": {},\n    \"file_format\": \"<string>\",\n    \"frequency\": {\n      \"cron_expression\": {\n        \"day_of_month\": \"<string>\",\n        \"day_of_week\": \"<string>\",\n        \"hour\": \"<string>\",\n        \"minute\": \"<string>\",\n        \"month\": \"<string>\",\n        \"second\": \"<string>\"\n      }\n    },\n    \"id\": \"<string>\",\n    \"metadata\": {\n      \"id\": \"<string>\",\n      \"type\": \"LIVEBOARD\",\n      \"name\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"recipient_details\": {\n      \"emails\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"principals\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    \"time_zone\": \"<string>\",\n    \"description\": \"<string>\",\n    \"liveboard_options\": {\n      \"visualization_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"pdf_options\": {\n      \"complete_liveboard\": \"<boolean>\",\n      \"include_cover_page\": \"<boolean>\",\n      \"include_custom_logo\": \"<boolean>\",\n      \"include_filter_page\": \"<boolean>\",\n      \"include_page_number\": \"<boolean>\",\n      \"page_footer_text\": \"<string>\",\n      \"page_orientation\": \"<string>\",\n      \"page_size\": \"TAB_BASED\",\n      \"truncate_table\": \"<boolean>\"\n    },\n    \"status\": \"<string>\",\n    \"history_runs\": [\n      {\n        \"id\": \"<string>\",\n        \"start_time_in_millis\": \"<integer>\",\n        \"end_time_in_millis\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"detail\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"start_time_in_millis\": \"<integer>\",\n        \"end_time_in_millis\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"detail\": \"<string>\"\n      }\n    ],\n    \"personalised_view_id\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-783013d3-161b-44b8-8f00-c3daf9f94059"
+                            },
+                            {
+                              "id": "69c24396-24c7-4e6f-8dbf-92370918972e",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-69c24396-24c7-4e6f-8dbf-92370918972e"
+                            },
+                            {
+                              "id": "04a10c6a-62bb-46fe-9917-b9736a3e2367",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-04a10c6a-62bb-46fe-9917-b9736a3e2367"
+                            },
+                            {
+                              "id": "83a6cfcf-c6ac-4b16-87dd-8a721c12d907",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-83a6cfcf-c6ac-4b16-87dd-8a721c12d907"
+                            },
+                            {
+                              "id": "603e3c4a-56c4-4fb2-8cd6-dcf503e29700",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"LIVEBOARD\"\n    }\n  ],\n  \"record_offset\": \"<integer>\",\n  \"record_size\": \"<integer>\",\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"history_runs_options\": {\n    \"include_history_runs\": false,\n    \"record_size\": 10,\n    \"record_offset\": 0\n  },\n  \"schedule_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/schedules/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "schedules",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:14:33.000Z",
+                              "updatedAt": "2026-07-28T03:14:33.000Z",
+                              "uid": "35240-603e3c4a-56c4-4fb2-8cd6-dcf503e29700"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:14:33.000Z",
+                          "updatedAt": "2026-07-28T03:14:33.000Z",
+                          "uid": "35240-ba58f9eb-247f-4557-b05c-8edc103bd05c"
+                        }
+                      ],
+                      "id": "ce33c2e9-0309-4c7b-aa57-9bcc8bd84f6b",
+                      "createdAt": "2026-07-28T03:14:33.000Z",
+                      "updatedAt": "2026-07-28T03:14:33.000Z",
+                      "uid": "35240-ce33c2e9-0309-4c7b-aa57-9bcc8bd84f6b"
+                    }
+                  ],
+                  "id": "029c4a85-d72e-44cc-8ce8-e87e585ae445",
+                  "createdAt": "2026-07-28T03:14:33.000Z",
+                  "updatedAt": "2026-07-28T03:14:33.000Z",
+                  "uid": "35240-029c4a85-d72e-44cc-8ce8-e87e585ae445"
+                }
+              ],
+              "id": "37c6b7bb-ba36-49fd-a77a-b2abd8fe6282",
+              "createdAt": "2026-07-28T03:14:33.000Z",
+              "updatedAt": "2026-07-28T03:14:33.000Z",
+              "uid": "35240-37c6b7bb-ba36-49fd-a77a-b2abd8fe6282"
+            }
+          ],
+          "id": "0af5671e-2939-4758-ad82-58efb7bf920d",
+          "createdAt": "2026-07-28T03:14:33.000Z",
+          "updatedAt": "2026-07-28T03:14:33.000Z",
+          "uid": "35240-0af5671e-2939-4758-ad82-58efb7bf920d"
+        }
+      ],
+      "id": "7d052544-ed67-488b-ae47-24383069b4eb",
+      "createdAt": "2026-07-28T03:14:33.000Z",
+      "updatedAt": "2026-07-28T03:14:33.000Z",
+      "uid": "35240-7d052544-ed67-488b-ae47-24383069b4eb"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

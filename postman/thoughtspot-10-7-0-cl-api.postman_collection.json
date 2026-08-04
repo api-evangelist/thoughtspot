@@ -1,0 +1,487 @@
+{
+  "info": {
+    "_postman_id": "ba727148-d35a-4429-934f-27806e9351dd",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.7.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:48.000Z",
+    "updatedAt": "2026-07-28T03:13:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ba727148-d35a-4429-934f-27806e9351dd"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "ai",
+                  "item": [
+                    {
+                      "name": "analytical-questions",
+                      "item": [
+                        {
+                          "name": "query Get Decomposed Query",
+                          "id": "51d36add-f4e5-46dc-ac60-0f6718c2f0fa",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "ai",
+                                "analytical-questions"
+                              ]
+                            },
+                            "description": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.7.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 10.7.0.cl or later</span>\n\n**Deprecated** \u2014 Use `getRelevantQuestions` instead (available from 10.13.0.cl).\n\nBreaks down a topical or goal-oriented natural language question into smaller, actionable analytical sub-questions, each mapped to a relevant data source for independent execution.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view-level access to the referenced metadata objects.\n\n#### Usage guidelines\n\nThe request accepts the following parameters:\n\n- `nlsRequest`: contains the user `query` to decompose, along with optional `instructions` and `bypassCache` flag\n- `worksheetIds`: list of data source identifiers to scope the decomposition\n- `answerIds`: list of Answer GUIDs whose data guides the response\n- `liveboardIds`: list of Liveboard GUIDs whose data guides the response\n- `conversationId`: an existing conversation session ID for context continuity\n- `content`: supplementary text or CSV data to improve response quality\n- `maxDecomposedQueries`: maximum number of sub-questions to return (default: `5`)\n\nIf the request is successful, the API returns a `decomposedQueryResponse` containing a list of `decomposedQueries`, each with:\n- `query`: the generated analytical sub-question\n- `worksheetId`: the unique ID of the data source the question targets\n- `worksheetName`: the display name of the corresponding data source\n\n#### Error responses\n\n| Code | Description                                                                                                                           |\n|------|---------------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized \u2014 authentication token is missing, expired, or invalid.                                                                  |\n| 403  | Forbidden \u2014 the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view access to the referenced metadata objects. |\n\n> ###### Note:\n> * This endpoint is deprecated since 10.13.0.cl. Use `getRelevantQuestions` for new integrations.\n> * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> * This endpoint requires Spotter \u2014 please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "960e3f81-0532-42e2-8518-cfad2702e8f1",
+                              "name": "Common successful response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"decomposedQueryResponse\": {\n    \"decomposedQueries\": [\n      {\n        \"query\": \"<string>\",\n        \"worksheetId\": \"<string>\",\n        \"worksheetName\": \"<string>\"\n      },\n      {\n        \"query\": \"<string>\",\n        \"worksheetId\": \"<string>\",\n        \"worksheetName\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-960e3f81-0532-42e2-8518-cfad2702e8f1"
+                            },
+                            {
+                              "id": "dcb01e26-1011-46f6-bfad-cd8bd8324c0f",
+                              "name": "Common error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"decomposedQueryResponse\": {\n    \"decomposedQueries\": [\n      {\n        \"query\": \"<string>\",\n        \"worksheetId\": \"<string>\",\n        \"worksheetName\": \"<string>\"\n      },\n      {\n        \"query\": \"<string>\",\n        \"worksheetId\": \"<string>\",\n        \"worksheetName\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-dcb01e26-1011-46f6-bfad-cd8bd8324c0f"
+                            },
+                            {
+                              "id": "39c1c563-3b38-4103-ad16-255ff182f1b8",
+                              "name": "Operation failed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-39c1c563-3b38-4103-ad16-255ff182f1b8"
+                            },
+                            {
+                              "id": "4f398d21-4a97-45aa-957a-de20260507e0",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-4f398d21-4a97-45aa-957a-de20260507e0"
+                            },
+                            {
+                              "id": "e2e8ca61-8bbd-4e5a-a283-194e70cbbb4e",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-e2e8ca61-8bbd-4e5a-a283-194e70cbbb4e"
+                            },
+                            {
+                              "id": "8fd98fcd-17f7-40f8-846d-0cf9dd53b690",
+                              "name": "Operation failed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/analytical-questions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "analytical-questions"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:48.000Z",
+                              "updatedAt": "2026-07-28T03:13:48.000Z",
+                              "uid": "35240-8fd98fcd-17f7-40f8-846d-0cf9dd53b690"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:48.000Z",
+                          "updatedAt": "2026-07-28T03:13:48.000Z",
+                          "uid": "35240-51d36add-f4e5-46dc-ac60-0f6718c2f0fa"
+                        }
+                      ],
+                      "id": "9106fb0d-c344-41d9-8ee2-49be33e93a64",
+                      "createdAt": "2026-07-28T03:13:48.000Z",
+                      "updatedAt": "2026-07-28T03:13:48.000Z",
+                      "uid": "35240-9106fb0d-c344-41d9-8ee2-49be33e93a64"
+                    }
+                  ],
+                  "id": "e9888cf6-c1cd-4c66-b6eb-92c747896bd8",
+                  "createdAt": "2026-07-28T03:13:48.000Z",
+                  "updatedAt": "2026-07-28T03:13:48.000Z",
+                  "uid": "35240-e9888cf6-c1cd-4c66-b6eb-92c747896bd8"
+                }
+              ],
+              "id": "341f914b-2722-4abd-a634-b7d592516f5b",
+              "createdAt": "2026-07-28T03:13:48.000Z",
+              "updatedAt": "2026-07-28T03:13:48.000Z",
+              "uid": "35240-341f914b-2722-4abd-a634-b7d592516f5b"
+            }
+          ],
+          "id": "e5c78a04-c08a-4195-940d-3610aa1ab661",
+          "createdAt": "2026-07-28T03:13:48.000Z",
+          "updatedAt": "2026-07-28T03:13:48.000Z",
+          "uid": "35240-e5c78a04-c08a-4195-940d-3610aa1ab661"
+        }
+      ],
+      "id": "0ccfaf04-7901-4c92-9d42-bf8ec259544b",
+      "createdAt": "2026-07-28T03:13:48.000Z",
+      "updatedAt": "2026-07-28T03:13:48.000Z",
+      "uid": "35240-0ccfaf04-7901-4c92-9d42-bf8ec259544b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

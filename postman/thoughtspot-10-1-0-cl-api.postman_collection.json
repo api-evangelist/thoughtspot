@@ -1,0 +1,457 @@
+{
+  "info": {
+    "_postman_id": "67a3724f-1132-47c2-974f-f187449915af",
+    "name": "ThoughtSpot Public REST 10.1.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:37.000Z",
+    "updatedAt": "2026-07-28T03:13:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-67a3724f-1132-47c2-974f-f187449915af"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "metadata",
+                  "item": [
+                    {
+                      "name": "tml",
+                      "item": [
+                        {
+                          "name": "export",
+                          "item": [
+                            {
+                              "name": "batch",
+                              "item": [
+                                {
+                                  "name": "export Metadata TML Batched",
+                                  "id": "279b9edb-8009-451e-bdc8-0e5829ce1c74",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "tml",
+                                        "export",
+                                        "batch"
+                                      ]
+                                    },
+                                    "description": "\n <span class=\"since-beta-tag\">Version: 10.1.0.cl or later</span>\n\nExports the [TML](https://docs.thoughtspot.com/cloud/latest/tml) representation of metadata objects in JSON or YAML format.\n\n### **Permissions Required**\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and `USERMANAGEMENT` (**Can manage users**) privileges.\n\n#### **Usage Guidelines**\n\nThis API is only applicable for `USER`, `GROUP`, and `ROLES` metadata types.\n\n- `batch_offset` Indicates the starting position within the complete dataset from which the API should begin returning objects. Useful for paginating results efficiently.\n- `batch_size` Specifies the number of objects or items to retrieve in a single request. Helps control response size for better performance.\n- `edoc_format` Defines the format of the TML content. The exported metadata can be in JSON or YAML format.\n- `export_dependent` Specifies whether to include dependent metadata objects in the export. Ensures related objects are also retrieved if needed.\n- `all_orgs_override` Indicates whether the export operation applies across all organizations. Useful for multi-tenant environments where cross-org exports are required.\n\n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "82417777-e0ec-4e15-9afc-c8f793baf6fd",
+                                      "name": "Export TMLs of specified metadata objects is successful.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "metadata",
+                                            "tml",
+                                            "export",
+                                            "batch"
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{}",
+                                      "createdAt": "2026-07-28T03:13:38.000Z",
+                                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                                      "uid": "35240-82417777-e0ec-4e15-9afc-c8f793baf6fd"
+                                    },
+                                    {
+                                      "id": "cb66312f-c8f1-4387-a313-3775ce229962",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "metadata",
+                                            "tml",
+                                            "export",
+                                            "batch"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:13:38.000Z",
+                                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                                      "uid": "35240-cb66312f-c8f1-4387-a313-3775ce229962"
+                                    },
+                                    {
+                                      "id": "c3bb20f6-5b1b-4a84-9db3-67e0eec9491f",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "metadata",
+                                            "tml",
+                                            "export",
+                                            "batch"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:13:38.000Z",
+                                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                                      "uid": "35240-c3bb20f6-5b1b-4a84-9db3-67e0eec9491f"
+                                    },
+                                    {
+                                      "id": "870fbdb6-42e0-4deb-9763-52b6b65ab5c2",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "metadata",
+                                            "tml",
+                                            "export",
+                                            "batch"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:13:38.000Z",
+                                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                                      "uid": "35240-870fbdb6-42e0-4deb-9763-52b6b65ab5c2"
+                                    },
+                                    {
+                                      "id": "ca30b7d4-2e86-415e-878f-c11d8147dac9",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"metadata_type\": \"USER_GROUP\",\n  \"batch_offset\": 0,\n  \"batch_size\": 20,\n  \"edoc_format\": \"JSON\",\n  \"export_dependent\": false,\n  \"all_orgs_override\": false\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/metadata/tml/export/batch",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "metadata",
+                                            "tml",
+                                            "export",
+                                            "batch"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:13:38.000Z",
+                                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                                      "uid": "35240-ca30b7d4-2e86-415e-878f-c11d8147dac9"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:13:38.000Z",
+                                  "updatedAt": "2026-07-28T03:13:38.000Z",
+                                  "uid": "35240-279b9edb-8009-451e-bdc8-0e5829ce1c74"
+                                }
+                              ],
+                              "id": "42c9d2e0-ea67-4102-abba-7a4ee0c60f60",
+                              "createdAt": "2026-07-28T03:13:38.000Z",
+                              "updatedAt": "2026-07-28T03:13:38.000Z",
+                              "uid": "35240-42c9d2e0-ea67-4102-abba-7a4ee0c60f60"
+                            }
+                          ],
+                          "id": "b0e43a57-8be1-45fe-9125-1244f766653e",
+                          "createdAt": "2026-07-28T03:13:38.000Z",
+                          "updatedAt": "2026-07-28T03:13:38.000Z",
+                          "uid": "35240-b0e43a57-8be1-45fe-9125-1244f766653e"
+                        }
+                      ],
+                      "id": "98ba69fb-7d37-4e4f-ac03-2b33b71263f9",
+                      "createdAt": "2026-07-28T03:13:38.000Z",
+                      "updatedAt": "2026-07-28T03:13:38.000Z",
+                      "uid": "35240-98ba69fb-7d37-4e4f-ac03-2b33b71263f9"
+                    }
+                  ],
+                  "id": "b3763ac5-8f02-4e5b-be3c-581557c26c84",
+                  "createdAt": "2026-07-28T03:13:38.000Z",
+                  "updatedAt": "2026-07-28T03:13:38.000Z",
+                  "uid": "35240-b3763ac5-8f02-4e5b-be3c-581557c26c84"
+                }
+              ],
+              "id": "ded5380d-6d11-4f6b-83e8-4afa7028e352",
+              "createdAt": "2026-07-28T03:13:38.000Z",
+              "updatedAt": "2026-07-28T03:13:38.000Z",
+              "uid": "35240-ded5380d-6d11-4f6b-83e8-4afa7028e352"
+            }
+          ],
+          "id": "9403a59b-6507-40f0-88cd-b5ce00a2a584",
+          "createdAt": "2026-07-28T03:13:38.000Z",
+          "updatedAt": "2026-07-28T03:13:38.000Z",
+          "uid": "35240-9403a59b-6507-40f0-88cd-b5ce00a2a584"
+        }
+      ],
+      "id": "df638ce6-a991-430d-a053-ea8c1108ffb9",
+      "createdAt": "2026-07-28T03:13:38.000Z",
+      "updatedAt": "2026-07-28T03:13:38.000Z",
+      "uid": "35240-df638ce6-a991-430d-a053-ea8c1108ffb9"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

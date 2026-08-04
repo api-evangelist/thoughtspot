@@ -1,0 +1,1583 @@
+{
+  "info": {
+    "_postman_id": "91355f06-4960-4536-b911-3a82f7ea4bde",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Semantic Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:38.000Z",
+    "updatedAt": "2026-07-28T03:16:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-91355f06-4960-4536-b911-3a82f7ea4bde"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "semantic-integrations",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create Semantic Integration",
+                          "id": "4c2cdd6f-bb63-42dd-926a-9e493b038c46",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "semantic-integrations",
+                                "create"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nCreates a new semantic integration in ThoughtSpot from a CDW semantic view.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About create semantic integration\n\nA semantic integration imports an externally defined semantic view from a Cloud Data Warehouse (CDW) into ThoughtSpot. The API resolves the source semantic view from the specified `connection_identifier`, `database_name`, `schema_name`, and `semantic_view_name`, generates a ThoughtSpot model from it, and returns the model GUID along with a per-formula import report (`semantic_report`) summarizing how many formulas were successfully imported, failed, or skipped.\n\n- `connection_identifier`, `name`, `database_name`, `schema_name`, `semantic_view_name`, and `type` are required.\n- `name` must be unique across the user's organization. The integration's display name is also used as the generated model name.\n- Supported `type` values are listed in the `SemanticIntegrationType` enum (currently `RDBMS_SNOWFLAKE`).\n- The response includes a `semantic_report.summary` with `total`, `imported`, `failed`, and `skipped` counts, and a `formulas` array with the per-formula translation details.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "4594ba43-02d9-4cbf-9422-888ab37bba79",
+                              "name": "Semantic integration created successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"semantic_report\": {\n    \"summary\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"formulas\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"SKIPPED\",\n        \"change_status\": \"UPDATED\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"SKIPPED\",\n        \"change_status\": \"UNCHANGED\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-4594ba43-02d9-4cbf-9422-888ab37bba79"
+                            },
+                            {
+                              "id": "67bfa295-3d2b-4491-b1f3-a49e636c3ce6",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-67bfa295-3d2b-4491-b1f3-a49e636c3ce6"
+                            },
+                            {
+                              "id": "35dfda4e-be13-48d7-9a0d-58e6313e890c",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-35dfda4e-be13-48d7-9a0d-58e6313e890c"
+                            },
+                            {
+                              "id": "aabfbcb6-4813-4202-b58e-24624ef61b26",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-aabfbcb6-4813-4202-b58e-24624ef61b26"
+                            },
+                            {
+                              "id": "956a5a8d-b42c-4394-b614-47e27274e650",
+                              "name": "Connection not found.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-956a5a8d-b42c-4394-b614-47e27274e650"
+                            },
+                            {
+                              "id": "ddd02038-a643-4f36-9cdc-916eb6daedb9",
+                              "name": "Duplicate integration name.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Conflict",
+                              "code": 409,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-ddd02038-a643-4f36-9cdc-916eb6daedb9"
+                            },
+                            {
+                              "id": "542cd528-a34a-4d50-8a8f-73c1bc2c212a",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name\": \"<string>\",\n  \"database_name\": \"<string>\",\n  \"schema_name\": \"<string>\",\n  \"semantic_view_name\": \"<string>\",\n  \"type\": \"RDBMS_SNOWFLAKE\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-542cd528-a34a-4d50-8a8f-73c1bc2c212a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:38.000Z",
+                          "updatedAt": "2026-07-28T03:16:38.000Z",
+                          "uid": "35240-4c2cdd6f-bb63-42dd-926a-9e493b038c46"
+                        }
+                      ],
+                      "id": "86e39eb0-38a4-4824-b9a6-c7e29dd1843c",
+                      "createdAt": "2026-07-28T03:16:38.000Z",
+                      "updatedAt": "2026-07-28T03:16:38.000Z",
+                      "uid": "35240-86e39eb0-38a4-4824-b9a6-c7e29dd1843c"
+                    },
+                    {
+                      "name": "{semantic_integration_identifier}",
+                      "item": [
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete Semantic Integration",
+                              "id": "6e10164b-b42f-464b-a9f2-4ad0b5826c62",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    ":semantic_integration_identifier",
+                                    "delete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "4db528ff-8b37-4998-af22-6cc2ffbee7b9",
+                                      "key": "semantic_integration_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) ID or name of the semantic integration to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nDeletes a semantic integration and its associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About delete semantic integration\n\nRemoves the specified semantic integration and its generated ThoughtSpot model from the system.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to delete.\n- Deletions cannot be undone. Re-import the integration with `createSemanticIntegration` if needed.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "5d338554-7b4a-4d19-b08c-09da7e255f47",
+                                  "name": "Semantic integration deleted successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-5d338554-7b4a-4d19-b08c-09da7e255f47"
+                                },
+                                {
+                                  "id": "212c372c-f235-4089-ae47-249032844673",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-212c372c-f235-4089-ae47-249032844673"
+                                },
+                                {
+                                  "id": "c69794fd-e274-4ac1-9440-372f5f9450e6",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-c69794fd-e274-4ac1-9440-372f5f9450e6"
+                                },
+                                {
+                                  "id": "bee8f182-409d-4044-a3eb-6fa902c74e44",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-bee8f182-409d-4044-a3eb-6fa902c74e44"
+                                },
+                                {
+                                  "id": "94d79650-2f94-4777-adba-d8d81fa71f33",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-94d79650-2f94-4777-adba-d8d81fa71f33"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-6e10164b-b42f-464b-a9f2-4ad0b5826c62"
+                            }
+                          ],
+                          "id": "57e42d53-54c1-44e2-bd67-88141cb75425",
+                          "createdAt": "2026-07-28T03:16:38.000Z",
+                          "updatedAt": "2026-07-28T03:16:38.000Z",
+                          "uid": "35240-57e42d53-54c1-44e2-bd67-88141cb75425"
+                        },
+                        {
+                          "name": "import",
+                          "item": [
+                            {
+                              "name": "import Semantic Integration",
+                              "id": "3509185e-3f90-4ba5-8904-89d7456e9cb0",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    ":semantic_integration_identifier",
+                                    "import"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "0d117b66-4495-466b-86d8-ba15bd1dd080",
+                                      "key": "semantic_integration_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) ID or name of the semantic integration to import updates for."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nImports semantic updates for an existing semantic integration from its CDW source and refreshes the associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About import semantic integration\n\nRe-imports the semantic view from the CDW for the specified integration and rebuilds the corresponding ThoughtSpot model. Use this after the source semantic view has been updated in the CDW (added, removed, or modified formulas, dimensions, or measures) to bring the ThoughtSpot model back in line.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to import updates for.\n- Import preserves the integration's GUID, name, and `model_id`; only the underlying formula set is refreshed.\n- The response includes the same `semantic_report` as create, with an additional `change_status` per formula indicating whether each formula is `NEW`, `UPDATED`, or `UNCHANGED` since the previous import.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "d79009e1-b0a4-4e1c-b542-698dc2889c44",
+                                  "name": "Semantic integration imported successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"model_id\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"semantic_report\": {\n    \"summary\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"formulas\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"SKIPPED\",\n        \"change_status\": \"UPDATED\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"source_expression\": \"<string>\",\n        \"translated_formula\": \"<string>\",\n        \"import_status\": \"SKIPPED\",\n        \"change_status\": \"UNCHANGED\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-d79009e1-b0a4-4e1c-b542-698dc2889c44"
+                                },
+                                {
+                                  "id": "d24bbce9-cb12-4a87-b6cd-27fcbb64bfa3",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-d24bbce9-cb12-4a87-b6cd-27fcbb64bfa3"
+                                },
+                                {
+                                  "id": "692a4010-b184-4141-a265-1db1d6ca8d70",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-692a4010-b184-4141-a265-1db1d6ca8d70"
+                                },
+                                {
+                                  "id": "aa1dd86d-dd3a-4865-8775-cec2c01d7cb2",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-aa1dd86d-dd3a-4865-8775-cec2c01d7cb2"
+                                },
+                                {
+                                  "id": "155a1a4d-b309-4248-a259-de68ea34920c",
+                                  "name": "Semantic integration not found.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-155a1a4d-b309-4248-a259-de68ea34920c"
+                                },
+                                {
+                                  "id": "cbec6662-f658-4437-8063-d63442365ce9",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "semantic-integrations",
+                                        ":semantic_integration_identifier",
+                                        "import"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "semantic_integration_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:38.000Z",
+                                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                                  "uid": "35240-cbec6662-f658-4437-8063-d63442365ce9"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-3509185e-3f90-4ba5-8904-89d7456e9cb0"
+                            }
+                          ],
+                          "id": "0cfef671-ad30-4e83-941f-47e5f47db5ec",
+                          "createdAt": "2026-07-28T03:16:38.000Z",
+                          "updatedAt": "2026-07-28T03:16:38.000Z",
+                          "uid": "35240-0cfef671-ad30-4e83-941f-47e5f47db5ec"
+                        }
+                      ],
+                      "id": "ed4d28ad-0537-4a9f-9802-fba3e3e08967",
+                      "createdAt": "2026-07-28T03:16:38.000Z",
+                      "updatedAt": "2026-07-28T03:16:38.000Z",
+                      "uid": "35240-ed4d28ad-0537-4a9f-9802-fba3e3e08967"
+                    },
+                    {
+                      "name": "search",
+                      "item": [
+                        {
+                          "name": "search Semantic Integrations",
+                          "id": "81d4521a-099d-49ee-b1f4-c310574a0644",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "semantic-integrations",
+                                "search"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nSearches and lists semantic integrations available to the authenticated user in the current organization, with optional filters, sort, and pagination.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About search semantic integrations\n\nReturns a paginated batch of semantic integrations, each with its identifier, name, description, source connection, generated model identifier, author, creation/modification timestamps, and associated tags. Use the filters to narrow results by author, connection, tag, or name pattern.\n\n- `pattern` matches the integration name as a case-insensitive substring.\n- `author_identifiers` and `connection_identifiers` accept either GUIDs or names.\n- `sort_options.field_name` defaults to `MODIFIED_TIME`; set `sort_options.order` to `ASC` or `DESC` to control sort direction.\n- `record_offset` and `record_size` control pagination. Use `record_size: 0` to return all matching records in a single response.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "91575ea7-273b-4a1f-af52-8e0812039889",
+                              "name": "Semantic integrations retrieved successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"model_name\": \"<string>\",\n    \"import_type\": \"FILE\",\n    \"type\": \"RDBMS_SNOWFLAKE\",\n    \"connection_id\": \"<string>\",\n    \"connection_name\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"author_name\": \"<string>\",\n    \"creation_time_in_millis\": \"<float>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"model_id\": \"<string>\",\n    \"model_name\": \"<string>\",\n    \"import_type\": \"CDW\",\n    \"type\": \"RDBMS_SNOWFLAKE\",\n    \"connection_id\": \"<string>\",\n    \"connection_name\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"author_name\": \"<string>\",\n    \"creation_time_in_millis\": \"<float>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  }\n]",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-91575ea7-273b-4a1f-af52-8e0812039889"
+                            },
+                            {
+                              "id": "3f7cd3d2-f615-4e5b-b73c-cb4c83f45592",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-3f7cd3d2-f615-4e5b-b73c-cb4c83f45592"
+                            },
+                            {
+                              "id": "d8cc90a1-138c-4175-95fc-18584a65deb9",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-d8cc90a1-138c-4175-95fc-18584a65deb9"
+                            },
+                            {
+                              "id": "b0ba53b2-2b69-4aee-9e36-3c8dd9b0154c",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-b0ba53b2-2b69-4aee-9e36-3c8dd9b0154c"
+                            },
+                            {
+                              "id": "69d7f087-8fad-4a34-a828-105bc138f7c8",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sort_options\": {\n    \"field_name\": \"AUTHOR\",\n    \"order\": \"ASC\"\n  },\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"pattern\": \"<string>\",\n  \"author_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"connection_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/semantic-integrations/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "semantic-integrations",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:38.000Z",
+                              "updatedAt": "2026-07-28T03:16:38.000Z",
+                              "uid": "35240-69d7f087-8fad-4a34-a828-105bc138f7c8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:38.000Z",
+                          "updatedAt": "2026-07-28T03:16:38.000Z",
+                          "uid": "35240-81d4521a-099d-49ee-b1f4-c310574a0644"
+                        }
+                      ],
+                      "id": "ffc5994b-1b52-4875-aa9e-aaf37e53ed94",
+                      "createdAt": "2026-07-28T03:16:38.000Z",
+                      "updatedAt": "2026-07-28T03:16:38.000Z",
+                      "uid": "35240-ffc5994b-1b52-4875-aa9e-aaf37e53ed94"
+                    }
+                  ],
+                  "id": "3ce9bfb1-6a08-433f-8d78-2fc49765dfb7",
+                  "createdAt": "2026-07-28T03:16:38.000Z",
+                  "updatedAt": "2026-07-28T03:16:38.000Z",
+                  "uid": "35240-3ce9bfb1-6a08-433f-8d78-2fc49765dfb7"
+                }
+              ],
+              "id": "040e0af2-dfa6-4caa-9f1d-b89200af97bc",
+              "createdAt": "2026-07-28T03:16:38.000Z",
+              "updatedAt": "2026-07-28T03:16:38.000Z",
+              "uid": "35240-040e0af2-dfa6-4caa-9f1d-b89200af97bc"
+            }
+          ],
+          "id": "53a2b636-9f9a-4145-8fbf-f17f0e9806f7",
+          "createdAt": "2026-07-28T03:16:38.000Z",
+          "updatedAt": "2026-07-28T03:16:38.000Z",
+          "uid": "35240-53a2b636-9f9a-4145-8fbf-f17f0e9806f7"
+        }
+      ],
+      "id": "1c537ff5-faec-4ed3-95f8-fc2d77facde9",
+      "createdAt": "2026-07-28T03:16:38.000Z",
+      "updatedAt": "2026-07-28T03:16:38.000Z",
+      "uid": "35240-1c537ff5-faec-4ed3-95f8-fc2d77facde9"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

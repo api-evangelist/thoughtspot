@@ -1,0 +1,1263 @@
+{
+  "info": {
+    "_postman_id": "3aa35730-d1dd-4bb1-a974-78d3e2a45140",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Input Tables API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:15:58.000Z",
+    "updatedAt": "2026-07-28T03:15:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3aa35730-d1dd-4bb1-a974-78d3e2a45140"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "input-tables",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create Input Table",
+                          "id": "72eb0138-0f34-4516-b881-d1711ba4cee0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "input-tables",
+                                "create"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nCreates an input table and links it to a ThoughtSpot model (worksheet). An input table is a user-editable table stored in the model's external Cloud Data Warehouse (CDW) connection. It lets analysts enter or import data directly from the ThoughtSpot UI without requiring access to the underlying warehouse.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required.\n\n#### Usage guidelines\n\nTo create an input table, provide the following in the request body:\n\n* **`table_name`** \u2014 Physical name of the table to create in the external warehouse.\n* **`model_identifier`** \u2014 GUID or name of the model (worksheet) to link the input table to. The connection, database, and schema used to create the physical table are derived from this model's metadata.\n* **`table_definition`** \u2014 Describes the table schema:\n  * `referenced_columns` \u2014 List of column GUIDs from the linked model to include as read-only reference columns in the input table. These columns anchor the input data to existing model dimensions.\n  * `new_columns` \u2014 List of new editable columns to create. Each column requires:\n    * `name` \u2014 Column display name.\n    * `data_type` \u2014 Warehouse data type (for example, `VARCHAR`, `DOUBLE`, `DATE`).\n    * `type` \u2014 Semantic role of the column: `ATTRIBUTE` for dimension columns or `MEASURE` for numeric columns.\n\n**Note**: The physical table is created in the same connection, database, and schema as the linked model. Ensure the connection user has `CREATE TABLE` permissions in the target schema.\n\n#### Examples\n\nCreate an input table with one referenced model column and one new editable measure column:\n\n```json\n{\n  \"table_name\": \"Sales Region Targets\",\n  \"model_identifier\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"table_definition\": {\n    \"referenced_columns\": [\"c7d8e9f0-1234-5678-abcd-ef0987654321\"],\n    \"new_columns\": [\n      {\n        \"name\": \"target_revenue\",\n        \"data_type\": \"DOUBLE\",\n        \"type\": \"MEASURE\"\n      }\n    ]\n  }\n}\n```\n\nCreate an input table with multiple new editable columns and no referenced columns:\n\n```json\n{\n  \"table_name\": \"Budget Adjustments\",\n  \"model_identifier\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"table_definition\": {\n    \"referenced_columns\": [],\n    \"new_columns\": [\n      {\n        \"name\": \"region\",\n        \"data_type\": \"VARCHAR\",\n        \"type\": \"ATTRIBUTE\"\n      },\n      {\n        \"name\": \"adjustment_amount\",\n        \"data_type\": \"DOUBLE\",\n        \"type\": \"MEASURE\"\n      },\n      {\n        \"name\": \"effective_date\",\n        \"data_type\": \"DATE\",\n        \"type\": \"ATTRIBUTE\"\n      }\n    ]\n  }\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "9873cea5-93e2-423b-8d4b-1191f3e41f87",
+                              "name": "Input table created successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"input_table_identifier\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-9873cea5-93e2-423b-8d4b-1191f3e41f87"
+                            },
+                            {
+                              "id": "f1e50538-4936-495a-8d61-781626ca7373",
+                              "name": "Bad request \u2014 invalid payload, no columns selected, or upload disabled on the connection.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-f1e50538-4936-495a-8d61-781626ca7373"
+                            },
+                            {
+                              "id": "0ac8b2c3-c496-4413-8a72-2305d61a9b1e",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-0ac8b2c3-c496-4413-8a72-2305d61a9b1e"
+                            },
+                            {
+                              "id": "66bb1736-9fe2-40ed-a933-1b097b5b6846",
+                              "name": "Forbidden \u2014 caller does not have MODIFY permission on the model.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-66bb1736-9fe2-40ed-a933-1b097b5b6846"
+                            },
+                            {
+                              "id": "1a35e07a-3177-4415-9910-f57fb7086e97",
+                              "name": "Model not found.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-1a35e07a-3177-4415-9910-f57fb7086e97"
+                            },
+                            {
+                              "id": "6def6ab2-b8b8-4037-a42d-2b9ea848e853",
+                              "name": "Unexpected error.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"table_name\": \"<string>\",\n  \"model_identifier\": \"<string>\",\n  \"table_definition\": {\n    \"new_columns\": [\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"ATTRIBUTE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"type\": \"MEASURE\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"referenced_columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-6def6ab2-b8b8-4037-a42d-2b9ea848e853"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:59.000Z",
+                          "updatedAt": "2026-07-28T03:15:59.000Z",
+                          "uid": "35240-72eb0138-0f34-4516-b881-d1711ba4cee0"
+                        }
+                      ],
+                      "id": "8dc47db7-71f5-45b0-a7eb-585a3857fa81",
+                      "createdAt": "2026-07-28T03:15:59.000Z",
+                      "updatedAt": "2026-07-28T03:15:59.000Z",
+                      "uid": "35240-8dc47db7-71f5-45b0-a7eb-585a3857fa81"
+                    },
+                    {
+                      "name": "{input_table_identifier}",
+                      "item": [
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete Input Table",
+                              "id": "eb8eb715-811b-49b4-9982-650fc869d1f7",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    ":input_table_identifier",
+                                    "delete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "da09017b-e2c1-4528-b19a-d0a0d7ccac9e",
+                                      "key": "input_table_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique ID of the input table to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nDeletes an input table. This operation unlinks the input table from its owner model, removes it from the connection metadata, and drops the physical table from the Cloud Data Warehouse (CDW). This action is irreversible \u2014 all data stored in the input table is permanently deleted.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required.\n\n#### Usage guidelines\n\nSpecify the GUID of the input table to delete as the `input_table_identifier` path parameter. The owner model (worksheet) is derived from the input table's metadata and is used to locate and clean up the associated connection entry.\n\n**Note**: Deleting an input table does not delete the linked model. However, any Answers or Liveboards that reference columns from the deleted input table will lose access to that data and may return errors until the affected visualizations are updated.\n\n#### Example\n\nPass the input table GUID as a path parameter. This endpoint has no request body.\n\n```\nDELETE /api/rest/2.0/input-tables/a1b2c3d4-e5f6-7890-abcd-ef1234567890/delete\n```\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "33ff97ff-9225-4ecb-bb74-b18233f9abab",
+                                  "name": "Successfully deleted the input table and dropped the physical CDW table.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-33ff97ff-9225-4ecb-bb74-b18233f9abab"
+                                },
+                                {
+                                  "id": "7bbb4c17-b21d-45aa-bb7a-e37ab4918782",
+                                  "name": "Operation failed",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-7bbb4c17-b21d-45aa-bb7a-e37ab4918782"
+                                },
+                                {
+                                  "id": "8ff1e43c-d7f6-4ba1-9bce-2085db9f74c5",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-8ff1e43c-d7f6-4ba1-9bce-2085db9f74c5"
+                                },
+                                {
+                                  "id": "e95e7c4c-70e7-49ac-b081-e6824e97d674",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-e95e7c4c-70e7-49ac-b081-e6824e97d674"
+                                },
+                                {
+                                  "id": "fa765b57-bd52-4b69-b477-790f12e61f97",
+                                  "name": "Operation failed",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-fa765b57-bd52-4b69-b477-790f12e61f97"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-eb8eb715-811b-49b4-9982-650fc869d1f7"
+                            }
+                          ],
+                          "id": "444c979c-b051-40b5-8a6f-6939b57eb893",
+                          "createdAt": "2026-07-28T03:15:59.000Z",
+                          "updatedAt": "2026-07-28T03:15:59.000Z",
+                          "uid": "35240-444c979c-b051-40b5-8a6f-6939b57eb893"
+                        },
+                        {
+                          "name": "update",
+                          "item": [
+                            {
+                              "name": "update Input Table",
+                              "id": "3ab3bfec-a816-4556-81ef-e5cb6c78f6e1",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "input-tables",
+                                    ":input_table_identifier",
+                                    "update"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "7e8725ba-2149-4afc-a487-00e5780c1535",
+                                      "key": "input_table_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique ID of the input table to update."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nWrites rows of data into an existing input table. The supplied rows replace the current contents of the table: each call serializes the provided values to CSV and loads them into the input table via DataManager, overwriting any previously stored rows.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_INPUT_TABLES` (**Can manage input tables**) privilege is required. The caller must also have `MODIFY` permission on the input table object.\n\n#### Usage guidelines\n\nSpecify the input table GUID as the `input_table_identifier` path parameter and provide the row data in the request body:\n\n* **`columns`** \u2014 Ordered list of column names to write. Column names must exactly match the names defined when the input table was created. Only the listed columns are written; unlisted columns retain their existing values.\n* **`rows`** \u2014 List of rows to load. Each row is an array of string values in the same order as `columns`. All cell values must be passed as strings regardless of the column's underlying data type.\n\n**Note**: Each call fully replaces the previously loaded rows. To clear the table, send an empty `rows` array. Partial updates to individual rows are not supported; re-submit all rows on every write.\n\n#### Examples\n\nWrite two rows to an input table. Pass the input table GUID as the\n`input_table_identifier` path parameter:\n\n```\nPOST /api/rest/2.0/input-tables/{input_table_identifier}/update\n```\n\n```json\n{\n  \"columns\": [\"region\", \"target_revenue\", \"effective_date\"],\n  \"rows\": [\n    [\"West\", \"1500000\", \"2025-01-01\"],\n    [\"East\", \"2000000\", \"2025-01-01\"]\n  ]\n}\n```\n\nThe response returns the number of rows written:\n\n```json\n{ \"rows_loaded\": 2 }\n```\n\nClear all rows from an input table:\n\n```json\n{\n  \"columns\": [\"region\", \"target_revenue\"],\n  \"rows\": []\n}\n```\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "159064df-8c3f-4f6a-b268-e7970238218d",
+                                  "name": "Rows loaded successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"rows_loaded\": \"<integer>\"\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-159064df-8c3f-4f6a-b268-e7970238218d"
+                                },
+                                {
+                                  "id": "2fc4dfe5-8c7c-4451-9053-83090a0ea53e",
+                                  "name": "Malformed request or unknown column name.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-2fc4dfe5-8c7c-4451-9053-83090a0ea53e"
+                                },
+                                {
+                                  "id": "38a4d28d-0806-425d-9bc5-4520d0cab200",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-38a4d28d-0806-425d-9bc5-4520d0cab200"
+                                },
+                                {
+                                  "id": "3d68dac8-76b9-4f15-9d24-b421f32f33d3",
+                                  "name": "Forbidden \u2014 caller does not have MODIFY permission on the input table.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-3d68dac8-76b9-4f15-9d24-b421f32f33d3"
+                                },
+                                {
+                                  "id": "19169415-b0f5-4159-9893-fb19cc0219d8",
+                                  "name": "Input table not found.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-19169415-b0f5-4159-9893-fb19cc0219d8"
+                                },
+                                {
+                                  "id": "046cfc29-892b-483c-9823-9c6082f94a5f",
+                                  "name": "Unexpected error.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rows\": [\n    [\n      \"<string>\",\n      \"<string>\"\n    ],\n    [\n      \"<string>\",\n      \"<string>\"\n    ]\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/input-tables/:input_table_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "input-tables",
+                                        ":input_table_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "input_table_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:59.000Z",
+                                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                                  "uid": "35240-046cfc29-892b-483c-9823-9c6082f94a5f"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:59.000Z",
+                              "updatedAt": "2026-07-28T03:15:59.000Z",
+                              "uid": "35240-3ab3bfec-a816-4556-81ef-e5cb6c78f6e1"
+                            }
+                          ],
+                          "id": "7cebfd8c-281f-4abe-9598-af52ca32c00f",
+                          "createdAt": "2026-07-28T03:15:59.000Z",
+                          "updatedAt": "2026-07-28T03:15:59.000Z",
+                          "uid": "35240-7cebfd8c-281f-4abe-9598-af52ca32c00f"
+                        }
+                      ],
+                      "id": "d341dd1d-a953-4da7-90db-229bd9ae6536",
+                      "createdAt": "2026-07-28T03:15:59.000Z",
+                      "updatedAt": "2026-07-28T03:15:59.000Z",
+                      "uid": "35240-d341dd1d-a953-4da7-90db-229bd9ae6536"
+                    }
+                  ],
+                  "id": "ae038862-fc78-416c-b4a2-e73a4c770a91",
+                  "createdAt": "2026-07-28T03:15:59.000Z",
+                  "updatedAt": "2026-07-28T03:15:59.000Z",
+                  "uid": "35240-ae038862-fc78-416c-b4a2-e73a4c770a91"
+                }
+              ],
+              "id": "3d7b05c4-4810-4e1d-a001-667dbd03df1a",
+              "createdAt": "2026-07-28T03:15:59.000Z",
+              "updatedAt": "2026-07-28T03:15:59.000Z",
+              "uid": "35240-3d7b05c4-4810-4e1d-a001-667dbd03df1a"
+            }
+          ],
+          "id": "3a75893e-e93f-4e89-a253-89569dff8058",
+          "createdAt": "2026-07-28T03:15:59.000Z",
+          "updatedAt": "2026-07-28T03:15:59.000Z",
+          "uid": "35240-3a75893e-e93f-4e89-a253-89569dff8058"
+        }
+      ],
+      "id": "07ee5607-00e9-459f-a468-0e11e0452ec9",
+      "createdAt": "2026-07-28T03:15:59.000Z",
+      "updatedAt": "2026-07-28T03:15:59.000Z",
+      "uid": "35240-07ee5607-00e9-459f-a468-0e11e0452ec9"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

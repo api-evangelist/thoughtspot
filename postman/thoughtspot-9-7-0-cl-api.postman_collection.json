@@ -1,0 +1,785 @@
+{
+  "info": {
+    "_postman_id": "9a8c0d42-5426-4709-9b76-24c09e6b3b9a",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 9.7.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:15:36.000Z",
+    "updatedAt": "2026-07-28T03:15:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a8c0d42-5426-4709-9b76-24c09e6b3b9a"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "users",
+                  "item": [
+                    {
+                      "name": "activate",
+                      "item": [
+                        {
+                          "name": "activate User",
+                          "id": "069c70d2-5e3a-4345-be07-8c5bb69c04c1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "users",
+                                "activate"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nActivates a deactivated user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo activate an inactive user account, the API request body must include the following information:\n\n- Username or the GUID of the user account.\n- Auth token generated for the deactivated user. The auth token is sent in the API response when a user is deactivated.\n- Password for the user account.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "6545600a-4313-4d5d-af26-0f3d695d0db1",
+                              "name": "User activated successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "activate"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"NON_SHARABLE\",\n  \"author_id\": \"<string>\",\n  \"can_change_password\": \"<boolean>\",\n  \"complete_detail\": \"<boolean>\",\n  \"creation_time_in_millis\": \"<float>\",\n  \"current_org\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"deleted\": \"<boolean>\",\n  \"deprecated\": \"<boolean>\",\n  \"account_type\": \"OIDC_USER\",\n  \"account_status\": \"PENDING\",\n  \"email\": \"<string>\",\n  \"expiration_time_in_millis\": \"<float>\",\n  \"external\": \"<boolean>\",\n  \"favorite_metadata\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"LOGICAL_TABLE\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"LOGICAL_RELATIONSHIP\"\n    }\n  ],\n  \"first_login_time_in_millis\": \"<float>\",\n  \"group_mask\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"home_liveboard\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"incomplete_details\": {},\n  \"is_first_login\": \"<boolean>\",\n  \"modification_time_in_millis\": \"<float>\",\n  \"modifier_id\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"orgs\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"owner_id\": \"<string>\",\n  \"parent_type\": \"USER\",\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"super_user\": \"<boolean>\",\n  \"system_user\": \"<boolean>\",\n  \"tags\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"tenant_id\": \"<string>\",\n  \"user_groups\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"user_inherited_groups\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"welcome_email_sent\": \"<boolean>\",\n  \"org_privileges\": {},\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": {},\n  \"extended_preferences\": {},\n  \"user_parameters\": {},\n  \"access_control_properties\": {},\n  \"variable_values\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-6545600a-4313-4d5d-af26-0f3d695d0db1"
+                            },
+                            {
+                              "id": "d0dc5ff1-8c7f-4bcd-8802-89fe865b7612",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "activate"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-d0dc5ff1-8c7f-4bcd-8802-89fe865b7612"
+                            },
+                            {
+                              "id": "ba2a919f-b626-4f99-ae11-c98a6bbbad9f",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "activate"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-ba2a919f-b626-4f99-ae11-c98a6bbbad9f"
+                            },
+                            {
+                              "id": "27c86b78-1156-4aca-8058-c9892aea80bd",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "activate"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-27c86b78-1156-4aca-8058-c9892aea80bd"
+                            },
+                            {
+                              "id": "5d856c92-fe27-41fd-867e-2c43fff82704",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "activate"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-5d856c92-fe27-41fd-867e-2c43fff82704"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:37.000Z",
+                          "updatedAt": "2026-07-28T03:15:37.000Z",
+                          "uid": "35240-069c70d2-5e3a-4345-be07-8c5bb69c04c1"
+                        }
+                      ],
+                      "id": "4fefde47-8c3d-423a-b671-755e646375ef",
+                      "createdAt": "2026-07-28T03:15:37.000Z",
+                      "updatedAt": "2026-07-28T03:15:37.000Z",
+                      "uid": "35240-4fefde47-8c3d-423a-b671-755e646375ef"
+                    },
+                    {
+                      "name": "deactivate",
+                      "item": [
+                        {
+                          "name": "deactivate User",
+                          "id": "cc9db049-6a02-4cd2-ab0a-3b736248a6c6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "users",
+                                "deactivate"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nDeactivates a user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo deactivate a user account, the API request body must include the following information:\n\n- Username or the GUID of the user account\n- Base URL of the ThoughtSpot instance\n\nIf the API request is successful, ThoughtSpot returns the activation URL in the response. The activation URL is valid for 14 days and can be used to re-activate the account and reset the password of the deactivated account.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "8d064dc8-5836-4fdc-b446-9a06855d25ea",
+                              "name": "User deactivated successfully.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "deactivate"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"activation_link\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-8d064dc8-5836-4fdc-b446-9a06855d25ea"
+                            },
+                            {
+                              "id": "4dc31cbb-4b73-4986-9856-a5150f4c9f7c",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "deactivate"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-4dc31cbb-4b73-4986-9856-a5150f4c9f7c"
+                            },
+                            {
+                              "id": "a5aa35e8-b216-4038-aea6-849d42c69bc2",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "deactivate"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-a5aa35e8-b216-4038-aea6-849d42c69bc2"
+                            },
+                            {
+                              "id": "78ef854c-62f4-474f-948a-c236ad4b40c3",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "deactivate"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-78ef854c-62f4-474f-948a-c236ad4b40c3"
+                            },
+                            {
+                              "id": "fc9dd87e-8cb4-44f3-a478-07b51c07306e",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/users/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "users",
+                                    "deactivate"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:37.000Z",
+                              "updatedAt": "2026-07-28T03:15:37.000Z",
+                              "uid": "35240-fc9dd87e-8cb4-44f3-a478-07b51c07306e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:37.000Z",
+                          "updatedAt": "2026-07-28T03:15:37.000Z",
+                          "uid": "35240-cc9db049-6a02-4cd2-ab0a-3b736248a6c6"
+                        }
+                      ],
+                      "id": "e273f9ab-2cde-4322-b72e-1cebf4978717",
+                      "createdAt": "2026-07-28T03:15:37.000Z",
+                      "updatedAt": "2026-07-28T03:15:37.000Z",
+                      "uid": "35240-e273f9ab-2cde-4322-b72e-1cebf4978717"
+                    }
+                  ],
+                  "id": "d010b598-525c-4547-80cd-cc47eee4f93e",
+                  "createdAt": "2026-07-28T03:15:37.000Z",
+                  "updatedAt": "2026-07-28T03:15:37.000Z",
+                  "uid": "35240-d010b598-525c-4547-80cd-cc47eee4f93e"
+                }
+              ],
+              "id": "83d86e17-a12b-472c-b3f5-ab29aafa6633",
+              "createdAt": "2026-07-28T03:15:37.000Z",
+              "updatedAt": "2026-07-28T03:15:37.000Z",
+              "uid": "35240-83d86e17-a12b-472c-b3f5-ab29aafa6633"
+            }
+          ],
+          "id": "c49b4677-bad1-42d4-8150-70146b192f41",
+          "createdAt": "2026-07-28T03:15:37.000Z",
+          "updatedAt": "2026-07-28T03:15:37.000Z",
+          "uid": "35240-c49b4677-bad1-42d4-8150-70146b192f41"
+        }
+      ],
+      "id": "3f8ab918-1b54-48d2-bf5c-a5cdd79238eb",
+      "createdAt": "2026-07-28T03:15:37.000Z",
+      "updatedAt": "2026-07-28T03:15:37.000Z",
+      "uid": "35240-3f8ab918-1b54-48d2-bf5c-a5cdd79238eb"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

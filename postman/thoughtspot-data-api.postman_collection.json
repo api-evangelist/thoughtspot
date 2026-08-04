@@ -1,0 +1,1167 @@
+{
+  "info": {
+    "_postman_id": "2ab06743-89ff-454f-8857-8db25e0f9bca",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:15:49.000Z",
+    "updatedAt": "2026-07-28T03:15:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2ab06743-89ff-454f-8857-8db25e0f9bca"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "metadata",
+                  "item": [
+                    {
+                      "name": "answer",
+                      "item": [
+                        {
+                          "name": "data",
+                          "item": [
+                            {
+                              "name": "fetch Answer Data",
+                              "id": "e30cd461-0fe8-4e91-99a9-8d168fd4cb45",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "answer",
+                                    "data"
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches data from a saved Answer.\n\nRequires at least view access to the saved Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_apis).\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "087df68a-3b65-489f-acf1-f3346caef2c7",
+                                  "name": "Fetching data of specified metadata object is successful.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "answer",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"metadata_id\": \"<string>\",\n  \"metadata_name\": \"<string>\",\n  \"contents\": [\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\"\n    },\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-087df68a-3b65-489f-acf1-f3346caef2c7"
+                                },
+                                {
+                                  "id": "4926fb74-5775-4b0a-ab2d-f228e95dba2d",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "answer",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-4926fb74-5775-4b0a-ab2d-f228e95dba2d"
+                                },
+                                {
+                                  "id": "14474e3d-454b-48ad-be68-d5a1a39fe7ee",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "answer",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-14474e3d-454b-48ad-be68-d5a1a39fe7ee"
+                                },
+                                {
+                                  "id": "4c71ee99-2cc9-4b72-8653-fefc99c73256",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "answer",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-4c71ee99-2cc9-4b72-8653-fefc99c73256"
+                                },
+                                {
+                                  "id": "73b5b921-b00b-4761-b124-41663eda99bd",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/answer/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "answer",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-73b5b921-b00b-4761-b124-41663eda99bd"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:50.000Z",
+                              "updatedAt": "2026-07-28T03:15:50.000Z",
+                              "uid": "35240-e30cd461-0fe8-4e91-99a9-8d168fd4cb45"
+                            }
+                          ],
+                          "id": "510a84e8-b79c-40bc-afc6-f0df9393d812",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-510a84e8-b79c-40bc-afc6-f0df9393d812"
+                        }
+                      ],
+                      "id": "689cf8fe-260e-432e-9775-4a7f3bd3a422",
+                      "createdAt": "2026-07-28T03:15:50.000Z",
+                      "updatedAt": "2026-07-28T03:15:50.000Z",
+                      "uid": "35240-689cf8fe-260e-432e-9775-4a7f3bd3a422"
+                    },
+                    {
+                      "name": "liveboard",
+                      "item": [
+                        {
+                          "name": "data",
+                          "item": [
+                            {
+                              "name": "fetch Liveboard Data",
+                              "id": "cbee16e3-7f30-4735-a6a0-20531931b93c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "metadata",
+                                    "liveboard",
+                                    "data"
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets data from a Liveboard object and its visualization.  \n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the GUIDs or names of the visualizations in the API request.\n\nTo include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes. If the new Liveboard experience mode, the transient content includes ad hoc changes to visualizations such as sorting, toggling of legends, and data drill down.\n\nFor more information, and see [Liveboard data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_fetch_liveboard_data_api).\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "fbbbe3b6-f1c8-4654-81c2-d105d1ee322f",
+                                  "name": "Fetching data of specified metadata object is successful.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "liveboard",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"metadata_id\": \"<string>\",\n  \"metadata_name\": \"<string>\",\n  \"contents\": [\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\",\n      \"visualization_id\": \"<string>\",\n      \"visualization_name\": \"<string>\"\n    },\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\",\n      \"visualization_id\": \"<string>\",\n      \"visualization_name\": \"<string>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-fbbbe3b6-f1c8-4654-81c2-d105d1ee322f"
+                                },
+                                {
+                                  "id": "73f17e13-df66-4ecc-b827-1528efdf3453",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "liveboard",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-73f17e13-df66-4ecc-b827-1528efdf3453"
+                                },
+                                {
+                                  "id": "913f0193-5aa1-4e04-9eca-5b4213431d9b",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "liveboard",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-913f0193-5aa1-4e04-9eca-5b4213431d9b"
+                                },
+                                {
+                                  "id": "629e0b4b-3ed1-48b7-87d2-661738f584ce",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "liveboard",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-629e0b4b-3ed1-48b7-87d2-661738f584ce"
+                                },
+                                {
+                                  "id": "55432e78-edb7-408f-b8f8-49984dd7f353",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/metadata/liveboard/data",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "metadata",
+                                        "liveboard",
+                                        "data"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:50.000Z",
+                                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                                  "uid": "35240-55432e78-edb7-408f-b8f8-49984dd7f353"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:50.000Z",
+                              "updatedAt": "2026-07-28T03:15:50.000Z",
+                              "uid": "35240-cbee16e3-7f30-4735-a6a0-20531931b93c"
+                            }
+                          ],
+                          "id": "4909e6ff-65db-42c1-b99c-90c3aa003670",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-4909e6ff-65db-42c1-b99c-90c3aa003670"
+                        }
+                      ],
+                      "id": "d59406c6-a800-49a1-aefd-85cd998adc8a",
+                      "createdAt": "2026-07-28T03:15:50.000Z",
+                      "updatedAt": "2026-07-28T03:15:50.000Z",
+                      "uid": "35240-d59406c6-a800-49a1-aefd-85cd998adc8a"
+                    }
+                  ],
+                  "id": "fab07e64-a177-48f4-9fb1-46f24d779090",
+                  "createdAt": "2026-07-28T03:15:50.000Z",
+                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                  "uid": "35240-fab07e64-a177-48f4-9fb1-46f24d779090"
+                },
+                {
+                  "name": "searchdata",
+                  "item": [
+                    {
+                      "name": "search Data",
+                      "id": "2615dd0b-7a96-4e2d-a895-9d9f26aaf8fd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "rest",
+                            "2.0",
+                            "searchdata"
+                          ]
+                        },
+                        "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an Answer from a given data source.\n\nRequires at least view access to the data source object (Worksheet or View). If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nTo search data, specify the data source GUID in `logical_table_identifier`. The data source can be a Worksheet, View, Table, or SQL view.\n\nPass search tokens in the `query_string` attribute in the API request as shown in the following example:\n\n```\n{\n  \"query_string\": \"[sales] by [store]\",\n  \"logical_table_identifier\": \"cd252e5c-b552-49a8-821d-3eadaa049cca\",\n}\n```\n\nFor more information about the `query_string` format and data source attribute, see [Search data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api).  \n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_api).  \n\n\n\n#### Endpoint URL\n"
+                      },
+                      "response": [
+                        {
+                          "id": "619d67a5-1a37-4537-a4a1-804bf75a17d5",
+                          "name": "Fetching data of specified metadata object is successful.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "searchdata"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contents\": [\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\"\n    },\n    {\n      \"available_data_row_count\": \"<integer>\",\n      \"column_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"record_offset\": \"<integer>\",\n      \"record_size\": \"<integer>\",\n      \"returned_data_row_count\": \"<integer>\",\n      \"sampling_ratio\": \"<float>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-619d67a5-1a37-4537-a4a1-804bf75a17d5"
+                        },
+                        {
+                          "id": "606233c2-71ca-4a6e-b0f4-eba93d13dde9",
+                          "name": "Invalid request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "searchdata"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-606233c2-71ca-4a6e-b0f4-eba93d13dde9"
+                        },
+                        {
+                          "id": "cfd7add9-72f6-4d09-bf1d-8e83f61c3a8c",
+                          "name": "Unauthorized access.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "searchdata"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-cfd7add9-72f6-4d09-bf1d-8e83f61c3a8c"
+                        },
+                        {
+                          "id": "8fa2f541-16c5-4e91-aa9b-375c9be3c201",
+                          "name": "Forbidden access.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "searchdata"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-8fa2f541-16c5-4e91-aa9b-375c9be3c201"
+                        },
+                        {
+                          "id": "86cde66c-1e7b-4157-84a3-74b7a77ca51f",
+                          "name": "Unexpected error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": {},\n  \"runtime_sort\": {},\n  \"runtime_param_override\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/searchdata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "searchdata"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:15:50.000Z",
+                          "updatedAt": "2026-07-28T03:15:50.000Z",
+                          "uid": "35240-86cde66c-1e7b-4157-84a3-74b7a77ca51f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:15:50.000Z",
+                      "updatedAt": "2026-07-28T03:15:50.000Z",
+                      "uid": "35240-2615dd0b-7a96-4e2d-a895-9d9f26aaf8fd"
+                    }
+                  ],
+                  "id": "d100fe55-c79d-4029-bc1d-7179537239ed",
+                  "createdAt": "2026-07-28T03:15:50.000Z",
+                  "updatedAt": "2026-07-28T03:15:50.000Z",
+                  "uid": "35240-d100fe55-c79d-4029-bc1d-7179537239ed"
+                }
+              ],
+              "id": "908aea93-9d84-4461-a918-2a1fc8a4e8f2",
+              "createdAt": "2026-07-28T03:15:50.000Z",
+              "updatedAt": "2026-07-28T03:15:50.000Z",
+              "uid": "35240-908aea93-9d84-4461-a918-2a1fc8a4e8f2"
+            }
+          ],
+          "id": "e521bbb6-dcf3-4476-92f6-496f47ee0f97",
+          "createdAt": "2026-07-28T03:15:50.000Z",
+          "updatedAt": "2026-07-28T03:15:50.000Z",
+          "uid": "35240-e521bbb6-dcf3-4476-92f6-496f47ee0f97"
+        }
+      ],
+      "id": "eea0e5eb-39ab-4d99-9366-a716c49c450e",
+      "createdAt": "2026-07-28T03:15:50.000Z",
+      "updatedAt": "2026-07-28T03:15:50.000Z",
+      "uid": "35240-eea0e5eb-39ab-4d99-9366-a716c49c450e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

@@ -1,0 +1,3075 @@
+{
+  "info": {
+    "_postman_id": "dccb019d-d55d-4bd8-af96-64fd2d566cb4",
+    "name": "ThoughtSpot Public REST 10.1.0.cl System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:43.000Z",
+    "updatedAt": "2026-07-28T03:16:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dccb019d-d55d-4bd8-af96-64fd2d566cb4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "system",
+                  "item": [
+                    {
+                      "name": "preferences",
+                      "item": [
+                        {
+                          "name": "communication-channels",
+                          "item": [
+                            {
+                              "name": "configure",
+                              "item": [
+                                {
+                                  "name": "configure Communication Channel Preferences",
+                                  "id": "ee731add-b0fc-40de-99c7-544096780395",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "preferences",
+                                        "communication-channels",
+                                        "configure"
+                                      ]
+                                    },
+                                    "description": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nConfigure communication channel preferences.\n- Use `cluster_preferences` to update the default preferences for your ThoughtSpot application instance.\n- If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to specify Org-specific preferences that override the defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "954f2fe4-d6b0-4bc7-a913-dab0ed410be9",
+                                      "name": "Communication channel preferences successfully updated.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "configure"
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-954f2fe4-d6b0-4bc7-a913-dab0ed410be9"
+                                    },
+                                    {
+                                      "id": "41a3c1b3-89c5-4c80-b23d-97267e8f7233",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "configure"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-41a3c1b3-89c5-4c80-b23d-97267e8f7233"
+                                    },
+                                    {
+                                      "id": "421859a0-07a3-425d-9d4d-82b8620c2802",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "configure"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-421859a0-07a3-425d-9d4d-82b8620c2802"
+                                    },
+                                    {
+                                      "id": "e55eb0fd-271e-4a37-850b-0d2e78be4cda",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "configure"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-e55eb0fd-271e-4a37-850b-0d2e78be4cda"
+                                    },
+                                    {
+                                      "id": "c9bc13c2-6b87-4f4a-b4bd-b4992bd38ade",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"WEBHOOK\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"operation\": \"REPLACE\",\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        }\n      ],\n      \"reset_events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/configure",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "configure"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-c9bc13c2-6b87-4f4a-b4bd-b4992bd38ade"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-ee731add-b0fc-40de-99c7-544096780395"
+                                }
+                              ],
+                              "id": "0adf3a28-a483-499b-8752-f6cc13127e66",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-0adf3a28-a483-499b-8752-f6cc13127e66"
+                            },
+                            {
+                              "name": "search",
+                              "item": [
+                                {
+                                  "name": "search Communication Channel Preferences",
+                                  "id": "c2e3efd0-3db7-4157-a14f-51e658f546dc",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "preferences",
+                                        "communication-channels",
+                                        "search"
+                                      ]
+                                    },
+                                    "description": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nFetch communication channel preferences.\n- Use `cluster_preferences` to fetch the default preferences for your ThoughtSpot application instance.\n- If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to fetch any Org-specific preferences that override the defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "6c09b8ae-c0c0-4002-95ff-5e4376b17359",
+                                      "name": "Communication channel preferences retrieved successfully.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "search"
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"cluster_preferences\": [\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"EMAIL\",\n        \"EMAIL\"\n      ]\n    },\n    {\n      \"event_type\": \"LIVEBOARD_SCHEDULE\",\n      \"channels\": [\n        \"WEBHOOK\",\n        \"EMAIL\"\n      ]\n    }\n  ],\n  \"org_preferences\": [\n    {\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"WEBHOOK\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"WEBHOOK\"\n          ]\n        }\n      ]\n    },\n    {\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"preferences\": [\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"WEBHOOK\",\n            \"EMAIL\"\n          ]\n        },\n        {\n          \"event_type\": \"LIVEBOARD_SCHEDULE\",\n          \"channels\": [\n            \"EMAIL\",\n            \"EMAIL\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-6c09b8ae-c0c0-4002-95ff-5e4376b17359"
+                                    },
+                                    {
+                                      "id": "56f1511c-b44f-4912-9d13-28a6c6193643",
+                                      "name": "Invalid request.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "search"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-56f1511c-b44f-4912-9d13-28a6c6193643"
+                                    },
+                                    {
+                                      "id": "7ff5ef29-21bf-4329-8ea7-37c70e19b0aa",
+                                      "name": "Unauthorized access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "search"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-7ff5ef29-21bf-4329-8ea7-37c70e19b0aa"
+                                    },
+                                    {
+                                      "id": "463e76d7-3b46-4c56-b378-c3dddef77c9c",
+                                      "name": "Forbidden access.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "search"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-463e76d7-3b46-4c56-b378-c3dddef77c9c"
+                                    },
+                                    {
+                                      "id": "1b86b045-578f-4618-8a74-789b202bbfce",
+                                      "name": "Unexpected error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"cluster_preferences\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"event_types\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ]\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/rest/2.0/system/preferences/communication-channels/search",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "rest",
+                                            "2.0",
+                                            "system",
+                                            "preferences",
+                                            "communication-channels",
+                                            "search"
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {}\n}",
+                                      "createdAt": "2026-07-28T03:16:44.000Z",
+                                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                                      "uid": "35240-1b86b045-578f-4618-8a74-789b202bbfce"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-c2e3efd0-3db7-4157-a14f-51e658f546dc"
+                                }
+                              ],
+                              "id": "aa4e00a6-7f53-4298-ac57-d51b6e2428fc",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-aa4e00a6-7f53-4298-ac57-d51b6e2428fc"
+                            }
+                          ],
+                          "id": "fcd9819e-8c40-4535-9207-d7838347b066",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-fcd9819e-8c40-4535-9207-d7838347b066"
+                        }
+                      ],
+                      "id": "589d28aa-159e-490d-bf9c-19f8241a31c6",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-589d28aa-159e-490d-bf9c-19f8241a31c6"
+                    },
+                    {
+                      "name": "security-settings",
+                      "item": [
+                        {
+                          "name": "configure",
+                          "item": [
+                            {
+                              "name": "configure Security Settings",
+                              "id": "38efcbd1-f309-4a1a-b995-e0074b17ff61",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "security-settings",
+                                    "configure"
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nConfigure security settings for your ThoughtSpot application instance.\n- Use `cluster_preferences` to update cluster-level security settings including CORS whitelisted URLs, CSP settings, SAML redirect URLs, partitioned cookies, and non-embed access configuration.\n- Use `org_preferences` to configure Org-specific security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this allows configuring CORS and non-embed access settings specific to the Org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. Cluster-level SAML and script-src settings require `ADMINISTRATION` privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "68848d77-b6bb-4d9b-a70b-97a4e8096220",
+                                  "name": "Successfully configured the security settings.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "configure"
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-68848d77-b6bb-4d9b-a70b-97a4e8096220"
+                                },
+                                {
+                                  "id": "814a0760-7558-40f3-96d3-3d1684396ac6",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "configure"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-814a0760-7558-40f3-96d3-3d1684396ac6"
+                                },
+                                {
+                                  "id": "a268768a-75d0-4b07-86b5-48f5487754bc",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "configure"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-a268768a-75d0-4b07-86b5-48f5487754bc"
+                                },
+                                {
+                                  "id": "86017c78-fba9-474e-a1a2-b1d73ef55015",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "configure"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-86017c78-fba9-474e-a1a2-b1d73ef55015"
+                                },
+                                {
+                                  "id": "37b5e220-0fbc-4f40-8d62-7f3988903b02",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/configure",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "configure"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-37b5e220-0fbc-4f40-8d62-7f3988903b02"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-38efcbd1-f309-4a1a-b995-e0074b17ff61"
+                            }
+                          ],
+                          "id": "a3beda67-6f8a-4e73-aed4-273a303e7149",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-a3beda67-6f8a-4e73-aed4-273a303e7149"
+                        },
+                        {
+                          "name": "search",
+                          "item": [
+                            {
+                              "name": "search Security Settings",
+                              "id": "6297c2a8-4fc6-4d6b-bffc-bfda4663f9f1",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "security-settings",
+                                    "search"
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nFetch security settings for your ThoughtSpot application instance.\n- Use `scope: CLUSTER` to retrieve cluster-level security settings, including CORS and CSP allowlists, SAML redirect URLs, and settings that control access to non-embedded pages.\n- Use `scope: ORG` to retrieve Org-level security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this returns CORS and non-embed access settings specific to the Org.\n- If `scope` is not specified, returns both cluster and Org-specific settings based on user privileges.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "8c8064f6-c6b8-4dbf-9f96-b9f8477d3c10",
+                                  "name": "Successfully retrieved the list of security settings.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_with_access\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"trusted_auth_status\": \"DISABLED\"\n  },\n  \"org_preferences\": [\n    {\n      \"org\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_with_access\": [\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\"\n          }\n        ]\n      },\n      \"trusted_auth_status\": \"DISABLED\"\n    },\n    {\n      \"org\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_with_access\": [\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\"\n          }\n        ]\n      },\n      \"trusted_auth_status\": \"ENABLED\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-8c8064f6-c6b8-4dbf-9f96-b9f8477d3c10"
+                                },
+                                {
+                                  "id": "79b1d2a3-f101-4cfe-bf54-fa41eafd8b27",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-79b1d2a3-f101-4cfe-bf54-fa41eafd8b27"
+                                },
+                                {
+                                  "id": "c0a598ee-b1be-4f9d-9627-a5690f5936f3",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-c0a598ee-b1be-4f9d-9627-a5690f5936f3"
+                                },
+                                {
+                                  "id": "26fde957-7a38-4ca4-9889-dd65296f70cc",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-26fde957-7a38-4ca4-9889-dd65296f70cc"
+                                },
+                                {
+                                  "id": "980f11da-03d0-4e16-83de-b79904f24dbd",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"scope\": \"ORG\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/security-settings/search",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "security-settings",
+                                        "search"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-980f11da-03d0-4e16-83de-b79904f24dbd"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-6297c2a8-4fc6-4d6b-bffc-bfda4663f9f1"
+                            }
+                          ],
+                          "id": "cfef6b53-eb69-40b8-82be-57c58d4c1707",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-cfef6b53-eb69-40b8-82be-57c58d4c1707"
+                        }
+                      ],
+                      "id": "bbaf3caa-bb4c-4f3d-9f27-0b9fa13fb5f5",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-bbaf3caa-bb4c-4f3d-9f27-0b9fa13fb5f5"
+                    },
+                    {
+                      "name": "config",
+                      "item": [
+                        {
+                          "name": "get System Config",
+                          "id": "3120d563-1ece-4108-88f3-7f88c29bcdc4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system",
+                                "config"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves the current configuration details of the cluster. If the request is successful, the API returns a list configuration settings applied on the cluster.\n\nRequires `ADMINISTRATION`(**Can administer ThoughtSpot**) privilege to view these complete configuration settings of the cluster.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "fc6eecc3-5a14-41ef-a3f1-f49f9f5653f8",
+                              "name": "Cluster config information.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"onboarding_content_url\": \"<string>\",\n  \"saml_enabled\": \"<boolean>\",\n  \"okta_enabled\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-fc6eecc3-5a14-41ef-a3f1-f49f9f5653f8"
+                            },
+                            {
+                              "id": "42c4fc8d-788e-44ee-8b18-68224cd6243f",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-42c4fc8d-788e-44ee-8b18-68224cd6243f"
+                            },
+                            {
+                              "id": "378d5597-cfd8-4f8d-8c3f-ea62aa7041dd",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-378d5597-cfd8-4f8d-8c3f-ea62aa7041dd"
+                            },
+                            {
+                              "id": "d6453d1a-1d10-4716-9557-bdc2720e57b6",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-d6453d1a-1d10-4716-9557-bdc2720e57b6"
+                            },
+                            {
+                              "id": "08930aa4-a709-4f9b-8dc7-d90441dd09ed",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-08930aa4-a709-4f9b-8dc7-d90441dd09ed"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-3120d563-1ece-4108-88f3-7f88c29bcdc4"
+                        }
+                      ],
+                      "id": "8b44e37d-3e97-4283-950b-aee911ff72e9",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-8b44e37d-3e97-4283-950b-aee911ff72e9"
+                    },
+                    {
+                      "name": "config-overrides",
+                      "item": [
+                        {
+                          "name": "get System Override Info",
+                          "id": "a65186d3-4c72-4156-9fd8-dbb9b2197a47",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system",
+                                "config-overrides"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nGets a list of configuration overrides applied on the cluster.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.  \n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "c2c0647f-74c8-422f-8094-12efdb1d0163",
+                              "name": "Cluster configuration which can be overridden.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-overrides"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"config_override_info\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-c2c0647f-74c8-422f-8094-12efdb1d0163"
+                            },
+                            {
+                              "id": "70b4091b-7248-485b-8157-69e75ded510b",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-overrides"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-70b4091b-7248-485b-8157-69e75ded510b"
+                            },
+                            {
+                              "id": "65b71ff9-d434-4f13-926f-d38e1409a31e",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-overrides"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-65b71ff9-d434-4f13-926f-d38e1409a31e"
+                            },
+                            {
+                              "id": "c95ffc54-5a19-4405-acb4-8e3a0f492ed4",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-overrides"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-c95ffc54-5a19-4405-acb4-8e3a0f492ed4"
+                            },
+                            {
+                              "id": "dded0dfa-8812-4411-ac44-2398d745af83",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-overrides",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-overrides"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-dded0dfa-8812-4411-ac44-2398d745af83"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-a65186d3-4c72-4156-9fd8-dbb9b2197a47"
+                        }
+                      ],
+                      "id": "0f8b9510-3fd4-4bec-946e-debf6243a127",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-0f8b9510-3fd4-4bec-946e-debf6243a127"
+                    },
+                    {
+                      "name": "config-update",
+                      "item": [
+                        {
+                          "name": "update System Config",
+                          "id": "2f3a4050-4443-4312-9380-510362861b72",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"configuration\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system",
+                                "config-update"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nUpdates the current configuration of the cluster. You must send the configuration data in JSON format.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "410006e7-e34d-41b9-af01-a60eb3b8fa2f",
+                              "name": "Configuration successfully updated.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"configuration\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-update"
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-410006e7-e34d-41b9-af01-a60eb3b8fa2f"
+                            },
+                            {
+                              "id": "fc368310-dde6-46dd-8a05-5ec07e6acf32",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"configuration\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-update"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-fc368310-dde6-46dd-8a05-5ec07e6acf32"
+                            },
+                            {
+                              "id": "2b665dd4-d17e-4fc6-8df0-3bf261ed9691",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"configuration\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-update"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-2b665dd4-d17e-4fc6-8df0-3bf261ed9691"
+                            },
+                            {
+                              "id": "9edcddc3-3410-45de-8871-98cac11af9b9",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"configuration\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-update"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-9edcddc3-3410-45de-8871-98cac11af9b9"
+                            },
+                            {
+                              "id": "af34b113-aa08-473b-8375-752a3cf71d40",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"configuration\": {}\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/config-update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "config-update"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-af34b113-aa08-473b-8375-752a3cf71d40"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-2f3a4050-4443-4312-9380-510362861b72"
+                        }
+                      ],
+                      "id": "54065c9f-a1ef-4a49-b5d9-20c9f868eea2",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-54065c9f-a1ef-4a49-b5d9-20c9f868eea2"
+                    },
+                    {
+                      "name": "communication-channels",
+                      "item": [
+                        {
+                          "name": "validate",
+                          "item": [
+                            {
+                              "name": "validate Communication Channel",
+                              "id": "88396988-5762-42b6-8dd0-7ddedb89ba38",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "system",
+                                    "communication-channels",
+                                    "validate"
+                                  ]
+                                },
+                                "description": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nValidates a communication channel configuration to ensure it is properly set up and can receive events.\n- Use `channel_type` to specify the type of communication channel to validate (e.g., WEBHOOK).\n- Use `channel_identifier` to provide the unique identifier or name for the communication channel.\n- Use `event_type` to specify the event type to validate for this channel.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. For webhook channels, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "dd5d5948-33ce-4068-ba54-758ea5a309de",
+                                  "name": "communication channel configuration validated successfully.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "communication-channels",
+                                        "validate"
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_id\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"job_id\": \"<string>\",\n  \"result_code\": \"PARTIAL_SUCCESS\",\n  \"channel_name\": \"<string>\",\n  \"details\": [\n    {\n      \"validation_step\": \"HTTP_CONNECTION_CHECK\",\n      \"status\": \"FAILED\",\n      \"http_status\": \"<integer>\",\n      \"error_message\": \"<string>\",\n      \"aws_s3_info\": {\n        \"bucket_name\": \"<string>\",\n        \"file_name\": \"<string>\",\n        \"object_key\": \"<string>\"\n      },\n      \"gcp_gcs_info\": {\n        \"bucket_name\": \"<string>\",\n        \"file_name\": \"<string>\",\n        \"object_key\": \"<string>\"\n      }\n    },\n    {\n      \"validation_step\": \"HTTP_CONNECTION_CHECK\",\n      \"status\": \"FAILED\",\n      \"http_status\": \"<integer>\",\n      \"error_message\": \"<string>\",\n      \"aws_s3_info\": {\n        \"bucket_name\": \"<string>\",\n        \"file_name\": \"<string>\",\n        \"object_key\": \"<string>\"\n      },\n      \"gcp_gcs_info\": {\n        \"bucket_name\": \"<string>\",\n        \"file_name\": \"<string>\",\n        \"object_key\": \"<string>\"\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-dd5d5948-33ce-4068-ba54-758ea5a309de"
+                                },
+                                {
+                                  "id": "8f6b3543-53bd-4084-94cd-5d2fbfe6002e",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "communication-channels",
+                                        "validate"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-8f6b3543-53bd-4084-94cd-5d2fbfe6002e"
+                                },
+                                {
+                                  "id": "28a20042-b340-4c42-b84c-bd7bfba9fca2",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "communication-channels",
+                                        "validate"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-28a20042-b340-4c42-b84c-bd7bfba9fca2"
+                                },
+                                {
+                                  "id": "bdd544a5-a6df-47f0-ae15-655109b81d7d",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "communication-channels",
+                                        "validate"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-bdd544a5-a6df-47f0-ae15-655109b81d7d"
+                                },
+                                {
+                                  "id": "9c977d1e-cd99-4366-a0e3-b0d332624289",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"channel_type\": \"WEBHOOK\",\n  \"channel_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/system/communication-channels/validate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "system",
+                                        "communication-channels",
+                                        "validate"
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:44.000Z",
+                                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                                  "uid": "35240-9c977d1e-cd99-4366-a0e3-b0d332624289"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:44.000Z",
+                              "updatedAt": "2026-07-28T03:16:44.000Z",
+                              "uid": "35240-88396988-5762-42b6-8dd0-7ddedb89ba38"
+                            }
+                          ],
+                          "id": "a168779a-8f53-4f3c-858c-5e275e1fcfd2",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-a168779a-8f53-4f3c-858c-5e275e1fcfd2"
+                        }
+                      ],
+                      "id": "33bff2fd-1039-492a-81d4-841be19428ad",
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-33bff2fd-1039-492a-81d4-841be19428ad"
+                    },
+                    {
+                      "name": "get System Information",
+                      "id": "26cd2ce8-aa00-4f8a-9e1f-81704b067062",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/rest/2.0/system",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "rest",
+                            "2.0",
+                            "system"
+                          ]
+                        },
+                        "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets system information such as the release version, locale, time zone, deployment environment, date format, and date time format of the cluster.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.  \n\n\n\n\n#### Endpoint URL\n"
+                      },
+                      "response": [
+                        {
+                          "id": "ca1e79ed-d4a8-47bd-aad9-7180b3b1d9ee",
+                          "name": "Cluster information.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"release_version\": \"<string>\",\n  \"time_zone\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"api_version\": \"<string>\",\n  \"type\": \"<string>\",\n  \"environment\": \"<string>\",\n  \"license\": \"<string>\",\n  \"date_time_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"system_user_id\": \"<string>\",\n  \"super_user_id\": \"<string>\",\n  \"hidden_object_id\": \"<string>\",\n  \"system_group_id\": \"<string>\",\n  \"tsadmin_user_id\": \"<string>\",\n  \"admin_group_id\": \"<string>\",\n  \"all_tables_connection_id\": \"<string>\",\n  \"all_user_group_id\": \"<string>\",\n  \"accept_language\": \"<string>\",\n  \"all_user_group_member_user_count\": \"<integer>\",\n  \"logical_model_version\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-ca1e79ed-d4a8-47bd-aad9-7180b3b1d9ee"
+                        },
+                        {
+                          "id": "c7ca3af0-15b7-4f4f-931d-4d4eb223bb5d",
+                          "name": "Invalid request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-c7ca3af0-15b7-4f4f-931d-4d4eb223bb5d"
+                        },
+                        {
+                          "id": "b9bdd6f5-ff41-40e7-8747-5cffc3eec358",
+                          "name": "Unauthorized access.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-b9bdd6f5-ff41-40e7-8747-5cffc3eec358"
+                        },
+                        {
+                          "id": "b8581d38-4b84-44e6-8fb5-b8b2ccc824d3",
+                          "name": "Forbidden access.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-b8581d38-4b84-44e6-8fb5-b8b2ccc824d3"
+                        },
+                        {
+                          "id": "9fef6777-9a43-4ce8-8742-855d93e21a81",
+                          "name": "Unexpected error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/system",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "system"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {}\n}",
+                          "createdAt": "2026-07-28T03:16:44.000Z",
+                          "updatedAt": "2026-07-28T03:16:44.000Z",
+                          "uid": "35240-9fef6777-9a43-4ce8-8742-855d93e21a81"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:16:44.000Z",
+                      "updatedAt": "2026-07-28T03:16:44.000Z",
+                      "uid": "35240-26cd2ce8-aa00-4f8a-9e1f-81704b067062"
+                    }
+                  ],
+                  "id": "1186f42a-2259-4dcf-bc70-b3870a77b50e",
+                  "createdAt": "2026-07-28T03:16:44.000Z",
+                  "updatedAt": "2026-07-28T03:16:44.000Z",
+                  "uid": "35240-1186f42a-2259-4dcf-bc70-b3870a77b50e"
+                }
+              ],
+              "id": "64bfcdae-404a-4367-9003-e022efbd9e4f",
+              "createdAt": "2026-07-28T03:16:44.000Z",
+              "updatedAt": "2026-07-28T03:16:44.000Z",
+              "uid": "35240-64bfcdae-404a-4367-9003-e022efbd9e4f"
+            }
+          ],
+          "id": "b698e242-83b1-45f0-94d8-20130f5aa240",
+          "createdAt": "2026-07-28T03:16:44.000Z",
+          "updatedAt": "2026-07-28T03:16:44.000Z",
+          "uid": "35240-b698e242-83b1-45f0-94d8-20130f5aa240"
+        }
+      ],
+      "id": "b75a6e8d-9ba3-485c-888a-c953cdf521a0",
+      "createdAt": "2026-07-28T03:16:44.000Z",
+      "updatedAt": "2026-07-28T03:16:44.000Z",
+      "uid": "35240-b75a6e8d-9ba3-485c-888a-c953cdf521a0"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

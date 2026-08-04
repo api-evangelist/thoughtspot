@@ -1,0 +1,69 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/thoughtspot-rest-v2-openapi-original.json
+identifier_style: GUID (identifier) or name
+entities:
+- name: Org
+  description: Tenancy/organization boundary containing users, groups, and content.
+  api_group: orgs
+- name: User
+  description: A ThoughtSpot principal.
+  api_group: users
+  relationships:
+  - {type: belongs_to, target: Org, via: org_identifier}
+  - {type: has_many, target: Group, via: group_identifiers}
+  - {type: has_many, target: Role, via: role_identifiers}
+- name: Group
+  description: A collection of users used for sharing and privileges.
+  api_group: groups
+  relationships:
+  - {type: has_many, target: User, via: user_identifiers}
+  - {type: has_many, target: Role, via: role_identifiers}
+- name: Role
+  description: A named set of privileges assignable to users/groups.
+  api_group: roles
+- name: Connection
+  description: A link to a cloud data warehouse.
+  api_group: connections
+  relationships:
+  - {type: belongs_to, target: Org, via: org_identifier}
+- name: Metadata
+  description: >-
+    Content objects — Liveboards, Answers, Models/Worksheets, Tables, Views,
+    Collections — the core analytical artifacts.
+  api_group: metadata
+  subtypes: [Liveboard, Answer, Model, Table, View]
+  relationships:
+  - {type: belongs_to, target: Connection, via: connection_identifier}
+  - {type: has_many, target: Tag, via: tag_identifiers}
+  - {type: belongs_to, target: User, via: author}
+- name: Tag
+  description: A label applied to metadata objects.
+  api_group: tags
+- name: Collection
+  description: An organizational container grouping metadata objects.
+  api_group: collections
+  relationships:
+  - {type: has_many, target: Metadata, via: metadata_identifiers}
+- name: CustomAction
+  description: A user-defined action wired to metadata for callbacks/integrations.
+  api_group: customization
+- name: Webhook
+  description: A configured outbound webhook subscription.
+  api_group: webhooks
+- name: Schedule
+  description: A scheduled delivery/job for a Liveboard or report.
+  api_group: schedules
+  relationships:
+  - {type: belongs_to, target: Metadata, via: metadata_identifier}
+- name: Conversation
+  description: An AI/Spotter agent conversation session over a data model.
+  api_group: ai
+  relationships:
+  - {type: belongs_to, target: Metadata, via: model/datasource}
+notes: >-
+  Entity graph derived from the 191-operation OpenAPI v2.0 (path groups +
+  identifier-reference fields). ThoughtSpot addresses objects by GUID
+  (identifier) or name; sharing/security relationships (users↔groups↔roles) and
+  content ownership (metadata↔connection↔author) form the core graph. Spotter
+  AI conversations attach to a data model/datasource.

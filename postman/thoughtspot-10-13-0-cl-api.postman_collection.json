@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "161629f7-ea7e-49fa-8cc3-0d299c5d1edb",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.13.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:41.000Z",
+    "updatedAt": "2026-07-28T03:13:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-161629f7-ea7e-49fa-8cc3-0d299c5d1edb"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "ai",
+                  "item": [
+                    {
+                      "name": "relevant-questions",
+                      "item": [
+                        {
+                          "name": "get Relevant Questions",
+                          "id": "afadb779-4f5d-4ac5-940d-b1bd54d655be",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "ai",
+                                "relevant-questions",
+                                ""
+                              ]
+                            },
+                            "description": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.13.0.cl or later</span>\n\nBreaks down a natural language query into a series of smaller analytical sub-questions, each mapped to a relevant data source.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view-level access to the referenced metadata objects.\n\n#### Usage guidelines\n\nThe request must include:\n- `query`: the natural language question to decompose into analytical sub-questions\n- `metadata_context`: at least one of the following context identifiers to guide question generation:\n  - `conversation_identifier` \u2014 an existing conversation session ID\n  - `answer_identifiers` \u2014 a list of Answer GUIDs\n  - `liveboard_identifiers` \u2014 a list of Liveboard GUIDs\n  - `data_source_identifiers` \u2014 a list of data source GUIDs\n\nOptional parameters for refining the output:\n- `ai_context`: additional context to improve response quality\n  - `content` \u2014 supplementary text or CSV data as string input\n  - `instructions` \u2014 custom text instructions for the AI system\n- `limit_relevant_questions`: maximum number of questions to return (default: `5`)\n- `bypass_cache`: if `true`, forces fresh computation instead of returning cached results\n\nIf the request is successful, the API returns a list of relevant analytical questions, each containing:\n- `query`: the generated sub-question\n- `data_source_identifier`: the unique ID of the data source the question targets\n- `data_source_name`: the display name of the corresponding data source\n\n#### Error responses\n\n| Code | Description                                                                                                                           |\n|------|---------------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized \u2014 authentication token is missing, expired, or invalid.                                                                  |\n| 403  | Forbidden \u2014 the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view access to the referenced metadata objects. |\n\n> ###### Note:\n> * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> * This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "1ff107fa-1419-4948-ba59-9d280a21b271",
+                              "name": "Common successful response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"relevant_questions\": [\n    {\n      \"query\": \"<string>\",\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_name\": \"<string>\"\n    },\n    {\n      \"query\": \"<string>\",\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-1ff107fa-1419-4948-ba59-9d280a21b271"
+                            },
+                            {
+                              "id": "97be970a-c02d-4a89-9abf-3c2241336feb",
+                              "name": "Common error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"relevant_questions\": [\n    {\n      \"query\": \"<string>\",\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_name\": \"<string>\"\n    },\n    {\n      \"query\": \"<string>\",\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-97be970a-c02d-4a89-9abf-3c2241336feb"
+                            },
+                            {
+                              "id": "cbbd463d-ee7d-4776-b308-7fcf2ec0e7da",
+                              "name": "Operation failed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-cbbd463d-ee7d-4776-b308-7fcf2ec0e7da"
+                            },
+                            {
+                              "id": "31ec660d-8382-495f-9dad-1eed7d8f857a",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-31ec660d-8382-495f-9dad-1eed7d8f857a"
+                            },
+                            {
+                              "id": "0f136c90-cfed-42e3-b3fc-ca7d23f23037",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-0f136c90-cfed-42e3-b3fc-ca7d23f23037"
+                            },
+                            {
+                              "id": "2dc436f9-b748-4c93-b0f6-c4f1486e9cce",
+                              "name": "Operation failed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"metadata_context\": {\n    \"data_source_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"answer_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"conversation_identifier\": \"<string>\",\n    \"liveboard_identifiers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": \"<string>\",\n  \"limit_relevant_questions\": \"<integer>\",\n  \"bypass_cache\": \"<boolean>\",\n  \"ai_context\": {\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"content\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/ai/relevant-questions/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "ai",
+                                    "relevant-questions",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-2dc436f9-b748-4c93-b0f6-c4f1486e9cce"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:41.000Z",
+                          "updatedAt": "2026-07-28T03:13:41.000Z",
+                          "uid": "35240-afadb779-4f5d-4ac5-940d-b1bd54d655be"
+                        }
+                      ],
+                      "id": "6255a40f-b092-49bf-b0c7-ec1999ad055f",
+                      "createdAt": "2026-07-28T03:13:41.000Z",
+                      "updatedAt": "2026-07-28T03:13:41.000Z",
+                      "uid": "35240-6255a40f-b092-49bf-b0c7-ec1999ad055f"
+                    }
+                  ],
+                  "id": "d036699d-da52-49bf-9b0d-644995dcc9fd",
+                  "createdAt": "2026-07-28T03:13:41.000Z",
+                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                  "uid": "35240-d036699d-da52-49bf-9b0d-644995dcc9fd"
+                }
+              ],
+              "id": "2b753c05-9762-478d-9738-2b28d46df8f3",
+              "createdAt": "2026-07-28T03:13:41.000Z",
+              "updatedAt": "2026-07-28T03:13:41.000Z",
+              "uid": "35240-2b753c05-9762-478d-9738-2b28d46df8f3"
+            }
+          ],
+          "id": "06917702-ea02-45ba-b958-367adc9c8c3a",
+          "createdAt": "2026-07-28T03:13:41.000Z",
+          "updatedAt": "2026-07-28T03:13:41.000Z",
+          "uid": "35240-06917702-ea02-45ba-b958-367adc9c8c3a"
+        }
+      ],
+      "id": "f1a07f50-51b2-43d9-8e1c-af93d149fb9d",
+      "createdAt": "2026-07-28T03:13:41.000Z",
+      "updatedAt": "2026-07-28T03:13:41.000Z",
+      "uid": "35240-f1a07f50-51b2-43d9-8e1c-af93d149fb9d"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

@@ -1,0 +1,1844 @@
+{
+  "info": {
+    "_postman_id": "a8289f89-ba47-4fef-b645-40bab8ac0837",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:15:57.000Z",
+    "updatedAt": "2026-07-28T03:15:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a8289f89-ba47-4fef-b645-40bab8ac0837"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "groups",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create User Group",
+                          "id": "34071962-0e53-403d-a0c3-e0fdefe96117",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "groups",
+                                "create"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a group object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n#### About groups\nGroups in ThoughtSpot are used by the administrators to define privileges and organize users based on their roles and access requirements. To know more about groups and privileges, see [ThoughtSpot Product Documentation](https://docs.thoughtspot.com/cloud/latest/groups-privileges).\n\n#### Supported operations\n\nThe API endpoint lets you perform the following operations:\n\n* Assign privileges\n* Add users\n* Define sharing visibility\n* Add sub-groups\n* Assign a default Liveboard\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "b75151ec-7ca6-4add-b18f-721275827222",
+                              "name": "User group successfully created.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"display_name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"visibility\": \"SHARABLE\",\n  \"obj_id\": \"<string>\",\n  \"author_id\": \"<string>\",\n  \"complete_detail\": \"<boolean>\",\n  \"content\": {},\n  \"creation_time_in_millis\": \"<float>\",\n  \"default_liveboards\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deleted\": \"<boolean>\",\n  \"deprecated\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"external\": \"<boolean>\",\n  \"generation_number\": \"<integer>\",\n  \"hidden\": \"<boolean>\",\n  \"index\": \"<integer>\",\n  \"index_version\": \"<integer>\",\n  \"metadata_version\": \"<integer>\",\n  \"modification_time_in_millis\": \"<float>\",\n  \"modifier_id\": \"<string>\",\n  \"orgs\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"owner_id\": \"<string>\",\n  \"parent_type\": \"GROUP\",\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sub_groups\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"system_group\": \"<boolean>\",\n  \"tags\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"type\": \"LDAP_GROUP\",\n  \"users\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-b75151ec-7ca6-4add-b18f-721275827222"
+                            },
+                            {
+                              "id": "aa680a96-b28d-4d61-90f4-15f56a172e9e",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-aa680a96-b28d-4d61-90f4-15f56a172e9e"
+                            },
+                            {
+                              "id": "19baedf0-2397-4a1c-8a8a-d720108fcc92",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-19baedf0-2397-4a1c-8a8a-d720108fcc92"
+                            },
+                            {
+                              "id": "f836a0ce-4714-49ca-a662-f2d89fea3109",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-f836a0ce-4714-49ca-a662-f2d89fea3109"
+                            },
+                            {
+                              "id": "9f266f90-410b-4344-86c8-fe9686ffa447",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_VERSION_CONTROL\",\n    \"USERMANAGEMENT\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-9f266f90-410b-4344-86c8-fe9686ffa447"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:58.000Z",
+                          "updatedAt": "2026-07-28T03:15:58.000Z",
+                          "uid": "35240-34071962-0e53-403d-a0c3-e0fdefe96117"
+                        }
+                      ],
+                      "id": "938df664-9914-4363-b239-b2b65f95b764",
+                      "createdAt": "2026-07-28T03:15:58.000Z",
+                      "updatedAt": "2026-07-28T03:15:58.000Z",
+                      "uid": "35240-938df664-9914-4363-b239-b2b65f95b764"
+                    },
+                    {
+                      "name": "{group_identifier}",
+                      "item": [
+                        {
+                          "name": "delete",
+                          "item": [
+                            {
+                              "name": "delete User Group",
+                              "id": "a1229db2-b1b3-488c-9ade-2af5529a006f",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    ":group_identifier",
+                                    "delete"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5c0c8f5b-ec73-40aa-9e41-41816d5f8580",
+                                      "key": "group_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) GUID or name of the group."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the specified group object from the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "60afb285-5838-4350-922c-bd076c42f248",
+                                  "name": "User group successfully deleted.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-60afb285-5838-4350-922c-bd076c42f248"
+                                },
+                                {
+                                  "id": "07a4db1a-9799-4c72-9efd-248d87f14751",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-07a4db1a-9799-4c72-9efd-248d87f14751"
+                                },
+                                {
+                                  "id": "de4b76ee-6928-4f72-86ac-5bbe06bdbe6e",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-de4b76ee-6928-4f72-86ac-5bbe06bdbe6e"
+                                },
+                                {
+                                  "id": "c799d769-9d40-4680-b73d-af94f7068370",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-c799d769-9d40-4680-b73d-af94f7068370"
+                                },
+                                {
+                                  "id": "18944e92-cc44-405d-a377-2cdf42713a27",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/delete",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "delete"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-18944e92-cc44-405d-a377-2cdf42713a27"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-a1229db2-b1b3-488c-9ade-2af5529a006f"
+                            }
+                          ],
+                          "id": "02ec2eeb-da73-40f9-8f4b-5c339fd2d8a1",
+                          "createdAt": "2026-07-28T03:15:58.000Z",
+                          "updatedAt": "2026-07-28T03:15:58.000Z",
+                          "uid": "35240-02ec2eeb-da73-40f9-8f4b-5c339fd2d8a1"
+                        },
+                        {
+                          "name": "update",
+                          "item": [
+                            {
+                              "name": "update User Group",
+                              "id": "c1e5517e-94f0-49e5-b582-6ed15a683de5",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    ":group_identifier",
+                                    "update"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "9d70b754-8611-40e1-9935-fd5c68d6ca7d",
+                                      "key": "group_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) GUID or name of the group."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the properties of a group object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n#### Supported operations\n\nThis API endpoint lets you perform the following operations in a single API request:\n\n* Edit [privileges](https://developers.thoughtspot.com/docs/?pageid=api-user-management#group-privileges)\n* Add or remove users\n* Change sharing visibility settings\n* Add or remove sub-groups\n* Assign a default Liveboard  or update the existing settings\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "59a0d7d2-630f-4f69-868f-7c23d736182f",
+                                  "name": "User group successfully updated.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-59a0d7d2-630f-4f69-868f-7c23d736182f"
+                                },
+                                {
+                                  "id": "5b46c56e-9227-418b-b76d-9044c0e6efee",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-5b46c56e-9227-418b-b76d-9044c0e6efee"
+                                },
+                                {
+                                  "id": "2d06d919-f9da-4de1-b333-062c0abec286",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-2d06d919-f9da-4de1-b333-062c0abec286"
+                                },
+                                {
+                                  "id": "35ab1812-0fd2-46f9-a036-3f3cb1f5b9df",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-35ab1812-0fd2-46f9-a036-3f3cb1f5b9df"
+                                },
+                                {
+                                  "id": "90205fa7-bde6-45a3-a4ac-c46f2e103d73",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"privileges\": [\n    \"CAN_MANAGE_ANALYST_STUDIO\",\n    \"CAN_VIEW_FOLDERS\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/groups/:group_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "groups",
+                                        ":group_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "group_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:15:58.000Z",
+                                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                                  "uid": "35240-90205fa7-bde6-45a3-a4ac-c46f2e103d73"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-c1e5517e-94f0-49e5-b582-6ed15a683de5"
+                            }
+                          ],
+                          "id": "17a12798-3244-40dc-9e7a-277247bcb4c4",
+                          "createdAt": "2026-07-28T03:15:58.000Z",
+                          "updatedAt": "2026-07-28T03:15:58.000Z",
+                          "uid": "35240-17a12798-3244-40dc-9e7a-277247bcb4c4"
+                        }
+                      ],
+                      "id": "62a87f00-3125-4738-a878-25cbb6fed8ef",
+                      "createdAt": "2026-07-28T03:15:58.000Z",
+                      "updatedAt": "2026-07-28T03:15:58.000Z",
+                      "uid": "35240-62a87f00-3125-4738-a878-25cbb6fed8ef"
+                    },
+                    {
+                      "name": "import",
+                      "item": [
+                        {
+                          "name": "import User Groups",
+                          "id": "b5542bb5-2bc0-4a1f-b22e-3ecce4bc8c0d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "groups",
+                                "import"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports group objects from external databases into ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\nDuring the import operation:\n\n* If the specified group is not available in ThoughtSpot, it will be added to ThoughtSpot.\n* If `delete_unspecified_groups` is set to `true`, the groups not specified in the API request, excluding administrator and system user groups, are deleted.\n* If the specified groups are already available in ThoughtSpot, the object properties of these groups are modified and synchronized as per the input data in the API request.\n\nA successful API call returns the object that represents the changes made in the ThoughtSpot system.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "695bd6f0-29fd-4150-bbcd-57d76856f1f4",
+                              "name": "Import user groups operation successful.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "import"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"groups_added\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"groups_deleted\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"groups_updated\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-695bd6f0-29fd-4150-bbcd-57d76856f1f4"
+                            },
+                            {
+                              "id": "393a661d-d24f-4381-a037-2bfc0a4edcc2",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "import"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-393a661d-d24f-4381-a037-2bfc0a4edcc2"
+                            },
+                            {
+                              "id": "25a5ec54-7a2d-48df-a857-cb8f08fe95fc",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "import"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-25a5ec54-7a2d-48df-a857-cb8f08fe95fc"
+                            },
+                            {
+                              "id": "203d0f4e-2a11-4287-9be2-19f469280288",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "import"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-203d0f4e-2a11-4287-9be2-19f469280288"
+                            },
+                            {
+                              "id": "a3436a67-5631-4b56-b088-6db8aebd1473",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"groups\": [\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"ADMINISTRATION\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"TENANT_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    },\n    {\n      \"display_name\": \"<string>\",\n      \"group_identifier\": \"<string>\",\n      \"default_liveboard_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"privileges\": [\n        \"PREVIEW_THOUGHTSPOT_SAGE\",\n        \"CAN_CREATE_KPI_ALERTS\"\n      ],\n      \"sub_group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"type\": \"LDAP_GROUP\",\n      \"user_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"SHARABLE\"\n    }\n  ],\n  \"delete_unspecified_groups\": false,\n  \"dry_run\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/import",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "import"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-a3436a67-5631-4b56-b088-6db8aebd1473"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:58.000Z",
+                          "updatedAt": "2026-07-28T03:15:58.000Z",
+                          "uid": "35240-b5542bb5-2bc0-4a1f-b22e-3ecce4bc8c0d"
+                        }
+                      ],
+                      "id": "5d462b32-7984-4ddf-9f5a-a977fec2f84f",
+                      "createdAt": "2026-07-28T03:15:58.000Z",
+                      "updatedAt": "2026-07-28T03:15:58.000Z",
+                      "uid": "35240-5d462b32-7984-4ddf-9f5a-a977fec2f84f"
+                    },
+                    {
+                      "name": "search",
+                      "item": [
+                        {
+                          "name": "search User Groups",
+                          "id": "8e3ea612-5ed8-438b-9e1c-ca5a0366d537",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "groups",
+                                "search"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of user group objects from the ThoughtSpot system.\n\nTo get details of a specific user group, specify the user group GUID or name. You can also filter the API response based on User ID, Org ID, Role ID, type of group, sharing visibility, privileges assigned to the group, and the Liveboard IDs assigned to the users in the group.\n\nAvailable to all users. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges can view all users properties.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n**NOTE**: In addition to the GUID and name, `group_identifier` accepts a Custom object ID if one is configured for the group. The response also includes the `obj_id` field for each group that has one set.\n\n**NOTE**: If you do not get precise results, try setting `record_size` to `-1` and `record_offset` to `0`.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "03697a55-ccbc-4511-a50f-3ae263e71504",
+                              "name": "User group search result.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"display_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"visibility\": \"SHARABLE\",\n    \"obj_id\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"complete_detail\": \"<boolean>\",\n    \"content\": {},\n    \"creation_time_in_millis\": \"<float>\",\n    \"default_liveboards\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"deleted\": \"<boolean>\",\n    \"deprecated\": \"<boolean>\",\n    \"description\": \"<string>\",\n    \"external\": \"<boolean>\",\n    \"generation_number\": \"<integer>\",\n    \"hidden\": \"<boolean>\",\n    \"index\": \"<integer>\",\n    \"index_version\": \"<integer>\",\n    \"metadata_version\": \"<integer>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"modifier_id\": \"<string>\",\n    \"orgs\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"owner_id\": \"<string>\",\n    \"parent_type\": \"USER\",\n    \"privileges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"sub_groups\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"system_group\": \"<boolean>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"type\": \"TEAM_GROUP\",\n    \"users\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"roles\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"display_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"visibility\": \"NON_SHARABLE\",\n    \"obj_id\": \"<string>\",\n    \"author_id\": \"<string>\",\n    \"complete_detail\": \"<boolean>\",\n    \"content\": {},\n    \"creation_time_in_millis\": \"<float>\",\n    \"default_liveboards\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"deleted\": \"<boolean>\",\n    \"deprecated\": \"<boolean>\",\n    \"description\": \"<string>\",\n    \"external\": \"<boolean>\",\n    \"generation_number\": \"<integer>\",\n    \"hidden\": \"<boolean>\",\n    \"index\": \"<integer>\",\n    \"index_version\": \"<integer>\",\n    \"metadata_version\": \"<integer>\",\n    \"modification_time_in_millis\": \"<float>\",\n    \"modifier_id\": \"<string>\",\n    \"orgs\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"owner_id\": \"<string>\",\n    \"parent_type\": \"USER\",\n    \"privileges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"sub_groups\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"system_group\": \"<boolean>\",\n    \"tags\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"type\": \"LDAP_GROUP\",\n    \"users\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"roles\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  }\n]",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-03697a55-ccbc-4511-a50f-3ae263e71504"
+                            },
+                            {
+                              "id": "664471cd-c23c-4be4-83a8-255c37474aa2",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-664471cd-c23c-4be4-83a8-255c37474aa2"
+                            },
+                            {
+                              "id": "f6f4fd0f-bfad-4905-8abc-e4558dcfa71b",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-f6f4fd0f-bfad-4905-8abc-e4558dcfa71b"
+                            },
+                            {
+                              "id": "af9c5c9d-bf3e-4139-9134-3d40f9fa2d5b",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-af9c5c9d-bf3e-4139-9134-3d40f9fa2d5b"
+                            },
+                            {
+                              "id": "3807e11c-af49-4f1a-b0e2-6b536d9b1519",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"default_liveboard_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"group_identifier\": \"<string>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"CAN_MANAGE_VARIABLES\",\n    \"PREVIEW_THOUGHTSPOT_SAGE\"\n  ],\n  \"sub_group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"type\": \"LOCAL_GROUP\",\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"NON_SHARABLE\",\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"NAME\",\n    \"order\": \"ASC\"\n  },\n  \"include_users\": true,\n  \"include_sub_groups\": true\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/groups/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "groups",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:15:58.000Z",
+                              "updatedAt": "2026-07-28T03:15:58.000Z",
+                              "uid": "35240-3807e11c-af49-4f1a-b0e2-6b536d9b1519"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:15:58.000Z",
+                          "updatedAt": "2026-07-28T03:15:58.000Z",
+                          "uid": "35240-8e3ea612-5ed8-438b-9e1c-ca5a0366d537"
+                        }
+                      ],
+                      "id": "8520038c-88d8-4858-b0d1-368e70b34244",
+                      "createdAt": "2026-07-28T03:15:58.000Z",
+                      "updatedAt": "2026-07-28T03:15:58.000Z",
+                      "uid": "35240-8520038c-88d8-4858-b0d1-368e70b34244"
+                    }
+                  ],
+                  "id": "b186ca36-2ade-4368-b421-535763af8c7a",
+                  "createdAt": "2026-07-28T03:15:58.000Z",
+                  "updatedAt": "2026-07-28T03:15:58.000Z",
+                  "uid": "35240-b186ca36-2ade-4368-b421-535763af8c7a"
+                }
+              ],
+              "id": "5a2969a2-f5c5-4372-98fb-b86c6148a2c8",
+              "createdAt": "2026-07-28T03:15:58.000Z",
+              "updatedAt": "2026-07-28T03:15:58.000Z",
+              "uid": "35240-5a2969a2-f5c5-4372-98fb-b86c6148a2c8"
+            }
+          ],
+          "id": "d83dc52b-8bf6-4e7b-ac26-c8f1c3168ec9",
+          "createdAt": "2026-07-28T03:15:58.000Z",
+          "updatedAt": "2026-07-28T03:15:58.000Z",
+          "uid": "35240-d83dc52b-8bf6-4e7b-ac26-c8f1c3168ec9"
+        }
+      ],
+      "id": "3b474b8f-f1a5-414f-b762-b22d9e81a2cb",
+      "createdAt": "2026-07-28T03:15:58.000Z",
+      "updatedAt": "2026-07-28T03:15:58.000Z",
+      "uid": "35240-3b474b8f-f1a5-414f-b762-b22d9e81a2cb"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

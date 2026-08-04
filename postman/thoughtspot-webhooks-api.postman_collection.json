@@ -1,0 +1,1814 @@
+{
+  "info": {
+    "_postman_id": "28480d31-4b44-4cc3-9c12-c0294b9fcaee",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:16:50.000Z",
+    "updatedAt": "2026-07-28T03:16:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-28480d31-4b44-4cc3-9c12-c0294b9fcaee"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "rest",
+          "item": [
+            {
+              "name": "2.0",
+              "item": [
+                {
+                  "name": "webhooks",
+                  "item": [
+                    {
+                      "name": "create",
+                      "item": [
+                        {
+                          "name": "create Webhook Configuration",
+                          "id": "ad073b5c-e85b-4629-bfbd-e64cd5191687",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "webhooks",
+                                "create"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nCreates a new webhook configuration to receive notifications for specified events. The webhook will be triggered when the configured events occur in the system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "5e5c73fd-2637-4dd2-82e3-5444a4ebe4ef",
+                              "name": "Webhook configuration created successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"creation_time_in_millis\": \"<float>\",\n  \"modification_time_in_millis\": \"<float>\",\n  \"description\": \"<string>\",\n  \"org\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"created_by\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"last_modified_by\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"AWS_S3\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"status\": \"DISABLED\"\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-5e5c73fd-2637-4dd2-82e3-5444a4ebe4ef"
+                            },
+                            {
+                              "id": "2df13c7c-4480-457a-a40c-be2c4b85ff36",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-2df13c7c-4480-457a-a40c-be2c4b85ff36"
+                            },
+                            {
+                              "id": "2b52ddc3-e40c-4253-abbc-1a501f0b7111",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-2b52ddc3-e40c-4253-abbc-1a501f0b7111"
+                            },
+                            {
+                              "id": "861cbe32-83fd-4f38-9831-bdab3d4119ce",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-861cbe32-83fd-4f38-9831-bdab3d4119ce"
+                            },
+                            {
+                              "id": "b5a98f19-2bd6-4ddb-a155-6f5d7c5d1982",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": {},\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/create",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "create"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-b5a98f19-2bd6-4ddb-a155-6f5d7c5d1982"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:51.000Z",
+                          "updatedAt": "2026-07-28T03:16:51.000Z",
+                          "uid": "35240-ad073b5c-e85b-4629-bfbd-e64cd5191687"
+                        }
+                      ],
+                      "id": "3be76b76-7fde-49e8-8d91-4ca9bf77ae3b",
+                      "createdAt": "2026-07-28T03:16:51.000Z",
+                      "updatedAt": "2026-07-28T03:16:51.000Z",
+                      "uid": "35240-3be76b76-7fde-49e8-8d91-4ca9bf77ae3b"
+                    },
+                    {
+                      "name": "delete",
+                      "item": [
+                        {
+                          "name": "delete Webhook Configurations",
+                          "id": "b14f83ef-e269-41aa-9f04-d9ad50f0c4d4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "webhooks",
+                                "delete"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nDeletes one or more webhook configurations by their unique id or name. Returns status of each deletion operation, including successfully deleted webhooks and any failures with error details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "ee5ff349-43ae-4aa0-99e4-54fcaf103d8b",
+                              "name": "Webhook configurations deleted successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "delete"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"deleted_count\": \"<integer>\",\n  \"failed_count\": \"<integer>\",\n  \"deleted_webhooks\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"creation_time_in_millis\": \"<float>\",\n      \"modification_time_in_millis\": \"<float>\",\n      \"description\": \"<string>\",\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"url_params\": {},\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"BASIC_AUTH\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        },\n        \"BEARER_TOKEN\": \"<string>\",\n        \"OAUTH2\": {\n          \"authorization_url\": \"<string>\",\n          \"client_id\": \"<string>\",\n          \"client_secret\": \"<string>\"\n        }\n      },\n      \"signature_verification\": {\n        \"type\": \"HMAC_SHA256\",\n        \"header\": \"<string>\",\n        \"algorithm\": \"SHA256\",\n        \"secret\": \"<string>\"\n      },\n      \"additional_headers\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"created_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"last_modified_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"storage_destination\": {\n        \"storage_type\": \"GCP_GCS\",\n        \"storage_config\": {\n          \"aws_s3_config\": {\n            \"bucket_name\": \"<string>\",\n            \"region\": \"<string>\",\n            \"role_arn\": \"<string>\",\n            \"external_id\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          },\n          \"gcp_gcs_config\": {\n            \"bucket_name\": \"<string>\",\n            \"service_account_email\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          }\n        }\n      },\n      \"status\": \"DISABLED\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"creation_time_in_millis\": \"<float>\",\n      \"modification_time_in_millis\": \"<float>\",\n      \"description\": \"<string>\",\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"url_params\": {},\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"BASIC_AUTH\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        },\n        \"BEARER_TOKEN\": \"<string>\",\n        \"OAUTH2\": {\n          \"authorization_url\": \"<string>\",\n          \"client_id\": \"<string>\",\n          \"client_secret\": \"<string>\"\n        }\n      },\n      \"signature_verification\": {\n        \"type\": \"HMAC_SHA256\",\n        \"header\": \"<string>\",\n        \"algorithm\": \"SHA256\",\n        \"secret\": \"<string>\"\n      },\n      \"additional_headers\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"created_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"last_modified_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"storage_destination\": {\n        \"storage_type\": \"AWS_S3\",\n        \"storage_config\": {\n          \"aws_s3_config\": {\n            \"bucket_name\": \"<string>\",\n            \"region\": \"<string>\",\n            \"role_arn\": \"<string>\",\n            \"external_id\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          },\n          \"gcp_gcs_config\": {\n            \"bucket_name\": \"<string>\",\n            \"service_account_email\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          }\n        }\n      },\n      \"status\": \"ENABLED\"\n    }\n  ],\n  \"failed_webhooks\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"error\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"error\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-ee5ff349-43ae-4aa0-99e4-54fcaf103d8b"
+                            },
+                            {
+                              "id": "4377b760-165d-466b-8ab7-3c8397827efe",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "delete"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-4377b760-165d-466b-8ab7-3c8397827efe"
+                            },
+                            {
+                              "id": "f66a1b7b-af28-44ae-be89-0bacdd653b63",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "delete"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-f66a1b7b-af28-44ae-be89-0bacdd653b63"
+                            },
+                            {
+                              "id": "c8dc7ba6-dee4-4e68-bb71-8d97d18d5f85",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "delete"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-c8dc7ba6-dee4-4e68-bb71-8d97d18d5f85"
+                            },
+                            {
+                              "id": "d5b49f75-e930-4f3d-b045-265949b5e2f9",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/delete",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "delete"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-d5b49f75-e930-4f3d-b045-265949b5e2f9"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:51.000Z",
+                          "updatedAt": "2026-07-28T03:16:51.000Z",
+                          "uid": "35240-b14f83ef-e269-41aa-9f04-d9ad50f0c4d4"
+                        }
+                      ],
+                      "id": "4e9cbefc-41cb-44e5-8413-b7d35b601aee",
+                      "createdAt": "2026-07-28T03:16:51.000Z",
+                      "updatedAt": "2026-07-28T03:16:51.000Z",
+                      "uid": "35240-4e9cbefc-41cb-44e5-8413-b7d35b601aee"
+                    },
+                    {
+                      "name": "storage-config",
+                      "item": [
+                        {
+                          "name": "get Webhook Storage Config",
+                          "id": "80e4553f-9975-4382-9bcd-6ad1da069843",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "webhooks",
+                                "storage-config"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns cluster-level storage setup information for configuring customer-managed storage. Use this endpoint to obtain the IAM identity details required before configuring a webhook storage destination. For S3 destinations, returns the platform AWS account ID and IAM trust policy template. For GCS destinations, returns the platform GCP service account email and the IAM role to grant for service account impersonation.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "a08b4e9a-9ac4-453b-abb2-ffef9f88b08b",
+                              "name": "Storage setup information retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "storage-config"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"storage_type\": \"OBJECT_STORAGE\",\n    \"provider\": \"GCP_GCS\",\n    \"config\": {\n      \"config_type\": \"AWS_TO_S3_STORAGE\",\n      \"setup_instructions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"aws_account_id\": \"<string>\",\n      \"gcp_service_account_id\": \"<string>\",\n      \"oidc_provider\": \"<string>\",\n      \"trust_policy_template\": {},\n      \"service_account_email\": \"<string>\",\n      \"required_role\": \"<string>\"\n    }\n  },\n  {\n    \"storage_type\": \"OBJECT_STORAGE\",\n    \"provider\": \"AWS_S3\",\n    \"config\": {\n      \"config_type\": \"GCP_TO_GCS_STORAGE\",\n      \"setup_instructions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"aws_account_id\": \"<string>\",\n      \"gcp_service_account_id\": \"<string>\",\n      \"oidc_provider\": \"<string>\",\n      \"trust_policy_template\": {},\n      \"service_account_email\": \"<string>\",\n      \"required_role\": \"<string>\"\n    }\n  }\n]",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-a08b4e9a-9ac4-453b-abb2-ffef9f88b08b"
+                            },
+                            {
+                              "id": "98f1ab49-c69b-47dc-8ea8-ce508b7b9ba8",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "storage-config"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-98f1ab49-c69b-47dc-8ea8-ce508b7b9ba8"
+                            },
+                            {
+                              "id": "50ea02bb-d55c-4173-85ed-708bd7d7b24a",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "storage-config"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-50ea02bb-d55c-4173-85ed-708bd7d7b24a"
+                            },
+                            {
+                              "id": "b67caf15-31e0-431f-868e-9b65008a283f",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "storage-config"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-b67caf15-31e0-431f-868e-9b65008a283f"
+                            },
+                            {
+                              "id": "b75244cf-dc0d-493a-8229-45759a8ccd7f",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/storage-config",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "storage-config"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-b75244cf-dc0d-493a-8229-45759a8ccd7f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:51.000Z",
+                          "updatedAt": "2026-07-28T03:16:51.000Z",
+                          "uid": "35240-80e4553f-9975-4382-9bcd-6ad1da069843"
+                        }
+                      ],
+                      "id": "9f9039dd-8568-4f31-b42d-0a1c6d79c4df",
+                      "createdAt": "2026-07-28T03:16:51.000Z",
+                      "updatedAt": "2026-07-28T03:16:51.000Z",
+                      "uid": "35240-9f9039dd-8568-4f31-b42d-0a1c6d79c4df"
+                    },
+                    {
+                      "name": "search",
+                      "item": [
+                        {
+                          "name": "search Webhook Configurations",
+                          "id": "7f01927c-f0f3-4e80-aa5c-f287dbbd82bb",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "rest",
+                                "2.0",
+                                "webhooks",
+                                "search"
+                              ]
+                            },
+                            "description": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nSearches for webhook configurations based on various criteria such as Org, webhook identifier, event type, with support for pagination and sorting. Returns matching webhook configurations with their complete details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                          },
+                          "response": [
+                            {
+                              "id": "20e6377d-bc8d-4856-b54a-721ee82ad31b",
+                              "name": "Webhook configurations retrieved successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"webhooks\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"creation_time_in_millis\": \"<float>\",\n      \"modification_time_in_millis\": \"<float>\",\n      \"description\": \"<string>\",\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"url_params\": {},\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"BASIC_AUTH\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        },\n        \"BEARER_TOKEN\": \"<string>\",\n        \"OAUTH2\": {\n          \"authorization_url\": \"<string>\",\n          \"client_id\": \"<string>\",\n          \"client_secret\": \"<string>\"\n        }\n      },\n      \"signature_verification\": {\n        \"type\": \"HMAC_SHA256\",\n        \"header\": \"<string>\",\n        \"algorithm\": \"SHA256\",\n        \"secret\": \"<string>\"\n      },\n      \"additional_headers\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"created_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"last_modified_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"storage_destination\": {\n        \"storage_type\": \"AWS_S3\",\n        \"storage_config\": {\n          \"aws_s3_config\": {\n            \"bucket_name\": \"<string>\",\n            \"region\": \"<string>\",\n            \"role_arn\": \"<string>\",\n            \"external_id\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          },\n          \"gcp_gcs_config\": {\n            \"bucket_name\": \"<string>\",\n            \"service_account_email\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          }\n        }\n      },\n      \"status\": \"ENABLED\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\",\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"creation_time_in_millis\": \"<float>\",\n      \"modification_time_in_millis\": \"<float>\",\n      \"description\": \"<string>\",\n      \"org\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"url_params\": {},\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"BASIC_AUTH\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        },\n        \"BEARER_TOKEN\": \"<string>\",\n        \"OAUTH2\": {\n          \"authorization_url\": \"<string>\",\n          \"client_id\": \"<string>\",\n          \"client_secret\": \"<string>\"\n        }\n      },\n      \"signature_verification\": {\n        \"type\": \"HMAC_SHA256\",\n        \"header\": \"<string>\",\n        \"algorithm\": \"SHA256\",\n        \"secret\": \"<string>\"\n      },\n      \"additional_headers\": [\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"created_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"last_modified_by\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"storage_destination\": {\n        \"storage_type\": \"AWS_S3\",\n        \"storage_config\": {\n          \"aws_s3_config\": {\n            \"bucket_name\": \"<string>\",\n            \"region\": \"<string>\",\n            \"role_arn\": \"<string>\",\n            \"external_id\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          },\n          \"gcp_gcs_config\": {\n            \"bucket_name\": \"<string>\",\n            \"service_account_email\": \"<string>\",\n            \"path_prefix\": \"<string>\"\n          }\n        }\n      },\n      \"status\": \"DISABLED\"\n    }\n  ],\n  \"pagination\": {\n    \"record_offset\": \"<integer>\",\n    \"record_size\": \"<integer>\",\n    \"total_count\": \"<integer>\",\n    \"has_more\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-20e6377d-bc8d-4856-b54a-721ee82ad31b"
+                            },
+                            {
+                              "id": "ef25274e-54a4-4040-a040-c2389429b896",
+                              "name": "Invalid request.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-ef25274e-54a4-4040-a040-c2389429b896"
+                            },
+                            {
+                              "id": "4f551789-48c7-4c15-8053-e05623639919",
+                              "name": "Unauthorized access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-4f551789-48c7-4c15-8053-e05623639919"
+                            },
+                            {
+                              "id": "e852a2a6-4e99-419f-8997-cb0303a35576",
+                              "name": "Forbidden access.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-e852a2a6-4e99-419f-8997-cb0303a35576"
+                            },
+                            {
+                              "id": "b1e5c99a-6071-4729-a84f-ee53fbe524cf",
+                              "name": "Unexpected error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"LIVEBOARD_SCHEDULE\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"DISABLED\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/search",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    "search"
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {}\n}",
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-b1e5c99a-6071-4729-a84f-ee53fbe524cf"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:16:51.000Z",
+                          "updatedAt": "2026-07-28T03:16:51.000Z",
+                          "uid": "35240-7f01927c-f0f3-4e80-aa5c-f287dbbd82bb"
+                        }
+                      ],
+                      "id": "877a02db-6b14-420e-8f75-b9afbb4782c9",
+                      "createdAt": "2026-07-28T03:16:51.000Z",
+                      "updatedAt": "2026-07-28T03:16:51.000Z",
+                      "uid": "35240-877a02db-6b14-420e-8f75-b9afbb4782c9"
+                    },
+                    {
+                      "name": "{webhook_identifier}",
+                      "item": [
+                        {
+                          "name": "update",
+                          "item": [
+                            {
+                              "name": "update Webhook Configuration",
+                              "id": "f6cc55b3-3173-431e-ab46-56d73e68c6bb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "rest",
+                                    "2.0",
+                                    "webhooks",
+                                    ":webhook_identifier",
+                                    "update"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "63d80e8d-d51e-48f2-b629-e8fabb7bc32c",
+                                      "key": "webhook_identifier",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique ID or name of the webhook configuration."
+                                    }
+                                  ]
+                                },
+                                "description": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nUpdates an existing webhook configuration by its unique id or name. Only the provided fields will be updated.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "f668df58-e278-45d0-a7c3-c55ee9b9e296",
+                                  "name": "Webhook configuration updated successfully",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "webhooks",
+                                        ":webhook_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "webhook_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:16:51.000Z",
+                                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                                  "uid": "35240-f668df58-e278-45d0-a7c3-c55ee9b9e296"
+                                },
+                                {
+                                  "id": "a610b27b-bf86-4bda-af81-d2330874afbf",
+                                  "name": "Invalid request.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "webhooks",
+                                        ":webhook_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "webhook_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:51.000Z",
+                                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                                  "uid": "35240-a610b27b-bf86-4bda-af81-d2330874afbf"
+                                },
+                                {
+                                  "id": "c79aa696-8181-4ed8-ac81-cc12d51b4ab2",
+                                  "name": "Unauthorized access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "webhooks",
+                                        ":webhook_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "webhook_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:51.000Z",
+                                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                                  "uid": "35240-c79aa696-8181-4ed8-ac81-cc12d51b4ab2"
+                                },
+                                {
+                                  "id": "7fe8c806-7d6c-4929-90ee-b13644e0ca50",
+                                  "name": "Forbidden access.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "webhooks",
+                                        ":webhook_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "webhook_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:51.000Z",
+                                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                                  "uid": "35240-7fe8c806-7d6c-4929-90ee-b13644e0ca50"
+                                },
+                                {
+                                  "id": "2d273ee4-8cbe-4859-b6ec-f0a469afb6dd",
+                                  "name": "Unexpected error",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": {},\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\",\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"GCP_GCS\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"ENABLED\",\n  \"reset_options\": [\n    \"SIGNATURE_VERIFICATION\",\n    \"STORAGE_DESTINATION\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/rest/2.0/webhooks/:webhook_identifier/update",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "rest",
+                                        "2.0",
+                                        "webhooks",
+                                        ":webhook_identifier",
+                                        "update"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "webhook_identifier"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {}\n}",
+                                  "createdAt": "2026-07-28T03:16:51.000Z",
+                                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                                  "uid": "35240-2d273ee4-8cbe-4859-b6ec-f0a469afb6dd"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:16:51.000Z",
+                              "updatedAt": "2026-07-28T03:16:51.000Z",
+                              "uid": "35240-f6cc55b3-3173-431e-ab46-56d73e68c6bb"
+                            }
+                          ],
+                          "id": "bc8d3c0e-d221-4948-becc-a754804daf06",
+                          "createdAt": "2026-07-28T03:16:51.000Z",
+                          "updatedAt": "2026-07-28T03:16:51.000Z",
+                          "uid": "35240-bc8d3c0e-d221-4948-becc-a754804daf06"
+                        }
+                      ],
+                      "id": "d5fe5661-c54b-4fb4-a8b2-2fad671ed09b",
+                      "createdAt": "2026-07-28T03:16:51.000Z",
+                      "updatedAt": "2026-07-28T03:16:51.000Z",
+                      "uid": "35240-d5fe5661-c54b-4fb4-a8b2-2fad671ed09b"
+                    }
+                  ],
+                  "id": "a53b421a-4a53-4424-a2df-454d684c68a2",
+                  "createdAt": "2026-07-28T03:16:51.000Z",
+                  "updatedAt": "2026-07-28T03:16:51.000Z",
+                  "uid": "35240-a53b421a-4a53-4424-a2df-454d684c68a2"
+                }
+              ],
+              "id": "d7f96809-f763-491b-9be7-59ddf244148a",
+              "createdAt": "2026-07-28T03:16:51.000Z",
+              "updatedAt": "2026-07-28T03:16:51.000Z",
+              "uid": "35240-d7f96809-f763-491b-9be7-59ddf244148a"
+            }
+          ],
+          "id": "0f377321-46c7-4746-813e-80f277463eb6",
+          "createdAt": "2026-07-28T03:16:51.000Z",
+          "updatedAt": "2026-07-28T03:16:51.000Z",
+          "uid": "35240-0f377321-46c7-4746-813e-80f277463eb6"
+        }
+      ],
+      "id": "acca5f59-6889-4ef2-914b-f057be6911a4",
+      "createdAt": "2026-07-28T03:16:51.000Z",
+      "updatedAt": "2026-07-28T03:16:51.000Z",
+      "uid": "35240-acca5f59-6889-4ef2-914b-f057be6911a4"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base-url",
+      "value": "https://localhost:443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{base-url}}"
+    }
+  ]
+}

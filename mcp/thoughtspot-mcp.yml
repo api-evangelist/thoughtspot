@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://www.npmjs.com/package/@thoughtspot/mcp-server
+server:
+  name: ThoughtSpot
+  vendor: ThoughtSpot
+  official: true
+  transport: http
+  hosted: true
+  url: https://agent.thoughtspot.app
+  endpoints:
+    sse: https://agent.thoughtspot.app/sse
+    streamable_http: https://agent.thoughtspot.app/mcp
+    http_tools_api: https://agent.thoughtspot.app/api
+    oauth: [/authorize, /token, /register]
+  auth: OAuth (access your data as yourself); stdio fallback uses TS_INSTANCE + TS_AUTH_TOKEN
+  package: '@thoughtspot/mcp-server'
+  repository: https://github.com/thoughtspot/mcp-server
+  stdio_fallback:
+    command: npx
+    args: ['@thoughtspot/mcp-server']
+    env: [TS_INSTANCE, TS_AUTH_TOKEN]
+tools:
+- name: ping
+  description: Test connectivity and authentication.
+- name: getRelevantQuestions
+  description: Get relevant data questions from ThoughtSpot analytics based on a user query.
+  source_operation: openapi/thoughtspot-rest-v2-openapi-original.json#getRelevantQuestions
+- name: getAnswer
+  description: Get the answer to a specific question from ThoughtSpot analytics.
+- name: createLiveboard
+  description: Create a Liveboard from a list of answers.
+resources:
+- name: datasources
+  description: List of ThoughtSpot data models the user has access to.
+notes: >-
+  Official ThoughtSpot MCP server, a remote server hosted on Cloudflare Workers.
+  Supports SSE (/sse) and Streamable HTTP (/mcp) transports, plus a local stdio
+  fallback via the npm package. OAuth-based authentication lets an agent act as
+  the authenticated ThoughtSpot user.

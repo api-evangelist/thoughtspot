@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/thoughtspot-rest-v2-openapi-original.json
+type: Webhooks
+spec_type: webhook-catalog
+summary: >-
+  ThoughtSpot exposes an outbound webhook subscription surface managed through
+  the v2.0 REST API. Callers register webhook configurations that ThoughtSpot
+  invokes to deliver event notifications (e.g. job/schedule and pipeline
+  activity) to an external HTTPS endpoint, with a configurable storage config.
+management_operations:
+- {operationId: createWebhookConfiguration, method: POST, path: /api/rest/2.0/webhooks/create, description: Create a webhook configuration/subscription.}
+- {operationId: searchWebhookConfigurations, method: POST, path: /api/rest/2.0/webhooks/search, description: Search existing webhook configurations.}
+- {operationId: updateWebhookConfiguration, method: POST, path: '/api/rest/2.0/webhooks/{webhook_identifier}/update', description: Update a webhook configuration.}
+- {operationId: deleteWebhookConfigurations, method: POST, path: /api/rest/2.0/webhooks/delete, description: Delete webhook configurations.}
+- {operationId: getWebhookStorageConfig, method: GET, path: /api/rest/2.0/webhooks/storage-config, description: Retrieve webhook storage configuration.}
+delivery:
+  direction: outbound (ThoughtSpot -> subscriber endpoint)
+  transport: HTTPS POST
+notes: >-
+  Captured as a Webhooks surface (no standalone AsyncAPI document is published).
+  The five operations above are the configuration/management API for outbound
+  webhook subscriptions; the delivered event payloads are documented in the
+  ThoughtSpot webhooks guide rather than as a machine-readable event schema.
