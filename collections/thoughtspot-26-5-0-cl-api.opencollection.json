@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.5.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.5.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "sendAgentConversationMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversation/:conversation_identifier/send",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the conversation (used to track context)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nSends natural language messages to an existing Spotter agent conversation and returns the complete response synchronously.\n\nRequires `CAN_USE_SPOTTER` privilege and access to the metadata object associated with the conversation. The user must have access to the conversation session referenced by `conversation_identifier`. A conversation must first be created using t"
+        },
+        {
+          "info": {
+            "name": "sendAgentConversationMessageStreaming",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversation/:conversation_identifier/send/stream",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the conversation (used to track context)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nSends one or more natural language messages to an existing Spotter agent conversation and returns the response as a real-time Server-Sent Events stream.\n\nRequires `CAN_USE_SPOTTER` privilege and access to the metadata object associated with the conversation. The user must have access to the conversation session referenced by `conversation_identifier`. A conversation"
+        },
+        {
+          "info": {
+            "name": "syncMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/resync-metadata",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nSynchronizes connection metadata attributes from your Cloud Data Warehouse (CDW) with ThoughtSpot.\n\nRequires the  `DATAMANAGEMENT` (**Can manage data**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**) privilege is required.\n\n#### Usage guidelines\n\nTo synchronize attributes from a CDW, sp"
+        },
+        {
+          "info": {
+            "name": "parameterizeMetadataFields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/parameterize-fields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nParameterize multiple fields of metadata objects. For example [schemaName, databaseName] for LOGICAL_TABLE. <br/>  <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows parameterizing multiple fields of metadata objects in ThoughtSpot. For example, you can parameterize [schemaName, databaseName] for LOGICAL_TABLE.\n\nRequires appropriate permissions to modify the metadata object.\n\nThe API endpoint allows parameterizing the following types of metadata objects:\n* Logical Tables\n* "
+        },
+        {
+          "info": {
+            "name": "unparameterizeMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/unparameterize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nRemove parameterization from fields in metadata objects. <br/>  <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows removing parameterization from fields in metadata objects in ThoughtSpot.\n\nRequires appropriate permissions to modify the metadata object.\n\nThe API endpoint allows unparameterizing the following types of metadata objects:\n* Logical Tables\n* Connections\n* Connection Configs\n\nFor a Logical Table the field type must be `ATTRIBUTE` and field name can be one of:\n* d"
+        },
+        {
+          "info": {
+            "name": "publishMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows publishing metadata objects across organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows publishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nThis API will essentially share the objects along with it's dependencies to\nthe org admins of the orgs to which it is being published.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "unpublishMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/unpublish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows unpublishing metadata objects from organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows unpublishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nWhen unpublishing objects, you can:\n* Include dependencies by setting `include_dependencies` to true - this will unpublish all dependent objects if no other published object is using them\n* For"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

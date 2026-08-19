@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl System API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "configureCommunicationChannelPreferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/preferences/communication-channels/configure",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nConfigure communication channel preferences.\n- Use `cluster_preferences` to update the default preferences for your ThoughtSpot application instance.\n- If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to specify Org-specific preferences that override the defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVE"
+        },
+        {
+          "info": {
+            "name": "configureSecuritySettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/security-settings/configure",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nConfigure security settings for your ThoughtSpot application instance.\n- Use `cluster_preferences` to update cluster-level security settings including CORS whitelisted URLs, CSP settings, SAML redirect URLs, partitioned cookies, and non-embed access configuration.\n- Use `org_preferences` to configure Org-specific security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this allows c"
+        },
+        {
+          "info": {
+            "name": "getSystemConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/system/config"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves the current configuration details of the cluster. If the request is successful, the API returns a list configuration settings applied on the cluster.\n\nRequires `ADMINISTRATION`(**Can administer ThoughtSpot**) privilege to view these complete configuration settings of the cluster.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATIO"
+        },
+        {
+          "info": {
+            "name": "getSystemInformation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/system"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets system information such as the release version, locale, time zone, deployment environment, date format, and date time format of the cluster.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does"
+        },
+        {
+          "info": {
+            "name": "getSystemOverrideInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/system/config-overrides"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nGets a list of configuration overrides applied on the cluster.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\nThis API does not require any parameters to be passed in the request.  \n\n\n\n\n#### Endpoint "
+        },
+        {
+          "info": {
+            "name": "searchCommunicationChannelPreferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/preferences/communication-channels/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nFetch communication channel preferences.\n- Use `cluster_preferences` to fetch the default preferences for your ThoughtSpot application instance.\n- If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), use `org_preferences` to fetch any Org-specific preferences that override the defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOP"
+        },
+        {
+          "info": {
+            "name": "searchSecuritySettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/security-settings/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nFetch security settings for your ThoughtSpot application instance.\n- Use `scope: CLUSTER` to retrieve cluster-level security settings, including CORS and CSP allowlists, SAML redirect URLs, and settings that control access to non-embedded pages.\n- Use `scope: ORG` to retrieve Org-level security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this returns CORS and non-embed access se"
+        },
+        {
+          "info": {
+            "name": "updateSystemConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/config-update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nUpdates the current configuration of the cluster. You must send the configuration data in JSON format.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `APPLICATION_ADMINISTRATION` (**Can manage application settings**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "validateCommunicationChannel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/system/communication-channels/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nValidates a communication channel configuration to ensure it is properly set up and can receive events.\n- Use `channel_type` to specify the type of communication channel to validate (e.g., WEBHOOK).\n- Use `channel_identifier` to provide the unique identifier or name for the communication channel.\n- Use `event_type` to specify the event type to validate for this channel.\n\nRequires `ADMINISTR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,832 @@
+{
+  "item": [
+    {
+      "id": "f76f7325-bd13-4516-9d9f-c54b2748f174",
+      "name": "10.6.0.cl",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ce33f4e9-1522-4178-8392-0f1e1d5ff12d",
+          "name": "convert Worksheet To Model",
+          "request": {
+            "name": "convert Worksheet To Model",
+            "description": {
+              "content": "\nConvert worksheets to models <br/>  <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (Can manage data models).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs (Globally Unique Identifiers) specifying the Worksheets to be converted.  \n   - **Usage:**  \n     - Used only when `convert_all` is set to `false`.  \n     - Leave empty or omit when `convert_all` is set to `true`.\n\n2. **exclude_worksheet_ids**  \n   - **Description:** A comma-separated list of GUIDs specifying Worksheets to be excluded from conversion.  \n   - **Usage:**  \n     - Useful when `convert_all` is set to `true` and specific Worksheets should not be converted.\n\n3. **convert_all**  \n   - **Description:** Sets the scope of conversion.\n   - **Options:**  \n     - `true`: Converts all Worksheets in the system, except those specified in `exclude_worksheet_ids`.  \n     - `false`: Converts only the Worksheets listed in `worksheet_ids`.\n\n4. **apply_changes**  \n   - **Description:** Specifies whether to apply changes directly to ThoughtSpot or to generate a preview before applying any changes.Used for validation of conversion.\n   - **Options:**  \n     - `true`: Applies conversion changes directly to ThoughtSpot.\n     - `false`: Generates only a preview of the changes and does not apply any changes to ThoughtSpot\n\n---\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the conversion process\n\n2. **Partial Conversion for Testing:**  \n   Test the conversion process by setting `convert_all` to `false` and specifying a small number of `worksheet_ids`.\n\n3. **Verify Dependencies:**  \n   Check for dependent objects, such as Tables and Connections, to avoid invalid references.\n\n4. **Review Changes:**  \n   Use `apply_changes: false` to preview the impact of the conversion before applying changes.\n\n---\n\n## Examples\n\n### Convert Specific Worksheets\n```json\n{\n  \"worksheet_ids\": [\"guid1\", \"guid2\", \"guid3\"],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": false,\n  \"apply_changes\": true\n}\n```\n\n### Convert All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n### Exclude Specific Worksheets While Converting All Accessible Worksheets\n```json\n{\n  \"worksheet_ids\": [],\n  \"exclude_worksheet_ids\": [\"abc\"],\n  \"convert_all\": true,\n  \"apply_changes\": true\n}\n```\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "metadata",
+                "worksheets",
+                "convert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5fb1ea9-6dfe-4d73-892b-d885d7787a92",
+              "name": "Conversion of worksheets to model done successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "worksheets",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"success_count\": 5574,\n  \"failure_count\": 4216,\n  \"incomplete_count\": 9358,\n  \"post_upgrade_failed_count\": 6582,\n  \"total_time_in_millis\": 9975,\n  \"successful_entities\": {\n    \"data\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  },\n  \"failed_entities\": {\n    \"data\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      }\n    ]\n  },\n  \"incomplete_entities\": {\n    \"data\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      }\n    ]\n  },\n  \"post_upgrade_failed_entities\": {\n    \"data\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"error\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b3e7b82-c472-4908-b6b5-7a1e69b0bf71",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "worksheets",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd343712-e703-4caf-909f-8ad99895ac9c",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "worksheets",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1038beb-7e0f-4479-b08e-ef1746e30d41",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "worksheets",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "711c3542-d579-4ffb-a726-dc884551993c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "worksheets",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_worksheet_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"convert_all\": false,\n  \"apply_changes\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed0cff51-51df-4647-bb8a-aa979e199974",
+          "name": "update Metadata Header",
+          "request": {
+            "name": "update Metadata Header",
+            "description": {
+              "content": "\nUpdate header attributes for a given list of header objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.6.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `ORG_ADMINISTRATION` (Can manage orgs).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **headers_update**  \n   - **Description:** List of header objects with their attributes to be updated. Each object contains a list of attributes to be updated in the header.\n   - **Usage:**\n      - You must provide either `identifier` or `obj_identifier`, but not both. Both fields cannot be empty.\n      - When `org_identifier` is set to `-1`, only the `identifier` value is accepted; `obj_identifier` is not allowed.\n\n2. **org_identifier**  \n   - **Description:** GUID (Globally Unique Identifier) or name of the organization.  \n   - **Usage:**\n     - Leaving this field empty assumes that the changes should be applied to the current organization \n     - Provide `org_guid` or `org_name` to uniquely identify the organization where changes need to be applied. .\n     - Provide `-1` if changes have to be applied across all the org.\n\n---\n\n## Note\nCurrently, this API is enabled only for updating the `obj_identifier` attribute. Only `text` will be allowed in attribute's value.\n\n## Best Practices\n\n1. **Backup Before Conversion:**  \n   Always export metadata as a backup before initiating the update process\n\n---\n\n## Examples\n\n### Only `identifier` is given \n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"obj_identifier\": \"\",\n      \"type\": \"LOGICAL_COLUMN\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgGuid\"\n}\n```\n\n### Only `obj_identifier` is given\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"obj_identifier\": \"custom_object_id\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": \"orgName\"\n}\n```\n\n### Executing update for all org `-1`\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"type\": \"ANSWER\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n### Optional `type` is not provided\n```json\n{\n  \"headers_update\":\n  [\n    {\n      \"identifier\": \"guid_1\",\n      \"attributes\":\n      [\n        {\n          \"name\": \"obj_id\",\n          \"value\": \"custom_object_id\"\n        }\n      ]\n    }\n  ],\n  \"org_identifier\": -1\n}\n```\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "metadata",
+                "headers",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f21ef2b-61f8-43a4-ba28-5d4fc3d577c8",
+              "name": "Headers update was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "headers",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2366492-f7fa-4d9a-8112-4c9f644e1847",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "headers",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b273868-73e6-458e-b6f5-fd42d4939a7d",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "headers",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2433082a-6e47-4ba6-b09f-1fd14c21228a",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "headers",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08c09e23-f3ff-43eb-b768-d7769c4a7c7c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "headers",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"headers_update\": [\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"attributes\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"identifier\": \"<string>\",\n      \"obj_identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3acc910d-b636-47b1-9131-b1d3754cdd3a",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.6.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Collections API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/collections/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nCreates a new collection in ThoughtSpot.\n\nCollections allow you to organize and group related metadata objects such as Liveboards, Answers, worksheets, and other data objects. You can also create nested collections (sub-collections) to build a hierarchical structure.\n\n#### Supported operations\n\nThe API endpoint lets you perform the following operations:\n\n* Create a new collection\n* Add metadata objects (Liveboards, Answers, Logic"
+        },
+        {
+          "info": {
+            "name": "deleteCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/collections/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nDeletes one or more collections from ThoughtSpot.\n\n#### Delete options\n\n* **delete_children**: When set to `true`, deletes the child objects (metadata items) within the collection that the user has access to. Objects that the user does not have permission to delete will be skipped.\n* **dry_run**: When set to `true`, performs a preview of the deletion operation without actually deleting anything. The response shows what would be d"
+        },
+        {
+          "info": {
+            "name": "searchCollections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/collections/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nGets a list of collections available in ThoughtSpot.\n\nTo get details of a specific collection, specify the collection GUID or name. You can also filter the API response based on the collection name pattern, author, and other criteria.\n\n#### Search options\n\n* **name_pattern**: Use '%' as a wildcard character to match collection names\n* **collection_identifiers**: Search for specific collections by their GUIDs or names\n* **include_"
+        },
+        {
+          "info": {
+            "name": "updateCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/collections/:collection_identifier/update",
+            "params": [
+              {
+                "name": "collection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique GUID of the collection. Note: Collection names cannot be used as\nidentifiers since duplicate names are allowed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nUpdates an existing collection in ThoughtSpot.\n\n#### Supported operations\n\nThis API endpoint lets you perform the following operations:\n\n* Update collection name and description\n* Change visibility settings\n* Add metadata objects to the collection (operation: ADD)\n* Remove metadata objects from the collection (operation: REMOVE)\n* Replace all metadata objects in the collection (operation: REPLACE)\n\n#### Operation types\n\n* **ADD**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

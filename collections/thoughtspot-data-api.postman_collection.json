@@ -1,0 +1,1217 @@
+{
+  "item": [
+    {
+      "id": "3b509b06-02d1-4cb6-ba6f-6c50336e8d86",
+      "name": "Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79aad157-4a04-45ab-ab93-ff3e7f01da1c",
+          "name": "fetch Answer Data",
+          "request": {
+            "name": "fetch Answer Data",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches data from a saved Answer.\n\nRequires at least view access to the saved Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_apis).\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "metadata",
+                "answer",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6071aab-9c5f-4b1a-b835-7e11e73d0a19",
+              "name": "Fetching data of specified metadata object is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "answer",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata_id\": \"string\",\n  \"metadata_name\": \"string\",\n  \"contents\": [\n    {\n      \"available_data_row_count\": 8625,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 5871,\n      \"record_size\": 4616,\n      \"returned_data_row_count\": 5263,\n      \"sampling_ratio\": 2308.3395172476385\n    },\n    {\n      \"available_data_row_count\": 8771,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 7250,\n      \"record_size\": 1689,\n      \"returned_data_row_count\": 4341,\n      \"sampling_ratio\": 6309.727720530142\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "298880ee-618a-4e8e-ac93-50dc5dddd12e",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "answer",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75db1d4a-5d36-46f8-a755-d8fe2f0ca117",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "answer",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4384208d-cfe5-47cf-94e6-edef2a5845fa",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "answer",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fee4c570-91c6-4f14-aa15-bed9eb743da0",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "answer",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b29473a-a1f9-4b1b-bf25-c34ac20baf8a",
+          "name": "fetch Liveboard Data",
+          "request": {
+            "name": "fetch Liveboard Data",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets data from a Liveboard object and its visualization.  \n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the GUIDs or names of the visualizations in the API request.\n\nTo include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes. If the new Liveboard experience mode, the transient content includes ad hoc changes to visualizations such as sorting, toggling of legends, and data drill down.\n\nFor more information, and see [Liveboard data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_fetch_liveboard_data_api).\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "metadata",
+                "liveboard",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2694c0c7-c644-4b23-9ab8-29ed75e3b4a2",
+              "name": "Fetching data of specified metadata object is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "liveboard",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata_id\": \"string\",\n  \"metadata_name\": \"string\",\n  \"contents\": [\n    {\n      \"available_data_row_count\": 4614,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 5293,\n      \"record_size\": 176,\n      \"returned_data_row_count\": 6934,\n      \"sampling_ratio\": 8058.73200340982,\n      \"visualization_id\": \"string\",\n      \"visualization_name\": \"string\"\n    },\n    {\n      \"available_data_row_count\": 1428,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 7053,\n      \"record_size\": 9184,\n      \"returned_data_row_count\": 4645,\n      \"sampling_ratio\": 9274.137590736811,\n      \"visualization_id\": \"string\",\n      \"visualization_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99fe0e8f-88c3-477b-b8c9-64f7d4324fa1",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "liveboard",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "156e5ed2-a3d8-430c-9b7e-e00f70df48d1",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "liveboard",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af47c7e7-60a4-4c69-83d2-7a1ece7ce6ba",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "liveboard",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f44b075c-9c15-4cb0-ab66-cc23a0386b7d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "liveboard",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a954d397-9bd9-497b-b96a-6c806929987a",
+          "name": "search Data",
+          "request": {
+            "name": "search Data",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an Answer from a given data source.\n\nRequires at least view access to the data source object (Worksheet or View). If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nTo search data, specify the data source GUID in `logical_table_identifier`. The data source can be a Worksheet, View, Table, or SQL view.\n\nPass search tokens in the `query_string` attribute in the API request as shown in the following example:\n\n```\n{\n  \"query_string\": \"[sales] by [store]\",\n  \"logical_table_identifier\": \"cd252e5c-b552-49a8-821d-3eadaa049cca\",\n}\n```\n\nFor more information about the `query_string` format and data source attribute, see [Search data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api).  \n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_api).  \n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "searchdata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "115594cf-6e2c-46d5-bbed-a18da3596726",
+              "name": "Fetching data of specified metadata object is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "searchdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contents\": [\n    {\n      \"available_data_row_count\": 9062,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 6212,\n      \"record_size\": 9551,\n      \"returned_data_row_count\": 2892,\n      \"sampling_ratio\": 7130.266859518113\n    },\n    {\n      \"available_data_row_count\": 1008,\n      \"column_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"record_offset\": 5706,\n      \"record_size\": 872,\n      \"returned_data_row_count\": 1278,\n      \"sampling_ratio\": 8956.365044971115\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d060edc0-ab8c-4076-a399-cb48ef391b2d",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "searchdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5a87ec6-a853-4e71-8b17-8a4250e73f94",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "searchdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b10f9463-8363-46ac-add4-2b2bc9a8f58b",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "searchdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "773fd09a-7422-42c8-96fc-ffafc49db51b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "searchdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"logical_table_identifier\": \"<string>\",\n  \"data_format\": \"COMPACT\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7c49d5df-80db-48e5-a466-40c015595fd1",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

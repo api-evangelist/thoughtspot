@@ -1,0 +1,449 @@
+{
+  "item": [
+    {
+      "id": "3563cb79-8031-47a4-adb9-385984d59381",
+      "name": "Jobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a369da41-240a-4318-87b3-262d31acedc7",
+          "name": "search Channel History",
+          "request": {
+            "name": "search Channel History",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nSearches delivery history for communication channels such as webhooks. Returns channel-level delivery status for each job execution record. Use this to monitor channel health and delivery success rates across events.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n**NOTE**: When `channel_type` is `WEBHOOK`, the following constraints apply:\n\n- `job_ids`, `channel_identifiers`, and `events` each accept at most one element.\n- When `job_ids` is provided, it is used as the sole lookup key and other filter fields are ignored.\n- When `job_ids` is not provided, `channel_identifiers` and `events` are both required, each containing exactly one element.\n- Records older than the configured retention period are not returned.\n- Use `start_epoch_time_in_millis` and/or `end_epoch_time_in_millis` to narrow results to a specific time window.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "jobs",
+                "history",
+                "communication-channels",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4fd1003d-c3fa-401c-8045-5ff804bc981f",
+              "name": "Channel status logs retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "jobs",
+                    "history",
+                    "communication-channels",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobs\": [\n    {\n      \"id\": \"n.6170538a-a4d4-4712-91bf-39b353db2b72\",\n      \"status\": \"SUCCESS\",\n      \"creation_time_in_millis\": 1771599720674,\n      \"event\": {\n        \"type\": \"LIVEBOARD_SCHEDULE\",\n        \"id\": \"2bb2ff83-b8d9-4d2b-8913-b2589bb6831b\",\n        \"name\": \"schedule-identifier\",\n        \"run_id\": \"90c4f1b0-08c9-4a6c-8e61-49cffd9f1550\"\n      },\n      \"recipients\": [\n        {\n          \"type\": \"USER\",\n          \"id\": \"d211f619-8b72-45d3-92a7-69dde41159c7\",\n          \"name\": \"admin-user\",\n          \"email\": \"admin@example.com\"\n        }\n      ],\n      \"detail\": \"\",\n      \"try_count\": 1\n    },\n    {\n      \"id\": \"n.5c5bbedb-c425-48c0-8b54-a17267b08e7c\",\n      \"status\": \"SUCCESS\",\n      \"creation_time_in_millis\": 1771599600508,\n      \"event\": {\n        \"type\": \"LIVEBOARD_SCHEDULE\",\n        \"id\": \"2bb2ff83-b8d9-4d2b-8913-b2589bb6831b\",\n        \"name\": \"schedule-identifier\",\n        \"run_id\": \"b9834966-fe85-4fa9-8a10-9889c01d4826\"\n      },\n      \"recipients\": [\n        {\n          \"type\": \"USER\",\n          \"id\": \"d211f619-8b72-45d3-92a7-69dde41159c7\",\n          \"name\": \"admin-user\",\n          \"email\": \"admin@example.com\"\n        }\n      ],\n      \"detail\": \"\",\n      \"try_count\": 1\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5866fbe5-02de-4601-b942-9e1ed7918948",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "jobs",
+                    "history",
+                    "communication-channels",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"channel_type must be specified. Currently only WEBHOOK is supported.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e390d1fc-492d-42b4-8f61-d348413e92bd",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "jobs",
+                    "history",
+                    "communication-channels",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to retrieve channel delivery history.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5da21c80-c0b7-4581-b161-a096219fac1a",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "jobs",
+                    "history",
+                    "communication-channels",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to retrieve channel delivery history.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c77d033-ec1d-4168-81ab-3b37a165e1f1",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "jobs",
+                    "history",
+                    "communication-channels",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_type\": \"<string>\",\n  \"job_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_status\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"identifier\": \"<string>\"\n    }\n  ],\n  \"start_epoch_time_in_millis\": \"<float>\",\n  \"end_epoch_time_in_millis\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while retrieving channel delivery history.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "916bf098-4cb1-4e14-ab72-b89f27a782d5",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

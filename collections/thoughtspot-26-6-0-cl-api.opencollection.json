@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.6.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.6.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getAgentInstructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/instructions/get"
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nRetrieves the admin instructions currently configured for the AI agent (Spotter). Admin instructions are tenant- and org-scoped text that guide agent behavior across all conversations.\n\nRequires admin privileges. Only users with org admin access can retrieve agent instructions.\n\n#### Usage guidelines\n\nNo input parameters are required. The API returns the stored `AgentInstructions` record fo"
+        },
+        {
+          "info": {
+            "name": "setAgentInstructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{base-url}/api/rest/2.0/ai/agent/instructions/set",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nCreates or updates the admin instructions for the AI agent (Spotter). Admin instructions are tenant- and org-scoped text that guide agent behavior across all conversations. If instructions already exist for the org, they are replaced (upsert semantics).\n\nRequires admin privileges. Only users with org admin access can set agent instructions.\n\n#### Usage guidelines\n\nThe request must include:\n"
+        },
+        {
+          "info": {
+            "name": "stopConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversation/:conversation_identifier/stop-response",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation to stop."
+              }
+            ]
+          },
+          "docs": "\nStops an in-progress agent conversation response. <br/>  <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span>Version: 26.6.0.cl or later</span>\n\nStops an in-progress agent response for the specified conversation. Use this endpoint to cancel a response that is actively being generated — for example, when the user navigates away, reformulates their question, or no longer needs the current result.\n\nRequires `CAN_USE_SPOTTER` privilege and access to the specified conversation.\n\n#"
+        },
+        {
+          "info": {
+            "name": "configureAuthSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/configure",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nEnables or disables authentication at cluster or org level for the specified auth type. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.co"
+        },
+        {
+          "info": {
+            "name": "searchAuthSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nReturns the authentication configuration for the specified auth type at cluster and org level. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thought"
+        },
+        {
+          "info": {
+            "name": "updateConnectionStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/status",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nActivates or deactivates a connection. A deactivated connection cannot be used for queries or operations until it is activated again.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required. Only the connection owner or an "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.3.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.3.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchObjectPrivileges",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/fetch-object-privileges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API fetches the object privileges present for the given list of principals (user or group), on the given set of objects. It supports pagination, which can be enabled and configured using the request parameters. It provides users access to certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `type` (`USER` or `USER_GROUP`) and `identifier` (either GUID or name) of the principals for "
+        },
+        {
+          "info": {
+            "name": "manageObjectPrivilege",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/manage-object-privilege",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API allows the addition or deletion of object level privileges for a set of users and groups, on a set of metadata objects. It provides users to access certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `operation`. The supported operations are: `ADD`, `REMOVE`.\n- Specify the type of the objects on which the object privileges are being provided in `metadata_type`. Only `LOGICAL_TA"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

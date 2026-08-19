@@ -1,0 +1,502 @@
+{
+  "item": [
+    {
+      "id": "aafe4b93-0fcb-4c0c-bbbb-b033874389fb",
+      "name": "10.7.0.cl",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78d5c08d-c913-46a9-b64d-802fa96199c0",
+          "name": "query Get Decomposed Query",
+          "request": {
+            "name": "query Get Decomposed Query",
+            "description": {
+              "content": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.7.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 10.7.0.cl or later</span>\n\n**Deprecated** — Use `getRelevantQuestions` instead (available from 10.13.0.cl).\n\nBreaks down a topical or goal-oriented natural language question into smaller, actionable analytical sub-questions, each mapped to a relevant data source for independent execution.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view-level access to the referenced metadata objects.\n\n#### Usage guidelines\n\nThe request accepts the following parameters:\n\n- `nlsRequest`: contains the user `query` to decompose, along with optional `instructions` and `bypassCache` flag\n- `worksheetIds`: list of data source identifiers to scope the decomposition\n- `answerIds`: list of Answer GUIDs whose data guides the response\n- `liveboardIds`: list of Liveboard GUIDs whose data guides the response\n- `conversationId`: an existing conversation session ID for context continuity\n- `content`: supplementary text or CSV data to improve response quality\n- `maxDecomposedQueries`: maximum number of sub-questions to return (default: `5`)\n\nIf the request is successful, the API returns a `decomposedQueryResponse` containing a list of `decomposedQueries`, each with:\n- `query`: the generated analytical sub-question\n- `worksheetId`: the unique ID of the data source the question targets\n- `worksheetName`: the display name of the corresponding data source\n\n#### Error responses\n\n| Code | Description                                                                                                                           |\n|------|---------------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                                  |\n| 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view access to the referenced metadata objects. |\n\n> ###### Note:\n> * This endpoint is deprecated since 10.13.0.cl. Use `getRelevantQuestions` for new integrations.\n> * This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> * This endpoint requires Spotter — please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "ai",
+                "analytical-questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "681e1155-6b08-49e3-8c43-ba037439223a",
+              "name": "Common successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"decomposedQueryResponse\": {\n    \"decomposedQueries\": [\n      {\n        \"query\": \"string\",\n        \"worksheetId\": \"string\",\n        \"worksheetName\": \"string\"\n      },\n      {\n        \"query\": \"string\",\n        \"worksheetId\": \"string\",\n        \"worksheetName\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a62297c0-1b2a-4e02-9e71-07125db0d77c",
+              "name": "Common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"decomposedQueryResponse\": {\n    \"decomposedQueries\": [\n      {\n        \"query\": \"string\",\n        \"worksheetId\": \"string\",\n        \"worksheetName\": \"string\"\n      },\n      {\n        \"query\": \"string\",\n        \"worksheetId\": \"string\",\n        \"worksheetName\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "219b5d78-143a-40d2-8974-7956a5f6ed4d",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09005235-900a-4743-8d9e-1c0bd3bff974",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d98912a8-206e-4d0b-9ac8-abeed7fb6075",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b79c729a-138a-4e80-b19e-e73bd083d89d",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "analytical-questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answerIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"content\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversationId\": \"<string>\",\n  \"liveboardIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxDecomposedQueries\": \"<integer>\",\n  \"nlsRequest\": {\n    \"agentVersion\": \"<integer>\",\n    \"bypassCache\": \"<boolean>\",\n    \"instructions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"query\": \"<string>\"\n  },\n  \"worksheetIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3596cde7-c4fd-4f35-af8b-327860c96b5e",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.7.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

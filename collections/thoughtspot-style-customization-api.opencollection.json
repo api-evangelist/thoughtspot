@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Style Customization API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Style Customization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "deleteStyleFonts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDeletes one or more custom fonts from the cluster-level or org-level font library. If a deleted font is assigned to visualization areas, those assignments automatically fallback to the cluster/system default font. The response lists all affected areas where the font was explicitly set. Note: dry_run defaults to true. To actually delete fonts, you must explicitly pass dry_run: false.\n\nRequires `ADMINISTRATION` (**Can administer Th"
+        },
+        {
+          "info": {
+            "name": "exportStyleLogos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/logos/export",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDownloads the active logos (default and wide slots) at the requested scope as a single ZIP archive containing both logo image files. If no custom logo has been uploaded at the ORG scope, the archive contains the resolved logo falling through from the cluster. If no cluster logo has been uploaded, no file is returned.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege"
+        },
+        {
+          "info": {
+            "name": "searchStyleCustomizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves style preferences at cluster level or for the authenticated user's org. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Set `scope` to `CLUSTER` to retrieve cluster-level style defaults.\n- Set `scope` to `ORG` (default) to"
+        },
+        {
+          "info": {
+            "name": "searchStyleFonts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns custom fonts from the cluster-level or org-level font library. Omitting all filter fields returns all fonts in the target scope.\n\nWhen `include_font_assignments` is `true`, the response includes only the visualization areas explicitly assigned to each font. For cluster-scoped fonts, `org` is returned as `null`.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privile"
+        },
+        {
+          "info": {
+            "name": "updateStyleCustomization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/update",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "operation",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "reset_options",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "navigation_panel",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "chart_color_palette",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "embedded_footer_text",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "visualization_fonts",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "default_logo",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "wide_logo",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates style preferences at cluster level or for the authenticated user's org, including navigation panel color, chart color palette, embedded footer text, logo, and font assignments per visualization area. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults. Resetting an Org-level preference falls back to Cluster-level preference, which on reset falls back to system defaults"
+        },
+        {
+          "info": {
+            "name": "updateStyleFont",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/:font_identifier/update",
+            "params": [
+              {
+                "name": "font_identifier",
+                "value": "",
+                "type": "path",
+                "description": "UUID or name of the font to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates the metadata of an existing custom font in the cluster-level or org-level font library. Only the fields provided in the request are modified; omitted fields remain unchanged.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Identify the font using `font_identifier` (UUID or name).\n- Set `scope` to `CLUSTER` to target the cluster-l"
+        },
+        {
+          "info": {
+            "name": "uploadStyleFont",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "weight",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "style",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "color",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUploads a custom font to the cluster-level or org-level font library. Cluster-level fonts are available as defaults for all orgs. Org-level fonts are only available within that org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Only **WOFF** and **WOFF2** font formats are accepted. TTF and OTF files are rejected with an error.\n- Set `s"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

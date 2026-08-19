@@ -1,0 +1,2020 @@
+{
+  "item": [
+    {
+      "id": "91fb4464-f694-404a-9830-63f51566b9ac",
+      "name": "Custom Calendars",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "955de0f9-261d-43ae-85d1-636acd770e17",
+          "name": "create Calendar",
+          "request": {
+            "name": "create Calendar",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nCreates a new [custom calendar](https://docs.thoughtspot.com/cloud/latest/connections-cust-cal).\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_CUSTOM_CALENDAR` (**Can manage custom calendars**) privilege is required.\n\n\n#### Usage guidelines\n\nYou can create a custom calendar from scratch or an existing Table in ThoughtSpot. For both methods of calendar creation, the following parameters are required:\n\n* Name of the custom calendar.\n* Calendar creation method. To create a calendar from an existing table, specify the method:\n\n - `FROM_EXISTING_TABLE` - Creates calendar from the table reference provided in the API request.\n - `FROM_INPUT_PARAMS` - Creates a calendar from the parameters defined in the API request.\n\n* Connection ID and Table name\n* Database and schema name attributes:\n  For most Cloud Data Warehouse (CDW) connectors, both `database_name` and `schema_name` attributes are required.  \n  However, the attribute requirements are conditional and vary based on the connector type and its metadata structure. For example, for connectors such as Teradata, MySQL, SingleSore, Amazon Aurora MySQL, Amazon RDS MySQL, Oracle, and GCP_MYSQL, the `schema_name` is required, whereas the `database_name` attribute is not.\n  Similarly, connectors such as ClickHouse require you to specify the `database_name` and the schema specification in such cases is optional.\n\n**NOTE**: If you are creating a calendar from an existing table, ensure that the referenced table matches the required DDL for custom calendars. If the schema does not match, the API returns an error.\n\n##### Calendar type\nThe API allows you to create the following types of calendars:\n\n* `MONTH_OFFSET`. The default calendar type. A `MONTH_OFFSET` calendar is offset by a few months from the standard calendar months (January to December) and the year begins with the month defined in the request. For example, if the `month_offset` value is set as `April`, the calendar year begins in April.\n\n* `4-4-5`. Each quarter in the calendar will include two 4-week months followed by one 5-week month.\n* `4-5-4`. Each quarter in the calendar will include two 4-week months with a 5-week month between.\n* `5-4-4`. Each quarter begins with a 5-week month, followed by two 4-week months.\n\nTo start and end the calendar on a specific date, specify the dates in the `MM/DD/YYYY` format. For `MONTH_OFFSET` calendars, ensure that the `start_date` matches the month specified in the `month_offset` attribute.\n\nYou can also set the starting day of the week and customize the prefixes for year and quarter labels.\n\n#### Examples\n\nTo create a calendar from an existing table:\n\n```\n{\n  \"name\": \"MyCustomCalendar1\",\n  \"table_reference\": {\n    \"connection_identifier\": \"4db8ea22-2ff4-4224-b05a-26674717e468\",\n    \"table_name\": \"MyCalendarTable\",\n    \"database_name\": \"RETAILAPPAREL\",\n    \"schema_name\": \"PUBLIC\"\n  },\n  \"creation_method\": \"FROM_EXISTING_TABLE\",\n}\n```\n\nTo create a calendar from scratch:\n\n```\n{\n  \"name\": \"MyCustomCalendar1\",\n  \"table_reference\": {\n    \"connection_identifier\": \"4db8ea22-2ff4-4224-b05a-26674717e468\",\n    \"table_name\": \"MyCalendarTable\",\n    \"database_name\": \"RETAILAPPAREL\",\n    \"schema_name\": \"PUBLIC\"\n  },\n  \"creation_method\": \"FROM_INPUT_PARAMS\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"April\",\n  \"start_day_of_week\": \"Monday\",\n  \"quarter_name_prefix\": \"Q\",\n  \"year_name_prefix\": \"FY\",\n  \"start_date\": \"04/01/2025\",\n  \"end_date\": \"04/31/2025\"\n}\n```\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "calendars",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fbad6fd4-fdbb-436e-98f4-474194258483",
+              "name": "Custom calendar created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"calendar_name\": \"string\",\n  \"connection_name\": \"string\",\n  \"data_warehouse_type\": \"string\",\n  \"modification_time_in_millis\": \"string\",\n  \"author_name\": \"string\",\n  \"connection_id\": \"string\",\n  \"calendar_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63f63ec1-638f-490e-af2e-6b1db607029f",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c672355-07bc-44b0-afb4-4ea834f1a9bf",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2183e95-d8f0-4e4e-ba49-db07c94669ef",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6925fe3c-29e3-4970-9579-6d47bd52e8eb",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"creation_method\": \"<string>\",\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18992926-b312-41b9-baf4-cd334774f897",
+          "name": "delete Calendar",
+          "request": {
+            "name": "delete Calendar",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nDeletes a [custom calendar](https://docs.thoughtspot.com/cloud/latest/connections-cust-cal).\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_CUSTOM_CALENDAR` (**Can manage custom calendars**) privilege is required.\n\n#### Usage guidelines\nTo delete a custom calendar, specify the calendar ID as a path parameter in the request URL.  \n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "calendars",
+                ":calendar_identifier",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "calendar_identifier",
+                  "description": "(Required) Unique ID or name of the Calendar."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22c9d118-7a91-4a97-9254-768bb079df94",
+              "name": "Custom calendar successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique ID or name of the Calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7eb444a5-6b0f-4f5c-9f06-edbff34ec08a",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique ID or name of the Calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86a2b8ca-3ef2-4244-9a43-b3f173960b36",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique ID or name of the Calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6dd6b011-5a15-45da-891f-834f12f9b3de",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique ID or name of the Calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cfe8535-9a3f-4d40-abe1-cf6332c3a121",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique ID or name of the Calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72a7b256-57ce-408c-92ea-731cd8a3ca56",
+          "name": "generate CSV",
+          "request": {
+            "name": "generate CSV",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nExports a [custom calendar](https://docs.thoughtspot.com/cloud/latest/connections-cust-cal) in the CSV format.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_CUSTOM_CALENDAR` (**Can manage custom calendars**) privilege is required.\n\n#### Usage guidelines\n\nUse this API to download a custom calendar in the CSV file format. In your API request, specify the following parameters.\n\n* Start and end date of the calendar. For \"month offset\" calendars, the start date must match the month defined in the `month_offset` attribute.\n\nYou can also specify optional parameters such as the starting day of the week and prefixes for the quarter and year labels.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "calendars",
+                "generate-csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe93d8b1-9af1-4a5d-879f-c7d0d81ed358",
+              "name": "Generate custom calendar data based on specifications, as a CSV file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "generate-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1db200d-ecbf-4bdd-a526-fa62dbbbdd41",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "generate-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2b0a48e-157d-43e7-928e-71f6440cb3d1",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "generate-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "853d8a37-af68-4d9b-9eec-0c0764eec3d9",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "generate-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb8c8931-f417-4b4a-a69b-61f28e59c61d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "generate-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"<string>\",\n  \"year_name_prefix\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b298f827-ac8e-45c8-ad50-0ad4159f928c",
+          "name": "search Calendars",
+          "request": {
+            "name": "search Calendars",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nGets a list of [custom calendars](https://docs.thoughtspot.com/cloud/latest/connections-cust-cal).\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_CUSTOM_CALENDAR` (**Can manage custom calendars**) privilege is required.\n\n#### Usage guidelines\n\nBy default, the API returns a list of custom calendars for all connection objects. To retrieve custom calendar details for a particular connection, specify the connection ID. You can also use other search parameters such as `name_pattern` and `sort_options` as search filters.\n\nThe `name_pattern` parameter filters and returns only those objects that match the specified pattern. Use `%` as a wildcard for pattern matching.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "calendars",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "05e34759-3890-4822-807a-04c793b6d038",
+              "name": "Custom calendar fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"calendar_name\": \"string\",\n    \"connection_name\": \"string\",\n    \"data_warehouse_type\": \"string\",\n    \"modification_time_in_millis\": \"string\",\n    \"author_name\": \"string\",\n    \"connection_id\": \"string\",\n    \"calendar_id\": \"string\"\n  },\n  {\n    \"calendar_name\": \"string\",\n    \"connection_name\": \"string\",\n    \"data_warehouse_type\": \"string\",\n    \"modification_time_in_millis\": \"string\",\n    \"author_name\": \"string\",\n    \"connection_id\": \"string\",\n    \"calendar_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d13b3428-b9af-4dd5-a86f-93e65aa1c010",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50fe3aa2-c5a2-42b2-8b7b-221dd13beec2",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b052b86-754f-4c14-ab1c-7dd8b72493d7",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a92b163-2c4a-4dd9-85ed-e2f74a879e83",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"DEFAULT\",\n    \"order\": \"ASC\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4838e56-6864-4c9e-893e-bee674c47d8c",
+          "name": "update Calendar",
+          "request": {
+            "name": "update Calendar",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nUpdates the properties of a [custom calendar](https://docs.thoughtspot.com/cloud/latest/connections-cust-cal).\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your ThoughtSpot instance, the `CAN_MANAGE_CUSTOM_CALENDAR` (**Can manage custom calendars**) privilege is required.\n\n#### Usage guidelines\n\nYou can update the properties of a calendar using one of the following methods:\n* `FROM_INPUT_PARAMS` to update the calendar properties with the values defined in the API request.\n* `FROM_EXISTING_TABLE` Creates a calendar from the parameters defined in the API request.\n\nTo update a custom calendar, specify the calendar ID as a path parameter in the request URL and the following parameters in the request body:  \n\n* Connection ID and Table name\n* Database and schema name attributes:\n  For most Cloud Data Warehouse (CDW) connectors, both `database_name` and `schema_name` attributes are required.  \n  However, the attribute requirements are conditional and vary based on the connector type and its metadata structure. For example, for connectors such as Teradata, MySQL, SingleSore, Amazon Aurora MySQL, Amazon RDS MySQL, Oracle, and GCP_MYSQL, the `schema_name` is required, whereas the `database_name` attribute is not.\n  Similarly, connectors such as ClickHouse require you to specify the `database_name` and the schema specification in such cases is optional.\n\nThe API allows you to modify the calendar type, month offset value, start and end date, starting day of the week, and prefixes assigned to the year and quarter labels.   \n\n#### Examples\n\nUpdate a custom calendar using an existing Table in ThoughtSpot:\n\n```\n{\n  \"update_method\": \"FROM_EXISTING_TABLE\",\n  \"table_reference\": {\n    \"connection_identifier\": \"Connection1\",\n    \"database_name\": \"db1\",\n    \"table_name\": \"custom_calendar_2025\",\n    \"schame_name\": \"schemaVar\"\n  }\n}\n```\n\nUpdate a custom calendar with the attributes defined in the API request:\n\n```\n{\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"table_reference\": {\n    \"connection_identifier\": \"Connection1\",\n    \"database_name\": \"db1\",\n    \"table_name\": \"custom_calendar_2025\",\n    \"schame_name\": \"schemaVar\"\n  },\n  \"month_offset\": \"August\",\n  \"start_day_of_week\": \"Monday\",\n  \"start_date\": \"08/01/2025\",\n  \"end_date\": \"07/31/2026\"\n}\n```\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "calendars",
+                ":calendar_identifier",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "calendar_identifier",
+                  "description": "(Required) Unique Id or name of the calendar."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9446c91-8b59-4196-a310-9641781480a9",
+              "name": "Custom calendar updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique Id or name of the calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41d65863-86aa-4555-8db8-7c0f544df455",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique Id or name of the calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "293d8112-ad2c-4e36-aa6c-c44ddcea23f7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique Id or name of the calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a76a23f-b712-498d-a3ef-e17ad3433b32",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique Id or name of the calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2617efdd-0d6c-4784-914b-007798855374",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "calendars",
+                    ":calendar_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "calendar_identifier",
+                      "description": "(Required) Unique Id or name of the calendar."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"table_reference\": {\n    \"connection_identifier\": \"<string>\",\n    \"table_name\": \"<string>\",\n    \"database_name\": \"\",\n    \"schema_name\": \"\"\n  },\n  \"update_method\": \"FROM_INPUT_PARAMS\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"calendar_type\": \"MONTH_OFFSET\",\n  \"month_offset\": \"January\",\n  \"start_day_of_week\": \"Sunday\",\n  \"quarter_name_prefix\": \"\",\n  \"year_name_prefix\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "51755446-46e7-4879-8fb8-c68175421d90",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Custom Calendars API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

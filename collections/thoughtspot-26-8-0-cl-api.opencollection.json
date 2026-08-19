@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.8.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.8.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "exportMemory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/memory/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nExports memory entries (rules, recipes, and always-apply rules) for\nthe specified data-models as a single YAML payload. The payload can\nbe edited locally and re-submitted through `importMemory`.\nRequires Spotter access (use/manage) and either edit or memory\naccess on corresponding data model sources. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nThis API allows users to export data-model memories for a given list of data-models. "
+        },
+        {
+          "info": {
+            "name": "importMemory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/memory/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nImports memory entries (rules, recipes, and always-apply rules) from\na YAML payload, typically a payload produced by `exportMemory` and\nedited locally. The imported entries replace the existing memory for\nthe data-models referenced in the payload.\n`dry_run` is required. Pass `true` first to validate the payload and\nreview the preview counts and any row-level failures without making\nchanges, then re-run with `dry_run = false` to apply the import. An\nimport is not applied if any row fails validat"
+        },
+        {
+          "info": {
+            "name": "createInputTable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/input-tables/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nCreates an input table and links it to a ThoughtSpot model (worksheet). An input table is a user-editable table stored in the model's external Cloud Data Warehouse (CDW) connection. It lets analysts enter or import data directly from the ThoughtSpot UI without requiring access to the underlying warehouse.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINIST"
+        },
+        {
+          "info": {
+            "name": "deleteInputTable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/input-tables/:input_table_identifier/delete",
+            "params": [
+              {
+                "name": "input_table_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the input table to delete."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nDeletes an input table. This operation unlinks the input table from its owner model, removes it from the connection metadata, and drops the physical table from the Cloud Data Warehouse (CDW). This action is irreversible — all data stored in the input table is permanently deleted.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer "
+        },
+        {
+          "info": {
+            "name": "updateInputTable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/input-tables/:input_table_identifier/update",
+            "params": [
+              {
+                "name": "input_table_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the input table to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.8.0.cl or later</span>\n\nWrites rows of data into an existing input table. The supplied rows replace the current contents of the table: each call serializes the provided values to CSV and loads them into the input table via DataManager, overwriting any previously stored rows.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

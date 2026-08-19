@@ -1,0 +1,1976 @@
+{
+  "item": [
+    {
+      "id": "4714e22a-5a7b-4a17-b549-1acf6f315c30",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "39a52442-cd9a-4d3f-a4f2-765008a92d62",
+          "name": "create Webhook Configuration",
+          "request": {
+            "name": "create Webhook Configuration",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nCreates a new webhook configuration to receive notifications for specified events. The webhook will be triggered when the configured events occur in the system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "webhooks",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23d7b6f2-cd37-4838-b4b9-3a20d3d6862b",
+              "name": "Webhook configuration created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n  \"name\": \"My Liveboard Webhook\",\n  \"description\": \"Webhook to notify external system about liveboard schedules\",\n  \"org\": {\n    \"id\": \"0\",\n    \"name\": \"Primary\"\n  },\n  \"url\": \"https://myapp.example.com/webhooks/thoughtspot\",\n  \"url_params\": {\n    \"api_key\": \"abc123\",\n    \"version\": \"v1\"\n  },\n  \"events\": [\n    \"LIVEBOARD_SCHEDULE\"\n  ],\n  \"authentication\": {\n    \"BEARER_TOKEN\": \"***\"\n  },\n  \"signature_verification\": {\n    \"type\": \"HMAC_SHA256\",\n    \"header\": \"X-Webhook-Signature\",\n    \"algorithm\": \"SHA256\",\n    \"secret\": \"***\"\n  },\n  \"creation_time_in_millis\": 1724277430243,\n  \"modification_time_in_millis\": 1724277430243,\n  \"additional_headers\": [\n    {\n      \"key\": \"Custom-Header\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"Custom-Header-2\",\n      \"value\": \"value2\"\n    }\n  ],\n  \"created_by\": {\n    \"id\": \"8e3f2a7b-9c4d-4e5f-8a1b-7c9d3e6f4a2b\",\n    \"name\": \"sarah_chen\"\n  },\n  \"last_modified_by\": {\n    \"id\": \"8e3f2a7b-9c4d-4e5f-8a1b-7c9d3e6f4a2b\",\n    \"name\": \"sarah_chen\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a264c39-03ed-4301-ad93-593c53f13d8e",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"At least one event type must be specified in the events field.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f0c03b5-8e39-411b-b14e-1fc80f94b1a7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to create a webhook configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6efba90d-f1b9-4e20-986b-9a58340fc0a3",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to create webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0ad598c-23c5-40cd-a363-28a538cf9cfb",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while creating the webhook configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "684eb9e9-5afa-4ebd-b9c1-98917dbd73a1",
+          "name": "delete Webhook Configurations",
+          "request": {
+            "name": "delete Webhook Configurations",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nDeletes one or more webhook configurations by their unique id or name. Returns status of each deletion operation, including successfully deleted webhooks and any failures with error details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "webhooks",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06598001-aa56-403a-8162-054213750327",
+              "name": "Webhook configurations deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted_count\": 2,\n  \"failed_count\": 0,\n  \"deleted_webhooks\": [\n    {\n      \"id\": \"b9e3d8f2-4c7a-4e1b-8d3c-5f9a2b7e4c6d\",\n      \"name\": \"Old Webhook 1\",\n      \"description\": \"First webhook to be deleted\",\n      \"org\": {\n        \"id\": \"0\",\n        \"name\": \"Primary\"\n      },\n      \"url\": \"https://old-service.example.com/webhook1\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"authentication\": {\n        \"BEARER_TOKEN\": \"***\"\n      },\n      \"creation_time_in_millis\": 1724274600000,\n      \"modification_time_in_millis\": 1724274600000,\n      \"created_by\": {\n        \"id\": \"1f4e7b2d-9c3a-4e6f-8b1d-3e7c5a9b2f4e\",\n        \"name\": \"jennifer_patel\"\n      }\n    },\n    {\n      \"id\": \"e7c4a1f8-2b5d-4a9e-7c3f-8b1e5d4a7c9b\",\n      \"name\": \"Old Webhook 2\",\n      \"description\": \"Second webhook to be deleted\",\n      \"org\": {\n        \"id\": \"0\",\n        \"name\": \"Primary\"\n      },\n      \"url\": \"https://old-service.example.com/webhook2\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"X-API-Key\",\n          \"value\": \"***\"\n        }\n      },\n      \"creation_time_in_millis\": 1724275530123,\n      \"modification_time_in_millis\": 1724275530123,\n      \"created_by\": {\n        \"id\": \"9a5c2e8f-4b7d-4c1e-9f2a-6c8e3b5d7a4c\",\n        \"name\": \"david_thompson\"\n      }\n    }\n  ],\n  \"failed_webhooks\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4816b3ec-90f1-44c8-8f88-e155415d6ac0",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"webhook_identifiers must contain at least one identifier.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45863268-ce81-4f61-a94d-b8524d75a517",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to delete webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "624f36e7-74e1-4370-97af-1051f9f7d135",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to delete webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2f9bc75-7d37-4049-b8a7-ab23387cb5a0",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while deleting webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7394c2f2-22ec-4f3f-be88-0aa32a7a6743",
+          "name": "get Webhook Storage Config",
+          "request": {
+            "name": "get Webhook Storage Config",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns cluster-level storage setup information for configuring customer-managed storage. Use this endpoint to obtain the IAM identity details required before configuring a webhook storage destination. For S3 destinations, returns the platform AWS account ID and IAM trust policy template. For GCS destinations, returns the platform GCP service account email and the IAM role to grant for service account impersonation.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "webhooks",
+                "storage-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31a01bdd-b7ec-49ee-8eb1-928697fea3ce",
+              "name": "Storage setup information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "storage-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"storage_type\": \"OBJECT_STORAGE\",\n    \"provider\": \"AWS_S3\",\n    \"config\": {\n      \"config_type\": \"AWS_TO_S3_STORAGE\",\n      \"aws_account_id\": \"123456789012\",\n      \"trust_policy_template\": {\n        \"Version\": \"2012-10-17\",\n        \"Statement\": [\n          {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"AWS\": \"arn:aws:iam::123456789012:root\"\n            },\n            \"Action\": \"sts:AssumeRole\",\n            \"Condition\": {\n              \"StringEquals\": {\n                \"sts:ExternalId\": \"ts-webhook-a1b2c3d4-7890\"\n              }\n            }\n          }\n        ]\n      },\n      \"setup_instructions\": [\n        \"1. Create an IAM role in your AWS account\",\n        \"2. Attach the trust policy template to the role\",\n        \"3. Attach S3 permissions (s3:PutObject, s3:PutObjectAcl) to the role\",\n        \"4. Use the role ARN in your webhook storage configuration\"\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b051616-b69f-4b12-b5d8-76c6248b49a9",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "storage-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "237e9af5-e1e9-4995-bca5-cce4b6c50618",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "storage-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to retrieve webhook storage configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b982a00b-017a-42c2-b9cb-8e1b0f39f08a",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "storage-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to retrieve webhook storage configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3be3738-28a1-4149-b65e-8e02e0ba8c12",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "storage-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while retrieving webhook storage configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc15e944-a37b-4d45-8ed0-e7a7d05f3563",
+          "name": "search Webhook Configurations",
+          "request": {
+            "name": "search Webhook Configurations",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nSearches for webhook configurations based on various criteria such as Org, webhook identifier, event type, with support for pagination and sorting. Returns matching webhook configurations with their complete details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "webhooks",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50c2a9b0-9c62-4f5e-b48e-358d462655fa",
+              "name": "Webhook configurations retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhooks\": [\n    {\n      \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n      \"name\": \"Liveboard Schedule Webhook\",\n      \"description\": \"Webhook for liveboard schedule notifications\",\n      \"org\": {\n        \"id\": \"0\",\n        \"name\": \"Primary\"\n      },\n      \"url\": \"https://myapp.example.com/webhooks\",\n      \"url_params\": {\n        \"api_key\": \"abc123\"\n      },\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"authentication\": {\n        \"BEARER_TOKEN\": \"***\"\n      },\n      \"signature_verification\": {\n        \"type\": \"HMAC_SHA256\",\n        \"header\": \"X-Webhook-Signature\",\n        \"algorithm\": \"SHA256\",\n        \"secret\": \"***\"\n      },\n      \"creation_time_in_millis\": 1724277430243,\n      \"modification_time_in_millis\": 1724278215123,\n      \"additional_headers\": [\n        {\n          \"key\": \"Custom-Header\",\n          \"value\": \"value1\"\n        },\n        {\n          \"key\": \"Custom-Header-2\",\n          \"value\": \"value2\"\n        }\n      ],\n      \"created_by\": {\n        \"id\": \"8e3f2a7b-9c4d-4e5f-8a1b-7c9d3e6f4a2b\",\n        \"name\": \"sarah_chen\"\n      },\n      \"last_modified_by\": {\n        \"id\": \"2c9a7e4f-6b3d-4a8e-9f1c-5e7a3b9c2d6f\",\n        \"name\": \"alex_kim\"\n      }\n    },\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"name\": \"API Key Webhook\",\n      \"description\": \"Webhook with API key authentication\",\n      \"org\": {\n        \"id\": \"0\",\n        \"name\": \"Primary\"\n      },\n      \"url\": \"https://api.example.com/notifications\",\n      \"events\": [\n        \"LIVEBOARD_SCHEDULE\"\n      ],\n      \"authentication\": {\n        \"API_KEY\": {\n          \"key\": \"X-API-Key\",\n          \"value\": \"***\"\n        }\n      },\n      \"creation_time_in_millis\": 1724275845987,\n      \"modification_time_in_millis\": 1724275845987,\n      \"created_by\": {\n        \"id\": \"7d5e9f2a-4b8c-4d6e-9a3b-5c7e1f4a8b2d\",\n        \"name\": \"mike_rodriguez\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"record_offset\": 0,\n    \"record_size\": 50,\n    \"total_count\": 2,\n    \"has_more\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20ed2392-3272-425d-8e35-e87c8b280562",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"record_size must be a positive integer.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8adadd56-b4bb-4184-9345-85aaa2f1ed41",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to search webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "936dfd93-4c36-459c-804f-730d86fc4635",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to search webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9327295b-cfb9-402e-bfd4-1056810929c6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_identifier\": \"<string>\",\n  \"webhook_identifier\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"record_offset\": 0,\n  \"record_size\": 50,\n  \"sort_options\": {\n    \"field_name\": \"CREATED\",\n    \"order\": \"DESC\"\n  },\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while searching webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42793f2c-955c-4505-861a-a7603d756c7a",
+          "name": "update Webhook Configuration",
+          "request": {
+            "name": "update Webhook Configuration",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nUpdates an existing webhook configuration by its unique id or name. Only the provided fields will be updated.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "webhooks",
+                ":webhook_identifier",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhook_identifier",
+                  "description": "(Required) Unique ID or name of the webhook configuration."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "387bef0a-db34-46db-a58f-65c5b66fc1ac",
+              "name": "Webhook configuration updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    ":webhook_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_identifier",
+                      "description": "(Required) Unique ID or name of the webhook configuration."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c24769a1-a6fc-4adb-8529-16e8b23be682",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    ":webhook_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_identifier",
+                      "description": "(Required) Unique ID or name of the webhook configuration."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Webhook with the specified identifier was not found.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef47af68-869a-4308-90b4-9a5aabcabcdb",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    ":webhook_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_identifier",
+                      "description": "(Required) Unique ID or name of the webhook configuration."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to update a webhook configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c1f5d2c-e3c3-4849-9ec5-91137c073d91",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    ":webhook_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_identifier",
+                      "description": "(Required) Unique ID or name of the webhook configuration."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Insufficient privileges to update webhook configurations.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04df2312-5bfc-4af4-ae9b-f92e524402b5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "webhooks",
+                    ":webhook_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_identifier",
+                      "description": "(Required) Unique ID or name of the webhook configuration."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\",\n  \"url_params\": \"<object>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authentication\": {\n    \"API_KEY\": {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"BASIC_AUTH\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"BEARER_TOKEN\": \"<string>\",\n    \"OAUTH2\": {\n      \"authorization_url\": \"<string>\",\n      \"client_id\": \"<string>\",\n      \"client_secret\": \"<string>\"\n    }\n  },\n  \"signature_verification\": {\n    \"type\": \"<string>\",\n    \"header\": \"<string>\",\n    \"algorithm\": \"<string>\",\n    \"secret\": \"<string>\"\n  },\n  \"storage_destination\": {\n    \"storage_type\": \"<string>\",\n    \"storage_config\": {\n      \"aws_s3_config\": {\n        \"bucket_name\": \"<string>\",\n        \"region\": \"<string>\",\n        \"role_arn\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      },\n      \"gcp_gcs_config\": {\n        \"bucket_name\": \"<string>\",\n        \"service_account_email\": \"<string>\",\n        \"path_prefix\": \"<string>\"\n      }\n    }\n  },\n  \"additional_headers\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"reset_options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while updating the webhook configuration.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d832f4cc-9a30-4486-8584-1bdb1cef8b88",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

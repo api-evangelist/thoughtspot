@@ -1,0 +1,3943 @@
+{
+  "item": [
+    {
+      "id": "6b9b5790-e308-4399-a5b9-268b1381b87c",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bed77aac-0065-46cf-a500-0fc8f4d477f3",
+          "name": "activate User",
+          "request": {
+            "name": "activate User",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nActivates a deactivated user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo activate an inactive user account, the API request body must include the following information:\n\n- Username or the GUID of the user account.\n- Auth token generated for the deactivated user. The auth token is sent in the API response when a user is deactivated.\n- Password for the user account.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af4eed9e-e11a-4d47-afd4-c30f99197059",
+              "name": "User activated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"display_name\": \"string\",\n  \"visibility\": \"NON_SHARABLE\",\n  \"author_id\": \"string\",\n  \"can_change_password\": true,\n  \"complete_detail\": true,\n  \"creation_time_in_millis\": 2546.2342712627606,\n  \"current_org\": {\n    \"id\": 8411,\n    \"name\": \"string\"\n  },\n  \"deleted\": false,\n  \"deprecated\": false,\n  \"account_type\": \"LDAP_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"email\": \"string\",\n  \"expiration_time_in_millis\": 7713.045978800003,\n  \"external\": true,\n  \"favorite_metadata\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"USER_GROUP\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"LOGICAL_TABLE\"\n    }\n  ],\n  \"first_login_time_in_millis\": 2652.589332622157,\n  \"group_mask\": 7494,\n  \"hidden\": false,\n  \"home_liveboard\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"incomplete_details\": {},\n  \"is_first_login\": false,\n  \"modification_time_in_millis\": 1654.6121537202462,\n  \"modifier_id\": \"string\",\n  \"notify_on_share\": true,\n  \"onboarding_experience_completed\": false,\n  \"orgs\": [\n    {\n      \"id\": 6938,\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 1035,\n      \"name\": \"string\"\n    }\n  ],\n  \"owner_id\": \"string\",\n  \"parent_type\": \"USER\",\n  \"privileges\": [\n    \"string\",\n    \"string\"\n  ],\n  \"show_onboarding_experience\": false,\n  \"super_user\": false,\n  \"system_user\": true,\n  \"tags\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"tenant_id\": \"string\",\n  \"user_groups\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"user_inherited_groups\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"welcome_email_sent\": true,\n  \"org_privileges\": {},\n  \"preferred_locale\": \"string\",\n  \"use_browser_language\": true,\n  \"extended_properties\": {},\n  \"extended_preferences\": {},\n  \"user_parameters\": {},\n  \"access_control_properties\": {},\n  \"variable_values\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71a7011b-971c-4a00-b6fd-e7d17f87fbcd",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed461743-589e-44e8-80b4-28b784daa72b",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1354009-455f-4c85-a537-e7ba2d87a551",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21a89b83-3048-4910-ae8f-88996710dcfb",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"auth_token\": \"<string>\",\n  \"password\": \"<string>\",\n  \"properties\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da6c229d-06eb-4bd2-98cd-f26815857fcc",
+          "name": "change User Password",
+          "request": {
+            "name": "change User Password",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the current password of the user.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "change-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d3c6fe5d-53f4-439c-bb1d-cc8fa4e15f40",
+              "name": "User password change operation successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "change-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9bb6690c-92f2-479c-b488-ce1391fd6c3c",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "change-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f1d6fcf-b25a-4190-a229-a2c5caf5fe51",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "change-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "177727db-9608-4352-8877-c0f1cbaf5fa8",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "change-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c4b6ed6-8da7-442a-afeb-d694bb13ff35",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "change-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"current_password\": \"<string>\",\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a41796bc-e697-4947-9985-3bc2dfdc40b0",
+          "name": "create User",
+          "request": {
+            "name": "create User",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a user in ThoughtSpot.\n\nThe API endpoint allows you to configure several user properties such as email address, account status, share notification preferences, and sharing visibility. You can provision the user to [groups](https://docs.thoughtspot.com/cloud/latest/groups-privileges) and [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview). You can also add Liveboard, Answer, and Worksheet objects to the user’s favorites list, assign a default Liveboard for the user, and set user preferences.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8331202c-60aa-4e92-9776-c3f79dfbeaf9",
+              "name": "User successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"display_name\": \"string\",\n  \"visibility\": \"SHARABLE\",\n  \"author_id\": \"string\",\n  \"can_change_password\": true,\n  \"complete_detail\": false,\n  \"creation_time_in_millis\": 7309.167730369393,\n  \"current_org\": {\n    \"id\": 9916,\n    \"name\": \"string\"\n  },\n  \"deleted\": false,\n  \"deprecated\": true,\n  \"account_type\": \"OIDC_USER\",\n  \"account_status\": \"EXPIRED\",\n  \"email\": \"string\",\n  \"expiration_time_in_millis\": 1923.2154950549275,\n  \"external\": false,\n  \"favorite_metadata\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"ANSWER\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"USER_GROUP\"\n    }\n  ],\n  \"first_login_time_in_millis\": 1795.618223265928,\n  \"group_mask\": 9557,\n  \"hidden\": true,\n  \"home_liveboard\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"incomplete_details\": {},\n  \"is_first_login\": false,\n  \"modification_time_in_millis\": 2524.8833241118673,\n  \"modifier_id\": \"string\",\n  \"notify_on_share\": true,\n  \"onboarding_experience_completed\": false,\n  \"orgs\": [\n    {\n      \"id\": 5120,\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 1200,\n      \"name\": \"string\"\n    }\n  ],\n  \"owner_id\": \"string\",\n  \"parent_type\": \"GROUP\",\n  \"privileges\": [\n    \"string\",\n    \"string\"\n  ],\n  \"show_onboarding_experience\": true,\n  \"super_user\": false,\n  \"system_user\": false,\n  \"tags\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"tenant_id\": \"string\",\n  \"user_groups\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"user_inherited_groups\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"welcome_email_sent\": true,\n  \"org_privileges\": {},\n  \"preferred_locale\": \"string\",\n  \"use_browser_language\": false,\n  \"extended_properties\": {},\n  \"extended_preferences\": {},\n  \"user_parameters\": {},\n  \"access_control_properties\": {},\n  \"variable_values\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ef38521-96eb-4361-bd6e-c12553c1c89c",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4799c45-02cd-42e5-95ed-4cc4ff438d20",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21c9c348-5481-47a8-a4e0-10e2529a420a",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3ab94fc-4710-47c2-a85f-4b2fbf359bc0",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"account_type\": \"LOCAL_USER\",\n  \"account_status\": \"ACTIVE\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"visibility\": \"SHARABLE\",\n  \"notify_on_share\": true,\n  \"show_onboarding_experience\": true,\n  \"onboarding_experience_completed\": false,\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\",\n  \"trigger_welcome_email\": \"<boolean>\",\n  \"trigger_activation_email\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "767e2c6e-00af-4e27-9854-091fac7f8d54",
+          "name": "deactivate User",
+          "request": {
+            "name": "deactivate User",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>\n\nDeactivates a user account.\n\nRequires `ADMINISTRATION` (**Can administer Thoughtspot**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\nTo deactivate a user account, the API request body must include the following information:\n\n- Username or the GUID of the user account\n- Base URL of the ThoughtSpot instance\n\nIf the API request is successful, ThoughtSpot returns the activation URL in the response. The activation URL is valid for 14 days and can be used to re-activate the account and reset the password of the deactivated account.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef31078e-1781-415f-8a03-3e36ad5cbe4a",
+              "name": "User deactivated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activation_link\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11f76580-eba6-4e98-bdee-e04f81369972",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b474c308-0d68-4ba8-8524-50ee85500ec3",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9577d9c-3a62-4d7f-8bff-c6f3fcda9fc8",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "592fe725-66b8-45e3-bccb-69c073184820",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"base_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02b906f0-005f-4995-a329-6424f8c5d3c6",
+          "name": "delete User",
+          "request": {
+            "name": "delete User",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes a user from the ThoughtSpot system.\n\nIf you want to remove a user from a specific Org but not from ThoughtSpot, update the group and Org mapping properties of the user object via a POST API call to the [/api/rest/2.0/users/{user_identifier}/update](#/http/api-endpoints/users/update-user) endpoint.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                ":user_identifier",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_identifier",
+                  "description": "(Required) GUID / name of the user"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4eb1a3cc-b6ad-4f89-a25c-fd3c560b5175",
+              "name": "User successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b467cec-3f74-4fad-8624-93d02e14ea00",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28b35a01-259c-4285-ab96-81fadfd3d8d1",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b6bf703-5a6f-4f29-bfd8-1c9b5046ae7f",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1605f21d-1903-42e8-8b76-3f6ee2455f3f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf68f3b9-d944-4d8e-9a24-67ee747be0c2",
+          "name": "force Logout Users",
+          "request": {
+            "name": "force Logout Users",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nEnforces logout on current user sessions.  \n\nUse this API with caution as it may invalidate active user sessions and force users to re-login. Make sure you specify the usernames or GUIDs. If you pass null values in the API call, all user sessions on your cluster become invalid, and the users are forced to re-login.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "force-logout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "745c0fea-4147-453d-ba41-3f028a0ec403",
+              "name": "Force logging out of users operation successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "force-logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "913c2d05-25e3-4b40-9511-192c6d99dd9a",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "force-logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b1677e6-8baf-452d-806e-251fba3d0193",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "force-logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d2c3282-aeef-4f42-b76f-115fcea30043",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "force-logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed60c007-6352-4d17-913a-1f50baf6ca67",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "force-logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c356f185-b260-4069-b930-764d986cf58e",
+          "name": "import Users",
+          "request": {
+            "name": "import Users",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports user data from external databases into ThoughtSpot. During the user import operation:\n\n* If the specified users are not available in ThoughtSpot, the users are created and assigned a default password. Defining a `default_password` in the API request is optional.\n* If `delete_unspecified_users` is set to `true`, the users not specified in the API request, excluding the `tsadmin`, `guest`, `system` and `su` users, are deleted.\n* If the specified user objects are already available in ThoughtSpot, the object properties are updated and synchronized as per the input data in the API request.\n\nA successful API call returns the object that represents the changes made in the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "876c031d-cc7b-4d48-ae45-febd16d1c3d1",
+              "name": "Import users operation successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users_added\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"users_updated\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"users_deleted\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3392ad11-5437-473a-a384-802344283c90",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f39c4abe-9e5a-484a-8a7d-32ed78e9eaf7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf154073-8236-48b6-9f74-ad9782fcfe11",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71cf0e8c-bc19-4c2f-b38f-c75eb54eadd7",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    },\n    {\n      \"user_identifier\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"password\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"<string>\",\n      \"email\": \"<string>\",\n      \"org_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"group_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visibility\": \"<string>\",\n      \"notify_on_share\": true,\n      \"show_onboarding_experience\": \"<boolean>\",\n      \"onboarding_experience_completed\": \"<boolean>\",\n      \"home_liveboard_identifier\": \"<string>\",\n      \"favorite_metadata\": [\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"identifier\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"preferred_locale\": \"<string>\",\n      \"use_browser_language\": \"<boolean>\"\n    }\n  ],\n  \"default_password\": \"<string>\",\n  \"dry_run\": true,\n  \"delete_unspecified_users\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e4e6203-822a-41bc-9ed7-a97e2e693ebc",
+          "name": "reset User Password",
+          "request": {
+            "name": "reset User Password",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nResets the password of a user account. Administrators can reset password on behalf of a user.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "reset-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72439f8a-f0f4-4d78-92d2-ed9770215d8b",
+              "name": "User password reset operation successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "reset-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d54ee8a-2782-40bf-bf9c-a4e1c1baf0f0",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "reset-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b37ce3f5-d7fa-4eea-b76b-399013deaa5f",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "reset-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cad8d5c9-ed8c-47fb-9de9-4552f20c465f",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "reset-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1d3ba43-77d1-45a6-a00e-fcde0c1a1556",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "reset-password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_password\": \"<string>\",\n  \"user_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e9bd72e-19c6-452e-93d3-a29c8887346f",
+          "name": "search Users",
+          "request": {
+            "name": "search Users",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of users available on the ThoughtSpot system.\n\nTo get details of a specific user, specify the user GUID or name. You can also filter the API response based on groups, Org ID, user visibility, account status, user type, and user preference settings and favorites.\n\nAvailable to all users. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges can view all users properties. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n**NOTE**: If the API returns an empty list, consider increasing the value of the `record_size` parameter. To search across all available users, set `record_size` to `-1`.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f625483-9e72-4b68-9aa7-d3f23f4dcd20",
+              "name": "User search result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"visibility\": \"NON_SHARABLE\",\n    \"author_id\": \"string\",\n    \"can_change_password\": true,\n    \"complete_detail\": false,\n    \"creation_time_in_millis\": 777.618263129073,\n    \"current_org\": {\n      \"id\": 5041,\n      \"name\": \"string\"\n    },\n    \"deleted\": false,\n    \"deprecated\": true,\n    \"account_type\": \"OIDC_USER\",\n    \"account_status\": \"LOCKED\",\n    \"email\": \"string\",\n    \"expiration_time_in_millis\": 6260.103251091092,\n    \"external\": true,\n    \"favorite_metadata\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"LOGICAL_RELATIONSHIP\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"TAG\"\n      }\n    ],\n    \"first_login_time_in_millis\": 5919.131575256292,\n    \"group_mask\": 2603,\n    \"hidden\": true,\n    \"home_liveboard\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"incomplete_details\": {},\n    \"is_first_login\": true,\n    \"modification_time_in_millis\": 2338.5492622978,\n    \"modifier_id\": \"string\",\n    \"notify_on_share\": false,\n    \"onboarding_experience_completed\": false,\n    \"orgs\": [\n      {\n        \"id\": 939,\n        \"name\": \"string\"\n      },\n      {\n        \"id\": 9849,\n        \"name\": \"string\"\n      }\n    ],\n    \"owner_id\": \"string\",\n    \"parent_type\": \"USER\",\n    \"privileges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"show_onboarding_experience\": false,\n    \"super_user\": true,\n    \"system_user\": false,\n    \"tags\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"tenant_id\": \"string\",\n    \"user_groups\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"user_inherited_groups\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"welcome_email_sent\": false,\n    \"org_privileges\": {},\n    \"preferred_locale\": \"string\",\n    \"use_browser_language\": false,\n    \"extended_properties\": {},\n    \"extended_preferences\": {},\n    \"user_parameters\": {},\n    \"access_control_properties\": {},\n    \"variable_values\": {}\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"visibility\": \"SHARABLE\",\n    \"author_id\": \"string\",\n    \"can_change_password\": true,\n    \"complete_detail\": false,\n    \"creation_time_in_millis\": 4464.964494785736,\n    \"current_org\": {\n      \"id\": 6468,\n      \"name\": \"string\"\n    },\n    \"deleted\": false,\n    \"deprecated\": true,\n    \"account_type\": \"REMOTE_USER\",\n    \"account_status\": \"SUSPENDED\",\n    \"email\": \"string\",\n    \"expiration_time_in_millis\": 9360.865314434397,\n    \"external\": true,\n    \"favorite_metadata\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"LOGICAL_RELATIONSHIP\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"LOGICAL_TABLE\"\n      }\n    ],\n    \"first_login_time_in_millis\": 2835.3056603856917,\n    \"group_mask\": 9118,\n    \"hidden\": true,\n    \"home_liveboard\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"incomplete_details\": {},\n    \"is_first_login\": true,\n    \"modification_time_in_millis\": 642.3301904682221,\n    \"modifier_id\": \"string\",\n    \"notify_on_share\": false,\n    \"onboarding_experience_completed\": true,\n    \"orgs\": [\n      {\n        \"id\": 6110,\n        \"name\": \"string\"\n      },\n      {\n        \"id\": 2822,\n        \"name\": \"string\"\n      }\n    ],\n    \"owner_id\": \"string\",\n    \"parent_type\": \"USER\",\n    \"privileges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"show_onboarding_experience\": true,\n    \"super_user\": true,\n    \"system_user\": false,\n    \"tags\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"tenant_id\": \"string\",\n    \"user_groups\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"user_inherited_groups\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"welcome_email_sent\": false,\n    \"org_privileges\": {},\n    \"preferred_locale\": \"string\",\n    \"use_browser_language\": false,\n    \"extended_properties\": {},\n    \"extended_preferences\": {},\n    \"user_parameters\": {},\n    \"access_control_properties\": {},\n    \"variable_values\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6eea965-51d8-44ef-964f-643a6df25ebe",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e055d15d-b3a6-4107-978e-c57162acb732",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d17671-0dfb-4ee4-9331-f6dd0e8c9619",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "403526ce-e867-4d12-8745-28bc543eff42",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_identifier\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"privileges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_type\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"record_offset\": 0,\n  \"record_size\": 10,\n  \"sort_options\": {\n    \"field_name\": \"<string>\",\n    \"order\": \"<string>\"\n  },\n  \"role_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"include_favorite_metadata\": false,\n  \"include_variable_values\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51a5c83f-280e-46fa-8da1-02d0cf0d613e",
+          "name": "update User",
+          "request": {
+            "name": "update User",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the properties of a user object.\n\nYou can modify user properties such as username, email, and share notification settings. You can also assign new groups and Orgs, remove the user from a group or Org, reset password, and modify user preferences.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "users",
+                ":user_identifier",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_identifier",
+                  "description": "(Required) GUID / name of the user"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b228a02c-2f84-44e8-a3af-e52bdc229875",
+              "name": "User successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99ed6c64-27db-4313-a914-7905f74aed37",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "746aa5b4-0706-4ec9-a48d-f572781c30e2",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19e3f384-d544-448a-8014-c1307b019054",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f32f8a2-ae98-44fa-8590-2412a4985a72",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "users",
+                    ":user_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_identifier",
+                      "description": "(Required) GUID / name of the user"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"email\": \"<string>\",\n  \"account_status\": \"<string>\",\n  \"notify_on_share\": \"<boolean>\",\n  \"show_onboarding_experience\": \"<boolean>\",\n  \"onboarding_experience_completed\": \"<boolean>\",\n  \"account_type\": \"<string>\",\n  \"group_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"home_liveboard_identifier\": \"<string>\",\n  \"favorite_metadata\": [\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"operation\": \"REPLACE\",\n  \"preferred_locale\": \"<string>\",\n  \"use_browser_language\": \"<boolean>\",\n  \"extended_properties\": \"<object>\",\n  \"extended_preferences\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a605762f-d576-48b6-9396-0634de874adb",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

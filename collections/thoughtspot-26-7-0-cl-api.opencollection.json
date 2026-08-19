@@ -1,0 +1,423 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.7.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.7.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "deleteConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/delete",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation to delete."
+              }
+            ]
+          },
+          "docs": "\nDeletes an existing agent conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nPermanently deletes an existing saved agent conversation and all its associated messages. This operation is irreversible — deleted conversations cannot be recovered.\n\nRequires `CAN_USE_SPOTTER` privilege and ownership of the conversation being deleted.\n\n#### Usage guidelines\n\nThe request must include:\n\n- `conversation_identifier` *(path parameter)*: the unique ID of the conversation t"
+        },
+        {
+          "info": {
+            "name": "getConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/messages",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation to load."
+              }
+            ]
+          },
+          "docs": "\nRetrieves the full public-safe content of a saved agent conversation: ordered\nturns (user messages and agent response items) and sanitized code-execution\nfile metadata. Internal graph or branch state, Azure file identifiers, and\nmessages with a `SYSTEM` source are omitted. The full answer payload is not\nembedded; fetch it separately via `loadAnswer` using the `answer_id` on each\n`answer` response item.\nRequires `CAN_USE_SPOTTER` privilege and access to the specified conversation. <br/>  <span c"
+        },
+        {
+          "info": {
+            "name": "getConversationList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of conversations to return. Used for pagination."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of conversations to skip before returning results. Used for pagination."
+              },
+              {
+                "name": "skip_empty",
+                "value": "",
+                "type": "query",
+                "description": "When true, excludes conversations with no messages. Defaults to true."
+              }
+            ]
+          },
+          "docs": "\nRetrieves the list of saved agent conversations for the currently authenticated user.\nOnly conversations created with `enable_save_chat: true` are returned. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves a paginated list of saved agent conversations for the currently authenticated user. Only conversations that were created with `enable_save_chat: true` in `createAgentConversation` are returned.\n\nRequires `CAN_USE_SPOTTER` privilege.\n\n#### Usage guidelines\n\nThe"
+        },
+        {
+          "info": {
+            "name": "loadAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/answers/:answer_identifier/details",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation."
+              },
+              {
+                "name": "answer_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the answer to load. Use the `answer_id` field from an\n`AnswerResponseItem` returned by `getConversation`."
+              }
+            ]
+          },
+          "docs": "\nLoads the full answer payload for a specific answer item in an agent\nconversation. Returns structured answer data including the TML query, token\nbreakdown, visualization metadata, and agent context state.\nPass the `answer_id` from an `AnswerResponseItem` in the `getConversation`\nresponse as the `answer_identifier` parameter.\nRequires `CAN_USE_SPOTTER` privilege and access to the specified conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nLoads the answer deta"
+        },
+        {
+          "info": {
+            "name": "updateConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/update",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nUpdates attributes of an existing agent conversation. Currently only the\ndisplay title can be updated; additional conversation attributes may be\nsupported in future versions. At least one updatable attribute must be\nprovided in the request body. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates attributes of an existing saved agent conversation. Currently only the conversation's display `title` can be updated; additional updatable attributes may be supported in fut"
+        },
+        {
+          "info": {
+            "name": "deleteManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nDelete manual translations. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDeletes all manual translations for the org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- This deletes **all** translation entries for the targeted org. The operation cannot be undone.\n- Defaults to `ORG` scope if not specified.\n- Set"
+        },
+        {
+          "info": {
+            "name": "exportManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nExport manual translations as a CSV file. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDownloads all manual translations for the org as a CSV file.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- The response is a CSV file with columns: `content`, `locale`, `translated-content`.\n- Defaults to `ORG` scope if n"
+        },
+        {
+          "info": {
+            "name": "getManualTranslationBundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/locales/:locale/export",
+            "params": [
+              {
+                "name": "locale",
+                "value": "",
+                "type": "path",
+                "description": "Locale code for which to retrieve translations.  For example, `fr-fr`, `de-de`, `JA-JP`."
+              }
+            ]
+          },
+          "docs": "\nGet translations bundle for a locale. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves all translations for a specific locale as a JSON map.\n\nAvailable to all authenticated users. No additional privileges are required.\n\n#### Usage guidelines\n\n- `locale` parameter must be a hyphenated locale code (for example, `fr-fr`, `de-de`, `JA-JP`).\n- Returns a JSON object with a `translations` map where each key is the original string and each value is the translated string"
+        },
+        {
+          "info": {
+            "name": "importManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/import",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "translations_file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\nImport manual translations from a CSV file. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUploads a CSV file containing manual translations and upserts them into the database.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- The CSV file must have exactly three columns in this order: `content`, `locale`, `trans"
+        },
+        {
+          "info": {
+            "name": "deleteStyleFonts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDeletes one or more custom fonts from the cluster-level or org-level font library. If a deleted font is assigned to visualization areas, those assignments automatically fallback to the cluster/system default font. The response lists all affected areas where the font was explicitly set. Note: dry_run defaults to true. To actually delete fonts, you must explicitly pass dry_run: false.\n\nRequires `ADMINISTRATION` (**Can administer Th"
+        },
+        {
+          "info": {
+            "name": "exportStyleLogos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/logos/export",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDownloads the active logos (default and wide slots) at the requested scope as a single ZIP archive containing both logo image files. If no custom logo has been uploaded at the ORG scope, the archive contains the resolved logo falling through from the cluster. If no cluster logo has been uploaded, no file is returned.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege"
+        },
+        {
+          "info": {
+            "name": "searchStyleCustomizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves style preferences at cluster level or for the authenticated user's org. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Set `scope` to `CLUSTER` to retrieve cluster-level style defaults.\n- Set `scope` to `ORG` (default) to"
+        },
+        {
+          "info": {
+            "name": "searchStyleFonts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns custom fonts from the cluster-level or org-level font library. Omitting all filter fields returns all fonts in the target scope.\n\nWhen `include_font_assignments` is `true`, the response includes only the visualization areas explicitly assigned to each font. For cluster-scoped fonts, `org` is returned as `null`.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privile"
+        },
+        {
+          "info": {
+            "name": "updateStyleCustomization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/update",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "operation",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "reset_options",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "navigation_panel",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "chart_color_palette",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "embedded_footer_text",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "visualization_fonts",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "default_logo",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "wide_logo",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates style preferences at cluster level or for the authenticated user's org, including navigation panel color, chart color palette, embedded footer text, logo, and font assignments per visualization area. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults. Resetting an Org-level preference falls back to Cluster-level preference, which on reset falls back to system defaults"
+        },
+        {
+          "info": {
+            "name": "updateStyleFont",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/:font_identifier/update",
+            "params": [
+              {
+                "name": "font_identifier",
+                "value": "",
+                "type": "path",
+                "description": "UUID or name of the font to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates the metadata of an existing custom font in the cluster-level or org-level font library. Only the fields provided in the request are modified; omitted fields remain unchanged.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Identify the font using `font_identifier` (UUID or name).\n- Set `scope` to `CLUSTER` to target the cluster-l"
+        },
+        {
+          "info": {
+            "name": "uploadStyleFont",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/customization/styles/fonts/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "weight",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "style",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "color",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUploads a custom font to the cluster-level or org-level font library. Cluster-level fonts are available as defaults for all orgs. Org-level fonts are only available within that org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Only **WOFF** and **WOFF2** font formats are accepted. TTF and OTF files are rejected with an error.\n- Set `s"
+        },
+        {
+          "info": {
+            "name": "getWebhookStorageConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/webhooks/storage-config"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns cluster-level storage setup information for configuring customer-managed storage. Use this endpoint to obtain the IAM identity details required before configuring a webhook storage destination. For S3 destinations, returns the platform AWS account ID and IAM trust policy template. For GCS destinations, returns the platform GCP service account email and the IAM role to grant for service account impersonation.\n\nRequires `AD"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

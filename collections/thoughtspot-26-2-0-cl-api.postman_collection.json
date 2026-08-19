@@ -1,0 +1,2860 @@
+{
+  "item": [
+    {
+      "id": "71580965-d574-41b5-a552-61561f8ab76e",
+      "name": "26.2.0.cl",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09f328f8-c568-4a1e-9e15-fe173618b2ca",
+          "name": "create Agent Conversation",
+          "request": {
+            "name": "create Agent Conversation",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nCreates a new Spotter agent conversation based on the provided context and settings. The endpoint was in Beta from 26.2.0.cl through 26.4.0.cl.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request.\n\n#### Usage guidelines\n\nThe request must include the `metadata_context` parameter to define the conversation context. The context type can be one of:\n\n- `DATA_SOURCE` *(available from 26.5.0.cl)*: targets a specific data source. Provide `data_source_identifier` in `data_source_context` for a single data source, or `data_source_identifiers` for multi-data-source context. The deprecated `guid` field is accepted for backwards compatibility.\n- `AUTO_MODE` *(available from 26.5.0.cl)*: automatically discovers and selects the most relevant datasets for the user's queries.\n\n> **Note for callers on versions 26.2.0.cl – 26.4.0.cl (Beta):** use the lowercase `data_source` enum value with the `guid` field instead of the above. Example: `{ \"type\": \"data_source\", \"data_source_context\": { \"guid\": \"<worksheet-id>\" } }`.\n\nThe `conversation_settings` parameter controls which Spotter capabilities are enabled for the conversation:\n\n- `enable_contextual_change_analysis` (default: `true`, **deprecated from 26.2.0.cl**) — always enabled in Spotter 3; setting this to `false` has no effect on versions >= 26.2.0.cl\n- `enable_natural_language_answer_generation` (default: `true`, **deprecated from 26.2.0.cl**) — always enabled in Spotter 3; setting this to `false` has no effect on versions >= 26.2.0.cl\n- `enable_reasoning` (default: `true`, **deprecated from 26.2.0.cl**) — always enabled in Spotter 3; setting this to `false` has no effect on versions >= 26.2.0.cl\n- `enable_save_chat` (default: `false`, *available from 26.5.0.cl*) — enables saving the conversation for later retrieval via conversation history\n\nIf the request is successful, the response includes a unique `conversation_identifier` that must be passed to `sendAgentConversationMessage` or `sendAgentConversationMessageStreaming` to send messages within this conversation. The response also includes `conversation_id` with the same value for backwards compatibility; use `conversation_identifier` for new integrations.\n\n#### Example request\n\n```json\n{\n  \"metadata_context\": {\n    \"type\": \"DATA_SOURCE\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n    }\n  },\n  \"conversation_settings\": {}\n}\n```\n\n#### Error responses\n\n| Code | Description                                                                                                                             |\n| ---- | --------------------------------------------------------------------------------------------------------------------------------------- |\n| 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                                    |\n| 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks view permission on the specified metadata object. |\n\n> ###### Note:\n>\n> - This endpoint was in Beta from 26.2.0.cl through 26.4.0.cl and is Generally Available from version 26.5.0.cl.\n> - This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "ai",
+                "agent",
+                "conversation",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c660ab9f-340b-40be-b1dd-cbd1e60c9a27",
+              "name": "Common successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation_id\": \"wwHQ5j8O8dQC\",\n  \"conversation_identifier\": \"wwHQ5j8O8dQC\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "693a7669-a15a-4777-a35b-342af242cb0a",
+              "name": "Common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation_id\": \"string\",\n  \"conversation_identifier\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83aed7df-0f8c-4c24-9a5d-a88459cdcbe5",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20116333-1a65-41f9-86a9-1c4a4d964fd2",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6533e012-a659-4452-b395-2d72d56ab01d",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6aba9729-8164-4cfe-bbd1-bcc1605323f9",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "conversation",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_context\": {\n    \"type\": \"<string>\",\n    \"data_source_context\": {\n      \"data_source_identifier\": \"<string>\",\n      \"data_source_identifiers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"guid\": \"<string>\"\n    }\n  },\n  \"conversation_settings\": {\n    \"enable_contextual_change_analysis\": true,\n    \"enable_natural_language_answer_generation\": true,\n    \"enable_reasoning\": true,\n    \"enable_save_chat\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36ba7dea-b846-419f-9e1a-ec56c46e77f4",
+          "name": "send Agent Message",
+          "request": {
+            "name": "send Agent Message",
+            "description": {
+              "content": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\n**Deprecated** — Use `sendAgentConversationMessage` instead.\n\nSend natural language messages to an existing Spotter agent conversation and returns the complete response synchronously.\n\nRequires `CAN_USE_SPOTTER` privilege and access to the metadata object associated with the conversation. The user must have access to the conversation session referenced by `conversation_identifier`.\nA conversation must first be created using the `createAgentConversation` API.\n\n#### Usage guidelines\n\nThe request must include:\n\n- `conversation_identifier`: the unique session ID returned by `createAgentConversation`, used for context continuity and message tracking\n- `messages`: an array of one or more text messages to send to the agent\n\nThe API returns an array of response objects, each containing:\n\n- `type`: the kind of response — `text`, `answer`, or `error`\n- `message`: the main content of the response\n- `metadata`: additional information depending on the message type (e.g., answer metadata includes analytics and visualization details)\n\n#### Error responses\n\n| Code | Description                                                                                                                      |\n|------|----------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                             |\n| 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks permission on the referenced conversation. |\n\n> ###### Note:\n>\n> - This endpoint is deprecated. Use `sendAgentConversationMessage` for new integrations.\n> - This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> - This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "ai",
+                "agent",
+                ":conversation_identifier",
+                "converse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_identifier",
+                  "description": "(Required) Unique identifier for the conversation (used to track context)"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07d267d1-d9f5-4dcb-9378-27549931a085",
+              "name": "Common successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4178d17-1f0e-40de-98ad-c9e68d1cfb40",
+              "name": "Common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a0495f1-a5a1-4aa2-bf79-09bcf5001e18",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d2e2de4-55e2-4f82-b88b-b648ba83f350",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a67a391b-d8f2-46b6-9f0c-f7a79de21085",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "610c872c-ca08-440c-b59b-2a93c26fa41c",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    ":conversation_identifier",
+                    "converse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_identifier",
+                      "description": "(Required) Unique identifier for the conversation (used to track context)"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18ef741a-e4b7-477a-b0c5-b3278abec6dd",
+          "name": "send Agent Message Streaming",
+          "request": {
+            "name": "send Agent Message Streaming",
+            "description": {
+              "content": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\n**Deprecated** — Use `sendAgentConversationMessageStreaming` instead.\n\nSends one or more natural language messages to an existing Spotter agent conversation and returns the response as a real-time Server-Sent Events stream.\n\nRequires `CAN_USE_SPOTTER` privilege and access to the metadata object associated with the conversation. The user must have access to the conversation session referenced by `conversation_identifier`. A conversation must first be created using the `createAgentConversation` API.\n\n#### Usage guidelines\n\nThe request must include:\n\n- `conversation_identifier`: the unique session ID returned by `createAgentConversation`, used for context continuity and message tracking\n- `messages`: an array of one or more text messages to send to the agent\n\nIf the request is valid, the API returns a Server-Sent Events (SSE) stream. Each line has the form `data: [{\"type\": \"...\", ...}]` — a JSON array of event objects. Event types include:\n\n- `ack`: confirms receipt of the request (`node_id`)\n- `conv_title`: conversation title (`title`, `conv_id`)\n- `notification`: status updates on operations (`group_id`, `metadata`, `code` — e.g. `TOOL_CALL_NOTIFICATION`, `nls_start`, `FINAL_RESPONSE_NOTIFICATION`)\n- `text-chunk`: incremental content chunks (`id`, `group_id`, `metadata` with `format` and `type` such as `thinking` or `text`, `content`)\n- `text`: full text block with same structure as `text-chunk`\n- `answer`: structured answer with metadata (`id`, `group_id`, `metadata` with `sage_query`, `session_id`, `title`, etc., `title`)\n- `error`: if a failure occurs\n\n#### Error responses\n\n| Code | Description                                                                                                                      |\n|------|----------------------------------------------------------------------------------------------------------------------------------|\n| 401  | Unauthorized — authentication token is missing, expired, or invalid.                                                             |\n| 403  | Forbidden — the authenticated user does not have `CAN_USE_SPOTTER` privilege or lacks permission on the referenced conversation. |\n\n> ###### Note:\n>\n> - This endpoint is deprecated. Use `sendAgentConversationMessageStreaming` for new integrations.\n> - This endpoint is currently in Beta. Breaking changes may be introduced before the endpoint is made Generally Available.\n> - This endpoint requires Spotter - please contact ThoughtSpot support to enable Spotter on your cluster.\n> - The streaming protocol uses Server-Sent Events (SSE).\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "ai",
+                "agent",
+                "converse",
+                "sse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43b8a3b5-7f28-4852-90af-2a5c0e9a4a88",
+              "name": "Common successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68bf3ccf-078e-45ef-a346-87fd3a1e8717",
+              "name": "Common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f88d87a4-8ffc-4fcc-aa02-00c44b63473f",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c33b7ef0-d6fc-4ed9-8ea6-09e87120d91c",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c99d282-a8ee-4d96-98af-2821d1549c7b",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7928725-12be-40c6-a17b-ca7b6950bc35",
+              "name": "Operation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "ai",
+                    "agent",
+                    "converse",
+                    "sse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"conversation_identifier\": \"<string>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a62a5bde-cdfd-49e7-843a-e302b795b7e7",
+          "name": "revoke Refresh Tokens",
+          "request": {
+            "name": "revoke Refresh Tokens",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nRevokes OAuth refresh tokens for users who no longer require access to a data warehouse connection.\nWhen a token is revoked, the affected user's session for that connection is terminated, and they must re-authenticate to regain access.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on the ThoughtSpot instance, users with `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege can also make API requests to revoke tokens for connection users.\n\n#### Usage guidelines\n\nYou can specify different combinations of identifiers to control which refresh tokens are revoked.\n\n- **connection_identifier**: Revokes refresh tokens for all users of the connection, except the connection author.\n- **connection_identifier** and **user_identifiers**: Revokes refresh tokens only for the users specified in the request. If the name or ID of the connection author is included in the request, their token will also be revoked.\n- **connection_identifier** and **configuration_identifiers**: Revokes refresh tokens for all users on the specified configurations, except the configuration author.\n- **connection_identifier**, **configuration_identifiers**, and **user_identifiers**: Revokes refresh tokens for the specified users on the specified configurations.\n- **connection_identifier** and **org_identifiers**: Revokes refresh tokens for the specified Orgs. Applicable only for published connections.\n- **connection_identifier**, **org_identifiers**, and **user_identifiers**: Revokes refresh tokens for the specified users in the specified Orgs. Applicable only for published connections.\n\n**NOTE**: The `org_identifiers` parameter is only applicable for published connections. Using this parameter for unpublished connections will result in an error. Ensure that the connections are published before making the API request.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "connections",
+                ":connection_identifier",
+                "revoke-refresh-tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_identifier",
+                  "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "005e589a-4d55-457d-913b-0ebe74c093c6",
+              "name": "Token(s) successfully revoked.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1216c935-8c48-4a1c-aeab-961d11bb07e5",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c765c4b5-64a2-49d8-918f-8d44a85a1092",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dd13de9-b53b-4b44-a388-9258a6ad23e7",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35447d07-d3b1-497d-a015-054edc949186",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c06ecfdd-42d7-4c31-b08f-30dfa472c4d8",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7428c1fa-2672-408e-bdb7-d8474b7925e5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "connections",
+                    ":connection_identifier",
+                    "revoke-refresh-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_identifier",
+                      "description": "(Required) Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"org_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f183655d-e3e8-4719-9f85-d865e80fd562",
+          "name": "configure Security Settings",
+          "request": {
+            "name": "configure Security Settings",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nConfigure security settings for your ThoughtSpot application instance.\n- Use `cluster_preferences` to update cluster-level security settings including CORS whitelisted URLs, CSP settings, SAML redirect URLs, partitioned cookies, and non-embed access configuration.\n- Use `org_preferences` to configure Org-specific security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this allows configuring CORS and non-embed access settings specific to the Org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. Cluster-level SAML and script-src settings require `ADMINISTRATION` privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "system",
+                "security-settings",
+                "configure"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "190ede24-9d39-4a2c-8154-4ed5eba650c0",
+              "name": "Successfully configured the security settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "configure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c3220ab-3bc3-497b-be4e-62878ffd3e79",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "configure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"groups_identifiers_with_access can only be set when block_full_app_access is true.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73e09d52-2052-4a42-b252-e428ec65fbf7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "configure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to configure security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6eeb9897-2b24-4775-a331-609ca4be7ffc",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "configure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"ADMINISTRATION privilege required to configure cluster-level security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b61243c8-87c0-4827-9b92-677f9abb5254",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "configure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": \"<boolean>\",\n    \"cors_whitelisted_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"font_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"visual_embed_hosts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"iframe_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"img_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": \"<boolean>\",\n        \"urls\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": \"<boolean>\",\n      \"groups_identifiers_with_access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"org_identifier\": \"<string>\",\n      \"cors_whitelisted_urls\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": \"<boolean>\",\n        \"groups_identifiers_with_access\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while configuring security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07024349-2e5c-4b0e-b898-61d9b365615f",
+          "name": "search Security Settings",
+          "request": {
+            "name": "search Security Settings",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nFetch security settings for your ThoughtSpot application instance.\n- Use `scope: CLUSTER` to retrieve cluster-level security settings, including CORS and CSP allowlists, SAML redirect URLs, and settings that control access to non-embedded pages.\n- Use `scope: ORG` to retrieve Org-level security settings. If your instance has [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview), this returns CORS and non-embed access settings specific to the Org.\n- If `scope` is not specified, returns both cluster and Org-specific settings based on user privileges.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\nSee [Security Settings](https://developers.thoughtspot.com/docs/security-settings) for more details.\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "system",
+                "security-settings",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c33d88bb-0983-4cfd-9c2d-1d019dd8b02c",
+              "name": "Successfully retrieved the list of security settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster_preferences\": {\n    \"enable_partitioned_cookies\": false,\n    \"cors_whitelisted_urls\": [\n      \"example.com\"\n    ],\n    \"csp_settings\": {\n      \"connect_src_urls\": [\n        \"https://connect.example.com\"\n      ],\n      \"font_src_urls\": [\n        \"https://font.example.com\"\n      ],\n      \"visual_embed_hosts\": [\n        \"https://embed.example.com\"\n      ],\n      \"iframe_src_urls\": [\n        \"https://embed.example.com\"\n      ],\n      \"img_src_urls\": [\n        \"https://img.example.com\"\n      ],\n      \"script_src_urls\": {\n        \"enabled\": true,\n        \"urls\": [\n          \"https://script.example.com\"\n        ]\n      },\n      \"style_src_urls\": [\n        \"https://style.example.com\"\n      ]\n    },\n    \"saml_redirect_urls\": [\n      \"https://saml.example.com\"\n    ],\n    \"non_embed_access\": {\n      \"block_full_app_access\": true\n    }\n  },\n  \"org_preferences\": [\n    {\n      \"org\": {\n        \"id\": 0,\n        \"name\": \"Primary\"\n      },\n      \"cors_whitelisted_urls\": [\n        \"https://cors.example.com\"\n      ],\n      \"non_embed_access\": {\n        \"block_full_app_access\": true,\n        \"groups_with_access\": [\n          {\n            \"id\": \"1234567890\",\n            \"name\": \"Group Name\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7ec3bf6-cd83-4319-82b9-1f1841a2bf9b",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"scope must be one of CLUSTER or ORG.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54bee9c5-d8cf-41d1-b5f6-e1d6c490aaa2",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to retrieve security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f655a2b-8d59-4f8b-952a-5462be51de75",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"ADMINISTRATION privilege required to retrieve cluster-level security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af18f7b4-771d-49b7-8e46-8234db041b77",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "system",
+                    "security-settings",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while retrieving security settings.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9cee72e-6f92-4b8d-88c8-947a7856273e",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.2.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

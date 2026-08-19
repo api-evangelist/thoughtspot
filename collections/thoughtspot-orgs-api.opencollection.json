@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Orgs API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates an Org object.\n\nTo use this API, the [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview) feature must be enabled in your cluster.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "deleteOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/:org_identifier/delete",
+            "params": [
+              {
+                "name": "org_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the Org"
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes an Org object from the ThoughtSpot system.\n\nRequires cluster administration (**Can administer Org**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\nWhen you delete an Org, all its users and objects created in that Org context are removed. However, if the users in the deleted Or"
+        },
+        {
+          "info": {
+            "name": "searchOrgs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of Orgs configured on the ThoughtSpot system. To get details of a specific Org, specify the Org ID or name. You can also pass parameters such as status, visibility, and user identifiers to get a specific list of Orgs.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATI"
+        },
+        {
+          "info": {
+            "name": "updateOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/:org_identifier/update",
+            "params": [
+              {
+                "name": "org_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the Org"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates an Org object. You can modify Org properties such as name, description, and user associations.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

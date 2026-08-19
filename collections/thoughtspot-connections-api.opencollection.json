@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Connections API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connection/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nCreates a connection to a data warehouse for live query services.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\n#### Create a connection without tables\n\nTo cre"
+        },
+        {
+          "info": {
+            "name": "deleteConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connection/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\n\n**Important**: This endpoint is deprecated and will be removed from ThoughtSpot in September 2025. ThoughtSpot strongly recommends using the\n[Delete Connection V2](#/http/api-endpoints/connections/delete-connection-v2) endpoint to delete your connection objects.  \n\n#### Usage guidelines\n\nDeletes a connection object.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION`"
+        },
+        {
+          "info": {
+            "name": "deleteConnectionV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/delete",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nDeletes a connection object.\n\n**Note**: If a connection has dependent objects, make sure you remove its associations before the delete operation.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREAT"
+        },
+        {
+          "info": {
+            "name": "downloadConnectionMetadataChanges",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/download-connection-metadata-changes/:connection_identifier",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID of the connection"
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nExports the difference in connection metadata between CDW and ThoughtSpot\n\nRequires `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:  \n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections*"
+        },
+        {
+          "info": {
+            "name": "fetchConnectionDiffStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/fetch-connection-diff-status/:connection_identifier",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID of the connection"
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nValidates the difference in connection metadata between CDW and ThoughtSpot.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connection"
+        },
+        {
+          "info": {
+            "name": "revokeRefreshTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/revoke-refresh-tokens",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection whose refresh tokens need to be revoked. All the users associated with the connection will have their refresh tokens revoked except the author."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.2.0.cl or later</span>\n\nRevokes OAuth refresh tokens for users who no longer require access to a data warehouse connection.\nWhen a token is revoked, the affected user's session for that connection is terminated, and they must re-authenticate to regain access.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac)"
+        },
+        {
+          "info": {
+            "name": "searchConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connection/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\nGets connection objects.\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\n- To get a list of all connections available in the ThoughtSpot system, send the API requ"
+        },
+        {
+          "info": {
+            "name": "syncMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/resync-metadata",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nSynchronizes connection metadata attributes from your Cloud Data Warehouse (CDW) with ThoughtSpot.\n\nRequires the  `DATAMANAGEMENT` (**Can manage data**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**) privilege is required.\n\n#### Usage guidelines\n\nTo synchronize attributes from a CDW, sp"
+        },
+        {
+          "info": {
+            "name": "updateConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connection/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.2.0.cl or later</span>\n\n**Important**: This endpoint is deprecated and will be removed from ThoughtSpot in September 2025. ThoughtSpot strongly recommends using the\n[Update connection V2](#/http/api-endpoints/connections/update-connection-v2) endpoint to update your connection objects.\n\n#### Usage guidelines\n\nUpdates a connection object.  \n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` "
+        },
+        {
+          "info": {
+            "name": "updateConnectionStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/status",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nActivates or deactivates a connection. A deactivated connection cannot be used for queries or operations until it is activated again.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required. Only the connection owner or an "
+        },
+        {
+          "info": {
+            "name": "updateConnectionV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/update",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nUpdates a connection object.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\nTo update a connection object, pass "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,761 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 9.0.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "9.0.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getCurrentUserInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/auth/session/user"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves details of the current user session for the token provided in the request header.\n\nAny ThoughtSpot user can access this endpoint and send an API request. The data returned in the API response varies according to user's privilege and object access permissions.\n\n**NOTE**: In ThoughtSpot, users with cluster administration privileges can access all Orgs by default. However, unless the administrator is explicitly added to an "
+        },
+        {
+          "info": {
+            "name": "getFullAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/full",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token for creating a full session in ThoughtSpot for a given user. Recommended for use cases that do not require Attribute-based access control (ABAC) via Row Level Security (RLS).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using the `secret_key` generated for your instance. To generate a `secret_key`, the administrator must enable [Truste"
+        },
+        {
+          "info": {
+            "name": "getObjectAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/object",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token that provides access to a specific metadata object. This object list is intersected with the list of objects the user is allowed to access via group membership. For more information, see [Object security](https://docs.thoughtspot.com/cloud/latest/security-data-object#object_security).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using "
+        },
+        {
+          "info": {
+            "name": "login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/session/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a login session for a ThoughtSpot user with Basic authentication.\n\nIn Basic authentication method, REST clients log in to ThoughtSpot using `username` and `password` attributes. On a multi-tenant cluster with Orgs, users can pass the ID of the Org in the API request to log in to a specific Org context.\n\n**Note**: If Multi-Factor Authentication (MFA) is enabled on your instance, the API login request with basic authenticati"
+        },
+        {
+          "info": {
+            "name": "logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/session/logout"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nLogs out a user from their current session.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "revokeToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/revoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nRevokes the authentication token issued for current user session.\n\nThe token of your current session expires when you make a call to the `/api/rest/2.0/auth/token/revoke` endpoint.\nthe users will not be able to access ThoughtSpot objects until a new token is obtained.\n\nTo restart your session, request for a new token from ThoughtSpot. See [Get Full Access Token](#/http/api-endpoints/authentication/get-full-access-token).\n\n\n\n\n####"
+        },
+        {
+          "info": {
+            "name": "fetchAnswerData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/answer/data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches data from a saved Answer.\n\nRequires at least view access to the saved Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row "
+        },
+        {
+          "info": {
+            "name": "fetchLiveboardData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/liveboard/data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets data from a Liveboard object and its visualization.  \n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the"
+        },
+        {
+          "info": {
+            "name": "searchData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/searchdata",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an Answer from a given data source.\n\nRequires at least view access to the data source object (Worksheet or View). If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nTo search data, specify the data source GUID in `logical_table_identifier`. The data source can "
+        },
+        {
+          "info": {
+            "name": "createUserGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/groups/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a group object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n#### About groups\nGroups in ThoughtSpot are used by the administrators to define privileges and organize users based on their roles and "
+        },
+        {
+          "info": {
+            "name": "deleteUserGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/groups/:group_identifier/delete",
+            "params": [
+              {
+                "name": "group_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID or name of the group."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the specified group object from the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "importUserGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/groups/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports group objects from external databases into ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\nDuring the import operation:\n\n* If the specified group is not available in ThoughtSpot, it will be added to Tho"
+        },
+        {
+          "info": {
+            "name": "searchUserGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/groups/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of user group objects from the ThoughtSpot system.\n\nTo get details of a specific user group, specify the user group GUID or name. You can also filter the API response based on User ID, Org ID, Role ID, type of group, sharing visibility, privileges assigned to the group, and the Liveboard IDs assigned to the users in the group.\n\nAvailable to all users. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privile"
+        },
+        {
+          "info": {
+            "name": "updateUserGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/groups/:group_identifier/update",
+            "params": [
+              {
+                "name": "group_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID or name of the group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the properties of a group object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `GROUP_ADMINISTRATION` (**Can manage groups**) privilege is required.\n\n#### Supported operations\n\nThis API endpoint lets you perform the following operations in a single API request:\n\n* Edi"
+        },
+        {
+          "info": {
+            "name": "fetchLogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/logs/fetch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches security audit logs.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the [Admin Control](https://developers.thoughtspot.com/docs/rbac#_admin_control) privileges are required.\n\n\n#### Usage guidelines\n\nBy default, the API retrieves logs for the last 24 hours. You can set a custom duration "
+        },
+        {
+          "info": {
+            "name": "deleteMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the specified metadata object from the ThoughtSpot system.\n\nRequires edit access to the metadata object. \n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "exportMetadataTML",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/tml/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports the [TML](https://docs.thoughtspot.com/cloud/latest/tml) representation of metadata objects in JSON or YAML format.\n\nRequires `DATADOWNLOADING` (**Can download Data**) and at least view access to the metadata object.\n\n#### Usage guidelines\n\n* You can export one or several objects by passing metadata object GUIDs in the `metadata` array.\n* When exporting TML content for a Liveboard or Answer object, you can set `export_asso"
+        },
+        {
+          "info": {
+            "name": "fetchAnswerSqlQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/answer/sql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches the underlying SQL query data for an Answer object.\n\nRequires at least view access to the Answer object.\n\nUpon successful execution, the API returns the SQL queries for the specified object as shown in this example:\n```\n{\n   \"metadata_id\":\"8fbe44a8-46ad-4b16-8d39-184b2fada490\",\n   \"metadata_name\":\"Total sales\",\n   \"metadata_type\":\"ANSWER\",\n   \"sql_queries\":[\n      {\n         \"metadata_id\":\"8fbe44a8-46ad-4b16-8d39-184b2fada"
+        },
+        {
+          "info": {
+            "name": "fetchLiveboardSqlQuery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/liveboard/sql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches the underlying SQL query data for a Liveboard object and its visualizations.\n\nRequires at least view access to the Liveboard object.\n\nTo get SQL query data for a Liveboard, specify the GUID of the Liveboard. Optionally, you can add an array of visualization GUIDs to retrieve the SQL query data for visualizations in the Liveboard.\n\nUpon successful execution, the API returns the SQL queries for the specified object as shown "
+        },
+        {
+          "info": {
+            "name": "importMetadataTML",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/tml/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports [TML](https://docs.thoughtspot.com/cloud/latest/tml) files into ThoughtSpot.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) or `ADMINISTRATION` (**Can administer ThoughtsSpot**) privilege.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections*"
+        },
+        {
+          "info": {
+            "name": "searchMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of metadata objects available on the ThoughtSpot system.\n\nThis API endpoint is available to all users who have view access to the object. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges can view data for all metadata objects, including users and groups.\n\n#### Usage guidelines\n\n- To get all metadata objects, send the API request without any attributes.\n- To get metadata objects of a specific type"
+        },
+        {
+          "info": {
+            "name": "createOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates an Org object.\n\nTo use this API, the [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview) feature must be enabled in your cluster.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "deleteOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/:org_identifier/delete",
+            "params": [
+              {
+                "name": "org_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the Org"
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes an Org object from the ThoughtSpot system.\n\nRequires cluster administration (**Can administer Org**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\nWhen you delete an Org, all its users and objects created in that Org context are removed. However, if the users in the deleted Or"
+        },
+        {
+          "info": {
+            "name": "searchOrgs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of Orgs configured on the ThoughtSpot system. To get details of a specific Org, specify the Org ID or name. You can also pass parameters such as status, visibility, and user identifiers to get a specific list of Orgs.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATI"
+        },
+        {
+          "info": {
+            "name": "updateOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/orgs/:org_identifier/update",
+            "params": [
+              {
+                "name": "org_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the Org"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates an Org object. You can modify Org properties such as name, description, and user associations.\n\nRequires cluster administration (**Can administer Org**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `ORG_ADMINISTRATION` (**Can manage Orgs**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "exportAnswerReport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/report/answer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.\n\nRequires at least view access to the Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, an"
+        },
+        {
+          "info": {
+            "name": "exportLiveboardReport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/report/liveboard",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.\nThe default `file_format` is CSV.\n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and"
+        },
+        {
+          "info": {
+            "name": "assignChangeAuthor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/assign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nTransfers the ownership of one or several objects from one user to another.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege and edit access to the objects are required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "fetchPermissionsOfPrincipals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/principals/fetch-permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches object permission details for a given principal object such as a user and group.\n\nRequires view access to the metadata object. \n\n#### Usage guidelines\n\n* To get a list of all metadata objects that a user or group can access, specify the `type` and GUID or name of the principal.\n* To get permission details for a specific object, add the `type` and GUID or name of the metadata object to your API request.\n\nUpon successful exe"
+        },
+        {
+          "info": {
+            "name": "fetchPermissionsOnMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/fetch-permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches permission details for a given metadata object.\n\nRequires view access to the metadata object.\n\n#### Usage guidelines\n\n* To fetch a list of users and groups for a metadata object, specify `type` and GUID or name of the metadata object.\n* To get permission details for a specific user or group, add `type` and GUID or name of the principal object to your API request.\n\nUpon successful execution, the API returns permission detai"
+        },
+        {
+          "info": {
+            "name": "shareMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/share",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAllows sharing one or several metadata objects with users and groups in ThoughtSpot.\n\nRequires edit access to the metadata object.\n\n#### Supported metadata objects:\n* Liveboards\n* Visualizations\n* Answers\n* Models\n* Views\n* Connections\n* Collections\n\n#### Object permissions\n\nYou can provide `READ_ONLY` or `MODIFY` access when sharing an object with another user or group. The `READ_ONLY` permission grants view access to the shared "
+        },
+        {
+          "info": {
+            "name": "getSystemConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/system/config"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves the current configuration details of the cluster. If the request is successful, the API returns a list configuration settings applied on the cluster.\n\nRequires `ADMINISTRATION`(**Can administer ThoughtSpot**) privilege to view these complete configuration settings of the cluster.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATIO"
+        },
+        {
+          "info": {
+            "name": "getSystemInformation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/system"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets system information such as the release version, locale, time zone, deployment environment, date format, and date time format of the cluster.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `SYSTEM_INFO_ADMINISTRATION` (**Can view system activities**) privilege is required.\n\nThis API does"
+        },
+        {
+          "info": {
+            "name": "assignTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/assign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAssigns tags to Liveboards, Answers, Tables, and Worksheets.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "createTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a tag object.\n\nTags are labels that identify a metadata object. For example, you can create a tag to designate subject areas, such as sales, HR, marketing, and finance.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create"
+        },
+        {
+          "info": {
+            "name": "deleteTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/:tag_identifier/delete",
+            "params": [
+              {
+                "name": "tag_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Tag identifier Tag name or Tag id."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes a tag object from the ThoughtSpot system\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "searchTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of tag objects available on the ThoughtSpot system. To get details of a specific tag object, specify the GUID or name.\n\nAny authenticated user can search for tag objects.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "unassignTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/unassign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the tags applied to a Liveboard, Answer, Table, or Worksheet.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "updateTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/tags/:tag_identifier/update",
+            "params": [
+              {
+                "name": "tag_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Name or Id of the tag."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates a tag object.\n\nYou can modify the `name` and `color` properties of a tag object.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "changeUserPassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/change-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the current password of the user.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "createUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a user in ThoughtSpot.\n\nThe API endpoint allows you to configure several user properties such as email address, account status, share notification preferences, and sharing visibility. You can provision the user to [groups](https://docs.thoughtspot.com/cloud/latest/groups-privileges) and [Orgs](https://docs.thoughtspot.com/cloud/latest/orgs-overview). You can also add Liveboard, Answer, and Worksheet objects to the user’s f"
+        },
+        {
+          "info": {
+            "name": "deleteUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/:user_identifier/delete",
+            "params": [
+              {
+                "name": "user_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID / name of the user"
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes a user from the ThoughtSpot system.\n\nIf you want to remove a user from a specific Org but not from ThoughtSpot, update the group and Org mapping properties of the user object via a POST API call to the [/api/rest/2.0/users/{user_identifier}/update](#/http/api-endpoints/users/update-user) endpoint.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers"
+        },
+        {
+          "info": {
+            "name": "forceLogoutUsers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/force-logout",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nEnforces logout on current user sessions.  \n\nUse this API with caution as it may invalidate active user sessions and force users to re-login. Make sure you specify the usernames or GUIDs. If you pass null values in the API call, all user sessions on your cluster become invalid, and the users are forced to re-login.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://"
+        },
+        {
+          "info": {
+            "name": "importUsers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nImports user data from external databases into ThoughtSpot. During the user import operation:\n\n* If the specified users are not available in ThoughtSpot, the users are created and assigned a default password. Defining a `default_password` in the API request is optional.\n* If `delete_unspecified_users` is set to `true`, the users not specified in the API request, excluding the `tsadmin`, `guest`, `system` and `su` users, are delete"
+        },
+        {
+          "info": {
+            "name": "resetUserPassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/reset-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nResets the password of a user account. Administrators can reset password on behalf of a user.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege is required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "searchUsers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of users available on the ThoughtSpot system.\n\nTo get details of a specific user, specify the user GUID or name. You can also filter the API response based on groups, Org ID, user visibility, account status, user type, and user preference settings and favorites.\n\nAvailable to all users. Users with `ADMINISTRATION` (**Can administer ThoughtSpot**) privileges can view all users properties. If [Role-Based Access Control ("
+        },
+        {
+          "info": {
+            "name": "updateUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/users/:user_identifier/update",
+            "params": [
+              {
+                "name": "user_identifier",
+                "value": "",
+                "type": "path",
+                "description": "GUID / name of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates the properties of a user object.\n\nYou can modify user properties such as username, email, and share notification settings. You can also assign new groups and Orgs, remove the user from a group or Org, reset password, and modify user preferences.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

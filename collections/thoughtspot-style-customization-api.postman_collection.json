@@ -1,0 +1,3639 @@
+{
+  "item": [
+    {
+      "id": "86e87f21-cc9d-48fa-a84a-94d1d98d098e",
+      "name": "Style Customization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76686f22-72eb-414e-87ef-056431bd6bed",
+          "name": "delete Style Fonts",
+          "request": {
+            "name": "delete Style Fonts",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDeletes one or more custom fonts from the cluster-level or org-level font library. If a deleted font is assigned to visualization areas, those assignments automatically fallback to the cluster/system default font. The response lists all affected areas where the font was explicitly set. Note: dry_run defaults to true. To actually delete fonts, you must explicitly pass dry_run: false.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Provide one or more font UUIDs or names in `font_identifiers`.\n- Set `scope` to `CLUSTER` to delete from the cluster-level library. Set `scope` to `ORG` (default) to delete from the authenticated user's org library.\n- Use `dry_run: true` to preview which visualization areas would be affected without actually deleting the font. The response lists affected assignments; no changes are applied.\n- Deletions cannot be undone. Re-upload the font file using `uploadStyleFont` if needed.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "fonts",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f85aa2d6-431c-4562-9c5a-d32e88346043",
+              "name": "Font deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"affected_assignments\": [\n    {\n      \"org\": {\n        \"id\": 1234567890,\n        \"name\": \"Sales\"\n      },\n      \"visualization_areas\": [\n        \"CHART_X_AXIS_LABELS\",\n        \"CHART_Y_AXIS_LABELS\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81626839-644a-46eb-a16f-149f07cef6a5",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Field 'font_identifiers' must contain at least one identifier.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8daa7c76-b9f6-45ba-8c7d-752aac97a16a",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to delete custom fonts from the font library.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86f17fed-9210-4fa1-a2ee-79f619547e80",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Only Tenant admin can delete cluster-level fonts.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38c46e84-6ca2-4988-b5df-495c445154a9",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"font_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": \"ORG\",\n  \"dry_run\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while deleting fonts from the font library.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "916900db-9ab1-419b-a4c5-2a9470708cc2",
+          "name": "export Style Logos",
+          "request": {
+            "name": "export Style Logos",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDownloads the active logos (default and wide slots) at the requested scope as a single ZIP archive containing both logo image files. If no custom logo has been uploaded at the ORG scope, the archive contains the resolved logo falling through from the cluster. If no cluster logo has been uploaded, no file is returned.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Set `scope` to `CLUSTER` to download cluster-level logos.\n- Set `scope` to `ORG` (default) to download logos for the authenticated user's org.\n- The response is a ZIP archive (`application/zip`). Save the response body directly to a `.zip` file.\n- The archive always contains two files — one for the DEFAULT slot and one for the WIDE slot — even if no custom logo is set at the requested scope.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "logos",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/zip"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"ORG\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "594930d0-6172-4068-afff-d8126025b47d",
+              "name": "Logo ZIP archive retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "logos",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Accept",
+                    "value": "application/zip",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/zip"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/zip"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "781cc998-a138-4858-ab86-2b2116b0a694",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "logos",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Accept",
+                    "value": "application/zip",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d545939-f96f-4405-aea9-a798e9a710c4",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "logos",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Accept",
+                    "value": "application/zip",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to export style logos.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29fd86ad-d1f6-4bee-a378-14fb99749528",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "logos",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Accept",
+                    "value": "application/zip",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Cluster-level logos can only be exported from PRIMARY org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cb485f5-3253-41df-bf38-c63be2ef6c4b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "logos",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Accept",
+                    "value": "application/zip",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while exporting style logos.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "039b60a5-28c2-41dd-8abe-456289b0fd2f",
+          "name": "search Style Customizations",
+          "request": {
+            "name": "search Style Customizations",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves style preferences at cluster level or for the authenticated user's org. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Set `scope` to `CLUSTER` to retrieve cluster-level style defaults.\n- Set `scope` to `ORG` (default) to retrieve preferences for the authenticated user's org.\n- Each field in the response includes an `is_overridden` flag indicating whether the value was explicitly set at the requested scope or inherited from a parent scope (cluster or system default).\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6c019bf-0868-4ec8-8dd9-13bf19bfc24b",
+              "name": "Style preferences retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"scope\": \"CLUSTER\",\n    \"navigation_panel\": {\n      \"theme\": \"DARK\",\n      \"is_overridden\": false\n    },\n    \"chart_color_palette\": {\n      \"colors\": [\n        {\n          \"primary\": \"#2359B6\",\n          \"secondary\": [\n            \"#1A4690\",\n            \"#0E2E66\",\n            \"#07194A\",\n            \"#030D30\"\n          ]\n        },\n        {\n          \"primary\": \"#E8552D\",\n          \"secondary\": [\n            \"#C4421A\",\n            \"#9E2F0D\",\n            \"#7A2005\",\n            \"#581302\"\n          ]\n        },\n        {\n          \"primary\": \"#F5A623\",\n          \"secondary\": [\n            \"#D08B0E\",\n            \"#A86E05\",\n            \"#825202\",\n            \"#5E3900\"\n          ]\n        },\n        {\n          \"primary\": \"#7ED321\",\n          \"secondary\": [\n            \"#62A815\",\n            \"#488009\",\n            \"#305A03\",\n            \"#1C3800\"\n          ]\n        },\n        {\n          \"primary\": \"#9B59B6\",\n          \"secondary\": [\n            \"#7D3F9A\",\n            \"#612C7E\",\n            \"#481C62\",\n            \"#320F48\"\n          ]\n        },\n        {\n          \"primary\": \"#1ABC9C\",\n          \"secondary\": [\n            \"#0E9E81\",\n            \"#077F67\",\n            \"#03624E\",\n            \"#014838\"\n          ]\n        },\n        {\n          \"primary\": \"#E74C3C\",\n          \"secondary\": [\n            \"#C0392B\",\n            \"#9A2518\",\n            \"#761409\",\n            \"#540703\"\n          ]\n        },\n        {\n          \"primary\": \"#3498DB\",\n          \"secondary\": [\n            \"#1A7DC0\",\n            \"#0E60A0\",\n            \"#074580\",\n            \"#032C60\"\n          ]\n        }\n      ],\n      \"disable_color_rotation\": false,\n      \"is_overridden\": false\n    },\n    \"embedded_footer_text\": {\n      \"value\": \"\",\n      \"is_overridden\": false\n    },\n    \"logo\": {\n      \"default_logo\": {\n        \"id\": \"a1b2c3d4-0001-0001-0001-000000000001\",\n        \"is_overridden\": false\n      },\n      \"wide_logo\": {\n        \"id\": \"a1b2c3d4-0002-0002-0002-000000000002\",\n        \"is_overridden\": false\n      }\n    },\n    \"visualization_fonts\": {\n      \"chart_visualization_fonts\": [\n        {\n          \"visualization_area\": \"CHART_X_AXIS_LABELS\",\n          \"font_id\": null,\n          \"font_name\": null,\n          \"is_overridden\": false\n        }\n      ],\n      \"table_visualization_fonts\": [\n        {\n          \"visualization_area\": \"TABLE_VALUE_CELLS\",\n          \"font_id\": null,\n          \"font_name\": null,\n          \"is_overridden\": false\n        }\n      ]\n    }\n  },\n  {\n    \"scope\": \"ORG\",\n    \"org\": {\n      \"id\": 1234567890,\n      \"name\": \"Sales\"\n    },\n    \"navigation_panel\": {\n      \"theme\": \"CUSTOM\",\n      \"base_color\": \"#2359B6\",\n      \"is_overridden\": true\n    },\n    \"chart_color_palette\": {\n      \"colors\": [\n        {\n          \"primary\": \"#2359B6\",\n          \"secondary\": [\n            \"#1A4690\",\n            \"#0E2E66\",\n            \"#07194A\",\n            \"#030D30\"\n          ]\n        },\n        {\n          \"primary\": \"#E8552D\",\n          \"secondary\": [\n            \"#C4421A\",\n            \"#9E2F0D\",\n            \"#7A2005\",\n            \"#581302\"\n          ]\n        },\n        {\n          \"primary\": \"#F5A623\",\n          \"secondary\": [\n            \"#D08B0E\",\n            \"#A86E05\",\n            \"#825202\",\n            \"#5E3900\"\n          ]\n        },\n        {\n          \"primary\": \"#7ED321\",\n          \"secondary\": [\n            \"#62A815\",\n            \"#488009\",\n            \"#305A03\",\n            \"#1C3800\"\n          ]\n        },\n        {\n          \"primary\": \"#9B59B6\",\n          \"secondary\": [\n            \"#7D3F9A\",\n            \"#612C7E\",\n            \"#481C62\",\n            \"#320F48\"\n          ]\n        },\n        {\n          \"primary\": \"#1ABC9C\",\n          \"secondary\": [\n            \"#0E9E81\",\n            \"#077F67\",\n            \"#03624E\",\n            \"#014838\"\n          ]\n        },\n        {\n          \"primary\": \"#E74C3C\",\n          \"secondary\": [\n            \"#C0392B\",\n            \"#9A2518\",\n            \"#761409\",\n            \"#540703\"\n          ]\n        },\n        {\n          \"primary\": \"#3498DB\",\n          \"secondary\": [\n            \"#1A7DC0\",\n            \"#0E60A0\",\n            \"#074580\",\n            \"#032C60\"\n          ]\n        }\n      ],\n      \"disable_color_rotation\": false,\n      \"is_overridden\": false\n    },\n    \"embedded_footer_text\": {\n      \"value\": \"Powered by Sales Analytics\",\n      \"is_overridden\": true\n    },\n    \"logo\": {\n      \"default_logo\": {\n        \"id\": \"b2c3d4e5-0001-0001-0001-000000000011\",\n        \"is_overridden\": true\n      },\n      \"wide_logo\": {\n        \"id\": \"b2c3d4e5-0002-0002-0002-000000000022\",\n        \"is_overridden\": true\n      }\n    },\n    \"visualization_fonts\": {\n      \"chart_visualization_fonts\": [\n        {\n          \"visualization_area\": \"CHART_X_AXIS_LABELS\",\n          \"font_id\": \"c3d4e5f6-1111-1111-1111-111111111111\",\n          \"font_name\": \"Acme Sans\",\n          \"is_overridden\": true\n        }\n      ],\n      \"table_visualization_fonts\": [\n        {\n          \"visualization_area\": \"TABLE_VALUE_CELLS\",\n          \"font_id\": null,\n          \"font_name\": \"Optimo-Plain, Helvetica Neue, Helvetica, Arial, sans-serif\",\n          \"is_overridden\": false\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4e47a8e-e553-47b3-b95c-efb93c713a68",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Field 'org_identifiers' is only allowed when scope is ORG.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01e4bb0e-a721-4485-999b-4e41281a828a",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to retrieve style preferences for the cluster or org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a63458-61f2-4e9d-a1cd-6121328b6a29",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Cluster config can only be accessed from PRIMARY org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1794f861-5964-451a-852f-71aa10b05050",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while retrieving style customization preferences.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "baedb4c7-06ad-46c8-8016-4ba4e553378f",
+          "name": "search Style Fonts",
+          "request": {
+            "name": "search Style Fonts",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns custom fonts from the cluster-level or org-level font library. Omitting all filter fields returns all fonts in the target scope.\n\nWhen `include_font_assignments` is `true`, the response includes only the visualization areas explicitly assigned to each font. For cluster-scoped fonts, `org` is returned as `null`.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Set `scope` to `CLUSTER` to search the cluster-level library. Set `scope` to `ORG` (default) to search the authenticated user's org library.\n- Use `font_identifier` to look up a specific font by UUID or name.\n- Use `name_pattern` for partial, case-insensitive name matching.\n- Set `include_font_assignments` to `true` to include visualization areas this font is currently assigned to. Defaults to `false`.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "fonts",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91ce710b-70e4-4db2-b10f-4af14564e40e",
+              "name": "Custom fonts retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"c3d4e5f6-1111-1111-1111-111111111111\",\n    \"scope\": \"ORG\",\n    \"org\": {\n      \"id\": 1234567890,\n      \"name\": \"Sales\"\n    },\n    \"name\": \"Acme Sans\",\n    \"weight\": \"NORMAL\",\n    \"style\": \"NORMAL\",\n    \"color\": \"#333333\",\n    \"creation_time_in_millis\": 1714000000000,\n    \"assignments\": [\n      {\n        \"org\": {\n          \"id\": 1234567890,\n          \"name\": \"Sales\"\n        },\n        \"visualization_areas\": [\n          \"CHART_X_AXIS_LABELS\",\n          \"CHART_Y_AXIS_LABELS\"\n        ]\n      }\n    ]\n  },\n  {\n    \"id\": \"d4e5f6a7-2222-2222-2222-222222222222\",\n    \"scope\": \"CLUSTER\",\n    \"name\": \"Corporate Bold\",\n    \"weight\": \"BOLD\",\n    \"style\": \"NORMAL\",\n    \"color\": \"#000000\",\n    \"creation_time_in_millis\": 1713500000000,\n    \"assignments\": []\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6988999d-52ba-40d3-a960-a569f489d44f",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Only one of 'font_identifier' or 'name_pattern' may be provided.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a31cdf07-0115-47a0-8e5f-f0015896f711",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to search the cluster-level or org-level font library.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e8d4c0-cc55-4729-857b-713e6bef7e2d",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Cluster config can only be accessed from PRIMARY org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cb5285e-40b5-40ae-a822-f50e20e2bfc2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"<string>\",\n  \"font_identifier\": \"<string>\",\n  \"name_pattern\": \"<string>\",\n  \"include_font_assignments\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while searching the font library.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f237272-db26-4d67-9ca3-9229938d8013",
+          "name": "update Style Customization",
+          "request": {
+            "name": "update Style Customization",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates style preferences at cluster level or for the authenticated user's org, including navigation panel color, chart color palette, embedded footer text, logo, and font assignments per visualization area. Cluster-level preferences serve as defaults for all orgs. Org-level preferences override cluster defaults. Resetting an Org-level preference falls back to Cluster-level preference, which on reset falls back to system defaults.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**)  privilege.\n\n#### Usage guidelines\n\nTwo operations are supported via the `operation` field:\n\n- **REPLACE** (default): Applies the fields provided in the request. Omitted fields remain unchanged.\n- **RESET**: Reverts specific fields to defaults. Specify which fields to reset using `reset_options.style` (for style fields) and `reset_options.visualization_areas` (for font assignments). Fields not listed in `reset_options` are not affected.\n\n#### Logo upload\n\nLogo files are uploaded as binary fields using `multipart/form-data`:\n\n- `default_logo`: Square app icon and favicon. Recommended size: 140×140 px. Accepted formats: PNG, JPG.\n- `wide_logo`: Horizontal top nav bar logo. Recommended size: 230×45 px. Accepted formats: PNG, JPG.\n\nTo reset a logo to the default, use `operation: RESET` with `reset_options.style` set to `DEFAULT_LOGO` or `WIDE_LOGO`.\n\n#### Navigation panel color\n\nSet `navigation_panel.theme` to one of:\n\n- `DARK`: Default dark theme.\n- `TWO_TONE`: Dual-tone panel style.\n- `CUSTOM`: User-defined color. Provide `navigation_panel.base_color` as a 6-digit hex string (e.g. `#2359B6`).\n\n#### Chart color palette\n\nProvide exactly 8 color entries in `chart_color_palette.colors`. Each entry requires a `primary` hex color. If `secondary` shades are omitted, the server auto-generates 4 shades from the primary color.\n\n#### Font assignments\n\nSpecify `visualization_fonts.chart_visualization_fonts`, `visualization_fonts.table_visualization_fonts`, and `visualization_fonts.advanced_chart_visualization_fonts` to assign custom fonts to specific visualization areas. Only provide the areas you want to update; omitted areas remain unchanged.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "scope",
+                  "value": "ORG",
+                  "type": "text",
+                  "description": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)"
+                },
+                {
+                  "key": "operation",
+                  "value": "REPLACE",
+                  "type": "text",
+                  "description": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)"
+                },
+                {
+                  "key": "reset_options",
+                  "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                  "type": "text",
+                  "contentType": "application/json",
+                  "description": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults."
+                },
+                {
+                  "key": "navigation_panel",
+                  "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                  "type": "text",
+                  "contentType": "application/json",
+                  "description": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color."
+                },
+                {
+                  "key": "chart_color_palette",
+                  "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                  "type": "text",
+                  "contentType": "application/json",
+                  "description": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors."
+                },
+                {
+                  "key": "embedded_footer_text",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Custom footer text for the embedded application. An empty\nstring clears the footer."
+                },
+                {
+                  "key": "visualization_fonts",
+                  "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                  "type": "text",
+                  "contentType": "application/json",
+                  "description": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged."
+                },
+                {
+                  "key": "default_logo",
+                  "type": "file",
+                  "description": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG."
+                },
+                {
+                  "key": "wide_logo",
+                  "type": "file",
+                  "description": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "264b44ef-94c8-4022-8514-9dbee18e5744",
+              "name": "Style preferences updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)",
+                        "type": "text/plain"
+                      },
+                      "key": "operation",
+                      "value": "REPLACE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults.",
+                        "type": "text/plain"
+                      },
+                      "key": "reset_options",
+                      "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color.",
+                        "type": "text/plain"
+                      },
+                      "key": "navigation_panel",
+                      "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors.",
+                        "type": "text/plain"
+                      },
+                      "key": "chart_color_palette",
+                      "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom footer text for the embedded application. An empty\nstring clears the footer.",
+                        "type": "text/plain"
+                      },
+                      "key": "embedded_footer_text",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged.",
+                        "type": "text/plain"
+                      },
+                      "key": "visualization_fonts",
+                      "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "wide_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26f87a5d-c7e1-4f61-9b2c-3a86d0bb237b",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)",
+                        "type": "text/plain"
+                      },
+                      "key": "operation",
+                      "value": "REPLACE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults.",
+                        "type": "text/plain"
+                      },
+                      "key": "reset_options",
+                      "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color.",
+                        "type": "text/plain"
+                      },
+                      "key": "navigation_panel",
+                      "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors.",
+                        "type": "text/plain"
+                      },
+                      "key": "chart_color_palette",
+                      "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom footer text for the embedded application. An empty\nstring clears the footer.",
+                        "type": "text/plain"
+                      },
+                      "key": "embedded_footer_text",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged.",
+                        "type": "text/plain"
+                      },
+                      "key": "visualization_fonts",
+                      "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "wide_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"chart_color_palette must specify exactly 8 color entries when operation is REPLACE.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acad4a0c-3fcc-4ad3-8141-d400330abf7a",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)",
+                        "type": "text/plain"
+                      },
+                      "key": "operation",
+                      "value": "REPLACE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults.",
+                        "type": "text/plain"
+                      },
+                      "key": "reset_options",
+                      "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color.",
+                        "type": "text/plain"
+                      },
+                      "key": "navigation_panel",
+                      "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors.",
+                        "type": "text/plain"
+                      },
+                      "key": "chart_color_palette",
+                      "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom footer text for the embedded application. An empty\nstring clears the footer.",
+                        "type": "text/plain"
+                      },
+                      "key": "embedded_footer_text",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged.",
+                        "type": "text/plain"
+                      },
+                      "key": "visualization_fonts",
+                      "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "wide_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to update style customization preferences.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e14aeeb-5b5c-4b63-8173-aa2d5d273f99",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)",
+                        "type": "text/plain"
+                      },
+                      "key": "operation",
+                      "value": "REPLACE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults.",
+                        "type": "text/plain"
+                      },
+                      "key": "reset_options",
+                      "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color.",
+                        "type": "text/plain"
+                      },
+                      "key": "navigation_panel",
+                      "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors.",
+                        "type": "text/plain"
+                      },
+                      "key": "chart_color_palette",
+                      "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom footer text for the embedded application. An empty\nstring clears the footer.",
+                        "type": "text/plain"
+                      },
+                      "key": "embedded_footer_text",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged.",
+                        "type": "text/plain"
+                      },
+                      "key": "visualization_fonts",
+                      "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "wide_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Cluster-level style customization can only be updated from PRIMARY org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "848978eb-50f6-40a7-8c54-f081ee489292",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Scope at which to apply the preferences. CLUSTER sets cluster-level\ndefaults for all orgs. ORG applies to the authenticated user's org. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Operation to perform. REPLACE (default) applies the provided fields and\nleaves omitted fields unchanged. RESET reverts fields listed in\nreset_options to defaults. (This can only be one of REPLACE,RESET)",
+                        "type": "text/plain"
+                      },
+                      "key": "operation",
+                      "value": "REPLACE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Fields to reset when operation is RESET. Specify style fields and\nvisualization areas to revert to defaults.",
+                        "type": "text/plain"
+                      },
+                      "key": "reset_options",
+                      "value": "{\"style\":[\"<string>\",\"<string>\"],\"visualization_areas\":[\"<string>\",\"<string>\"]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Navigation panel color. Provide theme and, when theme is CUSTOM, also\nprovide base_color.",
+                        "type": "text/plain"
+                      },
+                      "key": "navigation_panel",
+                      "value": "{\"theme\":\"<string>\",\"base_color\":\"<string>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Chart color palette. When provided with operation REPLACE, exactly 8\ncolor entries must be specified in colors.",
+                        "type": "text/plain"
+                      },
+                      "key": "chart_color_palette",
+                      "value": "{\"colors\":[{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]},{\"primary\":\"<string>\",\"secondary\":[\"<string>\",\"<string>\"]}],\"disable_color_rotation\":\"<boolean>\"}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom footer text for the embedded application. An empty\nstring clears the footer.",
+                        "type": "text/plain"
+                      },
+                      "key": "embedded_footer_text",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Font assignments per visualization area. Provide only the areas to\nupdate; omitted areas remain unchanged.",
+                        "type": "text/plain"
+                      },
+                      "key": "visualization_fonts",
+                      "value": "{\"chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"table_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}],\"advanced_chart_visualization_fonts\":[{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"},{\"visualization_area\":\"<string>\",\"font_identifier\":\"<string>\"}]}",
+                      "type": "text",
+                      "contentType": "application/json"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the DEFAULT logo slot (square app icon and favicon;\nrecommended 140x140 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary image for the WIDE logo slot (horizontal top nav bar logo;\nrecommended 230x45 px). Accepted formats: PNG, JPG.",
+                        "type": "text/plain"
+                      },
+                      "key": "wide_logo",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while updating style customization preferences.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03a31ed6-4515-4e19-bc9a-45c2fa3bf677",
+          "name": "update Style Font",
+          "request": {
+            "name": "update Style Font",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUpdates the metadata of an existing custom font in the cluster-level or org-level font library. Only the fields provided in the request are modified; omitted fields remain unchanged.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Identify the font using `font_identifier` (UUID or name).\n- Set `scope` to `CLUSTER` to target the cluster-level library. Set `scope` to `ORG` (default) to target the authenticated user's org library.\n- To replace the font file itself (WOFF/WOFF2 binary), delete the existing font and re-upload using `uploadStyleFont`.\n- `color` must be a valid 6-digit hex string (e.g. `#333333`) if provided.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "fonts",
+                ":font_identifier",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "font_identifier",
+                  "description": "(Required) UUID or name of the font to update."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe932659-d205-4528-becd-e648f88d0f99",
+              "name": "Font metadata updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    ":font_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "font_identifier",
+                      "description": "(Required) UUID or name of the font to update."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89be5726-bbbc-4589-af3e-0200df040269",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    ":font_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "font_identifier",
+                      "description": "(Required) UUID or name of the font to update."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Font color must be a valid 6-digit hex string (e.g. '#333333').\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61c3a135-0d87-495d-8a8f-9332bbb9738d",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    ":font_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "font_identifier",
+                      "description": "(Required) UUID or name of the font to update."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to update a custom font.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5ac7321-77e5-40de-855d-39e067715fd2",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    ":font_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "font_identifier",
+                      "description": "(Required) UUID or name of the font to update."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Only Tenant admin can update cluster-level fonts.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1678985-8f13-4538-bebb-bfc45e5eb1fa",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    ":font_identifier",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "font_identifier",
+                      "description": "(Required) UUID or name of the font to update."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scope\": \"ORG\",\n  \"name\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"style\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while updating the custom font.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ca2d62f-313a-43cb-8331-3c9c980b0ee0",
+          "name": "upload Style Font",
+          "request": {
+            "name": "upload Style Font",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUploads a custom font to the cluster-level or org-level font library. Cluster-level fonts are available as defaults for all orgs. Org-level fonts are only available within that org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege.\n\n#### Usage guidelines\n\n- Only **WOFF** and **WOFF2** font formats are accepted. TTF and OTF files are rejected with an error.\n- Set `scope` to `CLUSTER` to upload to the cluster-level library. Set `scope` to `ORG` (default) to upload to the authenticated user's org library.\n- `weight` defaults to `NORMAL` if omitted. Supported values: `NORMAL`, `LIGHT`, `BOLD`.\n- `style` defaults to `NORMAL` if omitted. Supported values: `NORMAL`, `ITALIC`, `OBLIQUE`.\n- `color` defaults to `#000000` (black) if omitted. Provide as a 6-digit hex string (e.g. `#333333`).\n- The uploaded font can be assigned to visualization areas using the `updateStyleCustomization` endpoint.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "customization",
+                "styles",
+                "fonts",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Display name for the font (e.g. \"Acme Sans\")."
+                },
+                {
+                  "key": "file_content",
+                  "type": "file",
+                  "description": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload."
+                },
+                {
+                  "key": "scope",
+                  "value": "ORG",
+                  "type": "text",
+                  "description": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)"
+                },
+                {
+                  "key": "weight",
+                  "value": "NORMAL",
+                  "type": "text",
+                  "description": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)"
+                },
+                {
+                  "key": "style",
+                  "value": "NORMAL",
+                  "type": "text",
+                  "description": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)"
+                },
+                {
+                  "key": "color",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f60edda4-13f6-423b-a1c7-29486bde24aa",
+              "name": "Font uploaded successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the font (e.g. \"Acme Sans\").",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)",
+                        "type": "text/plain"
+                      },
+                      "key": "style",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed.",
+                        "type": "text/plain"
+                      },
+                      "key": "color",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"c3d4e5f6-1111-1111-1111-111111111111\",\n  \"name\": \"Acme Sans\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9613c392-4324-4000-a81e-4c00c0e1e674",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the font (e.g. \"Acme Sans\").",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)",
+                        "type": "text/plain"
+                      },
+                      "key": "style",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed.",
+                        "type": "text/plain"
+                      },
+                      "key": "color",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10002,\n      \"incident_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"trace_id_guid\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"debug\": \"Unsupported font format. Only WOFF and WOFF2 are accepted.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77eac7ef-fcc4-4019-aa8a-4a297fd5f1e9",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the font (e.g. \"Acme Sans\").",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)",
+                        "type": "text/plain"
+                      },
+                      "key": "style",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed.",
+                        "type": "text/plain"
+                      },
+                      "key": "color",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10097,\n      \"incident_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"trace_id_guid\": \"b2c3d4e5-f678-9012-bcde-f23456789012\",\n      \"debug\": \"Authentication required to upload a custom font to the font library.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "808a81d8-d507-4cc8-9dbf-7c7b0f7cc236",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the font (e.g. \"Acme Sans\").",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)",
+                        "type": "text/plain"
+                      },
+                      "key": "style",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed.",
+                        "type": "text/plain"
+                      },
+                      "key": "color",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10023,\n      \"incident_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"trace_id_guid\": \"c3d4e5f6-7890-1234-cdef-345678901234\",\n      \"debug\": \"Cluster config can only be accessed from PRIMARY org.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b612c0a0-bdcf-4da8-8497-361576cf39da",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "customization",
+                    "styles",
+                    "fonts",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Display name for the font (e.g. \"Acme Sans\").",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Binary WOFF or WOFF2 font file to upload. Only WOFF and WOFF2 formats\nare accepted; TTF and OTF are rejected. The file is validated on upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Scope of the font library to upload to. CLUSTER uploads to the\ncluster-level library, making the font available as a default for all\norgs. ORG uploads to the authenticated user's org library. Defaults to\nORG if omitted. (This can only be one of CLUSTER,ORG)",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "ORG",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Weight of the font. Supported values: NORMAL, LIGHT, BOLD. Defaults to\nNORMAL if omitted. (This can only be one of NORMAL,LIGHT,BOLD)",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Style of the font. Supported values: NORMAL, ITALIC, OBLIQUE. Defaults\nto NORMAL if omitted. (This can only be one of NORMAL,ITALIC,OBLIQUE)",
+                        "type": "text/plain"
+                      },
+                      "key": "style",
+                      "value": "NORMAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Color of the font as a 6-digit hex string (e.g. \"#333333\"). Defaults to\n#000000 (black) if omitted. Returns an error if the value is malformed.",
+                        "type": "text/plain"
+                      },
+                      "key": "color",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": {\n      \"code\": 10038,\n      \"incident_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"trace_id_guid\": \"d4e5f678-9012-3456-defa-456789012345\",\n      \"debug\": \"Unexpected server error while uploading the custom font.\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5741701a-e26c-4b3f-abe9-977e1a3622f1",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Style Customization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

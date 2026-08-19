@@ -1,0 +1,433 @@
+{
+  "item": [
+    {
+      "id": "b480a86a-8326-4f41-b73c-591bb6c608aa",
+      "name": "10.8.0.cl",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "732d8f37-9fc6-4bbe-8914-0b8b62ef266f",
+          "name": "update Metadata Obj Id",
+          "request": {
+            "name": "update Metadata Obj Id",
+            "description": {
+              "content": "\nUpdate object IDs for given metadata objects. <br/> <span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.8.0.cl or later</span>\n\n## Prerequisites\n- **Privileges Required:**\n  - `DATAMANAGEMENT` (Can manage data) or `ADMINISTRATION` (Can administer ThoughtSpot).\n- **Additional Privileges (if RBAC is enabled):**\n  - `ORG_ADMINISTRATION` (Can manage orgs).\n\n---\n\n## Usage Guidelines\n\n### Parameters\n\n1. **metadata**  \n   - **Description:** List of metadata objects to update their object IDs.\n   - **Usage:**\n      - Use either `current_obj_id` alone OR use `metadata_identifier` with `type` (when needed).\n      - When using `metadata_identifier`, the `type` field is required if using a name instead of a GUID.\n      - The `new_obj_id` field is always required.\n\n---\n\n## Note\nThis API is specifically designed for updating object IDs of metadata objects. It internally uses the header update mechanism to perform the changes.\n\n## Best Practices\n\n1. **Backup Before Update:**  \n   Always export metadata as a backup before initiating the update process.\n\n2. **Validation:**\n   - When using `current_obj_id`, ensure it matches the existing object ID exactly.\n   - When using `metadata_identifier` with a name, ensure the `type` is specified correctly.\n   - Verify that the `new_obj_id` follows your naming conventions and is unique within your system.\n\n---\n\n## Examples\n\n### Using current_obj_id\n```json\n{\n  \"metadata\": [\n    {\n      \"current_obj_id\": \"existing_object_id\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Using metadata_identifier with GUID\n```json\n{\n  \"metadata\": [\n    {\n      \"metadata_identifier\": \"01234567-89ab-cdef-0123-456789abcdef\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Using metadata_identifier with name and type\n```json\n{\n  \"metadata\": [\n    {\n      \"metadata_identifier\": \"My Answer\",\n      \"type\": \"ANSWER\",\n      \"new_obj_id\": \"new_object_id\"\n    }\n  ]\n}\n```\n\n### Multiple objects update\n```json\n{\n  \"metadata\": [\n    {\n      \"current_obj_id\": \"existing_object_id_1\",\n      \"new_obj_id\": \"new_object_id_1\"\n    },\n    {\n      \"metadata_identifier\": \"My Worksheet\",\n      \"type\": \"LOGICAL_TABLE\",\n      \"new_obj_id\": \"new_object_id_2\"\n    }\n  ]\n}\n```\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "metadata",
+                "update-obj-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd518df3-90fb-4dcb-876e-c2ffc36e7acb",
+              "name": "Headers update was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "update-obj-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed7ce4b3-51d7-40c9-9c4a-eaac0082218c",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "update-obj-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a40c6015-04aa-4b72-9e37-fdc071b0d275",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "update-obj-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "390df4a8-727e-473f-8abf-6a744b5de02b",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "update-obj-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "515fa5d4-b4e7-4870-b05a-f836f8bc3ae3",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "metadata",
+                    "update-obj-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": [\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    },\n    {\n      \"new_obj_id\": \"<string>\",\n      \"metadata_identifier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"current_obj_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "58a7ac73-6c8d-4c72-b4ce-bd1775068a08",
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.8.0.cl API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

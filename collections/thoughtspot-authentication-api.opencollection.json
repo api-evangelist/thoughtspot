@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Authentication API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "configureAuthSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/configure",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nEnables or disables authentication at cluster or org level for the specified auth type. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.co"
+        },
+        {
+          "info": {
+            "name": "getCurrentUserInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/auth/session/user"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRetrieves details of the current user session for the token provided in the request header.\n\nAny ThoughtSpot user can access this endpoint and send an API request. The data returned in the API response varies according to user's privilege and object access permissions.\n\n**NOTE**: In ThoughtSpot, users with cluster administration privileges can access all Orgs by default. However, unless the administrator is explicitly added to an "
+        },
+        {
+          "info": {
+            "name": "getCurrentUserToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/auth/session/token"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.4.0.cl or later</span>\n\nRetrieves details of the current session token for the bearer token provided in the request header.\n\nThis API endpoint does not create a new token. Instead, it returns details about the token, including the token string, creation time, expiration time, and the associated user.\n\nUse this endpoint to introspect your current session token, debug authentication issues, or when a frontend application needs session token details.\n\nAny T"
+        },
+        {
+          "info": {
+            "name": "getCustomAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/custom",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nCreates an authentication token that provides values for the formula variables in the Row Level Security (RLS) rules for a given user. Recommended for use cases that require Attribute-based access control (ABAC) via RLS.\n\n#### Required privileges\n\nTo add a new user and assign privileges during auto-creation, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://"
+        },
+        {
+          "info": {
+            "name": "getFullAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/full",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token for creating a full session in ThoughtSpot for a given user. Recommended for use cases that do not require Attribute-based access control (ABAC) via Row Level Security (RLS).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using the `secret_key` generated for your instance. To generate a `secret_key`, the administrator must enable [Truste"
+        },
+        {
+          "info": {
+            "name": "getObjectAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/object",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an authentication token that provides access to a specific metadata object. This object list is intersected with the list of objects the user is allowed to access via group membership. For more information, see [Object security](https://docs.thoughtspot.com/cloud/latest/security-data-object#object_security).\n\n#### Usage guidelines\n\nYou can generate a token for a user by providing a `username` and `password`, or by using "
+        },
+        {
+          "info": {
+            "name": "login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/session/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a login session for a ThoughtSpot user with Basic authentication.\n\nIn Basic authentication method, REST clients log in to ThoughtSpot using `username` and `password` attributes. On a multi-tenant cluster with Orgs, users can pass the ID of the Org in the API request to log in to a specific Org context.\n\n**Note**: If Multi-Factor Authentication (MFA) is enabled on your instance, the API login request with basic authenticati"
+        },
+        {
+          "info": {
+            "name": "logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/session/logout"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nLogs out a user from their current session.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "revokeToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/revoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\n\nRevokes the authentication token issued for current user session.\n\nThe token of your current session expires when you make a call to the `/api/rest/2.0/auth/token/revoke` endpoint.\nthe users will not be able to access ThoughtSpot objects until a new token is obtained.\n\nTo restart your session, request for a new token from ThoughtSpot. See [Get Full Access Token](#/http/api-endpoints/authentication/get-full-access-token).\n\n\n\n\n####"
+        },
+        {
+          "info": {
+            "name": "searchAuthSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 26.6.0.cl or later</span>\n\nReturns the authentication configuration for the specified auth type at cluster and org level. Currently supports `TRUSTED_AUTH`.\n\n#### Required privileges\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `CONTROL_TRUSTED_AUTH` (**Can Enable or Disable Trusted Authentication**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thought"
+        },
+        {
+          "info": {
+            "name": "validateToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.12.0.cl or later</span>\n\n\nValidates the authentication token specified in the API request.\n\nIf your token is not valid, [Get a new token](#/http/api-endpoints/authentication/get-full-access-token).\n\n\n\n\n#### Endpoint URL\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

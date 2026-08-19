@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 26.9.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "26.9.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getSharedContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-shared-content",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the source conversation."
+              }
+            ]
+          },
+          "docs": "\nReturns the full read-only view of a shared conversation, including ordered\nmessages and data source metadata. Accessible by the conversation owner and\nany principal (user or group) that has been granted access.\nRequires `CAN_USE_SPOTTER` privilege. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nReturns the full read-only view of a shared conversation, including ordered messages and data source metadata. Accessible by the conversation owner and any principal (user or gr"
+        },
+        {
+          "info": {
+            "name": "getShareInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/get-share-info",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation."
+              }
+            ]
+          },
+          "docs": "\nReturns the current share state for a conversation the caller owns: whether\nthe shared view is outdated relative to the latest conversation content, and\nthe list of principals that currently have access.\nRequires `CAN_USE_SPOTTER` privilege and ownership of the specified conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nReturns the current share state for a conversation the caller owns: whether the shared view reflects the latest conversation content, and the"
+        },
+        {
+          "info": {
+            "name": "shareConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/agent/conversations/:conversation_identifier/share",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation to share."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nGrants or revokes access to a shared conversation for one or more principals\n(users or groups). When principals are added, a read-only shared view of the\nconversation is created from its current state. Use `refresh_shared_content`\nto regenerate the shared view with the latest conversation content.\nRequires `CAN_USE_SPOTTER` privilege and ownership of the specified conversation. <br/>  <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nGrants or revokes access to a shared conversat"
+        },
+        {
+          "info": {
+            "name": "createSemanticIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/semantic-integrations/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nCreates a new semantic integration in ThoughtSpot from a CDW semantic view.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections"
+        },
+        {
+          "info": {
+            "name": "deleteSemanticIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/delete",
+            "params": [
+              {
+                "name": "semantic_integration_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the semantic integration to delete."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nDeletes a semantic integration and its associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- *"
+        },
+        {
+          "info": {
+            "name": "importSemanticIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/semantic-integrations/:semantic_integration_identifier/import",
+            "params": [
+              {
+                "name": "semantic_integration_identifier",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the semantic integration to import updates for."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nImports semantic updates for an existing semantic integration from its CDW source and refreshes the associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREA"
+        },
+        {
+          "info": {
+            "name": "searchSemanticIntegrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/semantic-integrations/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nSearches and lists semantic integrations available to the authenticated user in the current organization, with optional filters, sort, and pagination.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be r"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

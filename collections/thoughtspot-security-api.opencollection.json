@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Security API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Security",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "assignChangeAuthor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/assign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nTransfers the ownership of one or several objects from one user to another.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\n\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `USER_ADMINISTRATION` (**Can manage users**) privilege and edit access to the objects are required.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "fetchColumnSecurityRules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/column/rules/fetch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nFetches column security rules for specified tables.\n\nThis API endpoint retrieves column-level security rules configured for tables. It returns information about which columns are secured and which groups have access to those columns.\n\n#### Usage guidelines\n\n- Provide an array of table identifiers using either `identifier` (GUID or name) or `obj_identifier` (object ID)\n- At least one of `id"
+        },
+        {
+          "info": {
+            "name": "fetchObjectPrivileges",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/fetch-object-privileges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API fetches the object privileges present for the given list of principals (user or group), on the given set of objects. It supports pagination, which can be enabled and configured using the request parameters. It provides users access to certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `type` (`USER` or `USER_GROUP`) and `identifier` (either GUID or name) of the principals for "
+        },
+        {
+          "info": {
+            "name": "fetchPermissionsOfPrincipals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/principals/fetch-permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches object permission details for a given principal object such as a user and group.\n\nRequires view access to the metadata object. \n\n#### Usage guidelines\n\n* To get a list of all metadata objects that a user or group can access, specify the `type` and GUID or name of the principal.\n* To get permission details for a specific object, add the `type` and GUID or name of the metadata object to your API request.\n\nUpon successful exe"
+        },
+        {
+          "info": {
+            "name": "fetchPermissionsOnMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/fetch-permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches permission details for a given metadata object.\n\nRequires view access to the metadata object.\n\n#### Usage guidelines\n\n* To fetch a list of users and groups for a metadata object, specify `type` and GUID or name of the metadata object.\n* To get permission details for a specific user or group, add `type` and GUID or name of the principal object to your API request.\n\nUpon successful execution, the API returns permission detai"
+        },
+        {
+          "info": {
+            "name": "manageObjectPrivilege",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/manage-object-privilege",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.3.0.cl or later</span>\n\nThis API allows the addition or deletion of object level privileges for a set of users and groups, on a set of metadata objects. It provides users to access certain features based on privilege based access control.\n\n#### Usage guidelines\n\n- Specify the `operation`. The supported operations are: `ADD`, `REMOVE`.\n- Specify the type of the objects on which the object privileges are being provided in `metadata_type`. Only `LOGICAL_TA"
+        },
+        {
+          "info": {
+            "name": "publishMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows publishing metadata objects across organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows publishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nThis API will essentially share the objects along with it's dependencies to\nthe org admins of the orgs to which it is being published.\n\n\n\n\n#### Endpoint URL\n"
+        },
+        {
+          "info": {
+            "name": "shareMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/share",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAllows sharing one or several metadata objects with users and groups in ThoughtSpot.\n\nRequires edit access to the metadata object.\n\n#### Supported metadata objects:\n* Liveboards\n* Visualizations\n* Answers\n* Models\n* Views\n* Connections\n* Collections\n\n#### Object permissions\n\nYou can provide `READ_ONLY` or `MODIFY` access when sharing an object with another user or group. The `READ_ONLY` permission grants view access to the shared "
+        },
+        {
+          "info": {
+            "name": "unpublishMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/metadata/unpublish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 26.5.0.cl or later</span>\n\nAllows unpublishing metadata objects from organizations in ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\n\nThe API endpoint allows unpublishing the following types of metadata objects:\n* Liveboards\n* Answers\n* Logical Tables\n\nWhen unpublishing objects, you can:\n* Include dependencies by setting `include_dependencies` to true - this will unpublish all dependent objects if no other published object is using them\n* For"
+        },
+        {
+          "info": {
+            "name": "updateColumnSecurityRules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/security/column/rules/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.12.0.cl or later</span>\n\nCreates, updates, or deletes column security rules for specified tables.\n\nThis API endpoint allows you to create, update, or delete column-level security rules on columns of a table. The operation follows an \"all or none\" policy: if defining security rules for any of the provided columns fails, the entire operation will be rolled back, and no rules will be created.\n\n#### Usage guidelines\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

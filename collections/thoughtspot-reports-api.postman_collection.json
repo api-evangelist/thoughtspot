@@ -1,0 +1,824 @@
+{
+  "item": [
+    {
+      "id": "cc9f8b39-fb78-4334-b392-481be7d97c8c",
+      "name": "Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74ac6d0e-c56c-4d8f-8102-155a68a98e7c",
+          "name": "export Answer Report",
+          "request": {
+            "name": "export Answer Report",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.\n\nRequires at least view access to the Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, and `PDF` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege. For an Answer, the `PDF` export is a table PDF, which is why it falls under `CAN_DOWNLOAD_DETAILED_DATA` rather than `CAN_DOWNLOAD_VISUALS`.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Answer and set `file_format`. The default file format is CSV.\n\nUse the `type` parameter to specify whether the Answer being exported is a saved Answer (`SAVED`) or a pinned Answer on a Liveboard (`PINNED`). Defaults to `SAVED`. When using `PINNED`, the `metadata_identifier` must be the container id.\n\n**NOTE**:\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n* HTML rendering is not supported for PDF exports of Answers with tables.\n\nOptionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.  \n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "report",
+                "answer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bae5f49d-125e-4e85-8528-f159ab3ec06c",
+              "name": "Export report file of specified metadata object is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36c86bed-ae29-4600-8186-8d13448c65cf",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19ba1bc0-2861-46ec-8070-1c23bd473804",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10e19578-414b-4dd7-b74e-8532217eeaba",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9844e302-8cfe-4b11-a985-993980f5c367",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"session_identifier\": \"<string>\",\n  \"generation_number\": \"<integer>\",\n  \"file_format\": \"CSV\",\n  \"runtime_filter\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  },\n  \"png_options\": {\n    \"x_resolution\": \"<integer>\",\n    \"y_resolution\": \"<integer>\",\n    \"scaling\": \"<integer>\"\n  },\n  \"personalised_view_identifier\": \"<string>\",\n  \"type\": \"SAVED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5da0ff33-f2e5-4f15-ad64-e4d4fce199d8",
+          "name": "export Liveboard Report",
+          "request": {
+            "name": "export Liveboard Report",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.\nThe default `file_format` is CSV.\n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` and `PDF` require the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To generate a Liveboard report with specific visualizations, add GUIDs or names of the visualizations.\n\n**NOTE**: \n\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n\n* Optionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.\n\n* To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes, including ad hoc changes to visualizations. For more information, see [Liveboard Report API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_liveboard_report_api). \n\n* Starting with ThoughtSpot Cloud 10.9.0.cl release, the Liveboard can be exported in the PNG format in the resolution of your choice. To enable this on your instance, contact ThoughtSpot support. When this feature is enabled, the options `include_cover_page`,`include_filter_page` within the `png_options` will not be available for PNG exports.\n\n* Starting with the ThoughtSpot Cloud 26.2.0.cl release,\n\n  * Liveboards can be exported in CSV format. \n    * All visualizations within a Liveboard can be exported as individual CSV files. \n    * When exporting multiple visualizations or the entire Liveboard, the system returns the report as a compressed ZIP file containing the separate CSV files for each visualization.\n\n  * Liveboards can also be exported in XLSX format. \n    * All selected visualizations are consolidated into a single Excel workbook (.xlsx), with each visualization placed in its own worksheet (tab). \n    * XLSX exports are limited to a maximum of 255 worksheets (tabs) per workbook.\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "report",
+                "liveboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cda58435-e7f7-4ab1-9511-089719d9602f",
+              "name": "Export report file of specified metadata object is successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "liveboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdbdc4ca-bd13-4554-8741-8384bad25799",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "liveboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3942f9a0-e7ef-463a-9988-6a3358fc433c",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "liveboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a09bbd5-f6da-4d62-8bb3-84983e3a0f75",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "liveboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3856ead8-8152-4a4c-bff8-6bf77375e6f4",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "report",
+                    "liveboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata_identifier\": \"<string>\",\n  \"tab_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"personalised_view_identifier\": \"<string>\",\n  \"visualization_identifiers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transient_content\": \"<string>\",\n  \"file_format\": \"PDF\",\n  \"runtime_filter\": \"<object>\",\n  \"override_filters\": \"<object>\",\n  \"runtime_sort\": \"<object>\",\n  \"pdf_options\": {\n    \"page_size\": \"<string>\",\n    \"zoom_level\": \"<integer>\",\n    \"include_cover_page\": true,\n    \"include_custom_logo\": true,\n    \"include_filter_page\": true,\n    \"include_page_number\": true,\n    \"page_orientation\": \"PORTRAIT\",\n    \"truncate_table\": false,\n    \"page_footer_text\": \"<string>\"\n  },\n  \"png_options\": {\n    \"include_cover_page\": false,\n    \"include_filter_page\": false,\n    \"personalised_view_id\": \"<string>\",\n    \"image_resolution\": \"<integer>\",\n    \"image_scale\": \"<integer>\",\n    \"include_header\": false\n  },\n  \"runtime_param_override\": \"<object>\",\n  \"regional_settings\": {\n    \"currency_format\": \"<string>\",\n    \"user_locale\": \"<string>\",\n    \"number_format_locale\": \"<string>\",\n    \"date_format_locale\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5396f178-0dd8-40f1-b675-4a73a292dc7b",
+    "name": "ThoughtSpot Public REST 10.1.0.cl Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

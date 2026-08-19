@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl Manual Translation API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manual Translation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "deleteManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nDelete manual translations. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDeletes all manual translations for the org.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- This deletes **all** translation entries for the targeted org. The operation cannot be undone.\n- Defaults to `ORG` scope if not specified.\n- Set"
+        },
+        {
+          "info": {
+            "name": "exportManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nExport manual translations as a CSV file. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nDownloads all manual translations for the org as a CSV file.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- The response is a CSV file with columns: `content`, `locale`, `translated-content`.\n- Defaults to `ORG` scope if n"
+        },
+        {
+          "info": {
+            "name": "getManualTranslationBundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/locales/:locale/export",
+            "params": [
+              {
+                "name": "locale",
+                "value": "",
+                "type": "path",
+                "description": "Locale code for which to retrieve translations.  For example, `fr-fr`, `de-de`, `JA-JP`."
+              }
+            ]
+          },
+          "docs": "\nGet translations bundle for a locale. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nRetrieves all translations for a specific locale as a JSON map.\n\nAvailable to all authenticated users. No additional privileges are required.\n\n#### Usage guidelines\n\n- `locale` parameter must be a hyphenated locale code (for example, `fr-fr`, `de-de`, `JA-JP`).\n- Returns a JSON object with a `translations` map where each key is the original string and each value is the translated string"
+        },
+        {
+          "info": {
+            "name": "importManualTranslations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/localizations/manual-translation/import",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "translations_file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\nImport manual translations from a CSV file. <br/>  <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nUploads a CSV file containing manual translations and upserts them into the database.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**), `ORG_ADMINISTRATION` (**Can administer Org**), or `APPLICATION_ADMINISTRATION` (**Can administer application**) privilege.\n\n#### Usage guidelines\n\n- The CSV file must have exactly three columns in this order: `content`, `locale`, `trans"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.4.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "10.4.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createConversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/conversation/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\n<span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nCreates a new conversation session tied to a specific data model for AI-driven natural language querying.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request.\n\n#### Usage guidelines\n\nThe request must include:\n- `metadata_identifier`: the unique ID of the data source th"
+        },
+        {
+          "info": {
+            "name": "sendMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/conversation/:conversation_identifier/converse",
+            "params": [
+              {
+                "name": "conversation_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the conversation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nSends a follow-up message to an existing conversation within the context of a data model.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request. A conversation must first be created using the `createConversation` API.\n\n#### Usage guidelines\n\nThe request must include:\n- `conversation_identifier`: the unique session ID returned by `crea"
+        },
+        {
+          "info": {
+            "name": "singleAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/answer/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nProcesses a natural language query against a specified data model and returns a single AI-generated answer without requiring a conversation session.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view access to the metadata object specified in the request.\n\n#### Usage guidelines\n\nThe request must include:\n- `query`: a natural language question (e.g., \"What were total sales last quarter?"
+        },
+        {
+          "info": {
+            "name": "getCustomAccessToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/auth/token/custom",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nCreates an authentication token that provides values for the formula variables in the Row Level Security (RLS) rules for a given user. Recommended for use cases that require Attribute-based access control (ABAC) via RLS.\n\n#### Required privileges\n\nTo add a new user and assign privileges during auto-creation, the `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege is required. If [Role-Based Access Control (RBAC)](https://"
+        },
+        {
+          "info": {
+            "name": "deleteConnectionV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/delete",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nDeletes a connection object.\n\n**Note**: If a connection has dependent objects, make sure you remove its associations before the delete operation.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREAT"
+        },
+        {
+          "info": {
+            "name": "updateConnectionV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/connections/:connection_identifier/update",
+            "params": [
+              {
+                "name": "connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID or name of the connection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nUpdates a connection object.\n\nRequires `DATAMANAGEMENT` (**Can manage data**) and edit permissions to the connection object, or `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**) privilege is required.\n\nTo update a connection object, pass "
+        },
+        {
+          "info": {
+            "name": "fetchAsyncImportTaskStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/tml/async/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nGets information about the status of the TML async import task scheduled using the `/api/rest/2.0/metadata/tml/async/import` API call.\n\nTo fetch the task details, specify the ID of the TML async import task.  \n\nRequires access to the task ID. The API allows users who initiated the asynchronous TML import via `/api/rest/2.0/metadata/tml/async/import` to view the status of their tasks.  Users with administration privilege can view "
+        },
+        {
+          "info": {
+            "name": "importMetadataTMLAsync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/metadata/tml/async/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 10.4.0.cl or later</span>\n\nSchedules a task to import [TML](https://docs.thoughtspot.com/cloud/latest/tml) files into ThoughtSpot. You can use this API endpoint to process TML objects asynchronously when importing TMLs of large and complex metadata objects into ThoughtSpot. Unlike the synchronous import TML operation, the API processes TML data in the background and returns a task ID, which can be used to check the status of the import task via `/api/rest/"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

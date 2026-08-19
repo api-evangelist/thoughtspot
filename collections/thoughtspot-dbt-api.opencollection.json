@@ -1,0 +1,268 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl DBT API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DBT",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "dbtConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/dbt-connection",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "connection_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "database_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "import_type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "access_token",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "dbt_url",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "account_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "project_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "dbt_env_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "project_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nCreates a DBT connection object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTI"
+        },
+        {
+          "info": {
+            "name": "dbtGenerateSyncTml",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/generate-sync-tml",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "dbt_connection_identifier",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "include_semantic_report",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nResynchronize the existing list of models, tables, worksheet tml’s and import them to Thoughtspot based on the DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data contro"
+        },
+        {
+          "info": {
+            "name": "dbtGenerateTml",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/generate-tml",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "dbt_connection_identifier",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "model_tables",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "import_worksheets",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "worksheets",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "include_semantic_report",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGenerate required table and worksheet and import them.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage cust"
+        },
+        {
+          "info": {
+            "name": "dbtSearch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/search"
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGets a list of DBT connection objects by user and organization, available on the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can mana"
+        },
+        {
+          "info": {
+            "name": "deleteDbtConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/:dbt_connection_identifier/delete",
+            "params": [
+              {
+                "name": "dbt_connection_identifier",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the DBT Connection."
+              }
+            ]
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nRemoves the specified DBT connection object from the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `"
+        },
+        {
+          "info": {
+            "name": "updateDbtConnection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/dbt/update-dbt-connection",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "dbt_connection_identifier",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "connection_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "database_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "import_type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "access_token",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "dbt_url",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "account_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "project_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "dbt_env_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "project_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nUpdates a DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calenda"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

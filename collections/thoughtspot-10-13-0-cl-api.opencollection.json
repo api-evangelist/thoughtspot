@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ThoughtSpot Public REST 10.1.0.cl 10.13.0.cl API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "10.13.0.cl",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getRelevantQuestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{base-url}/api/rest/2.0/ai/relevant-questions/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n<span class=\"since-beta-tag\">Beta</span> <span class=\"since-beta-tag\">Version: 10.13.0.cl or later</span>\n\nBreaks down a natural language query into a series of smaller analytical sub-questions, each mapped to a relevant data source.\n\nRequires `CAN_USE_SPOTTER` privilege and at least view-level access to the referenced metadata objects.\n\n#### Usage guidelines\n\nThe request must include:\n- `query`: the natural language question to decompose into analytical sub-questions\n- `metadata_context`: at l"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

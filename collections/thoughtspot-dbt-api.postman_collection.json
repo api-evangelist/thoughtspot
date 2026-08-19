@@ -1,0 +1,3740 @@
+{
+  "item": [
+    {
+      "id": "cafe56ba-56a3-4602-8361-bf0719918a8e",
+      "name": "DBT",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6b96e56-c437-4766-8d13-1b9d5978b188",
+          "name": "dbt Connection",
+          "request": {
+            "name": "dbt Connection",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nCreates a DBT connection object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About create DBT connection\nDBT connection in ThoughtSpot is used by the user to define DBT credentials for cloud . The API needs  embrace connection, embrace database name, DBT url, import type, DBT account identifier, DBT project identifier, DBT access token and environment details (or) embrace connection, embrace database name, import type, file_content to create a connection object. To know more about DBT, see ThoughtSpot Product Documentation.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                "dbt-connection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "connection_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Name of the connection."
+                },
+                {
+                  "key": "database_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Name of the Database."
+                },
+                {
+                  "key": "import_type",
+                  "value": "DBT_CLOUD",
+                  "type": "text",
+                  "description": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)"
+                },
+                {
+                  "key": "access_token",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Access token is mandatory when Import_Type is DBT_CLOUD."
+                },
+                {
+                  "key": "dbt_url",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "DBT URL is mandatory when Import_Type is DBT_CLOUD."
+                },
+                {
+                  "key": "account_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Account ID is mandatory when Import_Type is DBT_CLOUD"
+                },
+                {
+                  "key": "project_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Project ID is mandatory when Import_Type is DBT_CLOUD"
+                },
+                {
+                  "key": "dbt_env_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "DBT Environment ID\""
+                },
+                {
+                  "key": "project_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Name of the project"
+                },
+                {
+                  "key": "file_content",
+                  "type": "file",
+                  "description": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cad041aa-7458-4706-9a03-9a01cd305e57",
+              "name": "Succesfully created DBT Connection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e345364e-cc71-4fea-9988-dc10483b2143",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f5cf730-066b-4f91-8a46-f61702108810",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "755af48a-1d4c-4310-ad9c-f3a20b84a3d0",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "036725e3-8fd3-40d4-b939-12d16713aa32",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d396a894-da02-448b-89dc-a53856c4d522",
+          "name": "dbt Generate Sync Tml",
+          "request": {
+            "name": "dbt Generate Sync Tml",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nResynchronize the existing list of models, tables, worksheet tml’s and import them to Thoughtspot based on the DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                "generate-sync-tml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "dbt_connection_identifier",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Unique ID of the DBT connection."
+                },
+                {
+                  "key": "file_content",
+                  "type": "file",
+                  "description": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’"
+                },
+                {
+                  "key": "include_semantic_report",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a9357ea-435c-4051-abef-d234bb294e29",
+              "name": "Sync Table and Worksheet TML's are successfully generated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-sync-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c825132-870e-4edf-9d09-12256c46315a",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-sync-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "010d13b2-12d7-4335-aa51-a14cf780861a",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-sync-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49d9a66e-a10e-4ad4-8cbe-7ad9d5ddabf3",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-sync-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c6f199b-e3ed-42d2-ae67-cea8eab72307",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-sync-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d68750c-0193-4773-a3fc-63a28288470d",
+          "name": "dbt Generate Tml",
+          "request": {
+            "name": "dbt Generate Tml",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGenerate required table and worksheet and import them.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About generate TML\nModels and Worksheets to be imported can be selected by the user as part of the API.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                "generate-tml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "dbt_connection_identifier",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Unique ID of the DBT connection."
+                },
+                {
+                  "key": "model_tables",
+                  "value": "<json>",
+                  "type": "text",
+                  "description": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'"
+                },
+                {
+                  "key": "import_worksheets",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)"
+                },
+                {
+                  "key": "worksheets",
+                  "value": "<json>",
+                  "type": "text",
+                  "description": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]"
+                },
+                {
+                  "key": "file_content",
+                  "type": "file",
+                  "description": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’"
+                },
+                {
+                  "key": "include_semantic_report",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ba19cc9-8b8a-4271-96fa-c3b25ca2909f",
+              "name": "Required Table and Worksheet TML's are successfully generated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'",
+                        "type": "text/plain"
+                      },
+                      "key": "model_tables",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_worksheets",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]",
+                        "type": "text/plain"
+                      },
+                      "key": "worksheets",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34ab099b-9130-4a8e-8d1f-387e92ece07b",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'",
+                        "type": "text/plain"
+                      },
+                      "key": "model_tables",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_worksheets",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]",
+                        "type": "text/plain"
+                      },
+                      "key": "worksheets",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d10ccd90-1447-4ffa-b89c-ba051d1d6da8",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'",
+                        "type": "text/plain"
+                      },
+                      "key": "model_tables",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_worksheets",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]",
+                        "type": "text/plain"
+                      },
+                      "key": "worksheets",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61574e39-5e51-4c0a-af60-a93d145fcf85",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'",
+                        "type": "text/plain"
+                      },
+                      "key": "model_tables",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_worksheets",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]",
+                        "type": "text/plain"
+                      },
+                      "key": "worksheets",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c370ced-282d-4c61-a3a8-3cfa91bf23ae",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "generate-tml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) List of Models and their respective Tables\nExample: '[{\"model_name\": \"model_name\", \"model_path\": \"model_path\", \"tables\": [\"table_name\"]}]'",
+                        "type": "text/plain"
+                      },
+                      "key": "model_tables",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Mention the worksheet tmls to import (This can only be one of ALL,NONE,SELECTED)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_worksheets",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "List of worksheets is mandatory when import_Worksheets is type SELECTED\nExample: [\"worksheet_name\"]",
+                        "type": "text/plain"
+                      },
+                      "key": "worksheets",
+                      "value": "<json>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is mandatory if the connection was created with import_type ‘ZIP_FILE’",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.",
+                        "type": "text/plain"
+                      },
+                      "key": "include_semantic_report",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5c54760-11e7-4930-9956-94620a5f60a5",
+          "name": "dbt Search",
+          "request": {
+            "name": "dbt Search",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGets a list of DBT connection objects by user and organization, available on the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About search DBT connection\nTo get details of a specific DBT connection identifier, database connection identifier, database connection name, database name, project name, project identifier, environment identifier , import type and author.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b2ba914b-7943-4601-9327-63f1093f74eb",
+              "name": "Retrieved list of DBT connections successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"dbt_connection_identifier\": \"string\",\n    \"project_name\": \"string\",\n    \"connection_id\": \"string\",\n    \"connection_name\": \"string\",\n    \"cdw_database\": \"string\",\n    \"import_type\": \"string\",\n    \"author_name\": \"string\"\n  },\n  {\n    \"dbt_connection_identifier\": \"string\",\n    \"project_name\": \"string\",\n    \"connection_id\": \"string\",\n    \"connection_name\": \"string\",\n    \"cdw_database\": \"string\",\n    \"import_type\": \"string\",\n    \"author_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcb054d3-d3b4-43c4-b123-0799f3fa3e21",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5109cdda-1771-44b2-b62e-f3a9af542dee",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c7bb34a-8cde-4e81-9004-58a7839434fa",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "747c4f21-da05-4be7-85e8-c3c1eeb0d521",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51b7b0f9-f882-44f8-9469-a8ce1e09073d",
+          "name": "delete Dbt Connection",
+          "request": {
+            "name": "delete Dbt Connection",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nRemoves the specified DBT connection object from the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                ":dbt_connection_identifier",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dbt_connection_identifier",
+                  "description": "(Required) Unique ID of the DBT Connection."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2dd7f5ca-944b-4837-bcad-9b7aea31ee11",
+              "name": "DBT Connection successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    ":dbt_connection_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dbt_connection_identifier",
+                      "description": "(Required) Unique ID of the DBT Connection."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8a8118a-f284-45f5-b8ef-731beef0eca0",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    ":dbt_connection_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dbt_connection_identifier",
+                      "description": "(Required) Unique ID of the DBT Connection."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0025a9be-a311-447c-a20c-fb22eb504af7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    ":dbt_connection_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dbt_connection_identifier",
+                      "description": "(Required) Unique ID of the DBT Connection."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1288394-03ad-41cb-aefc-52a67c0152b3",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    ":dbt_connection_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dbt_connection_identifier",
+                      "description": "(Required) Unique ID of the DBT Connection."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c60d288-bb54-4245-b3bf-66a693c3e917",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    ":dbt_connection_identifier",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dbt_connection_identifier",
+                      "description": "(Required) Unique ID of the DBT Connection."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8323cba7-5bec-4fa6-98ef-3f20235ce283",
+          "name": "update Dbt Connection",
+          "request": {
+            "name": "update Dbt Connection",
+            "description": {
+              "content": "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nUpdates a DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About update DBT connection\nYou can modify DBT connection object properties such as embrace connection name, embrace database name, import type, account identifier, access token, project identifier and environment (or) embrace connection, embrace database name, import type, file_content settings.\n\n\n\n\n#### Endpoint URL\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "rest",
+                "2.0",
+                "dbt",
+                "update-dbt-connection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{base-url}}",
+                  "key": "base-url"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "dbt_connection_identifier",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Unique ID of the DBT Connection."
+                },
+                {
+                  "key": "connection_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Name of the connection."
+                },
+                {
+                  "key": "database_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Name of the Database."
+                },
+                {
+                  "key": "import_type",
+                  "value": "DBT_CLOUD",
+                  "type": "text",
+                  "description": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)"
+                },
+                {
+                  "key": "access_token",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Access token is mandatory when Import_Type is DBT_CLOUD."
+                },
+                {
+                  "key": "dbt_url",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "DBT URL is mandatory when Import_Type is DBT_CLOUD."
+                },
+                {
+                  "key": "account_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Account ID is mandatory when Import_Type is DBT_CLOUD"
+                },
+                {
+                  "key": "project_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Project ID is mandatory when Import_Type is DBT_CLOUD"
+                },
+                {
+                  "key": "dbt_env_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "DBT Environment ID\""
+                },
+                {
+                  "key": "project_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Name of the project"
+                },
+                {
+                  "key": "file_content",
+                  "type": "file",
+                  "description": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dda82ed8-5b6e-43f0-bed2-3595fc956ac1",
+              "name": "DBT Connection successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "update-dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT Connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0079b36-499e-404b-bbe3-a58b26b99320",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "update-dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT Connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8e700ed-8f74-4141-8bd5-19f3c9092a47",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "update-dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT Connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faccd819-505a-4170-a97b-4bd5b1390faf",
+              "name": "Forbidden access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "update-dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT Connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17b7bc28-10a0-4c36-9c83-3fa6345f4b68",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "rest",
+                    "2.0",
+                    "dbt",
+                    "update-dbt-connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{base-url}}",
+                      "key": "base-url"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Unique ID of the DBT Connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_connection_identifier",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connection_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the Database.",
+                        "type": "text/plain"
+                      },
+                      "key": "database_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Mention type of Import (This can only be one of DBT_CLOUD,ZIP_FILE)",
+                        "type": "text/plain"
+                      },
+                      "key": "import_type",
+                      "value": "DBT_CLOUD",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Access token is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT URL is mandatory when Import_Type is DBT_CLOUD.",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Account ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "account_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Project ID is mandatory when Import_Type is DBT_CLOUD",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "DBT Environment ID\"",
+                        "type": "text/plain"
+                      },
+                      "key": "dbt_env_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Name of the project",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Upload DBT Manifest and Catalog artifact files as a ZIP file. This field is Mandatory when Import Type is 'ZIP_FILE'",
+                        "type": "text/plain"
+                      },
+                      "key": "file_content",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "https://localhost:443",
+      "key": "base-url"
+    },
+    {
+      "type": "string",
+      "value": "{{base-url}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34810d1e-b326-455b-aeeb-983002b2432a",
+    "name": "ThoughtSpot Public REST 10.1.0.cl DBT API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
