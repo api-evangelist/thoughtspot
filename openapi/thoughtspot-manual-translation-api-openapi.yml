@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Manual Translation API
+  title: ThoughtSpot Public REST Manual Translation API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,9 +15,9 @@ paths:
   /api/rest/2.0/localizations/manual-translation/delete:
     post:
       operationId: deleteManualTranslations
-      description: '
+      description: 'Delete manual translations.
 
-        Delete manual translations. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>
+        Version: 26.7.0.cl or later
 
 
         Deletes all manual translations for the org.
@@ -36,12 +36,7 @@ paths:
         - Set `scope` to `CLUSTER` to delete translations uploaded in the All-Org context.
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Manual Translation
       requestBody:
@@ -78,12 +73,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete manual translations
+      x-summary-source: derived
   /api/rest/2.0/localizations/manual-translation/export:
     post:
       operationId: exportManualTranslations
-      description: '
+      description: 'Export manual translations as a CSV file.
 
-        Export manual translations as a CSV file. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>
+        Version: 26.7.0.cl or later
 
 
         Downloads all manual translations for the org as a CSV file.
@@ -104,12 +101,7 @@ paths:
         - Returns a `404` error if no translations exist for the targeted org or cluster scope.
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Manual Translation
       requestBody:
@@ -154,12 +146,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Export manual translations
+      x-summary-source: derived
   /api/rest/2.0/localizations/manual-translation/locales/{locale}/export:
     post:
       operationId: getManualTranslationBundle
-      description: '
+      description: 'Get translations bundle for a locale.
 
-        Get translations bundle for a locale. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>
+        Version: 26.7.0.cl or later
 
 
         Retrieves all translations for a specific locale as a JSON map.
@@ -180,12 +174,7 @@ paths:
         - Returns an empty `translations` map (not an error) if no entries exist at either level.
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Manual Translation
       parameters:
@@ -232,12 +221,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Get manual translation bundle
+      x-summary-source: derived
   /api/rest/2.0/localizations/manual-translation/import:
     post:
       operationId: importManualTranslations
-      description: '
+      description: 'Import manual translations from a CSV file.
 
-        Import manual translations from a CSV file. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>
+        Version: 26.7.0.cl or later
 
 
         Uploads a CSV file containing manual translations and upserts them into the database.
@@ -260,12 +251,7 @@ paths:
         - Set `scope` to `CLUSTER` to upload translations to the All-Org context. Cluster-level translations act as defaults for orgs that have no translations for a locale.
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Manual Translation
       requestBody:
@@ -322,20 +308,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Import manual translations
+      x-summary-source: derived
 components:
   schemas:
-    ExportManualTranslationsRequest:
-      type: object
-      properties:
-        scope:
-          description: 'Org scope for the export. `ORG` (default) targets the calling
-
-            user''s current org. `CLUSTER` targets the All-Org context.'
-          default: ORG
-          type: string
-          enum:
-          - ORG
-          - CLUSTER
     DeleteManualTranslationsRequest:
       type: object
       properties:
@@ -348,12 +324,25 @@ components:
           enum:
           - ORG
           - CLUSTER
+    ExportManualTranslationsRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Org scope for the export. `ORG` (default) targets the calling
+
+            user''s current org. `CLUSTER` targets the All-Org context.'
+          default: ORG
+          type: string
+          enum:
+          - ORG
+          - CLUSTER
     ErrorResponse:
       type: object
       properties:
         error:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

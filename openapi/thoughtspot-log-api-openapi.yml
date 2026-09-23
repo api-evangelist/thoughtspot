@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Log API
+  title: ThoughtSpot Public REST Log API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,40 @@ paths:
   /api/rest/2.0/logs/fetch:
     post:
       operationId: fetchLogs
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches security audit logs.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the [Admin Control](https://developers.thoughtspot.com/docs/rbac#_admin_control) privileges are required.\n\n\n#### Usage guidelines\n\nBy default, the API retrieves logs for the last 24 hours. You can set a custom duration in EPOCH time. Make sure the log duration specified in your API request doesn’t exceed 24 hours. If you must fetch logs for a longer time range, modify the duration and make multiple sequential API requests.\n\nUpon successful execution, the API returns logs with the following information:\n* timestamp of the event\n* event ID\n* event type\n* name and GUID of the user\n* IP address of ThoughtSpot instance\n\nFor more information see [Audit logs Documentation](https://developers.thoughtspot.com/docs/audit-logs).\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Fetches security audit logs.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the Admin Control privileges are required.
+
+
+        #### Usage guidelines
+
+
+        By default, the API retrieves logs for the last 24 hours. You can set a custom duration in EPOCH time. Make sure the log duration specified in your API request doesn’t exceed 24 hours. If you must fetch logs for a longer time range, modify the duration and make multiple sequential API requests.
+
+
+        Upon successful execution, the API returns logs with the following information:
+
+        * timestamp of the event
+
+        * event ID
+
+        * event type
+
+        * name and GUID of the user
+
+        * IP address of ThoughtSpot instance
+
+
+        For more information see Audit logs Documentation.
+
+
+        #### Endpoint URL'
       tags:
       - Log
       requestBody:
@@ -58,8 +91,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Fetch logs
+      x-summary-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     LogResponse:
       type: object
       required:
@@ -91,16 +133,11 @@ components:
         get_all_logs:
           description: Fetch all the logs. This is available from 9.10.5.cl
           default: true
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
       required:
       - log_type
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          nullable: true
   securitySchemes:
     bearerAuth:
       type: http

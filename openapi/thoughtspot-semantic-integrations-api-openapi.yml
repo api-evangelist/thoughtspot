@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Semantic Integrations API
+  title: ThoughtSpot Public REST Semantic Integrations API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,38 @@ paths:
   /api/rest/2.0/semantic-integrations/create:
     post:
       operationId: createSemanticIntegration
-      description: "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nCreates a new semantic integration in ThoughtSpot from a CDW semantic view.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About create semantic integration\n\nA semantic integration imports an externally defined semantic view from a Cloud Data Warehouse (CDW) into ThoughtSpot. The API resolves the source semantic view from the specified `connection_identifier`, `database_name`, `schema_name`, and `semantic_view_name`, generates a ThoughtSpot model from it, and returns the model GUID along with a per-formula import report (`semantic_report`) summarizing how many formulas were successfully imported, failed, or skipped.\n\n- `connection_identifier`, `name`, `database_name`, `schema_name`, `semantic_view_name`, and `type` are required.\n- `name` must be unique across the user's organization. The integration's display name is also used as the generated model name.\n- Supported `type` values are listed in the `SemanticIntegrationType` enum (currently `RDBMS_SNOWFLAKE`).\n- The response includes a `semantic_report.summary` with `total`, `imported`, `failed`, and `skipped` counts, and a `formulas` array with the per-formula translation details.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.9.0.cl or later
+
+
+        Creates a new semantic integration in ThoughtSpot from a CDW semantic view.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - **Can manage data models**
+
+
+        #### About create semantic integration
+
+
+        A semantic integration imports an externally defined semantic view from a Cloud Data Warehouse (CDW) into ThoughtSpot. The API resolves the source semantic view from the specified `connection_identifier`, `database_name`, `schema_name`, and `semantic_view_name`, generates a ThoughtSpot model from it, and returns the model GUID along with a per-formula import report (`semantic_report`) summarizing how many formulas were successfully imported, failed, or skipped.
+
+
+        - `connection_identifier`, `name`, `database_name`, `schema_name`, `semantic_view_name`, and `type` are required.
+
+        - `name` must be unique across the user''s organization. The integration''s display name is also used as the generated model name.
+
+        - Supported `type` values are listed in the `SemanticIntegrationType` enum (currently `RDBMS_SNOWFLAKE`).
+
+        - The response includes a `semantic_report.summary` with `total`, `imported`, `failed`, and `skipped` counts, and a `formulas` array with the per-formula translation details.
+
+
+        #### Endpoint URL'
       tags:
       - Semantic Integrations
       requestBody:
@@ -68,10 +99,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Create semantic integration
+      x-summary-source: derived
   /api/rest/2.0/semantic-integrations/{semantic_integration_identifier}/delete:
     post:
       operationId: deleteSemanticIntegration
-      description: "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nDeletes a semantic integration and its associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About delete semantic integration\n\nRemoves the specified semantic integration and its generated ThoughtSpot model from the system.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to delete.\n- Deletions cannot be undone. Re-import the integration with `createSemanticIntegration` if needed.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.9.0.cl or later
+
+
+        Deletes a semantic integration and its associated ThoughtSpot model.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - **Can manage data models**
+
+
+        #### About delete semantic integration
+
+
+        Removes the specified semantic integration and its generated ThoughtSpot model from the system.
+
+
+        - `semantic_integration_identifier` is the GUID or name of the integration to delete.
+
+        - Deletions cannot be undone. Re-import the integration with `createSemanticIntegration` if needed.
+
+
+        #### Endpoint URL'
       tags:
       - Semantic Integrations
       parameters:
@@ -108,10 +168,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete semantic integration
+      x-summary-source: derived
   /api/rest/2.0/semantic-integrations/{semantic_integration_identifier}/import:
     post:
       operationId: importSemanticIntegration
-      description: "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nImports semantic updates for an existing semantic integration from its CDW source and refreshes the associated ThoughtSpot model.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About import semantic integration\n\nRe-imports the semantic view from the CDW for the specified integration and rebuilds the corresponding ThoughtSpot model. Use this after the source semantic view has been updated in the CDW (added, removed, or modified formulas, dimensions, or measures) to bring the ThoughtSpot model back in line.\n\n- `semantic_integration_identifier` is the GUID or name of the integration to import updates for.\n- Import preserves the integration's GUID, name, and `model_id`; only the underlying formula set is refreshed.\n- The response includes the same `semantic_report` as create, with an additional `change_status` per formula indicating whether each formula is `NEW`, `UPDATED`, or `UNCHANGED` since the previous import.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.9.0.cl or later
+
+
+        Imports semantic updates for an existing semantic integration from its CDW source and refreshes the associated ThoughtSpot model.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - **Can manage data models**
+
+
+        #### About import semantic integration
+
+
+        Re-imports the semantic view from the CDW for the specified integration and rebuilds the corresponding ThoughtSpot model. Use this after the source semantic view has been updated in the CDW (added, removed, or modified formulas, dimensions, or measures) to bring the ThoughtSpot model back in line.
+
+
+        - `semantic_integration_identifier` is the GUID or name of the integration to import updates for.
+
+        - Import preserves the integration''s GUID, name, and `model_id`; only the underlying formula set is refreshed.
+
+        - The response includes the same `semantic_report` as create, with an additional `change_status` per formula indicating whether each formula is `NEW`, `UPDATED`, or `UNCHANGED` since the previous import.
+
+
+        #### Endpoint URL'
       tags:
       - Semantic Integrations
       parameters:
@@ -158,10 +249,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Import semantic integration
+      x-summary-source: derived
   /api/rest/2.0/semantic-integrations/search:
     post:
       operationId: searchSemanticIntegrations
-      description: "\n <span class=\"since-beta-tag\">Version: 26.9.0.cl or later</span>\n\nSearches and lists semantic integrations available to the authenticated user in the current organization, with optional filters, sort, and pagination.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- **Can manage data models**\n\n#### About search semantic integrations\n\nReturns a paginated batch of semantic integrations, each with its identifier, name, description, source connection, generated model identifier, author, creation/modification timestamps, and associated tags. Use the filters to narrow results by author, connection, tag, or name pattern.\n\n- `pattern` matches the integration name as a case-insensitive substring.\n- `author_identifiers` and `connection_identifiers` accept either GUIDs or names.\n- `sort_options.field_name` defaults to `MODIFIED_TIME`; set `sort_options.order` to `ASC` or `DESC` to control sort direction.\n- `record_offset` and `record_size` control pagination. Use `record_size: 0` to return all matching records in a single response.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.9.0.cl or later
+
+
+        Searches and lists semantic integrations available to the authenticated user in the current organization, with optional filters, sort, and pagination.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - **Can manage data models**
+
+
+        #### About search semantic integrations
+
+
+        Returns a paginated batch of semantic integrations, each with its identifier, name, description, source connection, generated model identifier, author, creation/modification timestamps, and associated tags. Use the filters to narrow results by author, connection, tag, or name pattern.
+
+
+        - `pattern` matches the integration name as a case-insensitive substring.
+
+        - `author_identifiers` and `connection_identifiers` accept either GUIDs or names.
+
+        - `sort_options.field_name` defaults to `MODIFIED_TIME`; set `sort_options.order` to `ASC` or `DESC` to control sort direction.
+
+        - `record_offset` and `record_size` control pagination. Use `record_size: 0` to return all matching records in a single response.
+
+
+        #### Endpoint URL'
       tags:
       - Semantic Integrations
       requestBody:
@@ -204,8 +328,114 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Search semantic integrations
+      x-summary-source: derived
 components:
   schemas:
+    SemanticIntegrationTagReference:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the tag.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the tag.
+      description: Tag reference associated with a semantic integration.
+    CreateSemanticIntegrationRequest:
+      type: object
+      properties:
+        connection_identifier:
+          description: ID or name of the CDW connection.
+          type: string
+        name:
+          description: Name of the semantic integration. Must be unique.
+          type: string
+        database_name:
+          description: Database name in the CDW.
+          type: string
+        schema_name:
+          description: Schema name in the CDW.
+          type: string
+        semantic_view_name:
+          description: Semantic view name in the CDW.
+          type: string
+        type:
+          description: CDW connector type.
+          type: string
+          enum:
+          - RDBMS_SNOWFLAKE
+        description:
+          description: Optional description of the semantic integration.
+          type: string
+      required:
+      - connection_identifier
+      - name
+      - database_name
+      - schema_name
+      - semantic_view_name
+      - type
+    SemanticIntegrationSortOptions:
+      type: object
+      properties:
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - AUTHOR
+          - CREATED_TIME
+          - MODIFIED_TIME
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order: `ASC` for ascending, `DESC` for descending.'
+      description: Sort options for semantic integration search.
+    SemanticIntegrationReportSummary:
+      type: object
+      properties:
+        total:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Total number of formulas.
+        imported:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of successfully imported formulas.
+        failed:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of failed formula imports.
+        skipped:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of skipped formulas.
+      description: Formula import counts summary.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     SearchSemanticIntegrationsRequest:
       type: object
       properties:
@@ -240,243 +470,172 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Formula ID in the model.
-          nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Formula name.
-          nullable: true
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Formula description.
-          nullable: true
         source_expression:
-          type: string
+          type:
+          - string
+          - 'null'
           description: CDW source expression.
-          nullable: true
         translated_formula:
-          type: string
+          type:
+          - string
+          - 'null'
           description: ThoughtSpot formula equivalent.
-          nullable: true
         import_status:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - IMPORTED
           - FAILED
           - SKIPPED
           description: Import status.
-          nullable: true
         change_status:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - NEW
           - UPDATED
           - UNCHANGED
           description: Change status since last import. Null on initial create.
-          nullable: true
       description: Import details for a single formula.
-    SemanticIntegrationSortOptions:
-      type: object
-      properties:
-        field_name:
-          type: string
-          enum:
-          - NAME
-          - AUTHOR
-          - CREATED_TIME
-          - MODIFIED_TIME
-          description: Name of the field to apply the sort on.
-          nullable: true
-        order:
-          type: string
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order: `ASC` for ascending, `DESC` for descending.'
-          nullable: true
-      description: Sort options for semantic integration search.
-    SemanticIntegrationReportSummary:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-          description: Total number of formulas.
-          nullable: true
-        imported:
-          type: integer
-          format: int32
-          description: Number of successfully imported formulas.
-          nullable: true
-        failed:
-          type: integer
-          format: int32
-          description: Number of failed formula imports.
-          nullable: true
-        skipped:
-          type: integer
-          format: int32
-          description: Number of skipped formulas.
-          nullable: true
-      description: Formula import counts summary.
-    SemanticIntegrationTagReference:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the tag.
-          nullable: true
-        name:
-          type: string
-          description: Name of the tag.
-          nullable: true
-      description: Tag reference associated with a semantic integration.
     SemanticIntegrationReport:
       type: object
       properties:
         summary:
           $ref: '#/components/schemas/SemanticIntegrationReportSummary'
           description: Summary of formula import counts.
-          nullable: true
         formulas:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SemanticIntegrationFormulaReport'
           description: Formula import details.
-          nullable: true
       description: Per-formula import report for a semantic integration.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          nullable: true
-    CreateSemanticIntegrationRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: ID or name of the CDW connection.
-          type: string
-        name:
-          description: Name of the semantic integration. Must be unique.
-          type: string
-        database_name:
-          description: Database name in the CDW.
-          type: string
-        schema_name:
-          description: Schema name in the CDW.
-          type: string
-        semantic_view_name:
-          description: Semantic view name in the CDW.
-          type: string
-        type:
-          description: CDW connector type.
-          type: string
-          enum:
-          - RDBMS_SNOWFLAKE
-        description:
-          description: Optional description of the semantic integration.
-          type: string
-      required:
-      - connection_identifier
-      - name
-      - database_name
-      - schema_name
-      - semantic_view_name
-      - type
     SemanticIntegrationSearchResponse:
       type: object
       properties:
         id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique identifier of the semantic integration.
-          nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name of the semantic integration.
-          nullable: true
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Optional description of the semantic integration.
-          nullable: true
         model_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GUID of the associated ThoughtSpot model generated for this integration.
-          nullable: true
         model_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name of the associated ThoughtSpot model.
-          nullable: true
         import_type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - CDW
           - FILE
           description: How the semantic definition was sourced.
-          nullable: true
         type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - RDBMS_SNOWFLAKE
           description: CDW connector type.
-          nullable: true
         connection_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GUID of the CDW connection backing the integration.
-          nullable: true
         connection_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Display name of the CDW connection backing the integration.
-          nullable: true
         author_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GUID of the user who created the integration.
-          nullable: true
         author_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Username of the user who created the integration.
-          nullable: true
         creation_time_in_millis:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
           description: Creation time in Unix epoch milliseconds.
-          nullable: true
         modification_time_in_millis:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
           description: Last modification time in Unix epoch milliseconds.
-          nullable: true
         tags:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SemanticIntegrationTagReference'
           description: Tags associated with the integration.
-          nullable: true
       description: Single semantic integration entry returned by search.
     SemanticIntegrationResponse:
       type: object
       properties:
         id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique identifier of the semantic integration.
-          nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name of the semantic integration.
-          nullable: true
         model_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Model GUID generated for this integration.
-          nullable: true
         model_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Model name generated for this integration.
-          nullable: true
         semantic_report:
           $ref: '#/components/schemas/SemanticIntegrationReport'
           description: Per-formula import report.
-          nullable: true
       description: Response object for a semantic integration.
   securitySchemes:
     bearerAuth:

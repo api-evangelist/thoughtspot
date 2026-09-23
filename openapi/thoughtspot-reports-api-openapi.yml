@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Reports API
+  title: ThoughtSpot Public REST Reports API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,35 @@ paths:
   /api/rest/2.0/report/answer:
     post:
       operationId: exportAnswerReport
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.\n\nRequires at least view access to the Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, and `PDF` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege. For an Answer, the `PDF` export is a table PDF, which is why it falls under `CAN_DOWNLOAD_DETAILED_DATA` rather than `CAN_DOWNLOAD_VISUALS`.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Answer and set `file_format`. The default file format is CSV.\n\nUse the `type` parameter to specify whether the Answer being exported is a saved Answer (`SAVED`) or a pinned Answer on a Liveboard (`PINNED`). Defaults to `SAVED`. When using `PINNED`, the `metadata_identifier` must be the container id.\n\n**NOTE**:\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n* HTML rendering is not supported for PDF exports of Answers with tables.\n\nOptionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.  \n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Exports an Answer in the given file format. You can download the Answer data as a PDF, PNG, CSV, or XLSX file.
+
+
+        Requires at least view access to the Answer. If Role-Based Access Control (RBAC) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV`, `XLSX`, and `PDF` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` requires the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege. For an Answer, the `PDF` export is a table PDF, which is why it falls under `CAN_DOWNLOAD_DETAILED_DATA` rather than `CAN_DOWNLOAD_VISUALS`.
+
+
+        #### Usage guidelines
+
+
+        In the request body, specify the GUID or name of the Answer and set `file_format`. The default file format is CSV.
+
+
+        Use the `type` parameter to specify whether the Answer being exported is a saved Answer (`SAVED`) or a pinned Answer on a Liveboard (`PINNED`). Defaults to `SAVED`. When using `PINNED`, the `metadata_identifier` must be the container id.
+
+
+        **NOTE**:
+
+        * The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.
+
+        * HTML rendering is not supported for PDF exports of Answers with tables.
+
+
+        Optionally, you can define runtime overrides to apply to the Answer data.
+
+
+        #### Endpoint URL'
       tags:
       - Reports
       requestBody:
@@ -54,10 +82,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Export answer report
+      x-summary-source: derived
   /api/rest/2.0/report/liveboard:
     post:
       operationId: exportLiveboardReport
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nExports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.\nThe default `file_format` is CSV.\n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` and `PDF` require the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To generate a Liveboard report with specific visualizations, add GUIDs or names of the visualizations.\n\n**NOTE**: \n\n* The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.\n\n* Optionally, you can define [runtime overrides](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_overrides) to apply to the Answer data.\n\n* To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes, including ad hoc changes to visualizations. For more information, see [Liveboard Report API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_liveboard_report_api). \n\n* Starting with ThoughtSpot Cloud 10.9.0.cl release, the Liveboard can be exported in the PNG format in the resolution of your choice. To enable this on your instance, contact ThoughtSpot support. When this feature is enabled, the options `include_cover_page`,`include_filter_page` within the `png_options` will not be available for PNG exports.\n\n* Starting with the ThoughtSpot Cloud 26.2.0.cl release,\n\n  * Liveboards can be exported in CSV format. \n    * All visualizations within a Liveboard can be exported as individual CSV files. \n    * When exporting multiple visualizations or the entire Liveboard, the system returns the report as a compressed ZIP file containing the separate CSV files for each visualization.\n\n  * Liveboards can also be exported in XLSX format. \n    * All selected visualizations are consolidated into a single Excel workbook (.xlsx), with each visualization placed in its own worksheet (tab). \n    * XLSX exports are limited to a maximum of 255 worksheets (tabs) per workbook.\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Exports a Liveboard and its visualizations in PDF, PNG, CSV, or XLSX file format.
+
+        The default `file_format` is CSV.
+
+
+        Requires at least view access to the Liveboard. If Role-Based Access Control (RBAC) is not enabled, the `DATADOWNLOADING` (**Can download Data**) privilege is required. If RBAC is enabled, the required download privilege depends on the selected `file_format`: `CSV` and `XLSX` require the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege, and `PNG` and `PDF` require the `CAN_DOWNLOAD_VISUALS` (**Can download visuals**) privilege.
+
+
+        #### Usage guidelines
+
+
+        In the request body, specify the GUID or name of the Liveboard. To generate a Liveboard report with specific visualizations, add GUIDs or names of the visualizations.
+
+
+        **NOTE**:
+
+
+        * The downloadable file returned in API response file is extensionless. Please rename the downloaded file by typing in the relevant extension.
+
+
+        * Optionally, you can define runtime overrides to apply to the Answer data.
+
+
+        * To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes, including ad hoc changes to visualizations. For more information, see Liveboard Report API.
+
+
+        * Starting with ThoughtSpot Cloud 10.9.0.cl release, the Liveboard can be exported in the PNG format in the resolution of your choice. To enable this on your instance, contact ThoughtSpot support. When this feature is enabled, the options `include_cover_page`,`include_filter_page` within the `png_options` will not be available for PNG exports.
+
+
+        * Starting with the ThoughtSpot Cloud 26.2.0.cl release,
+
+
+        * Liveboards can be exported in CSV format.
+
+        * All visualizations within a Liveboard can be exported as individual CSV files.
+
+        * When exporting multiple visualizations or the entire Liveboard, the system returns the report as a compressed ZIP file containing the separate CSV files for each visualization.
+
+
+        * Liveboards can also be exported in XLSX format.
+
+        * All selected visualizations are consolidated into a single Excel workbook (.xlsx), with each visualization placed in its own worksheet (tab).
+
+        * XLSX exports are limited to a maximum of 255 worksheets (tabs) per workbook.
+
+
+        #### Endpoint URL'
       tags:
       - Reports
       requestBody:
@@ -96,46 +175,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Export liveboard report
+      x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          nullable: true
-    PngOptionsInput:
-      type: object
-      properties:
-        include_cover_page:
-          type: boolean
-          default: false
-          description: Indicates whether to include the cover page with the Liveboard title.
-          nullable: true
-        include_filter_page:
-          type: boolean
-          default: false
-          description: Indicates whether to include a page with all applied filters.
-          nullable: true
-        personalised_view_id:
-          type: string
-          description: Indicates personalised view of the Liveboard in case of png
-          nullable: true
-        image_resolution:
-          type: integer
-          format: int32
-          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          nullable: true
-        image_scale:
-          type: integer
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          nullable: true
-        include_header:
-          type: boolean
-          default: false
-          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          nullable: true
     ExportAnswerReportRequest:
       type: object
       properties:
@@ -189,13 +232,35 @@ components:
           enum:
           - SAVED
           - PINNED
+    AnswerPngOptionsInput:
+      type: object
+      properties:
+        x_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        y_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        scaling:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
     RegionalSettingsInput:
       type: object
       properties:
         currency_format:
-          type: string
+          type:
+          - string
+          - 'null'
           description: ISO code to be appended with currency values.
-          nullable: true
           enum:
           - ADP
           - AED
@@ -432,9 +497,10 @@ components:
           - ZAR
           - ZMW
         user_locale:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Indicates the locale to be used for all formattings.
-          nullable: true
           enum:
           - en-CA
           - en-GB
@@ -464,9 +530,10 @@ components:
           - ko-KR
           - en-DE
         number_format_locale:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Indicates the locale to be used for number formatting.
-          nullable: true
           enum:
           - en-CA
           - en-GB
@@ -496,9 +563,10 @@ components:
           - ko-KR
           - en-DE
         date_format_locale:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Indicates the locale to be used for date formatting.
-          nullable: true
           enum:
           - en-CA
           - en-GB
@@ -527,76 +595,51 @@ components:
           - zh-Hant
           - ko-KR
           - en-DE
-    AnswerPngOptionsInput:
+    PngOptionsInput:
       type: object
       properties:
-        x_resolution:
-          type: integer
-          format: int32
-          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          nullable: true
-        y_resolution:
-          type: integer
-          format: int32
-          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          nullable: true
-        scaling:
-          type: integer
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          nullable: true
-    PdfOptionsInput:
-      type: object
-      properties:
-        page_size:
-          type: string
-          enum:
-          - A4
-          - CONTINUOUS
-          description: 'Size of PDF page. `A4` generates a paginated A4 PDF. `CONTINUOUS` generates a continuous PDF that matches the Liveboard layout. Each Liveboard tab has its own page of variable length. Defaults to `A4` if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
-          nullable: true
-        zoom_level:
-          type: integer
-          format: int32
-          description: 'Zoom level percentage for the PDF. Only applicable when `page_size` is `CONTINUOUS`. Acceptable values are integers in the range [45, 175]. Defaults to 100 if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
-          nullable: true
         include_cover_page:
-          type: boolean
-          default: true
-          description: Indicates whether to include the cover page with the Liveboard title.
-          nullable: true
-        include_custom_logo:
-          type: boolean
-          default: true
-          description: Indicates whether to include customized wide logo in the footer if available.
-          nullable: true
-        include_filter_page:
-          type: boolean
-          default: true
-          description: Indicates whether to include a page with all applied filters. For `CONTINUOUS` page_size, this parameter indicates whether to include the filter header.
-          nullable: true
-        include_page_number:
-          type: boolean
-          default: true
-          description: Indicates whether to include page number in the footer of each page.
-          nullable: true
-        page_orientation:
-          type: string
-          enum:
-          - PORTRAIT
-          - LANDSCAPE
-          default: PORTRAIT
-          description: Page orientation of the PDF.
-          nullable: true
-        truncate_table:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           default: false
-          description: Indicates whether to include only the first page of the tables.
-          nullable: true
-        page_footer_text:
-          type: string
-          description: Text to include in the footer of each page.
-          nullable: true
+          description: Indicates whether to include the cover page with the Liveboard title.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include a page with all applied filters.
+        personalised_view_id:
+          type:
+          - string
+          - 'null'
+          description: Indicates personalised view of the Liveboard in case of png
+        image_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        image_scale:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        include_header:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     ExportLiveboardReportRequest:
       type: object
       properties:
@@ -656,6 +699,67 @@ components:
           - $ref: '#/components/schemas/RegionalSettingsInput'
       required:
       - metadata_identifier
+    PdfOptionsInput:
+      type: object
+      properties:
+        page_size:
+          type:
+          - string
+          - 'null'
+          enum:
+          - A4
+          - CONTINUOUS
+          description: 'Size of PDF page. `A4` generates a paginated A4 PDF. `CONTINUOUS` generates a continuous PDF that matches the Liveboard layout. Each Liveboard tab has its own page of variable length. Defaults to `A4` if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+        zoom_level:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Zoom level percentage for the PDF. Only applicable when `page_size` is `CONTINUOUS`. Acceptable values are integers in the range [45, 175]. Defaults to 100 if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+        include_cover_page:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include the cover page with the Liveboard title.
+        include_custom_logo:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include customized wide logo in the footer if available.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include a page with all applied filters. For `CONTINUOUS` page_size, this parameter indicates whether to include the filter header.
+        include_page_number:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include page number in the footer of each page.
+        page_orientation:
+          type:
+          - string
+          - 'null'
+          enum:
+          - PORTRAIT
+          - LANDSCAPE
+          default: PORTRAIT
+          description: Page orientation of the PDF.
+        truncate_table:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include only the first page of the tables.
+        page_footer_text:
+          type:
+          - string
+          - 'null'
+          description: Text to include in the footer of each page.
   securitySchemes:
     bearerAuth:
       type: http

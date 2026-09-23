@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl DBT API
+  title: ThoughtSpot Public REST DBT API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,30 @@ paths:
   /api/rest/2.0/dbt/dbt-connection:
     post:
       operationId: dbtConnection
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nCreates a DBT connection object in ThoughtSpot.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About create DBT connection\nDBT connection in ThoughtSpot is used by the user to define DBT credentials for cloud . The API needs  embrace connection, embrace database name, DBT url, import type, DBT account identifier, DBT project identifier, DBT access token and environment details (or) embrace connection, embrace database name, import type, file_content to create a connection object. To know more about DBT, see ThoughtSpot Product Documentation.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Creates a DBT connection object in ThoughtSpot.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### About create DBT connection
+
+        DBT connection in ThoughtSpot is used by the user to define DBT credentials for cloud . The API needs embrace connection, embrace database name, DBT url, import type, DBT account identifier, DBT project identifier, DBT access token and environment details (or) embrace connection, embrace database name, import type, file_content to create a connection object. To know more about DBT, see ThoughtSpot Product Documentation.
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       requestBody:
@@ -95,10 +118,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Dbt connection
+      x-summary-source: derived
   /api/rest/2.0/dbt/generate-sync-tml:
     post:
       operationId: dbtGenerateSyncTml
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nResynchronize the existing list of models, tables, worksheet tml’s and import them to Thoughtspot based on the DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Resynchronize the existing list of models, tables, worksheet tml’s and import them to Thoughtspot based on the DBT connection object.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       requestBody:
@@ -116,8 +159,9 @@ paths:
                   format: binary
                 include_semantic_report:
                   description: 'If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.'
-                  type: boolean
-                  nullable: true
+                  type:
+                  - boolean
+                  - 'null'
               required:
               - dbt_connection_identifier
         required: true
@@ -153,10 +197,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Dbt generate sync tml
+      x-summary-source: derived
   /api/rest/2.0/dbt/generate-tml:
     post:
       operationId: dbtGenerateTml
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGenerate required table and worksheet and import them.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About generate TML\nModels and Worksheets to be imported can be selected by the user as part of the API.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Generate required table and worksheet and import them.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege, along with an existing DBT connection.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### About generate TML
+
+        Models and Worksheets to be imported can be selected by the user as part of the API.
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       requestBody:
@@ -193,8 +262,9 @@ paths:
                   format: binary
                 include_semantic_report:
                   description: 'If true, includes a `semantic_report` per model showing which components were imported or skipped. Each component includes its name, type (such as dimension, measure, or metric), import status, SQL expression, and the corresponding generated ThoughtSpot formula. Note: supported only for Snowflake and Databricks connections.'
-                  type: boolean
-                  nullable: true
+                  type:
+                  - boolean
+                  - 'null'
               required:
               - dbt_connection_identifier
               - model_tables
@@ -232,10 +302,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Dbt generate tml
+      x-summary-source: derived
   /api/rest/2.0/dbt/search:
     post:
       operationId: dbtSearch
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nGets a list of DBT connection objects by user and organization, available on the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About search DBT connection\nTo get details of a specific DBT connection identifier, database connection identifier, database connection name, database name, project name, project identifier, environment identifier , import type and author.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Gets a list of DBT connection objects by user and organization, available on the ThoughtSpot system.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### About search DBT connection
+
+        To get details of a specific DBT connection identifier, database connection identifier, database connection name, database name, project name, project identifier, environment identifier , import type and author.
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       parameters: []
@@ -272,10 +367,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Dbt search
+      x-summary-source: derived
   /api/rest/2.0/dbt/{dbt_connection_identifier}/delete:
     post:
       operationId: deleteDbtConnection
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nRemoves the specified DBT connection object from the ThoughtSpot system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following Data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Removes the specified DBT connection object from the ThoughtSpot system.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following Data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       parameters:
@@ -312,10 +427,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete dbt connection
+      x-summary-source: derived
   /api/rest/2.0/dbt/update-dbt-connection:
     post:
       operationId: updateDbtConnection
-      description: "\n <span class=\"since-beta-tag\">Version: 9.9.0.cl or later</span>\n\nUpdates a DBT connection object.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege, along with an existing DBT connection.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the following data control privileges may be required:\n\n- `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)\n- `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)\n- `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)\n\n#### About update DBT connection\nYou can modify DBT connection object properties such as embrace connection name, embrace database name, import type, account identifier, access token, project identifier and environment (or) embrace connection, embrace database name, import type, file_content settings.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.9.0.cl or later
+
+
+        Updates a DBT connection object.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege or `DATAMANAGEMENT` (**Can manage data ThoughtSpot**) privilege, along with an existing DBT connection.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the following data control privileges may be required:
+
+
+        - `CAN_MANAGE_CUSTOM_CALENDAR`(**Can manage custom calendars**)
+
+        - `CAN_CREATE_OR_EDIT_CONNECTIONS` (**Can create/edit Connections**)
+
+        - `CAN_MANAGE_WORKSHEET_VIEWS_TABLES` (**Can manage data models**)
+
+
+        #### About update DBT connection
+
+        You can modify DBT connection object properties such as embrace connection name, embrace database name, import type, account identifier, access token, project identifier and environment (or) embrace connection, embrace database name, import type, file_content settings.
+
+
+        #### Endpoint URL'
       tags:
       - DBT
       requestBody:
@@ -397,38 +537,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Update dbt connection
+      x-summary-source: derived
 components:
   schemas:
     DbtSearchResponse:
       type: object
       properties:
         dbt_connection_identifier:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         project_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         connection_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         connection_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         cdw_database:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         import_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         author_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     ErrorResponse:
       type: object
       properties:
         error:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

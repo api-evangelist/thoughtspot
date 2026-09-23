@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Tags API
+  title: ThoughtSpot Public REST Tags API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,16 @@ paths:
   /api/rest/2.0/tags/assign:
     post:
       operationId: assignTag
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nAssigns tags to Liveboards, Answers, Tables, and Worksheets.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Assigns tags to Liveboards, Answers, Tables, and Worksheets.
+
+
+        Requires edit access to the metadata object.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       requestBody:
@@ -52,10 +61,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Assign tag
+      x-summary-source: derived
   /api/rest/2.0/tags/create:
     post:
       operationId: createTag
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nCreates a tag object.\n\nTags are labels that identify a metadata object. For example, you can create a tag to designate subject areas, such as sales, HR, marketing, and finance.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Creates a tag object.
+
+
+        Tags are labels that identify a metadata object. For example, you can create a tag to designate subject areas, such as sales, HR, marketing, and finance.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       requestBody:
@@ -111,10 +136,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Create tag
+      x-summary-source: derived
   /api/rest/2.0/tags/{tag_identifier}/delete:
     post:
       operationId: deleteTag
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nDeletes a tag object from the ThoughtSpot system\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Deletes a tag object from the ThoughtSpot system
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       parameters:
@@ -151,10 +189,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete tag
+      x-summary-source: derived
   /api/rest/2.0/tags/search:
     post:
       operationId: searchTags
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets a list of tag objects available on the ThoughtSpot system. To get details of a specific tag object, specify the GUID or name.\n\nAny authenticated user can search for tag objects.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Gets a list of tag objects available on the ThoughtSpot system. To get details of a specific tag object, specify the GUID or name.
+
+
+        Any authenticated user can search for tag objects.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       requestBody:
@@ -224,10 +273,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Search tags
+      x-summary-source: derived
   /api/rest/2.0/tags/unassign:
     post:
       operationId: unassignTag
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nRemoves the tags applied to a Liveboard, Answer, Table, or Worksheet.\n\nRequires edit access to the metadata object.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Removes the tags applied to a Liveboard, Answer, Table, or Worksheet.
+
+
+        Requires edit access to the metadata object.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       requestBody:
@@ -264,10 +324,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Unassign tag
+      x-summary-source: derived
   /api/rest/2.0/tags/{tag_identifier}/update:
     post:
       operationId: updateTag
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nUpdates a tag object.\n\nYou can modify the `name` and `color` properties of a tag object.  \n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.\nIf [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Updates a tag object.
+
+
+        You can modify the `name` and `color` properties of a tag object.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) privilege.
+
+        If Role-Based Access Control (RBAC) is enabled on your instance, the `TAGMANAGEMENT` (**Can manage tags**) privilege is required to create, edit, and delete tags.
+
+
+        #### Endpoint URL'
       tags:
       - Tags
       requestBody:
@@ -310,8 +386,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Update tag
+      x-summary-source: derived
 components:
   schemas:
+    CreateTagRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
+      required:
+      - name
     UpdateTagRequest:
       type: object
       properties:
@@ -321,41 +410,6 @@ components:
         color:
           description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
           type: string
-    UnassignTagRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/TagMetadataTypeInput'
-        tag_identifiers:
-          description: GUID or name of the tag.
-          type: array
-          items:
-            type: string
-      required:
-      - metadata
-      - tag_identifiers
-    TagMetadataTypeInput:
-      type: object
-      required:
-      - identifier
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - COLLECTION
-          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  1. LIVEBOARD\n  2. ANSWERS\n  3. LOGICAL_TABLE for any data object such as table, worksheet or view.\n  4. LOGICAL_COLUMN for a column of any data object such as tables, worksheets or views."
-          nullable: true
-        identifier:
-          type: string
-          description: Unique ID or name of the metadata.
     SearchTagsRequest:
       type: object
       properties:
@@ -368,6 +422,78 @@ components:
         color:
           description: Color of the tag.
           type: string
+    TagMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  1. LIVEBOARD\n  2. ANSWERS\n  3. LOGICAL_TABLE for any data object such as table, worksheet or view.\n  4. LOGICAL_COLUMN for a column of any data object such as tables, worksheets or views."
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
+    Tag:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        color:
+          type:
+          - string
+          - 'null'
+        deleted:
+          type:
+          - boolean
+          - 'null'
+        hidden:
+          type:
+          - boolean
+          - 'null'
+        external:
+          type:
+          - boolean
+          - 'null'
+        deprecated:
+          type:
+          - boolean
+          - 'null'
+        creation_time_in_millis:
+          type:
+          - number
+          - 'null'
+          format: float
+        modification_time_in_millis:
+          type:
+          - number
+          - 'null'
+          format: float
+        author_id:
+          type:
+          - string
+          - 'null'
+        modifier_id:
+          type:
+          - string
+          - 'null'
+        owner_id:
+          type:
+          - string
+          - 'null'
     AssignTagRequest:
       type: object
       properties:
@@ -384,65 +510,29 @@ components:
       required:
       - metadata
       - tag_identifiers
-    Tag:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        name:
-          type: string
-        id:
-          type: string
-        color:
-          type: string
-          nullable: true
-        deleted:
-          type: boolean
-          nullable: true
-        hidden:
-          type: boolean
-          nullable: true
-        external:
-          type: boolean
-          nullable: true
-        deprecated:
-          type: boolean
-          nullable: true
-        creation_time_in_millis:
-          type: number
-          format: float
-          nullable: true
-        modification_time_in_millis:
-          type: number
-          format: float
-          nullable: true
-        author_id:
-          type: string
-          nullable: true
-        modifier_id:
-          type: string
-          nullable: true
-        owner_id:
-          type: string
-          nullable: true
     ErrorResponse:
       type: object
       properties:
         error:
-          type: object
-          nullable: true
-    CreateTagRequest:
+          type:
+          - object
+          - 'null'
+    UnassignTagRequest:
       type: object
       properties:
-        name:
-          description: Name of the tag.
-          type: string
-        color:
-          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
-          type: string
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
       required:
-      - name
+      - metadata
+      - tag_identifiers
   securitySchemes:
     bearerAuth:
       type: http

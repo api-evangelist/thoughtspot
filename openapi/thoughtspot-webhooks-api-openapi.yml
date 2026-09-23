@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Webhooks API
+  title: ThoughtSpot Public REST Webhooks API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,16 @@ paths:
   /api/rest/2.0/webhooks/create:
     post:
       operationId: createWebhookConfiguration
-      description: "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nCreates a new webhook configuration to receive notifications for specified events. The webhook will be triggered when the configured events occur in the system.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 10.14.0.cl or later
+
+
+        Creates a new webhook configuration to receive notifications for specified events. The webhook will be triggered when the configured events occur in the system.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        #### Endpoint URL'
       tags:
       - Webhooks
       requestBody:
@@ -181,10 +190,21 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while creating the webhook configuration.
+      summary: Create webhook configuration
+      x-summary-source: derived
   /api/rest/2.0/webhooks/delete:
     post:
       operationId: deleteWebhookConfigurations
-      description: "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nDeletes one or more webhook configurations by their unique id or name. Returns status of each deletion operation, including successfully deleted webhooks and any failures with error details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 10.14.0.cl or later
+
+
+        Deletes one or more webhook configurations by their unique id or name. Returns status of each deletion operation, including successfully deleted webhooks and any failures with error details.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        #### Endpoint URL'
       tags:
       - Webhooks
       requestBody:
@@ -333,10 +353,21 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while deleting webhook configurations.
+      summary: Delete webhook configurations
+      x-summary-source: derived
   /api/rest/2.0/webhooks/storage-config:
     get:
       operationId: getWebhookStorageConfig
-      description: "\n <span class=\"since-beta-tag\">Version: 26.7.0.cl or later</span>\n\nReturns cluster-level storage setup information for configuring customer-managed storage. Use this endpoint to obtain the IAM identity details required before configuring a webhook storage destination. For S3 destinations, returns the platform AWS account ID and IAM trust policy template. For GCS destinations, returns the platform GCP service account email and the IAM role to grant for service account impersonation.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.7.0.cl or later
+
+
+        Returns cluster-level storage setup information for configuring customer-managed storage. Use this endpoint to obtain the IAM identity details required before configuring a webhook storage destination. For S3 destinations, returns the platform AWS account ID and IAM trust policy template. For GCS destinations, returns the platform GCP service account email and the IAM role to grant for service account impersonation.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        #### Endpoint URL'
       tags:
       - Webhooks
       parameters: []
@@ -490,10 +521,21 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while retrieving webhook storage configuration.
+      summary: Get webhook storage config
+      x-summary-source: derived
   /api/rest/2.0/webhooks/search:
     post:
       operationId: searchWebhookConfigurations
-      description: "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nSearches for webhook configurations based on various criteria such as Org, webhook identifier, event type, with support for pagination and sorting. Returns matching webhook configurations with their complete details.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 10.14.0.cl or later
+
+
+        Searches for webhook configurations based on various criteria such as Org, webhook identifier, event type, with support for pagination and sorting. Returns matching webhook configurations with their complete details.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        #### Endpoint URL'
       tags:
       - Webhooks
       requestBody:
@@ -642,10 +684,21 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while searching webhook configurations.
+      summary: Search webhook configurations
+      x-summary-source: derived
   /api/rest/2.0/webhooks/{webhook_identifier}/update:
     post:
       operationId: updateWebhookConfiguration
-      description: "\n <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\nUpdates an existing webhook configuration by its unique id or name. Only the provided fields will be updated.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 10.14.0.cl or later
+
+
+        Updates an existing webhook configuration by its unique id or name. Only the provided fields will be updated.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        #### Endpoint URL'
       tags:
       - Webhooks
       requestBody:
@@ -728,104 +781,10 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while updating the webhook configuration.
+      summary: Update webhook configuration
+      x-summary-source: derived
 components:
   schemas:
-    WebhookUser:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the user.
-        name:
-          type: string
-          description: Name of the user.
-    WebhookAuthenticationInput:
-      type: object
-      properties:
-        API_KEY:
-          $ref: '#/components/schemas/WebhookAuthApiKeyInput'
-          description: API key authentication configuration.
-          nullable: true
-        BASIC_AUTH:
-          $ref: '#/components/schemas/WebhookAuthBasicAuthInput'
-          description: Basic authentication configuration.
-          nullable: true
-        BEARER_TOKEN:
-          type: string
-          description: Bearer token authentication configuration.
-          nullable: true
-        OAUTH2:
-          $ref: '#/components/schemas/WebhookAuthOAuth2Input'
-          description: OAuth2 authentication configuration.
-          nullable: true
-    StorageDestinationInput:
-      type: object
-      required:
-      - storage_type
-      - storage_config
-      properties:
-        storage_type:
-          type: string
-          enum:
-          - AWS_S3
-          - GCP_GCS
-          description: 'Type of storage destination.
-
-            Example: "AWS_S3"'
-        storage_config:
-          $ref: '#/components/schemas/StorageConfigInput'
-          description: 'Storage-specific configuration settings.
-
-            Example: {"aws_s3_config": {"bucket_name": "my-webhook-files", "region": "us-west-2", "role_arn": "arn:aws:iam::123456789012:role/WebhookDeliveryRole", "external_id": "ts-webhook-a1b2c3d4-7890", "path_prefix": "webhook-deliveries/"}}'
-      description: Input type for storage destination configuration.
-    WebhookDeleteFailure:
-      type: object
-      required:
-      - id
-      - name
-      - error
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the webhook that failed to delete.
-        name:
-          type: string
-          description: Name of the webhook that failed to delete.
-        error:
-          type: string
-          description: Error message describing why the deletion failed.
-    WebhookAuthApiKey:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-          description: The header or query parameter name for the API key.
-        value:
-          type: string
-          description: The API key value.
-    GcpGcsConfig:
-      type: object
-      required:
-      - bucket_name
-      - service_account_email
-      properties:
-        bucket_name:
-          type: string
-          description: Name of the GCS bucket where webhook payloads are stored.
-        service_account_email:
-          type: string
-          description: Email of the GCP service account to impersonate for bucket access.
-        path_prefix:
-          type: string
-          description: Path prefix for organizing objects within the bucket.
-          nullable: true
-      description: GCP GCS storage configuration details.
     AwsS3ConfigInput:
       type: object
       required:
@@ -849,89 +808,42 @@ components:
 
             Example: "arn:aws:iam::123456789012:role/WebhookDeliveryRole"'
         external_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'External ID for secure cross-account role assumption.
 
             Example: "ts-webhook-a1b2c3d4-7890"'
-          nullable: true
         path_prefix:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'Optional path prefix for organizing objects within the bucket.
 
             Example: "webhook-deliveries/"'
-          nullable: true
       description: Input type for AWS S3 storage configuration.
-    WebhookSignatureVerification:
+    WebhookSortOptionsInput:
       type: object
-      required:
-      - type
-      - header
-      - algorithm
-      - secret
       properties:
-        type:
-          type: string
+        field_name:
+          type:
+          - string
+          - 'null'
           enum:
-          - HMAC_SHA256
-          description: Signature verification method type.
-        header:
-          type: string
-          description: HTTP header where the signature is sent.
-        algorithm:
-          type: string
+          - CREATED
+          - MODIFIED
+          - NAME
+          default: CREATED
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
           enum:
-          - SHA256
-          description: Hash algorithm used for signature verification.
-        secret:
-          type: string
-          description: Shared secret used for HMAC signature generation.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          nullable: true
-    AwsS3Config:
-      type: object
-      required:
-      - bucket_name
-      - region
-      - role_arn
-      properties:
-        bucket_name:
-          type: string
-          description: Name of the S3 bucket where webhook payloads are stored.
-        region:
-          type: string
-          description: AWS region where the S3 bucket is located.
-        role_arn:
-          type: string
-          description: ARN of the IAM role used for S3 access.
-        external_id:
-          type: string
-          description: External ID for secure cross-account role assumption.
-          nullable: true
-        path_prefix:
-          type: string
-          description: Path prefix for organizing objects within the bucket.
-          nullable: true
-      description: AWS S3 storage configuration details.
-    WebhookAuthOAuth2:
-      type: object
-      required:
-      - authorization_url
-      - client_id
-      - client_secret
-      properties:
-        authorization_url:
-          type: string
-          description: OAuth2 authorization server URL.
-        client_id:
-          type: string
-          description: OAuth2 client identifier.
-        client_secret:
-          type: string
-          description: OAuth2 client secret key.
+          - ASC
+          - DESC
+          default: DESC
+          description: 'Sort order: ASC (Ascending) or DESC (Descending).'
     WebhookOrg:
       type: object
       required:
@@ -944,203 +856,7 @@ components:
         name:
           type: string
           description: Name of the org.
-    WebhookSignatureVerificationInput:
-      type: object
-      required:
-      - type
-      - header
-      - algorithm
-      - secret
-      properties:
-        type:
-          type: string
-          enum:
-          - HMAC_SHA256
-          description: Signature verification method type.
-        header:
-          type: string
-          description: HTTP header where the signature is sent.
-        algorithm:
-          type: string
-          enum:
-          - SHA256
-          description: Hash algorithm used for signature verification.
-        secret:
-          type: string
-          description: Shared secret used for HMAC signature generation.
-    DeleteWebhookConfigurationsRequest:
-      type: object
-      properties:
-        webhook_identifiers:
-          description: List of webhook identifiers to delete.
-          type: array
-          items:
-            type: string
-      required:
-      - webhook_identifiers
-    WebhookPagination:
-      type: object
-      required:
-      - record_offset
-      - record_size
-      - total_count
-      - has_more
-      properties:
-        record_offset:
-          type: integer
-          format: int32
-          description: The starting record number from where the records are included.
-        record_size:
-          type: integer
-          format: int32
-          description: The number of records included in the response.
-        total_count:
-          type: integer
-          format: int32
-          description: Total number of webhook configurations available.
-        has_more:
-          type: boolean
-          description: Indicates whether more records are available beyond the current response.
-    WebhookKeyValuePair:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-          description: Header name.
-        value:
-          type: string
-          description: Header value.
-      description: Key-value pair for additional webhook headers.
-    WebhookAuthOAuth2Input:
-      type: object
-      required:
-      - authorization_url
-      - client_id
-      - client_secret
-      properties:
-        authorization_url:
-          type: string
-          description: OAuth2 authorization server URL.
-        client_id:
-          type: string
-          description: OAuth2 client identifier.
-        client_secret:
-          type: string
-          description: OAuth2 client secret key.
-    WebhookKeyValuePairInput:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-          description: Header name.
-        value:
-          type: string
-          description: Header value.
-      description: Key-value pair input for additional webhook headers.
-    WebhookResponse:
-      type: object
-      required:
-      - id
-      - name
-      - url
-      - events
-      - creation_time_in_millis
-      - modification_time_in_millis
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the webhook configuration.
-        name:
-          type: string
-          description: Name of the webhook configuration.
-        description:
-          type: string
-          description: Description of the webhook configuration.
-          nullable: true
-        org:
-          $ref: '#/components/schemas/WebhookOrg'
-          description: Org details.
-          nullable: true
-        url:
-          type: string
-          description: The webhook endpoint URL.
-        url_params:
-          type: object
-          description: Additional URL parameters as key-value pairs.
-          nullable: true
-        events:
-          type: array
-          items:
-            type: string
-            enum:
-            - LIVEBOARD_SCHEDULE
-          description: List of events this webhook subscribes to.
-        authentication:
-          $ref: '#/components/schemas/WebhookAuthentication'
-          description: Redacted authorization configuration for the webhook.
-          nullable: true
-        signature_verification:
-          $ref: '#/components/schemas/WebhookSignatureVerification'
-          description: Redacted configuration for webhook signature verification.
-          nullable: true
-        additional_headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookKeyValuePair'
-          description: 'Additional headers as an array of key-value pairs. <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>'
-          nullable: true
-        creation_time_in_millis:
-          type: number
-          format: float
-          description: Creation time of the webhook configuration in milliseconds.
-        modification_time_in_millis:
-          type: number
-          format: float
-          description: Last modified time of the webhook configuration in milliseconds.
-        created_by:
-          $ref: '#/components/schemas/WebhookUser'
-          description: User who created the webhook.
-          nullable: true
-        last_modified_by:
-          $ref: '#/components/schemas/WebhookUser'
-          description: User who last modified the webhook.
-          nullable: true
-        storage_destination:
-          $ref: '#/components/schemas/StorageDestination'
-          description: Storage destination configuration for webhook payload delivery.
-          nullable: true
-        status:
-          type: string
-          enum:
-          - ENABLED
-          - DISABLED
-          description: 'Status of the webhook (ENABLED or DISABLED).
-
-            Only present when explicitly set. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-          nullable: true
-    StorageDestination:
-      type: object
-      required:
-      - storage_type
-      - storage_config
-      properties:
-        storage_type:
-          type: string
-          enum:
-          - AWS_S3
-          - GCP_GCS
-          description: Type of storage destination (e.g., AWS_S3).
-        storage_config:
-          $ref: '#/components/schemas/StorageConfig'
-          description: Storage-specific configuration settings.
-      description: Storage destination configuration for webhook payload delivery.
-    GcpGcsConfigInput:
+    GcpGcsConfig:
       type: object
       required:
       - bucket_name
@@ -1148,105 +864,58 @@ components:
       properties:
         bucket_name:
           type: string
-          description: 'Name of the GCS bucket where webhook payloads will be stored.
-
-            Example: "my-webhook-files"'
+          description: Name of the GCS bucket where webhook payloads are stored.
         service_account_email:
           type: string
-          description: 'Email of the GCP service account to impersonate for bucket access.
-
-            The platform''s service account must be granted roles/iam.serviceAccountTokenCreator on this SA.
-
-            Example: "my-sa@my-project.iam.gserviceaccount.com"'
+          description: Email of the GCP service account to impersonate for bucket access.
         path_prefix:
-          type: string
-          description: 'Optional path prefix for organizing objects within the bucket.
-
-            Example: "webhooks/"'
-          nullable: true
-      description: Input type for GCP GCS storage configuration.
-    StorageConfigInput:
-      type: object
-      properties:
-        aws_s3_config:
-          $ref: '#/components/schemas/AwsS3ConfigInput'
-          description: 'AWS S3 storage configuration.
-
-            Example: {"bucket_name": "my-webhook-files", "region": "us-west-2", "role_arn": "arn:aws:iam::123456789012:role/WebhookDeliveryRole", "external_id": "ts-webhook-a1b2c3d4-7890", "path_prefix": "webhook-deliveries/"}'
-          nullable: true
-        gcp_gcs_config:
-          $ref: '#/components/schemas/GcpGcsConfigInput'
-          description: 'GCP GCS storage configuration.
-
-            Example: {"bucket_name": "my-webhook-files", "service_account_email": "my-sa@my-project.iam.gserviceaccount.com", "path_prefix": "webhooks/"} <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-          nullable: true
-      description: Input type for storage configuration.
-    WebhookSortOptionsInput:
-      type: object
-      properties:
-        field_name:
-          type: string
-          enum:
-          - CREATED
-          - MODIFIED
-          - NAME
-          default: CREATED
-          description: Name of the field to apply the sort on.
-          nullable: true
-        order:
-          type: string
-          enum:
-          - ASC
-          - DESC
-          default: DESC
-          description: 'Sort order: ASC (Ascending) or DESC (Descending).'
-          nullable: true
-    StorageConfig:
-      type: object
-      properties:
-        aws_s3_config:
-          $ref: '#/components/schemas/AwsS3Config'
-          description: AWS S3 storage configuration.
-          nullable: true
-        gcp_gcs_config:
-          $ref: '#/components/schemas/GcpGcsConfig'
-          description: 'GCP GCS storage configuration. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-          nullable: true
-      description: Storage configuration containing provider-specific settings.
-    WebhookStorageConfigInfo:
+          type:
+          - string
+          - 'null'
+          description: Path prefix for organizing objects within the bucket.
+      description: GCP GCS storage configuration details.
+    WebhookDeleteFailure:
       type: object
       required:
-      - storage_type
-      - provider
-      - config
+      - id
+      - name
+      - error
       properties:
-        storage_type:
+        id:
           type: string
-          enum:
-          - OBJECT_STORAGE
-          description: Type of storage destination.
-        provider:
+          description: Unique identifier of the webhook that failed to delete.
+        name:
           type: string
-          enum:
-          - AWS_S3
-          - GCP_GCS
-          description: Storage destination provider.
-        config:
-          $ref: '#/components/schemas/WebhookStorageSetupConfig'
-          description: Setup configuration specific to the upload path.
-      description: Cluster-level storage setup information for configuring customer-managed storage.
-    WebhookAuthApiKeyInput:
+          description: Name of the webhook that failed to delete.
+        error:
+          type: string
+          description: Error message describing why the deletion failed.
+    WebhookDeleteResponse:
       type: object
       required:
-      - key
-      - value
+      - deleted_count
+      - failed_count
+      - deleted_webhooks
+      - failed_webhooks
       properties:
-        key:
-          type: string
-          description: The header or query parameter name for the API key.
-        value:
-          type: string
-          description: The API key value.
+        deleted_count:
+          type: integer
+          format: int32
+          description: Number of webhooks successfully deleted.
+        failed_count:
+          type: integer
+          format: int32
+          description: Number of webhooks that failed to delete.
+        deleted_webhooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookResponse'
+          description: List of successfully deleted webhooks.
+        failed_webhooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookDeleteFailure'
+          description: List of webhooks that failed to delete with error details.
     CreateWebhookConfigurationRequest:
       type: object
       properties:
@@ -1304,6 +973,290 @@ components:
       - name
       - url
       - events
+    WebhookAuthApiKeyInput:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: The header or query parameter name for the API key.
+        value:
+          type: string
+          description: The API key value.
+    SearchWebhookConfigurationsRequest:
+      type: object
+      properties:
+        org_identifier:
+          description: Unique ID or name of the org.
+          type: string
+        webhook_identifier:
+          description: Unique ID or name of the webhook.
+          type: string
+        event_type:
+          description: Type of webhook event to filter by.
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+        record_offset:
+          description: The offset point, starting from where the webhooks should be included in the response.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of webhooks that should be included in the response starting from offset position.
+          default: 50
+          type: integer
+          format: int32
+        sort_options:
+          description: Sort option includes sort field and sort order.
+          allOf:
+          - $ref: '#/components/schemas/WebhookSortOptionsInput'
+        status:
+          description: 'Filter webhooks by status (ENABLED or DISABLED). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+    WebhookKeyValuePairInput:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: Header name.
+        value:
+          type: string
+          description: Header value.
+      description: Key-value pair input for additional webhook headers.
+    WebhookAuthBasicAuthInput:
+      type: object
+      required:
+      - username
+      - password
+      properties:
+        username:
+          type: string
+          description: Username for basic authentication.
+        password:
+          type: string
+          description: Password for basic authentication.
+    WebhookAuthentication:
+      type: object
+      properties:
+        API_KEY:
+          $ref: '#/components/schemas/WebhookAuthApiKey'
+          description: Redacted API key authentication configuration.
+        BASIC_AUTH:
+          $ref: '#/components/schemas/WebhookAuthBasicAuth'
+          description: Redacted Basic authentication configuration.
+        BEARER_TOKEN:
+          type:
+          - string
+          - 'null'
+          description: Redacted Bearer token authentication configuration.
+        OAUTH2:
+          $ref: '#/components/schemas/WebhookAuthOAuth2'
+          description: Redacted OAuth2 authentication configuration.
+    GcpGcsConfigInput:
+      type: object
+      required:
+      - bucket_name
+      - service_account_email
+      properties:
+        bucket_name:
+          type: string
+          description: 'Name of the GCS bucket where webhook payloads will be stored.
+
+            Example: "my-webhook-files"'
+        service_account_email:
+          type: string
+          description: 'Email of the GCP service account to impersonate for bucket access.
+
+            The platform''s service account must be granted roles/iam.serviceAccountTokenCreator on this SA.
+
+            Example: "my-sa@my-project.iam.gserviceaccount.com"'
+        path_prefix:
+          type:
+          - string
+          - 'null'
+          description: 'Optional path prefix for organizing objects within the bucket.
+
+            Example: "webhooks/"'
+      description: Input type for GCP GCS storage configuration.
+    WebhookKeyValuePair:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: Header name.
+        value:
+          type: string
+          description: Header value.
+      description: Key-value pair for additional webhook headers.
+    WebhookAuthApiKey:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: The header or query parameter name for the API key.
+        value:
+          type: string
+          description: The API key value.
+    StorageDestination:
+      type: object
+      required:
+      - storage_type
+      - storage_config
+      properties:
+        storage_type:
+          type: string
+          enum:
+          - AWS_S3
+          - GCP_GCS
+          description: Type of storage destination (e.g., AWS_S3).
+        storage_config:
+          $ref: '#/components/schemas/StorageConfig'
+          description: Storage-specific configuration settings.
+      description: Storage destination configuration for webhook payload delivery.
+    WebhookPagination:
+      type: object
+      required:
+      - record_offset
+      - record_size
+      - total_count
+      - has_more
+      properties:
+        record_offset:
+          type: integer
+          format: int32
+          description: The starting record number from where the records are included.
+        record_size:
+          type: integer
+          format: int32
+          description: The number of records included in the response.
+        total_count:
+          type: integer
+          format: int32
+          description: Total number of webhook configurations available.
+        has_more:
+          type: boolean
+          description: Indicates whether more records are available beyond the current response.
+    AwsS3Config:
+      type: object
+      required:
+      - bucket_name
+      - region
+      - role_arn
+      properties:
+        bucket_name:
+          type: string
+          description: Name of the S3 bucket where webhook payloads are stored.
+        region:
+          type: string
+          description: AWS region where the S3 bucket is located.
+        role_arn:
+          type: string
+          description: ARN of the IAM role used for S3 access.
+        external_id:
+          type:
+          - string
+          - 'null'
+          description: External ID for secure cross-account role assumption.
+        path_prefix:
+          type:
+          - string
+          - 'null'
+          description: Path prefix for organizing objects within the bucket.
+      description: AWS S3 storage configuration details.
+    WebhookResponse:
+      type: object
+      required:
+      - id
+      - name
+      - url
+      - events
+      - creation_time_in_millis
+      - modification_time_in_millis
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the webhook configuration.
+        name:
+          type: string
+          description: Name of the webhook configuration.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the webhook configuration.
+        org:
+          $ref: '#/components/schemas/WebhookOrg'
+          description: Org details.
+        url:
+          type: string
+          description: The webhook endpoint URL.
+        url_params:
+          type:
+          - object
+          - 'null'
+          description: Additional URL parameters as key-value pairs.
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - LIVEBOARD_SCHEDULE
+          description: List of events this webhook subscribes to.
+        authentication:
+          $ref: '#/components/schemas/WebhookAuthentication'
+          description: Redacted authorization configuration for the webhook.
+        signature_verification:
+          $ref: '#/components/schemas/WebhookSignatureVerification'
+          description: Redacted configuration for webhook signature verification.
+        additional_headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/WebhookKeyValuePair'
+          description: 'Additional headers as an array of key-value pairs. <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>'
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Creation time of the webhook configuration in milliseconds.
+        modification_time_in_millis:
+          type: number
+          format: float
+          description: Last modified time of the webhook configuration in milliseconds.
+        created_by:
+          $ref: '#/components/schemas/WebhookUser'
+          description: User who created the webhook.
+        last_modified_by:
+          $ref: '#/components/schemas/WebhookUser'
+          description: User who last modified the webhook.
+        storage_destination:
+          $ref: '#/components/schemas/StorageDestination'
+          description: Storage destination configuration for webhook payload delivery.
+        status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ENABLED
+          - DISABLED
+          description: 'Status of the webhook (ENABLED or DISABLED).
+
+            Only present when explicitly set. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
     UpdateWebhookConfigurationRequest:
       type: object
       properties:
@@ -1372,123 +1325,66 @@ components:
             - AUTHENTICATION
             - SIGNATURE_VERIFICATION
             - STORAGE_DESTINATION
-    WebhookAuthBasicAuthInput:
+    DeleteWebhookConfigurationsRequest:
+      type: object
+      properties:
+        webhook_identifiers:
+          description: List of webhook identifiers to delete.
+          type: array
+          items:
+            type: string
+      required:
+      - webhook_identifiers
+    WebhookUser:
       type: object
       required:
-      - username
-      - password
+      - id
+      - name
       properties:
-        username:
+        id:
           type: string
-          description: Username for basic authentication.
-        password:
+          description: Unique identifier of the user.
+        name:
           type: string
-          description: Password for basic authentication.
-    WebhookAuthentication:
+          description: Name of the user.
+    WebhookSignatureVerification:
       type: object
+      required:
+      - type
+      - header
+      - algorithm
+      - secret
       properties:
-        API_KEY:
-          $ref: '#/components/schemas/WebhookAuthApiKey'
-          description: Redacted API key authentication configuration.
-          nullable: true
-        BASIC_AUTH:
-          $ref: '#/components/schemas/WebhookAuthBasicAuth'
-          description: Redacted Basic authentication configuration.
-          nullable: true
-        BEARER_TOKEN:
-          type: string
-          description: Redacted Bearer token authentication configuration.
-          nullable: true
-        OAUTH2:
-          $ref: '#/components/schemas/WebhookAuthOAuth2'
-          description: Redacted OAuth2 authentication configuration.
-          nullable: true
-    SearchWebhookConfigurationsRequest:
-      type: object
-      properties:
-        org_identifier:
-          description: Unique ID or name of the org.
-          type: string
-        webhook_identifier:
-          description: Unique ID or name of the webhook.
-          type: string
-        event_type:
-          description: Type of webhook event to filter by.
+        type:
           type: string
           enum:
-          - LIVEBOARD_SCHEDULE
-        record_offset:
-          description: The offset point, starting from where the webhooks should be included in the response.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of webhooks that should be included in the response starting from offset position.
-          default: 50
-          type: integer
-          format: int32
-        sort_options:
-          description: Sort option includes sort field and sort order.
-          allOf:
-          - $ref: '#/components/schemas/WebhookSortOptionsInput'
-        status:
-          description: 'Filter webhooks by status (ENABLED or DISABLED). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          - HMAC_SHA256
+          description: Signature verification method type.
+        header:
+          type: string
+          description: HTTP header where the signature is sent.
+        algorithm:
           type: string
           enum:
-          - ENABLED
-          - DISABLED
-    WebhookAuthBasicAuth:
-      type: object
-      required:
-      - username
-      - password
-      properties:
-        username:
+          - SHA256
+          description: Hash algorithm used for signature verification.
+        secret:
           type: string
-          description: Username for basic authentication.
-        password:
-          type: string
-          description: Password for basic authentication.
-    WebhookSearchResponse:
+          description: Shared secret used for HMAC signature generation.
+    StorageConfigInput:
       type: object
-      required:
-      - webhooks
-      - pagination
       properties:
-        webhooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookResponse'
-          description: List of webhook configurations matching the search criteria.
-        pagination:
-          $ref: '#/components/schemas/WebhookPagination'
-          description: Pagination information.
-    WebhookDeleteResponse:
-      type: object
-      required:
-      - deleted_count
-      - failed_count
-      - deleted_webhooks
-      - failed_webhooks
-      properties:
-        deleted_count:
-          type: integer
-          format: int32
-          description: Number of webhooks successfully deleted.
-        failed_count:
-          type: integer
-          format: int32
-          description: Number of webhooks that failed to delete.
-        deleted_webhooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookResponse'
-          description: List of successfully deleted webhooks.
-        failed_webhooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookDeleteFailure'
-          description: List of webhooks that failed to delete with error details.
+        aws_s3_config:
+          $ref: '#/components/schemas/AwsS3ConfigInput'
+          description: 'AWS S3 storage configuration.
+
+            Example: {"bucket_name": "my-webhook-files", "region": "us-west-2", "role_arn": "arn:aws:iam::123456789012:role/WebhookDeliveryRole", "external_id": "ts-webhook-a1b2c3d4-7890", "path_prefix": "webhook-deliveries/"}'
+        gcp_gcs_config:
+          $ref: '#/components/schemas/GcpGcsConfigInput'
+          description: 'GCP GCS storage configuration.
+
+            Example: {"bucket_name": "my-webhook-files", "service_account_email": "my-sa@my-project.iam.gserviceaccount.com", "path_prefix": "webhooks/"} <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+      description: Input type for storage configuration.
     WebhookStorageSetupConfig:
       type: object
       required:
@@ -1503,29 +1399,35 @@ components:
           - GCP_TO_GCS_STORAGE
           description: 'Discriminator identifying the upload path. One of: AWS_TO_S3_STORAGE, GCP_TO_S3_STORAGE, GCP_TO_GCS_STORAGE.'
         aws_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: AWS Account ID of the platform. Populated for AWS_TO_S3_STORAGE. Include in your IAM role trust policy.
-          nullable: true
         gcp_service_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GCP service account numeric ID of the platform (the 'sub' claim in OIDC tokens). Populated for GCP_TO_S3_STORAGE.
-          nullable: true
         oidc_provider:
-          type: string
+          type:
+          - string
+          - 'null'
           description: OIDC identity provider URL. Populated for GCP_TO_S3_STORAGE; always 'accounts.google.com' for GCP.
-          nullable: true
         trust_policy_template:
-          type: object
+          type:
+          - object
+          - 'null'
           description: Sample IAM trust policy JSON. Populated for AWS_TO_S3_STORAGE and GCP_TO_S3_STORAGE.
-          nullable: true
         service_account_email:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GCP service account email of the platform. Populated for GCP_TO_GCS_STORAGE. Grant it roles/iam.serviceAccountTokenCreator on your service account.
-          nullable: true
         required_role:
-          type: string
+          type:
+          - string
+          - 'null'
           description: IAM role the customer must grant to the platform service account. Populated for GCP_TO_GCS_STORAGE.
-          nullable: true
         setup_instructions:
           type: array
           items:
@@ -1538,6 +1440,164 @@ components:
         GCP_TO_S3_STORAGE: gcp_service_account_id, oidc_provider, trust_policy_template, setup_instructions.
 
         GCP_TO_GCS_STORAGE: service_account_email, required_role, setup_instructions.'
+    WebhookAuthBasicAuth:
+      type: object
+      required:
+      - username
+      - password
+      properties:
+        username:
+          type: string
+          description: Username for basic authentication.
+        password:
+          type: string
+          description: Password for basic authentication.
+    WebhookAuthOAuth2:
+      type: object
+      required:
+      - authorization_url
+      - client_id
+      - client_secret
+      properties:
+        authorization_url:
+          type: string
+          description: OAuth2 authorization server URL.
+        client_id:
+          type: string
+          description: OAuth2 client identifier.
+        client_secret:
+          type: string
+          description: OAuth2 client secret key.
+    WebhookSignatureVerificationInput:
+      type: object
+      required:
+      - type
+      - header
+      - algorithm
+      - secret
+      properties:
+        type:
+          type: string
+          enum:
+          - HMAC_SHA256
+          description: Signature verification method type.
+        header:
+          type: string
+          description: HTTP header where the signature is sent.
+        algorithm:
+          type: string
+          enum:
+          - SHA256
+          description: Hash algorithm used for signature verification.
+        secret:
+          type: string
+          description: Shared secret used for HMAC signature generation.
+    WebhookSearchResponse:
+      type: object
+      required:
+      - webhooks
+      - pagination
+      properties:
+        webhooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookResponse'
+          description: List of webhook configurations matching the search criteria.
+        pagination:
+          $ref: '#/components/schemas/WebhookPagination'
+          description: Pagination information.
+    WebhookStorageConfigInfo:
+      type: object
+      required:
+      - storage_type
+      - provider
+      - config
+      properties:
+        storage_type:
+          type: string
+          enum:
+          - OBJECT_STORAGE
+          description: Type of storage destination.
+        provider:
+          type: string
+          enum:
+          - AWS_S3
+          - GCP_GCS
+          description: Storage destination provider.
+        config:
+          $ref: '#/components/schemas/WebhookStorageSetupConfig'
+          description: Setup configuration specific to the upload path.
+      description: Cluster-level storage setup information for configuring customer-managed storage.
+    StorageConfig:
+      type: object
+      properties:
+        aws_s3_config:
+          $ref: '#/components/schemas/AwsS3Config'
+          description: AWS S3 storage configuration.
+        gcp_gcs_config:
+          $ref: '#/components/schemas/GcpGcsConfig'
+          description: 'GCP GCS storage configuration. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+      description: Storage configuration containing provider-specific settings.
+    WebhookAuthOAuth2Input:
+      type: object
+      required:
+      - authorization_url
+      - client_id
+      - client_secret
+      properties:
+        authorization_url:
+          type: string
+          description: OAuth2 authorization server URL.
+        client_id:
+          type: string
+          description: OAuth2 client identifier.
+        client_secret:
+          type: string
+          description: OAuth2 client secret key.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    WebhookAuthenticationInput:
+      type: object
+      properties:
+        API_KEY:
+          $ref: '#/components/schemas/WebhookAuthApiKeyInput'
+          description: API key authentication configuration.
+        BASIC_AUTH:
+          $ref: '#/components/schemas/WebhookAuthBasicAuthInput'
+          description: Basic authentication configuration.
+        BEARER_TOKEN:
+          type:
+          - string
+          - 'null'
+          description: Bearer token authentication configuration.
+        OAUTH2:
+          $ref: '#/components/schemas/WebhookAuthOAuth2Input'
+          description: OAuth2 authentication configuration.
+    StorageDestinationInput:
+      type: object
+      required:
+      - storage_type
+      - storage_config
+      properties:
+        storage_type:
+          type: string
+          enum:
+          - AWS_S3
+          - GCP_GCS
+          description: 'Type of storage destination.
+
+            Example: "AWS_S3"'
+        storage_config:
+          $ref: '#/components/schemas/StorageConfigInput'
+          description: 'Storage-specific configuration settings.
+
+            Example: {"aws_s3_config": {"bucket_name": "my-webhook-files", "region": "us-west-2", "role_arn": "arn:aws:iam::123456789012:role/WebhookDeliveryRole", "external_id": "ts-webhook-a1b2c3d4-7890", "path_prefix": "webhook-deliveries/"}}'
+      description: Input type for storage destination configuration.
   securitySchemes:
     bearerAuth:
       type: http

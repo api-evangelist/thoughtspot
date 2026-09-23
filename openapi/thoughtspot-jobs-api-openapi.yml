@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Jobs API
+  title: ThoughtSpot Public REST Jobs API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,30 @@ paths:
   /api/rest/2.0/jobs/history/communication-channels/search:
     post:
       operationId: searchChannelHistory
-      description: "\n <span class=\"since-beta-tag\">Version: 26.4.0.cl or later</span>\n\nSearches delivery history for communication channels such as webhooks. Returns channel-level delivery status for each job execution record. Use this to monitor channel health and delivery success rates across events.\n\nRequires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.\n\n**NOTE**: When `channel_type` is `WEBHOOK`, the following constraints apply:\n\n- `job_ids`, `channel_identifiers`, and `events` each accept at most one element.\n- When `job_ids` is provided, it is used as the sole lookup key and other filter fields are ignored.\n- When `job_ids` is not provided, `channel_identifiers` and `events` are both required, each containing exactly one element.\n- Records older than the configured retention period are not returned.\n- Use `start_epoch_time_in_millis` and/or `end_epoch_time_in_millis` to narrow results to a specific time window.\n\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 26.4.0.cl or later
+
+
+        Searches delivery history for communication channels such as webhooks. Returns channel-level delivery status for each job execution record. Use this to monitor channel health and delivery success rates across events.
+
+
+        Requires `ADMINISTRATION` (**Can administer ThoughtSpot**) or `DEVELOPER` (**Has developer privilege**) privilege. If Role-Based Access Control (RBAC) is enabled on your instance, users with `CAN_MANAGE_WEBHOOKS` (**Can manage webhooks**) privilege are also authorized to perform this action.
+
+
+        **NOTE**: When `channel_type` is `WEBHOOK`, the following constraints apply:
+
+
+        - `job_ids`, `channel_identifiers`, and `events` each accept at most one element.
+
+        - When `job_ids` is provided, it is used as the sole lookup key and other filter fields are ignored.
+
+        - When `job_ids` is not provided, `channel_identifiers` and `events` are both required, each containing exactly one element.
+
+        - Records older than the configured retention period are not returned.
+
+        - Use `start_epoch_time_in_millis` and/or `end_epoch_time_in_millis` to narrow results to a specific time window.
+
+
+        #### Endpoint URL'
       tags:
       - Jobs
       requestBody:
@@ -150,55 +173,10 @@ paths:
                         incident_id_guid: d4e5f678-9012-3456-defa-456789012345
                         trace_id_guid: d4e5f678-9012-3456-defa-456789012345
                         debug: Unexpected server error while retrieving channel delivery history.
+      summary: Search channel history
+      x-summary-source: derived
 components:
   schemas:
-    ChannelHistoryEventInfo:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD_SCHEDULE
-          description: Type of the event.
-        id:
-          type: string
-          description: Unique ID of the event.
-        name:
-          type: string
-          description: Name of the event.
-          nullable: true
-        run_id:
-          type: string
-          description: Unique run ID for this event execution.
-          nullable: true
-      description: Event metadata for the triggering event associated with a job.
-    JobRecipient:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - USER
-          - EXTERNAL
-          description: Type of the recipient.
-        id:
-          type: string
-          description: Unique ID of the recipient.
-          nullable: true
-        name:
-          type: string
-          description: Name of the recipient.
-          nullable: true
-        email:
-          type: string
-          description: Email of the recipient.
-          nullable: true
-      description: A recipient (user, group, or external) for a job execution.
     SearchChannelHistoryRequest:
       type: object
       properties:
@@ -240,32 +218,6 @@ components:
           format: float
       required:
       - channel_type
-    SearchChannelHistoryResponse:
-      type: object
-      required:
-      - jobs
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelHistoryJob'
-          description: List of job execution records.
-      description: Response wrapper for channel delivery history.
-    ChannelHistoryEventInput:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD_SCHEDULE
-          description: Type of the event.
-        identifier:
-          type: string
-          description: Unique ID or name of the event.
-          nullable: true
-      description: Event specification for channel history search.
     ChannelHistoryJob:
       type: object
       required:
@@ -291,29 +243,111 @@ components:
         event:
           $ref: '#/components/schemas/ChannelHistoryEventInfo'
           description: Event metadata for the triggering event associated with this job.
-          nullable: true
         recipients:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/JobRecipient'
           description: The users, groups or external recipients for this job.
-          nullable: true
         detail:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Additional delivery details such as HTTP response code or error message.
-          nullable: true
         try_count:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
           description: Number of attempts made. 1 indicates first attempt.
-          nullable: true
       description: A single job execution record for a channel.
+    JobRecipient:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - USER
+          - EXTERNAL
+          description: Type of the recipient.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the recipient.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the recipient.
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the recipient.
+      description: A recipient (user, group, or external) for a job execution.
+    SearchChannelHistoryResponse:
+      type: object
+      required:
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
+    ChannelHistoryEventInfo:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        id:
+          type: string
+          description: Unique ID of the event.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the event.
+        run_id:
+          type:
+          - string
+          - 'null'
+          description: Unique run ID for this event execution.
+      description: Event metadata for the triggering event associated with a job.
     ErrorResponse:
       type: object
       properties:
         error:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
+    ChannelHistoryEventInput:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the event.
+      description: Event specification for channel history search.
   securitySchemes:
     bearerAuth:
       type: http

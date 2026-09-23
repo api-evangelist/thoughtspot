@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Variable API
+  title: ThoughtSpot Public REST Variable API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,9 +15,9 @@ paths:
   /api/rest/2.0/template/variables/create:
     post:
       operationId: createVariable
-      description: '
+      description: 'Create a variable which can be used for parameterizing metadata objects
 
-        Create a variable which can be used for parameterizing metadata objects <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+        Version: 26.4.0.cl or later
 
 
         Allows creating a variable which can be used for parameterizing metadata objects in ThoughtSpot.
@@ -59,11 +59,7 @@ paths:
         * The variable type is invalid
 
 
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Variable
       requestBody:
@@ -104,10 +100,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Create variable
+      x-summary-source: derived
   /api/rest/2.0/template/variables/{identifier}/delete:
     post:
       operationId: deleteVariable
-      description: "\nDelete a variable <br/>  <span class=\"since-beta-tag\">Version: 10.14.0.cl or later</span>\n\n**Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/template/variables/delete](/api/rest/2.0/template/variables/delete) instead.\n\nAllows deleting a variable from ThoughtSpot.\n\nRequires ADMINISTRATION role and TENANT scope.\nThe CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.\n\nThe API endpoint requires:\n* The variable identifier (ID or name)\n\nThe operation will fail if:\n* The user lacks required permissions\n* The variable doesn't exist\n* The variable is being used by other objects \n\n\n\n#### Endpoint URL\n"
+      description: 'Delete a variable
+
+        Version: 10.14.0.cl or later
+
+
+        **Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use POST /api/rest/2.0/template/variables/delete instead.
+
+
+        Allows deleting a variable from ThoughtSpot.
+
+
+        Requires ADMINISTRATION role and TENANT scope.
+
+        The CAN_MANAGE_VARIABLES permission allows you to manage Formula Variables in the current organization scope.
+
+
+        The API endpoint requires:
+
+        * The variable identifier (ID or name)
+
+
+        The operation will fail if:
+
+        * The user lacks required permissions
+
+        * The variable doesn''t exist
+
+        * The variable is being used by other objects
+
+
+        #### Endpoint URL'
       deprecated: true
       tags:
       - Variable
@@ -145,12 +173,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete variable
+      x-summary-source: derived
   /api/rest/2.0/template/variables/delete:
     post:
       operationId: deleteVariables
-      description: '
+      description: 'Delete variable(s)
 
-        Delete variable(s) <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+        Version: 26.4.0.cl or later
 
 
         Allows deleting multiple variables from ThoughtSpot.
@@ -175,12 +205,7 @@ paths:
         * Any of the variables are being used by other objects
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Variable
       requestBody:
@@ -217,12 +242,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete variables
+      x-summary-source: derived
   /api/rest/2.0/template/variables/{identifier}/update-values:
     post:
       operationId: putVariableValues
-      description: '
+      description: 'Update values for a variable
 
-        Update values for a variable <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+        Version: 26.4.0.cl or later
 
 
         Allows updating values for a specific variable in ThoughtSpot.
@@ -264,12 +291,7 @@ paths:
         * RESET - Removes all constraints for the given variable, scope is ignored
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Variable
       requestBody:
@@ -312,12 +334,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Put variable values
+      x-summary-source: derived
   /api/rest/2.0/template/variables/search:
     post:
       operationId: searchVariables
-      description: '
+      description: 'Search variables
 
-        Search variables <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+        Version: 26.4.0.cl or later
 
 
         Allows searching for variables in ThoughtSpot.
@@ -353,12 +377,7 @@ paths:
         * model_identifier
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Variable
       requestBody:
@@ -401,12 +420,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Search variables
+      x-summary-source: derived
   /api/rest/2.0/template/variables/{identifier}/update:
     post:
       operationId: updateVariable
-      description: '
+      description: 'Update a variable''s name
 
-        Update a variable''s name <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>
+        Version: 26.4.0.cl or later
 
 
         Allows updating a variable''s name in ThoughtSpot.
@@ -422,11 +443,7 @@ paths:
         * The variable name
 
 
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       tags:
       - Variable
       requestBody:
@@ -469,15 +486,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Update variable
+      x-summary-source: derived
   /api/rest/2.0/template/variables/update-values:
     post:
       operationId: updateVariableValues
-      description: '
+      description: 'Update values for multiple variables
 
-        Update values for multiple variables <br/>  <span class="since-beta-tag">Version: 10.14.0.cl or later</span>
+        Version: 10.14.0.cl or later
 
 
-        **Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use [POST /api/rest/2.0/template/variables/{identifier}/update-values](/api/rest/2.0/template/variables/%7Bidentifier%7D/update-values) instead.
+        **Note:** This API endpoint is deprecated and will be removed from ThoughtSpot in a future release. Use POST /api/rest/2.0/template/variables/{identifier}/update-values instead.
 
 
         Allows updating values for multiple variables in ThoughtSpot.
@@ -517,12 +536,7 @@ paths:
         * RESET - Removes all constrains for a given variable, scope is ignored
 
 
-
-
-
-        #### Endpoint URL
-
-        '
+        #### Endpoint URL'
       deprecated: true
       tags:
       - Variable
@@ -560,213 +574,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Update variable values
+      x-summary-source: derived
 components:
   schemas:
-    VariableUpdateScopeInput:
+    VariableValue:
       type: object
       required:
       - org_identifier
       properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: The value of the variable
+        value_list:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The value of the variable if it is a list type
         org_identifier:
           type: string
           description: The unique name of the org
         principal_type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - USER
           - USER_GROUP
-          description: Type of principal to which the variable value applies. Use USER to assign values to a specific user, or USER_GROUP to assign values to a group.
-          nullable: true
+          description: Type of principal to which this value applies. Use USER to assign the value to a specific user, or USER_GROUP to assign it to a group.
         principal_identifier:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique ID or name of the principal
-          nullable: true
         model_identifier:
-          type: string
-          description: Unique ID or name of the model. Required for FORMULA_VARIABLE type to scope the variable value to a specific worksheet.
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: 'Unique ID of the model <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
         priority:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          description: The priority level for this scope assignment, used for conflict resolution when multiple values match. Higher priority values (larger numbers) take precedence.
-          nullable: true
-      description: Input for defining the scope of variable value assignments in batch update operations
-    PutVariableValuesRequest:
-      type: object
-      properties:
-        operation:
-          description: Operation to perform
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
-          - RESET
-        variable_assignment:
-          description: Variable assignments
-          type: array
-          items:
-            $ref: '#/components/schemas/VariablePutAssignmentInput'
-      required:
-      - variable_assignment
-    UpdateVariableRequest:
-      type: object
-      properties:
-        name:
-          description: New name of the variable.
-          type: string
-      required:
-      - name
-    VariableDetailInput:
-      type: object
-      properties:
-        identifier:
-          type: string
-          description: Unique ID or name of the variable
-          nullable: true
-        type:
-          type: string
-          enum:
-          - CONNECTION_PROPERTY
-          - TABLE_MAPPING
-          - CONNECTION_PROPERTY_PER_PRINCIPAL
-          - FORMULA_VARIABLE
-          - USER_PROPERTY
-          description: Type of variable
-          nullable: true
-        name_pattern:
-          type: string
-          description: A pattern to match case-insensitive name of the variable. User % for a wildcard match
-          nullable: true
-      description: Input for variable details in search
-    Variable:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the variable
-        name:
-          type: string
-          description: Name of the variable
-        variable_type:
-          type: string
-          enum:
-          - CONNECTION_PROPERTY
-          - TABLE_MAPPING
-          - CONNECTION_PROPERTY_PER_PRINCIPAL
-          - FORMULA_VARIABLE
-          - USER_PROPERTY
-          description: Type of the variable
-          nullable: true
-        sensitive:
-          type: boolean
-          description: If the variable is sensitive
-          nullable: true
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/VariableValue'
-          description: Values of the variable
-          nullable: true
-        org:
-          $ref: '#/components/schemas/VariableOrgInfo'
-          description: Owner org of the variable.
-          nullable: true
-      description: Variable object
-    VariableOrgInfo:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: ID of the Org.
-        name:
-          type: string
-          description: Name of the Org.
-    UpdateVariableValuesRequest:
-      type: object
-      properties:
-        variable_assignment:
-          description: Array of variable assignment objects specifying the variable identifier, values to assign, and the operation type (ADD, REMOVE, REPLACE, or RESET) to perform on each variable.
-          type: array
-          items:
-            $ref: '#/components/schemas/VariableUpdateAssignmentInput'
-        variable_value_scope:
-          description: Array of scope objects defining where the variable values apply, including organization context, optional principal constraints (user or group), model reference for formula variables, and priority for conflict resolution.
-          type: array
-          items:
-            $ref: '#/components/schemas/VariableUpdateScopeInput'
-      required:
-      - variable_assignment
-      - variable_value_scope
-    CreateVariableRequest:
-      type: object
-      properties:
-        type:
-          description: Type of variable
-          type: string
-          enum:
-          - CONNECTION_PROPERTY
-          - TABLE_MAPPING
-          - CONNECTION_PROPERTY_PER_PRINCIPAL
-          - FORMULA_VARIABLE
-        name:
-          description: Name of the variable. This is unique across the cluster.
-          type: string
-        is_sensitive:
-          description: If the variable contains sensitive values like passwords
-          default: false
-          type: boolean
-          nullable: true
-        data_type:
-          description: 'Variable Data Type, only for formula_variable type, leave empty for others <br/>  <span class="since-beta-tag">Version: 10.15.0.cl or later</span>'
-          type: string
-          enum:
-          - VARCHAR
-          - INT32
-          - INT64
-          - DOUBLE
-          - DATE
-          - DATE_TIME
-      required:
-      - type
-      - name
-    VariableUpdateAssignmentInput:
-      type: object
-      required:
-      - variable_identifier
-      - variable_values
-      - operation
-      properties:
-        variable_identifier:
-          type: string
-          description: ID or Name of the variable
-        variable_values:
-          type: array
-          items:
-            type: string
-          description: Values of the variable
-        operation:
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
-          - RESET
-          description: Operation to perform
-      description: Input for variable value update in batch operations
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          nullable: true
+          description: The priority assigned to this value. If there are 2 matching values, the one with the higher priority will be picked.
     SearchVariablesRequest:
       type: object
       properties:
@@ -797,44 +652,95 @@ components:
           enum:
           - METADATA
           - METADATA_AND_VALUES
-    VariableValue:
+    VariableDetailInput:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the variable
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+          - USER_PROPERTY
+          description: Type of variable
+        name_pattern:
+          type:
+          - string
+          - 'null'
+          description: A pattern to match case-insensitive name of the variable. User % for a wildcard match
+      description: Input for variable details in search
+    VariableUpdateAssignmentInput:
       type: object
       required:
-      - org_identifier
+      - variable_identifier
+      - variable_values
+      - operation
       properties:
-        value:
+        variable_identifier:
           type: string
-          description: The value of the variable
-          nullable: true
-        value_list:
+          description: ID or Name of the variable
+        variable_values:
           type: array
           items:
             type: string
-          description: The value of the variable if it is a list type
-          nullable: true
-        org_identifier:
+          description: Values of the variable
+        operation:
           type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          - RESET
+          description: Operation to perform
+      description: Input for variable value update in batch operations
+    ValueScopeInput:
+      type: object
+      properties:
+        org_identifier:
+          type:
+          - string
+          - 'null'
           description: The unique name of the org
         principal_type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - USER
           - USER_GROUP
-          description: Type of principal to which this value applies. Use USER to assign the value to a specific user, or USER_GROUP to assign it to a group.
-          nullable: true
+          description: Type of principal to filter by. Use USER to filter values assigned to specific users, or USER_GROUP to filter values assigned to groups.
         principal_identifier:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique ID or name of the principal
-          nullable: true
         model_identifier:
-          type: string
-          description: 'Unique ID of the model <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
-          nullable: true
-        priority:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the model to filter by. Applicable only for FORMULA_VARIABLE type.
+      description: Input for filtering variable values by scope in search operations
+    VariableOrgInfo:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
           type: integer
           format: int32
-          description: The priority assigned to this value. If there are 2 matching values, the one with the higher priority will be picked.
-          nullable: true
+          description: ID of the Org.
+        name:
+          type: string
+          description: Name of the Org.
     DeleteVariablesRequest:
       type: object
       properties:
@@ -845,29 +751,78 @@ components:
             type: string
       required:
       - identifiers
-    ValueScopeInput:
+    CreateVariableRequest:
       type: object
       properties:
-        org_identifier:
-          type: string
-          description: The unique name of the org
-          nullable: true
-        principal_type:
+        type:
+          description: Type of variable
           type: string
           enum:
-          - USER
-          - USER_GROUP
-          description: Type of principal to filter by. Use USER to filter values assigned to specific users, or USER_GROUP to filter values assigned to groups.
-          nullable: true
-        principal_identifier:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+        name:
+          description: Name of the variable. This is unique across the cluster.
           type: string
-          description: Unique ID or name of the principal
-          nullable: true
-        model_identifier:
+        is_sensitive:
+          description: If the variable contains sensitive values like passwords
+          default: false
+          type:
+          - boolean
+          - 'null'
+        data_type:
+          description: 'Variable Data Type, only for formula_variable type, leave empty for others <br/>  <span class="since-beta-tag">Version: 10.15.0.cl or later</span>'
           type: string
-          description: Unique ID or name of the model to filter by. Applicable only for FORMULA_VARIABLE type.
-          nullable: true
-      description: Input for filtering variable values by scope in search operations
+          enum:
+          - VARCHAR
+          - INT32
+          - INT64
+          - DOUBLE
+          - DATE
+          - DATE_TIME
+      required:
+      - type
+      - name
+    Variable:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the variable
+        name:
+          type: string
+          description: Name of the variable
+        variable_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+          - USER_PROPERTY
+          description: Type of the variable
+        sensitive:
+          type:
+          - boolean
+          - 'null'
+          description: If the variable is sensitive
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/VariableValue'
+          description: Values of the variable
+        org:
+          $ref: '#/components/schemas/VariableOrgInfo'
+          description: Owner org of the variable.
+      description: Variable object
     VariablePutAssignmentInput:
       type: object
       required:
@@ -879,30 +834,117 @@ components:
             type: string
           description: Values of the variable
         org_identifier:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The unique name of the org
-          nullable: true
         principal_type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - USER
           - USER_GROUP
           description: Principal type
-          nullable: true
         principal_identifier:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique ID or name of the principal
-          nullable: true
         model_identifier:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique ID of the model
-          nullable: true
         priority:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
           description: Priority level
-          nullable: true
       description: Input for variable value put operations
+    UpdateVariableRequest:
+      type: object
+      properties:
+        name:
+          description: New name of the variable.
+          type: string
+      required:
+      - name
+    VariableUpdateScopeInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: The unique name of the org
+        principal_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - USER
+          - USER_GROUP
+          description: Type of principal to which the variable value applies. Use USER to assign values to a specific user, or USER_GROUP to assign values to a group.
+        principal_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the principal
+        model_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the model. Required for FORMULA_VARIABLE type to scope the variable value to a specific worksheet.
+        priority:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The priority level for this scope assignment, used for conflict resolution when multiple values match. Higher priority values (larger numbers) take precedence.
+      description: Input for defining the scope of variable value assignments in batch update operations
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    UpdateVariableValuesRequest:
+      type: object
+      properties:
+        variable_assignment:
+          description: Array of variable assignment objects specifying the variable identifier, values to assign, and the operation type (ADD, REMOVE, REPLACE, or RESET) to perform on each variable.
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableUpdateAssignmentInput'
+        variable_value_scope:
+          description: Array of scope objects defining where the variable values apply, including organization context, optional principal constraints (user or group), model reference for formula variables, and priority for conflict resolution.
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableUpdateScopeInput'
+      required:
+      - variable_assignment
+      - variable_value_scope
+    PutVariableValuesRequest:
+      type: object
+      properties:
+        operation:
+          description: Operation to perform
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          - RESET
+        variable_assignment:
+          description: Variable assignments
+          type: array
+          items:
+            $ref: '#/components/schemas/VariablePutAssignmentInput'
+      required:
+      - variable_assignment
   securitySchemes:
     bearerAuth:
       type: http

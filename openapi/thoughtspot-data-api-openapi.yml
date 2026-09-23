@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ThoughtSpot Public REST 10.1.0.cl Data API
+  title: ThoughtSpot Public REST Data API
   version: '2.0'
 servers:
 - url: '{base-url}'
@@ -15,7 +15,19 @@ paths:
   /api/rest/2.0/metadata/answer/data:
     post:
       operationId: fetchAnswerData
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nFetches data from a saved Answer.\n\nRequires at least view access to the saved Answer. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_apis).\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Fetches data from a saved Answer.
+
+
+        Requires at least view access to the saved Answer. If Role-Based Access Control (RBAC) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.
+
+
+        The `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see Pagination and record size settings.
+
+
+        #### Endpoint URL'
       tags:
       - Data
       requestBody:
@@ -56,10 +68,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Fetch answer data
+      x-summary-source: derived
   /api/rest/2.0/metadata/liveboard/data:
     post:
       operationId: fetchLiveboardData
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGets data from a Liveboard object and its visualization.  \n\nRequires at least view access to the Liveboard. If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nIn the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the GUIDs or names of the visualizations in the API request.\n\nTo include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes. If the new Liveboard experience mode, the transient content includes ad hoc changes to visualizations such as sorting, toggling of legends, and data drill down.\n\nFor more information, and see [Liveboard data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_fetch_liveboard_data_api).\n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Gets data from a Liveboard object and its visualization.
+
+
+        Requires at least view access to the Liveboard. If Role-Based Access Control (RBAC) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.
+
+
+        #### Usage guidelines
+
+
+        In the request body, specify the GUID or name of the Liveboard. To get data for specific visualizations, add the GUIDs or names of the visualizations in the API request.
+
+
+        To include unsaved changes in the report, pass the `transient_pinboard_content` script generated from the `getExportRequestForCurrentPinboard` method in the Visual Embed SDK. Upon successful execution, the API returns the report with unsaved changes. If the new Liveboard experience mode, the transient content includes ad hoc changes to visualizations such as sorting, toggling of legends, and data drill down.
+
+
+        For more information, and see Liveboard data API.
+
+
+        #### Endpoint URL'
       tags:
       - Data
       requestBody:
@@ -100,10 +135,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Fetch liveboard data
+      x-summary-source: derived
   /api/rest/2.0/searchdata:
     post:
       operationId: searchData
-      description: "\n <span class=\"since-beta-tag\">Version: 9.0.0.cl or later</span>\n\nGenerates an Answer from a given data source.\n\nRequires at least view access to the data source object (Worksheet or View). If [Role-Based Access Control (RBAC)](https://developers.thoughtspot.com/docs/rbac) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.\n\n#### Usage guidelines\n\nTo search data, specify the data source GUID in `logical_table_identifier`. The data source can be a Worksheet, View, Table, or SQL view.\n\nPass search tokens in the `query_string` attribute in the API request as shown in the following example:\n\n```\n{\n  \"query_string\": \"[sales] by [store]\",\n  \"logical_table_identifier\": \"cd252e5c-b552-49a8-821d-3eadaa049cca\",\n}\n```\n\nFor more information about the `query_string` format and data source attribute, see [Search data API](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api).  \n\nThe `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see [Pagination and record size settings](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_pagination_settings_for_data_and_report_api).  \n\n\n\n#### Endpoint URL\n"
+      description: 'Version: 9.0.0.cl or later
+
+
+        Generates an Answer from a given data source.
+
+
+        Requires at least view access to the data source object (Worksheet or View). If Role-Based Access Control (RBAC) is enabled, the `CAN_DOWNLOAD_DETAILED_DATA` (**Can download detailed data**) privilege is also required.
+
+
+        #### Usage guidelines
+
+
+        To search data, specify the data source GUID in `logical_table_identifier`. The data source can be a Worksheet, View, Table, or SQL view.
+
+
+        Pass search tokens in the `query_string` attribute in the API request as shown in the following example:
+
+
+        ```
+
+        {
+
+        "query_string": "[sales] by [store]",
+
+        "logical_table_identifier": "cd252e5c-b552-49a8-821d-3eadaa049cca",
+
+        }
+
+        ```
+
+
+        For more information about the `query_string` format and data source attribute, see Search data API.
+
+
+        The `record_size` attribute determines the number of records to retrieve in an API call. For more information about pagination, record size, and maximum row limit, see Pagination and record size settings.
+
+
+        #### Endpoint URL'
       tags:
       - Data
       requestBody:
@@ -144,46 +218,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      summary: Search data
+      x-summary-source: derived
 components:
   schemas:
-    SearchDataRequest:
-      type: object
-      properties:
-        query_string:
-          description: Query string with search tokens. For example, <code>[Sales][Region]</code>. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api)
-          type: string
-        logical_table_identifier:
-          description: GUID of the data source object, such as a Worksheet, View, or Table. You can find the GUID of a data object from the UI or via API. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_query) for more details.
-          type: string
-        data_format:
-          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
-          default: COMPACT
-          type: string
-          enum:
-          - FULL
-          - COMPACT
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records to include in a batch.
-          default: 10
-          type: integer
-          format: int32
-        runtime_filter:
-          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
-          type: object
-        runtime_sort:
-          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
-          type: object
-        runtime_param_override:
-          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
-          type: object
-      required:
-      - query_string
-      - logical_table_identifier
     FetchAnswerDataRequest:
       type: object
       properties:
@@ -218,6 +256,54 @@ components:
           type: object
       required:
       - metadata_identifier
+    AnswerDataResponse:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - contents
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object
+        metadata_name:
+          type: string
+          description: Name of the metadata object
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerContent'
+          description: Data content of metadata objects
+      description: Response format associated with fetch data api
+    LiveboardDataResponse:
+      type: object
+      required:
+      - metadata_id
+      - metadata_name
+      - contents
+      properties:
+        metadata_id:
+          type: string
+          description: The unique identifier of the object
+        metadata_name:
+          type: string
+          description: Name of the metadata object
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveboardContent'
+          description: Data content of metadata objects
+    SearchDataResponse:
+      type: object
+      required:
+      - contents
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerContent'
+          description: Data content of metadata objects
+      description: Response format associated with the search data API.
     AnswerContent:
       type: object
       required:
@@ -259,59 +345,6 @@ components:
           type: number
           format: float
           description: Sampling ratio (0 to 1). If the query was sampled, it is the ratio of keys returned in the data set to the total number of keys expected in the query. If the value is 1.0, this means that the complete result is returned.
-    FetchLiveboardDataRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: GUID or name of the Liveboard.
-          type: string
-        visualization_identifiers:
-          description: GUIDs or names of the visualizations on the Liveboard.
-          type: array
-          items:
-            type: string
-        transient_content:
-          description: Transient content of the Liveboard.
-          type: string
-        data_format:
-          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
-          default: COMPACT
-          type: string
-          enum:
-          - FULL
-          - COMPACT
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records to include in a batch.
-          default: 10
-          type: integer
-          format: int32
-        runtime_filter:
-          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
-          type: object
-        runtime_sort:
-          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
-          type: object
-        runtime_param_override:
-          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
-          type: object
-      required:
-      - metadata_identifier
-    SearchDataResponse:
-      type: object
-      required:
-      - contents
-      properties:
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnswerContent'
-          description: Data content of metadata objects
-      description: Response format associated with the search data API.
     LiveboardContent:
       type: object
       required:
@@ -354,56 +387,102 @@ components:
           format: float
           description: Sampling ratio (0 to 1). If the query was sampled, it is the ratio of keys returned in the data set to the total number of keys expected in the query. If the value is 1.0, this means that the complete result is returned.
         visualization_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique ID of the visualization.
-          nullable: true
         visualization_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name of the visualization.
-          nullable: true
-    AnswerDataResponse:
+    FetchLiveboardDataRequest:
       type: object
-      required:
-      - metadata_id
-      - metadata_name
-      - contents
       properties:
-        metadata_id:
+        metadata_identifier:
+          description: GUID or name of the Liveboard.
           type: string
-          description: The unique identifier of the object
-        metadata_name:
-          type: string
-          description: Name of the metadata object
-        contents:
+        visualization_identifiers:
+          description: GUIDs or names of the visualizations on the Liveboard.
           type: array
           items:
-            $ref: '#/components/schemas/AnswerContent'
-          description: Data content of metadata objects
-      description: Response format associated with fetch data api
+            type: string
+        transient_content:
+          description: Transient content of the Liveboard.
+          type: string
+        data_format:
+          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
+          default: COMPACT
+          type: string
+          enum:
+          - FULL
+          - COMPACT
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records to include in a batch.
+          default: 10
+          type: integer
+          format: int32
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        runtime_sort:
+          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+      required:
+      - metadata_identifier
     ErrorResponse:
       type: object
       properties:
         error:
-          type: object
-          nullable: true
-    LiveboardDataResponse:
+          type:
+          - object
+          - 'null'
+    SearchDataRequest:
       type: object
-      required:
-      - metadata_id
-      - metadata_name
-      - contents
       properties:
-        metadata_id:
+        query_string:
+          description: Query string with search tokens. For example, <code>[Sales][Region]</code>. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_data_api)
           type: string
-          description: The unique identifier of the object
-        metadata_name:
+        logical_table_identifier:
+          description: GUID of the data source object, such as a Worksheet, View, or Table. You can find the GUID of a data object from the UI or via API. See [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_search_query) for more details.
           type: string
-          description: Name of the metadata object
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveboardContent'
-          description: Data content of metadata objects
+        data_format:
+          description: JSON output in compact or full format. The FULL option is available in 9.12.5.cl or later.
+          default: COMPACT
+          type: string
+          enum:
+          - FULL
+          - COMPACT
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records to include in a batch.
+          default: 10
+          type: integer
+          format: int32
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, <code> {"col1": "item type", "op1": "EQ", "val1": "Bags"} </code>. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2, and col3, op3, val3. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        runtime_sort:
+          description: 'JSON object representing columns to sort data at runtime. For example, <code> {"sortCol1": "sales", "asc1": true} </code>. You can add multiple keys by incrementing the number at the end, for example, sortCol1, asc2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+      required:
+      - query_string
+      - logical_table_identifier
   securitySchemes:
     bearerAuth:
       type: http
