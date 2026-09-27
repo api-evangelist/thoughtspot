@@ -346,96 +346,6 @@ components:
           - 'null'
           description: Name of the tag.
       description: Tag reference associated with a semantic integration.
-    CreateSemanticIntegrationRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: ID or name of the CDW connection.
-          type: string
-        name:
-          description: Name of the semantic integration. Must be unique.
-          type: string
-        database_name:
-          description: Database name in the CDW.
-          type: string
-        schema_name:
-          description: Schema name in the CDW.
-          type: string
-        semantic_view_name:
-          description: Semantic view name in the CDW.
-          type: string
-        type:
-          description: CDW connector type.
-          type: string
-          enum:
-          - RDBMS_SNOWFLAKE
-        description:
-          description: Optional description of the semantic integration.
-          type: string
-      required:
-      - connection_identifier
-      - name
-      - database_name
-      - schema_name
-      - semantic_view_name
-      - type
-    SemanticIntegrationSortOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - AUTHOR
-          - CREATED_TIME
-          - MODIFIED_TIME
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order: `ASC` for ascending, `DESC` for descending.'
-      description: Sort options for semantic integration search.
-    SemanticIntegrationReportSummary:
-      type: object
-      properties:
-        total:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Total number of formulas.
-        imported:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of successfully imported formulas.
-        failed:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of failed formula imports.
-        skipped:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of skipped formulas.
-      description: Formula import counts summary.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     SearchSemanticIntegrationsRequest:
       type: object
       properties:
@@ -513,20 +423,90 @@ components:
           - UNCHANGED
           description: Change status since last import. Null on initial create.
       description: Import details for a single formula.
-    SemanticIntegrationReport:
+    ErrorResponse:
       type: object
       properties:
-        summary:
-          $ref: '#/components/schemas/SemanticIntegrationReportSummary'
-          description: Summary of formula import counts.
-        formulas:
+        error:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            $ref: '#/components/schemas/SemanticIntegrationFormulaReport'
-          description: Formula import details.
-      description: Per-formula import report for a semantic integration.
+    SemanticIntegrationSortOptions:
+      type: object
+      properties:
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - AUTHOR
+          - CREATED_TIME
+          - MODIFIED_TIME
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order: `ASC` for ascending, `DESC` for descending.'
+      description: Sort options for semantic integration search.
+    SemanticIntegrationResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the semantic integration.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the semantic integration.
+        model_id:
+          type:
+          - string
+          - 'null'
+          description: Model GUID generated for this integration.
+        model_name:
+          type:
+          - string
+          - 'null'
+          description: Model name generated for this integration.
+        semantic_report:
+          $ref: '#/components/schemas/SemanticIntegrationReport'
+          description: Per-formula import report.
+      description: Response object for a semantic integration.
+    SemanticIntegrationReportSummary:
+      type: object
+      properties:
+        total:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Total number of formulas.
+        imported:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of successfully imported formulas.
+        failed:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of failed formula imports.
+        skipped:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of skipped formulas.
+      description: Formula import counts summary.
     SemanticIntegrationSearchResponse:
       type: object
       properties:
@@ -610,33 +590,53 @@ components:
             $ref: '#/components/schemas/SemanticIntegrationTagReference'
           description: Tags associated with the integration.
       description: Single semantic integration entry returned by search.
-    SemanticIntegrationResponse:
+    CreateSemanticIntegrationRequest:
       type: object
       properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the semantic integration.
+        connection_identifier:
+          description: ID or name of the CDW connection.
+          type: string
         name:
+          description: Name of the semantic integration. Must be unique.
+          type: string
+        database_name:
+          description: Database name in the CDW.
+          type: string
+        schema_name:
+          description: Schema name in the CDW.
+          type: string
+        semantic_view_name:
+          description: Semantic view name in the CDW.
+          type: string
+        type:
+          description: CDW connector type.
+          type: string
+          enum:
+          - RDBMS_SNOWFLAKE
+        description:
+          description: Optional description of the semantic integration.
+          type: string
+      required:
+      - connection_identifier
+      - name
+      - database_name
+      - schema_name
+      - semantic_view_name
+      - type
+    SemanticIntegrationReport:
+      type: object
+      properties:
+        summary:
+          $ref: '#/components/schemas/SemanticIntegrationReportSummary'
+          description: Summary of formula import counts.
+        formulas:
           type:
-          - string
+          - array
           - 'null'
-          description: Name of the semantic integration.
-        model_id:
-          type:
-          - string
-          - 'null'
-          description: Model GUID generated for this integration.
-        model_name:
-          type:
-          - string
-          - 'null'
-          description: Model name generated for this integration.
-        semantic_report:
-          $ref: '#/components/schemas/SemanticIntegrationReport'
-          description: Per-formula import report.
-      description: Response object for a semantic integration.
+          items:
+            $ref: '#/components/schemas/SemanticIntegrationFormulaReport'
+          description: Formula import details.
+      description: Per-formula import report for a semantic integration.
   securitySchemes:
     bearerAuth:
       type: http

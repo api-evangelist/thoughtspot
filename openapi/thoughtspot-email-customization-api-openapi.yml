@@ -537,6 +537,21 @@ components:
           type: array
           items:
             type: string
+    SearchEmailCustomizationRequest:
+      type: object
+      properties:
+        org_identifiers:
+          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     UpdateEmailCustomizationRequest:
       type: object
       properties:
@@ -561,13 +576,6 @@ components:
           - integer
           - 'null'
           format: int32
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     CreateEmailCustomizationResponse:
       type: object
       required:
@@ -588,14 +596,6 @@ components:
         template_properties:
           type: object
           description: Customization configuration for the email
-    SearchEmailCustomizationRequest:
-      type: object
-      properties:
-        org_identifiers:
-          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
-          type: array
-          items:
-            type: string
     Template_Properties_Input_Create:
       type: object
       properties:

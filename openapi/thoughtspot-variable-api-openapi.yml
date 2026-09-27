@@ -578,6 +578,164 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    VariableUpdateScopeInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: The unique name of the org
+        principal_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - USER
+          - USER_GROUP
+          description: Type of principal to which the variable value applies. Use USER to assign values to a specific user, or USER_GROUP to assign values to a group.
+        principal_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the principal
+        model_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the model. Required for FORMULA_VARIABLE type to scope the variable value to a specific worksheet.
+        priority:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The priority level for this scope assignment, used for conflict resolution when multiple values match. Higher priority values (larger numbers) take precedence.
+      description: Input for defining the scope of variable value assignments in batch update operations
+    DeleteVariablesRequest:
+      type: object
+      properties:
+        identifiers:
+          description: Unique id(s) or name(s) of the variable(s) to delete
+          type: array
+          items:
+            type: string
+      required:
+      - identifiers
+    PutVariableValuesRequest:
+      type: object
+      properties:
+        operation:
+          description: Operation to perform
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          - RESET
+        variable_assignment:
+          description: Variable assignments
+          type: array
+          items:
+            $ref: '#/components/schemas/VariablePutAssignmentInput'
+      required:
+      - variable_assignment
+    SearchVariablesRequest:
+      type: object
+      properties:
+        variable_details:
+          description: Variable details
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableDetailInput'
+        value_scope:
+          description: Array of scope filters
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueScopeInput'
+        record_offset:
+          description: The starting record number from where the records should be included
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included
+          default: 10
+          type: integer
+          format: int32
+        response_content:
+          description: Format in which we want the output
+          default: METADATA
+          type: string
+          enum:
+          - METADATA
+          - METADATA_AND_VALUES
+    CreateVariableRequest:
+      type: object
+      properties:
+        type:
+          description: Type of variable
+          type: string
+          enum:
+          - CONNECTION_PROPERTY
+          - TABLE_MAPPING
+          - CONNECTION_PROPERTY_PER_PRINCIPAL
+          - FORMULA_VARIABLE
+        name:
+          description: Name of the variable. This is unique across the cluster.
+          type: string
+        is_sensitive:
+          description: If the variable contains sensitive values like passwords
+          default: false
+          type:
+          - boolean
+          - 'null'
+        data_type:
+          description: 'Variable Data Type, only for formula_variable type, leave empty for others <br/>  <span class="since-beta-tag">Version: 10.15.0.cl or later</span>'
+          type: string
+          enum:
+          - VARCHAR
+          - INT32
+          - INT64
+          - DOUBLE
+          - DATE
+          - DATE_TIME
+      required:
+      - type
+      - name
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    ValueScopeInput:
+      type: object
+      properties:
+        org_identifier:
+          type:
+          - string
+          - 'null'
+          description: The unique name of the org
+        principal_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - USER
+          - USER_GROUP
+          description: Type of principal to filter by. Use USER to filter values assigned to specific users, or USER_GROUP to filter values assigned to groups.
+        principal_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the principal
+        model_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the model to filter by. Applicable only for FORMULA_VARIABLE type.
+      description: Input for filtering variable values by scope in search operations
     VariableValue:
       type: object
       required:
@@ -622,36 +780,35 @@ components:
           - 'null'
           format: int32
           description: The priority assigned to this value. If there are 2 matching values, the one with the higher priority will be picked.
-    SearchVariablesRequest:
+    VariableOrgInfo:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: ID of the Org.
+        name:
+          type: string
+          description: Name of the Org.
+    UpdateVariableValuesRequest:
       type: object
       properties:
-        variable_details:
-          description: Variable details
+        variable_assignment:
+          description: Array of variable assignment objects specifying the variable identifier, values to assign, and the operation type (ADD, REMOVE, REPLACE, or RESET) to perform on each variable.
           type: array
           items:
-            $ref: '#/components/schemas/VariableDetailInput'
-        value_scope:
-          description: Array of scope filters
+            $ref: '#/components/schemas/VariableUpdateAssignmentInput'
+        variable_value_scope:
+          description: Array of scope objects defining where the variable values apply, including organization context, optional principal constraints (user or group), model reference for formula variables, and priority for conflict resolution.
           type: array
           items:
-            $ref: '#/components/schemas/ValueScopeInput'
-        record_offset:
-          description: The starting record number from where the records should be included
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included
-          default: 10
-          type: integer
-          format: int32
-        response_content:
-          description: Format in which we want the output
-          default: METADATA
-          type: string
-          enum:
-          - METADATA
-          - METADATA_AND_VALUES
+            $ref: '#/components/schemas/VariableUpdateScopeInput'
+      required:
+      - variable_assignment
+      - variable_value_scope
     VariableDetailInput:
       type: object
       properties:
@@ -677,112 +834,13 @@ components:
           - 'null'
           description: A pattern to match case-insensitive name of the variable. User % for a wildcard match
       description: Input for variable details in search
-    VariableUpdateAssignmentInput:
-      type: object
-      required:
-      - variable_identifier
-      - variable_values
-      - operation
-      properties:
-        variable_identifier:
-          type: string
-          description: ID or Name of the variable
-        variable_values:
-          type: array
-          items:
-            type: string
-          description: Values of the variable
-        operation:
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
-          - RESET
-          description: Operation to perform
-      description: Input for variable value update in batch operations
-    ValueScopeInput:
+    UpdateVariableRequest:
       type: object
       properties:
-        org_identifier:
-          type:
-          - string
-          - 'null'
-          description: The unique name of the org
-        principal_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - USER
-          - USER_GROUP
-          description: Type of principal to filter by. Use USER to filter values assigned to specific users, or USER_GROUP to filter values assigned to groups.
-        principal_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the principal
-        model_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the model to filter by. Applicable only for FORMULA_VARIABLE type.
-      description: Input for filtering variable values by scope in search operations
-    VariableOrgInfo:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: ID of the Org.
         name:
+          description: New name of the variable.
           type: string
-          description: Name of the Org.
-    DeleteVariablesRequest:
-      type: object
-      properties:
-        identifiers:
-          description: Unique id(s) or name(s) of the variable(s) to delete
-          type: array
-          items:
-            type: string
       required:
-      - identifiers
-    CreateVariableRequest:
-      type: object
-      properties:
-        type:
-          description: Type of variable
-          type: string
-          enum:
-          - CONNECTION_PROPERTY
-          - TABLE_MAPPING
-          - CONNECTION_PROPERTY_PER_PRINCIPAL
-          - FORMULA_VARIABLE
-        name:
-          description: Name of the variable. This is unique across the cluster.
-          type: string
-        is_sensitive:
-          description: If the variable contains sensitive values like passwords
-          default: false
-          type:
-          - boolean
-          - 'null'
-        data_type:
-          description: 'Variable Data Type, only for formula_variable type, leave empty for others <br/>  <span class="since-beta-tag">Version: 10.15.0.cl or later</span>'
-          type: string
-          enum:
-          - VARCHAR
-          - INT32
-          - INT64
-          - DOUBLE
-          - DATE
-          - DATE_TIME
-      required:
-      - type
       - name
     Variable:
       type: object
@@ -863,88 +921,30 @@ components:
           format: int32
           description: Priority level
       description: Input for variable value put operations
-    UpdateVariableRequest:
-      type: object
-      properties:
-        name:
-          description: New name of the variable.
-          type: string
-      required:
-      - name
-    VariableUpdateScopeInput:
+    VariableUpdateAssignmentInput:
       type: object
       required:
-      - org_identifier
+      - variable_identifier
+      - variable_values
+      - operation
       properties:
-        org_identifier:
+        variable_identifier:
           type: string
-          description: The unique name of the org
-        principal_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - USER
-          - USER_GROUP
-          description: Type of principal to which the variable value applies. Use USER to assign values to a specific user, or USER_GROUP to assign values to a group.
-        principal_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the principal
-        model_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the model. Required for FORMULA_VARIABLE type to scope the variable value to a specific worksheet.
-        priority:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: The priority level for this scope assignment, used for conflict resolution when multiple values match. Higher priority values (larger numbers) take precedence.
-      description: Input for defining the scope of variable value assignments in batch update operations
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UpdateVariableValuesRequest:
-      type: object
-      properties:
-        variable_assignment:
-          description: Array of variable assignment objects specifying the variable identifier, values to assign, and the operation type (ADD, REMOVE, REPLACE, or RESET) to perform on each variable.
+          description: ID or Name of the variable
+        variable_values:
           type: array
           items:
-            $ref: '#/components/schemas/VariableUpdateAssignmentInput'
-        variable_value_scope:
-          description: Array of scope objects defining where the variable values apply, including organization context, optional principal constraints (user or group), model reference for formula variables, and priority for conflict resolution.
-          type: array
-          items:
-            $ref: '#/components/schemas/VariableUpdateScopeInput'
-      required:
-      - variable_assignment
-      - variable_value_scope
-    PutVariableValuesRequest:
-      type: object
-      properties:
+            type: string
+          description: Values of the variable
         operation:
-          description: Operation to perform
           type: string
           enum:
           - ADD
           - REMOVE
           - REPLACE
           - RESET
-        variable_assignment:
-          description: Variable assignments
-          type: array
-          items:
-            $ref: '#/components/schemas/VariablePutAssignmentInput'
-      required:
-      - variable_assignment
+          description: Operation to perform
+      description: Input for variable value update in batch operations
   securitySchemes:
     bearerAuth:
       type: http

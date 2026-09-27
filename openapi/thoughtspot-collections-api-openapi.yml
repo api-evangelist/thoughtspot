@@ -318,20 +318,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CollectionEntityIdentifier:
-      type: object
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the entity.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the entity.
-      description: Entity identifier with name.
     CollectionSearchResponse:
       type: object
       required:
@@ -366,93 +352,6 @@ components:
           format: int32
           description: Total count of records returned.
       description: Response object for search collections operation.
-    SearchCollectionsRequest:
-      type: object
-      properties:
-        name_pattern:
-          description: 'A pattern to match case-insensitive name of the Collection object.
-
-            Use ''%'' for wildcard match.'
-          type: string
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: 'The number of records that should be included.
-
-            -1 implies no pagination.'
-          default: 10
-          type: integer
-          format: int32
-        collection_identifiers:
-          description: 'Unique GUIDs of collections to search. Note: Collection names cannot be
-
-            used as identifiers since duplicate names are allowed.'
-          type: array
-          items:
-            type: string
-        created_by_user_identifiers:
-          description: 'Filter collections by author. Provide unique IDs or names of users
-
-            who created the collections.'
-          type: array
-          items:
-            type: string
-        include_metadata:
-          description: Include collection metadata items in the response.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        sort_options:
-          description: Sort options.
-          allOf:
-          - $ref: '#/components/schemas/SortOptions'
-    GenericInfo:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-    CollectionDeleteTypeIdentifiers:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type of the metadata object (e.g., Collection, Worksheet, Table).
-        identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericInfo'
-          description: List of metadata identifiers belonging to the given type.
-      description: Group of metadata objects identified by type.
-    CollectionMetadataItem:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type of the metadata object.
-        identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CollectionEntityIdentifier'
-          description: List of identifiers for this metadata type.
-      description: Metadata item in a collection response.
     UpdateCollectionRequest:
       type: object
       properties:
@@ -475,26 +374,6 @@ components:
           - ADD
           - REMOVE
           - REPLACE
-    CollectionDeleteResponse:
-      type: object
-      properties:
-        metadata_deleted:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
-          description: List of metadata objects that were successfully deleted.
-        metadata_skipped:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
-          description: 'List of metadata objects that were skipped during deletion.
-
-            Objects may be skipped due to lack of permissions, dependencies, or other constraints.'
-      description: Response object for delete collection operation.
     SortOptions:
       type: object
       properties:
@@ -518,33 +397,6 @@ components:
           - DESC
           description: 'Sort order : ASC(Ascending) or DESC(Descending).'
       description: Sort options.
-    CollectionMetadataInput:
-      type: object
-      required:
-      - type
-      - identifiers
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - COLLECTION
-          description: Type of metadata object.
-        identifiers:
-          type: array
-          items:
-            type: string
-          description: List of unique IDs or names of metadata objects.
-      description: Input type for metadata to be added to a collection.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     Collection:
       type: object
       required:
@@ -598,6 +450,63 @@ components:
           $ref: '#/components/schemas/CollectionEntityIdentifier'
           description: Org associated with the collection.
       description: Response object for a collection.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    CollectionEntityIdentifier:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the entity.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the entity.
+      description: Entity identifier with name.
+    CollectionMetadataInput:
+      type: object
+      required:
+      - type
+      - identifiers
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - COLLECTION
+          description: Type of metadata object.
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: List of unique IDs or names of metadata objects.
+      description: Input type for metadata to be added to a collection.
+    CollectionDeleteTypeIdentifiers:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of the metadata object (e.g., Collection, Worksheet, Table).
+        identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericInfo'
+          description: List of metadata identifiers belonging to the given type.
+      description: Group of metadata objects identified by type.
     DeleteCollectionRequest:
       type: object
       properties:
@@ -624,6 +533,66 @@ components:
           - 'null'
       required:
       - collection_identifiers
+    SearchCollectionsRequest:
+      type: object
+      properties:
+        name_pattern:
+          description: 'A pattern to match case-insensitive name of the Collection object.
+
+            Use ''%'' for wildcard match.'
+          type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: 'The number of records that should be included.
+
+            -1 implies no pagination.'
+          default: 10
+          type: integer
+          format: int32
+        collection_identifiers:
+          description: 'Unique GUIDs of collections to search. Note: Collection names cannot be
+
+            used as identifiers since duplicate names are allowed.'
+          type: array
+          items:
+            type: string
+        created_by_user_identifiers:
+          description: 'Filter collections by author. Provide unique IDs or names of users
+
+            who created the collections.'
+          type: array
+          items:
+            type: string
+        include_metadata:
+          description: Include collection metadata items in the response.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        sort_options:
+          description: Sort options.
+          allOf:
+          - $ref: '#/components/schemas/SortOptions'
+    CollectionMetadataItem:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of the metadata object.
+        identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: List of identifiers for this metadata type.
+      description: Metadata item in a collection response.
     CreateCollectionRequest:
       type: object
       properties:
@@ -640,6 +609,37 @@ components:
             $ref: '#/components/schemas/CollectionMetadataInput'
       required:
       - name
+    CollectionDeleteResponse:
+      type: object
+      properties:
+        metadata_deleted:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: List of metadata objects that were successfully deleted.
+        metadata_skipped:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CollectionDeleteTypeIdentifiers'
+          description: 'List of metadata objects that were skipped during deletion.
+
+            Objects may be skipped due to lack of permissions, dependencies, or other constraints.'
+      description: Response object for delete collection operation.
+    GenericInfo:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

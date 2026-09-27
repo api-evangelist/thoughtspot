@@ -539,154 +539,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CalendarResponse:
-      type: object
-      properties:
-        calendar_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the calendar
-        connection_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the connection
-        data_warehouse_type:
-          type:
-          - string
-          - 'null'
-          description: Type of data warehouse
-        modification_time_in_millis:
-          type:
-          - string
-          - 'null'
-          description: Last modification time in milliseconds
-        author_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the author who created the calendar
-        connection_id:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the connection
-        calendar_id:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the calendar
-    SearchCalendarsRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-        name_pattern:
-          description: Pattern to match for calendar names (use '%' for wildcard match).
-          type: string
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included.
-          default: 10
-          type: integer
-          format: int32
-        sort_options:
-          description: Sort options.
-          allOf:
-          - $ref: '#/components/schemas/SortOption'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    ExternalTableInput:
-      type: object
-      required:
-      - connection_identifier
-      - table_name
-      properties:
-        connection_identifier:
-          type: string
-          description: Unique ID or name of the connection.
-        database_name:
-          type:
-          - string
-          - 'null'
-          default: ''
-          description: Name of the database.
-        schema_name:
-          type:
-          - string
-          - 'null'
-          default: ''
-          description: Name of the schema.
-        table_name:
-          type: string
-          description: Name of the table. Table names may be case-sensitive depending on the database system.
-    GenerateCSVRequest:
-      type: object
-      properties:
-        start_date:
-          description: Start date for the calendar in `MM/dd/yyyy` format.
-          type: string
-        end_date:
-          description: End date for the calendar in `MM/dd/yyyy` format.
-          type: string
-        calendar_type:
-          description: Type of the calendar.
-          default: MONTH_OFFSET
-          type: string
-          enum:
-          - MONTH_OFFSET
-          - FOUR_FOUR_FIVE
-          - FOUR_FIVE_FOUR
-          - FIVE_FOUR_FOUR
-        month_offset:
-          description: Month offset to start calendar from `January`.
-          default: January
-          type: string
-          enum:
-          - January
-          - February
-          - March
-          - April
-          - May
-          - June
-          - July
-          - August
-          - September
-          - October
-          - November
-          - December
-        start_day_of_week:
-          description: Specify the starting day of the week.
-          default: Sunday
-          type: string
-          enum:
-          - Sunday
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-        quarter_name_prefix:
-          description: Prefix to add before the quarter.
-          type: string
-        year_name_prefix:
-          description: Prefix to add before the year.
-          type: string
-      required:
-      - start_date
-      - end_date
     UpdateCalendarRequest:
       type: object
       properties:
@@ -755,6 +607,13 @@ components:
           type: string
       required:
       - table_reference
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     CreateCalendarRequest:
       type: object
       properties:
@@ -827,6 +686,123 @@ components:
       - name
       - creation_method
       - table_reference
+    CalendarResponse:
+      type: object
+      properties:
+        calendar_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the calendar
+        connection_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the connection
+        data_warehouse_type:
+          type:
+          - string
+          - 'null'
+          description: Type of data warehouse
+        modification_time_in_millis:
+          type:
+          - string
+          - 'null'
+          description: Last modification time in milliseconds
+        author_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the author who created the calendar
+        connection_id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the connection
+        calendar_id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the calendar
+    GenerateCSVRequest:
+      type: object
+      properties:
+        start_date:
+          description: Start date for the calendar in `MM/dd/yyyy` format.
+          type: string
+        end_date:
+          description: End date for the calendar in `MM/dd/yyyy` format.
+          type: string
+        calendar_type:
+          description: Type of the calendar.
+          default: MONTH_OFFSET
+          type: string
+          enum:
+          - MONTH_OFFSET
+          - FOUR_FOUR_FIVE
+          - FOUR_FIVE_FOUR
+          - FIVE_FOUR_FOUR
+        month_offset:
+          description: Month offset to start calendar from `January`.
+          default: January
+          type: string
+          enum:
+          - January
+          - February
+          - March
+          - April
+          - May
+          - June
+          - July
+          - August
+          - September
+          - October
+          - November
+          - December
+        start_day_of_week:
+          description: Specify the starting day of the week.
+          default: Sunday
+          type: string
+          enum:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+        quarter_name_prefix:
+          description: Prefix to add before the quarter.
+          type: string
+        year_name_prefix:
+          description: Prefix to add before the year.
+          type: string
+      required:
+      - start_date
+      - end_date
+    SearchCalendarsRequest:
+      type: object
+      properties:
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+        name_pattern:
+          description: Pattern to match for calendar names (use '%' for wildcard match).
+          type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included.
+          default: 10
+          type: integer
+          format: int32
+        sort_options:
+          description: Sort options.
+          allOf:
+          - $ref: '#/components/schemas/SortOption'
     SortOption:
       type: object
       properties:
@@ -852,6 +828,30 @@ components:
           - DESC
           default: ASC
           description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+    ExternalTableInput:
+      type: object
+      required:
+      - connection_identifier
+      - table_name
+      properties:
+        connection_identifier:
+          type: string
+          description: Unique ID or name of the connection.
+        database_name:
+          type:
+          - string
+          - 'null'
+          default: ''
+          description: Name of the database.
+        schema_name:
+          type:
+          - string
+          - 'null'
+          default: ''
+          description: Name of the schema.
+        table_name:
+          type: string
+          description: Name of the table. Table names may be case-sensitive depending on the database system.
   securitySchemes:
     bearerAuth:
       type: http

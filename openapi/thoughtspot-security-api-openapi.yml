@@ -1191,14 +1191,102 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PublishMetadataListItem:
+    PrincipalsInput:
       type: object
       required:
       - identifier
       properties:
         identifier:
           type: string
-          description: Unique ID or name of the metadata.
+          description: Unique ID or name of the principal object such as a user or group.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - USER
+          - USER_GROUP
+          description: Principal type.
+    FetchPermissionsOnMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: GUID or name of the metadata object.
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
+        principals:
+          description: 'User or group objects for which you want to fetch permissions.
+
+            If not specified, the API returns all users and groups that
+
+            can access the specified metadata objects.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        include_dependent_objects:
+          description: Indicates whether to fetch permissions of dependent metadata objects.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: -1
+          type: integer
+          format: int32
+        permission_type:
+          description: "<div><span class=\"since-beta-tag\">Version: 10.3.0.cl or later</span></div>\n\nSpecifies the type of permission. Valid values are:\n    EFFECTIVE - If the user permission to the metadata objects is granted by the privileges assigned to the groups to which they belong.\n    DEFINED - If a user or user group received access to metadata objects via object sharing by another user."
+          type: string
+      required:
+      - metadata
+    PermissionOfMetadataResponse:
+      type: object
+      properties:
+        metadata_permission_details:
+          type:
+          - object
+          - 'null'
+    ColumnSecurityRule:
+      type: object
+      required:
+      - column
+      properties:
+        column:
+          $ref: '#/components/schemas/ColumnSecurityRuleColumn'
+          description: Information about the column
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleGroup'
+          description: Array of groups that have access to this column
+        source_table_details:
+          $ref: '#/components/schemas/ColumnSecurityRuleSourceTable'
+          description: Information about the source table
+    ColumnSecurityRuleColumn:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the column
+        name:
+          type: string
+          description: The name of the column
+    ShareMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
         type:
           type:
           - string
@@ -1207,7 +1295,344 @@ components:
           - LIVEBOARD
           - ANSWER
           - LOGICAL_TABLE
-          description: Type of metadata. Required if identifier is name.
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nType of metadata. Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+    UnpublishMetadataRequest:
+      type: object
+      properties:
+        force:
+          description: Force unpublishes the object. This will break all the dependent objects in the unpublished orgs.
+          type:
+          - boolean
+          - 'null'
+        include_dependencies:
+          description: 'Should we unpublish all the dependencies for the objects specified.
+
+            The dependencies will be unpublished if no other published object is using it.'
+          type: boolean
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishMetadataListItem'
+        org_identifiers:
+          description: Unique ID or name of orgs.
+          type: array
+          items:
+            type: string
+      required:
+      - include_dependencies
+      - metadata
+      - org_identifiers
+    PublishMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects to be published.
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishMetadataListItem'
+        org_identifiers:
+          description: Unique ID or name of orgs to which metadata objects should be published.
+          type: array
+          items:
+            type: string
+        skip_validation:
+          description: Skip validations of objects to be published.
+          type:
+          - boolean
+          - 'null'
+      required:
+      - metadata
+      - org_identifiers
+    UpdateColumnSecurityRulesRequest:
+      type: object
+      properties:
+        identifier:
+          description: GUID or name of the table for which we want to create column security rules
+          type: string
+        obj_identifier:
+          description: The object ID of the table
+          type: string
+        clear_csr:
+          description: If true, then all the secured columns will be marked as unprotected, and all the group associations will be removed
+          type:
+          - boolean
+          - 'null'
+        column_security_rules:
+          description: Array where each object defines the security rule for a specific column
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleUpdate'
+      required:
+      - column_security_rules
+    ColumnSecurityRuleSourceTable:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the source table
+        name:
+          type: string
+          description: The name of the source table
+    FetchPermissionsOfPrincipalsRequest:
+      type: object
+      properties:
+        principals:
+          description: GUID or name of the user or group.
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        metadata:
+          description: 'Metadata objects for which you want to fetch permission details.
+
+            If not specified, the API returns permission details for all
+
+            metadata objects that the specified users and groups can access.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: -1
+          type: integer
+          format: int32
+        default_metadata_type:
+          description: When no metadata objects input is passed, metadata objects of this type are fetched.
+          type: string
+          enum:
+          - ALL
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+      required:
+      - principals
+    FetchObjectPrivilegesRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects for which you want to fetch object privileges. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectPrivilegesMetadataInput'
+        principals:
+          description: 'User or group objects for which you want to fetch object privileges.
+
+            If not specified, the API returns all users and groups that
+
+            have object privileges on the specified metadata objects.'
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+        record_offset:
+          description: The starting record number from where the records should be included for each metadata type.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included for each metadata type.
+          default: 20
+          type: integer
+          format: int32
+      required:
+      - metadata
+    FetchColumnSecurityRulesRequest:
+      type: object
+      properties:
+        tables:
+          description: Array of table identifier objects for which to fetch column security rules
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleTableInput'
+      required:
+      - tables
+    ColumnSecurityRuleGroupOperation:
+      type: object
+      required:
+      - operation
+      - group_identifiers
+      properties:
+        operation:
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+          description: Type of operation to be performed on the groups
+        group_identifiers:
+          type: array
+          items:
+            type: string
+          description: Array of group identifiers (name or GUID) on which the operation will be performed
+    PermissionsMetadataTypeInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata object.
+      description: MetadataType InputType used in Permission API's
+    AssignChangeAuthorRequest:
+      type: object
+      properties:
+        metadata:
+          description: GUID or name of the metadata object.
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorMetadataTypeInput'
+        user_identifier:
+          description: GUID or name of the user who you want to assign as the author.
+          type: string
+        current_owner_identifier:
+          description: 'GUID or name of the current author.  When defined, the metadata objects
+
+            authored by the specified owner are filtered for the API operation.'
+          type: string
+      required:
+      - metadata
+      - user_identifier
+    ColumnSecurityRuleGroup:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the group
+        name:
+          type: string
+          description: The name of the group
+    ColumnSecurityRuleResponse:
+      type: object
+      properties:
+        table_guid:
+          type:
+          - string
+          - 'null'
+          description: GUID of the table for which the column security rules are fetched
+        obj_id:
+          type:
+          - string
+          - 'null'
+          description: Object ID of the table for which the column security rules are fetched
+        column_security_rules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRule'
+          description: Array containing column security rule objects
+    ManageObjectPrivilegeRequest:
+      type: object
+      properties:
+        operation:
+          description: 'Operation to perform to manage object privileges. Available operations are: `ADD`, `REMOVE`.'
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+        metadata_type:
+          description: Type of metadata objects on which you want to perform the operation. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+        object_privilege_types:
+          description: List of object privilege types on which you want to perform the operation.
+          type: array
+          items:
+            type: string
+            enum:
+            - SPOTTER_COACHING_PRIVILEGE
+        metadata_identifiers:
+          description: List of metadata identifiers (GUID or name) on which you want to perform the operation.
+          type: array
+          items:
+            type: string
+        principals:
+          description: User or group objects (GUID or name) to which you want to apply the given operation and given object privileges.
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalsInput'
+      required:
+      - operation
+      - metadata_type
+      - object_privilege_types
+      - metadata_identifiers
+      - principals
+    SharePermissionsInput:
+      type: object
+      required:
+      - principal
+      - share_mode
+      properties:
+        principal:
+          $ref: '#/components/schemas/PrincipalsInput'
+          description: Details of users or groups.
+        share_mode:
+          type: string
+          enum:
+          - READ_ONLY
+          - MODIFY
+          - NO_ACCESS
+          description: Type of access to the shared object
+        content_share_mode:
+          type:
+          - string
+          - 'null'
+          enum:
+          - READ_ONLY
+          - MODIFY
+          description: Content share mode for collections. Controls access to objects within the collection. Only applicable when sharing COLLECTION metadata type.
+    ColumnSecurityRuleUpdate:
+      type: object
+      required:
+      - column_identifier
+      properties:
+        column_identifier:
+          type: string
+          description: Column identifier (col_id or name)
+        is_unsecured:
+          type:
+          - boolean
+          - 'null'
+          description: If true, the column will be marked as unprotected and all groups associated with it will be removed
+        group_access:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ColumnSecurityRuleGroupOperation'
+          description: Array of group operation objects that specifies the actions for groups to be associated with a column
     ShareMetadataRequest:
       type: object
       properties:
@@ -1283,27 +1708,21 @@ components:
       required:
       - permissions
       - message
-    ColumnSecurityRuleUpdate:
+    PermissionOfPrincipalsResponse:
       type: object
-      required:
-      - column_identifier
       properties:
-        column_identifier:
-          type: string
-          description: Column identifier (col_id or name)
-        is_unsecured:
+        principal_permission_details:
           type:
-          - boolean
+          - object
           - 'null'
-          description: If true, the column will be marked as unprotected and all groups associated with it will be removed
-        group_access:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            $ref: '#/components/schemas/ColumnSecurityRuleGroupOperation'
-          description: Array of group operation objects that specifies the actions for groups to be associated with a column
-    ShareMetadataTypeInput:
+    ObjectPrivilegesMetadataInput:
       type: object
       required:
       - identifier
@@ -1313,13 +1732,10 @@ components:
           - string
           - 'null'
           enum:
-          - LIVEBOARD
-          - ANSWER
           - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - COLLECTION
-          description: "  Type of metadata.\n  \n\nType of metadata. Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+          description: 'Type of metadata object.
+
+            Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.'
         identifier:
           type: string
           description: Unique ID or name of the metadata object.
@@ -1342,119 +1758,6 @@ components:
           type: string
           description: Unique ID or name of the metadata object.
       description: MetadataType InputType used in Author API's
-    PublishMetadataRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects to be published.
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishMetadataListItem'
-        org_identifiers:
-          description: Unique ID or name of orgs to which metadata objects should be published.
-          type: array
-          items:
-            type: string
-        skip_validation:
-          description: Skip validations of objects to be published.
-          type:
-          - boolean
-          - 'null'
-      required:
-      - metadata
-      - org_identifiers
-    PermissionOfPrincipalsResponse:
-      type: object
-      properties:
-        principal_permission_details:
-          type:
-          - object
-          - 'null'
-    UpdateColumnSecurityRulesRequest:
-      type: object
-      properties:
-        identifier:
-          description: GUID or name of the table for which we want to create column security rules
-          type: string
-        obj_identifier:
-          description: The object ID of the table
-          type: string
-        clear_csr:
-          description: If true, then all the secured columns will be marked as unprotected, and all the group associations will be removed
-          type:
-          - boolean
-          - 'null'
-        column_security_rules:
-          description: Array where each object defines the security rule for a specific column
-          type: array
-          items:
-            $ref: '#/components/schemas/ColumnSecurityRuleUpdate'
-      required:
-      - column_security_rules
-    FetchPermissionsOfPrincipalsRequest:
-      type: object
-      properties:
-        principals:
-          description: GUID or name of the user or group.
-          type: array
-          items:
-            $ref: '#/components/schemas/PrincipalsInput'
-        metadata:
-          description: 'Metadata objects for which you want to fetch permission details.
-
-            If not specified, the API returns permission details for all
-
-            metadata objects that the specified users and groups can access.'
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
-        record_offset:
-          description: The starting record number from where the records should be included for each metadata type.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included for each metadata type.
-          default: -1
-          type: integer
-          format: int32
-        default_metadata_type:
-          description: When no metadata objects input is passed, metadata objects of this type are fetched.
-          type: string
-          enum:
-          - ALL
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - COLLECTION
-      required:
-      - principals
-    PermissionOfMetadataResponse:
-      type: object
-      properties:
-        metadata_permission_details:
-          type:
-          - object
-          - 'null'
-    ObjectPrivilegesMetadataInput:
-      type: object
-      required:
-      - identifier
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LOGICAL_TABLE
-          description: 'Type of metadata object.
-
-            Required if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.'
-        identifier:
-          type: string
-          description: Unique ID or name of the metadata object.
     ObjectPrivilegesOfMetadataResponse:
       type: object
       properties:
@@ -1462,81 +1765,14 @@ components:
           type:
           - object
           - 'null'
-    ColumnSecurityRuleColumn:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the column
-        name:
-          type: string
-          description: The name of the column
-    ColumnSecurityRuleResponse:
-      type: object
-      properties:
-        table_guid:
-          type:
-          - string
-          - 'null'
-          description: GUID of the table for which the column security rules are fetched
-        obj_id:
-          type:
-          - string
-          - 'null'
-          description: Object ID of the table for which the column security rules are fetched
-        column_security_rules:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ColumnSecurityRule'
-          description: Array containing column security rule objects
-    FetchPermissionsOnMetadataRequest:
-      type: object
-      properties:
-        metadata:
-          description: GUID or name of the metadata object.
-          type: array
-          items:
-            $ref: '#/components/schemas/PermissionsMetadataTypeInput'
-        principals:
-          description: 'User or group objects for which you want to fetch permissions.
-
-            If not specified, the API returns all users and groups that
-
-            can access the specified metadata objects.'
-          type: array
-          items:
-            $ref: '#/components/schemas/PrincipalsInput'
-        include_dependent_objects:
-          description: Indicates whether to fetch permissions of dependent metadata objects.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        record_offset:
-          description: The starting record number from where the records should be included for each metadata type.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included for each metadata type.
-          default: -1
-          type: integer
-          format: int32
-        permission_type:
-          description: "<div><span class=\"since-beta-tag\">Version: 10.3.0.cl or later</span></div>\n\nSpecifies the type of permission. Valid values are:\n    EFFECTIVE - If the user permission to the metadata objects is granted by the privileges assigned to the groups to which they belong.\n    DEFINED - If a user or user group received access to metadata objects via object sharing by another user."
-          type: string
-      required:
-      - metadata
-    PermissionsMetadataTypeInput:
+    PublishMetadataListItem:
       type: object
       required:
       - identifier
       properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata.
         type:
           type:
           - string
@@ -1545,92 +1781,7 @@ components:
           - LIVEBOARD
           - ANSWER
           - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - COLLECTION
-          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
-        identifier:
-          type: string
-          description: Unique ID or name of the metadata object.
-      description: MetadataType InputType used in Permission API's
-    FetchObjectPrivilegesRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects for which you want to fetch object privileges. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
-          type: array
-          items:
-            $ref: '#/components/schemas/ObjectPrivilegesMetadataInput'
-        principals:
-          description: 'User or group objects for which you want to fetch object privileges.
-
-            If not specified, the API returns all users and groups that
-
-            have object privileges on the specified metadata objects.'
-          type: array
-          items:
-            $ref: '#/components/schemas/PrincipalsInput'
-        record_offset:
-          description: The starting record number from where the records should be included for each metadata type.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included for each metadata type.
-          default: 20
-          type: integer
-          format: int32
-      required:
-      - metadata
-    ColumnSecurityRuleSourceTable:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the source table
-        name:
-          type: string
-          description: The name of the source table
-    AssignChangeAuthorRequest:
-      type: object
-      properties:
-        metadata:
-          description: GUID or name of the metadata object.
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthorMetadataTypeInput'
-        user_identifier:
-          description: GUID or name of the user who you want to assign as the author.
-          type: string
-        current_owner_identifier:
-          description: 'GUID or name of the current author.  When defined, the metadata objects
-
-            authored by the specified owner are filtered for the API operation.'
-          type: string
-      required:
-      - metadata
-      - user_identifier
-    ColumnSecurityRuleGroupOperation:
-      type: object
-      required:
-      - operation
-      - group_identifiers
-      properties:
-        operation:
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
-          description: Type of operation to be performed on the groups
-        group_identifiers:
-          type: array
-          items:
-            type: string
-          description: Array of group identifiers (name or GUID) on which the operation will be performed
+          description: Type of metadata. Required if identifier is name.
     ColumnSecurityRuleTableInput:
       type: object
       properties:
@@ -1644,157 +1795,6 @@ components:
           - string
           - 'null'
           description: Object ID of the table
-    SharePermissionsInput:
-      type: object
-      required:
-      - principal
-      - share_mode
-      properties:
-        principal:
-          $ref: '#/components/schemas/PrincipalsInput'
-          description: Details of users or groups.
-        share_mode:
-          type: string
-          enum:
-          - READ_ONLY
-          - MODIFY
-          - NO_ACCESS
-          description: Type of access to the shared object
-        content_share_mode:
-          type:
-          - string
-          - 'null'
-          enum:
-          - READ_ONLY
-          - MODIFY
-          description: Content share mode for collections. Controls access to objects within the collection. Only applicable when sharing COLLECTION metadata type.
-    ColumnSecurityRuleGroup:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the group
-        name:
-          type: string
-          description: The name of the group
-    ManageObjectPrivilegeRequest:
-      type: object
-      properties:
-        operation:
-          description: 'Operation to perform to manage object privileges. Available operations are: `ADD`, `REMOVE`.'
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-        metadata_type:
-          description: Type of metadata objects on which you want to perform the operation. For now only LOGICAL_TABLE is supported. It may be extended to other metadata types in the future.
-          type: string
-          enum:
-          - LOGICAL_TABLE
-        object_privilege_types:
-          description: List of object privilege types on which you want to perform the operation.
-          type: array
-          items:
-            type: string
-            enum:
-            - SPOTTER_COACHING_PRIVILEGE
-        metadata_identifiers:
-          description: List of metadata identifiers (GUID or name) on which you want to perform the operation.
-          type: array
-          items:
-            type: string
-        principals:
-          description: User or group objects (GUID or name) to which you want to apply the given operation and given object privileges.
-          type: array
-          items:
-            $ref: '#/components/schemas/PrincipalsInput'
-      required:
-      - operation
-      - metadata_type
-      - object_privilege_types
-      - metadata_identifiers
-      - principals
-    UnpublishMetadataRequest:
-      type: object
-      properties:
-        force:
-          description: Force unpublishes the object. This will break all the dependent objects in the unpublished orgs.
-          type:
-          - boolean
-          - 'null'
-        include_dependencies:
-          description: 'Should we unpublish all the dependencies for the objects specified.
-
-            The dependencies will be unpublished if no other published object is using it.'
-          type: boolean
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishMetadataListItem'
-        org_identifiers:
-          description: Unique ID or name of orgs.
-          type: array
-          items:
-            type: string
-      required:
-      - include_dependencies
-      - metadata
-      - org_identifiers
-    FetchColumnSecurityRulesRequest:
-      type: object
-      properties:
-        tables:
-          description: Array of table identifier objects for which to fetch column security rules
-          type: array
-          items:
-            $ref: '#/components/schemas/ColumnSecurityRuleTableInput'
-      required:
-      - tables
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    ColumnSecurityRule:
-      type: object
-      required:
-      - column
-      properties:
-        column:
-          $ref: '#/components/schemas/ColumnSecurityRuleColumn'
-          description: Information about the column
-        groups:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ColumnSecurityRuleGroup'
-          description: Array of groups that have access to this column
-        source_table_details:
-          $ref: '#/components/schemas/ColumnSecurityRuleSourceTable'
-          description: Information about the source table
-    PrincipalsInput:
-      type: object
-      required:
-      - identifier
-      properties:
-        identifier:
-          type: string
-          description: Unique ID or name of the principal object such as a user or group.
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - USER
-          - USER_GROUP
-          description: Principal type.
   securitySchemes:
     bearerAuth:
       type: http

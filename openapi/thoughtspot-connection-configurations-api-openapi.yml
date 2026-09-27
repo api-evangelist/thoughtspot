@@ -311,13 +311,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PolicyProcessOptions:
+    DeleteConnectionConfigurationRequest:
       type: object
       properties:
-        impersonate_user:
-          type:
-          - string
-          - 'null'
+        configuration_identifier:
+          description: Unique ID or name of the configuration.
+          type: string
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+      required:
+      - configuration_identifier
+      - connection_identifier
     CreateConnectionConfigurationRequest:
       type: object
       properties:
@@ -464,6 +469,13 @@ components:
           - 'null'
       required:
       - connection_identifier
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     ConnectionConfigurationSearchRequest:
       type: object
       properties:
@@ -482,31 +494,12 @@ components:
           - PROCESSES
       required:
       - connection_identifier
-    DeleteConnectionConfigurationRequest:
-      type: object
-      properties:
-        configuration_identifier:
-          description: Unique ID or name of the configuration.
-          type: string
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-      required:
-      - configuration_identifier
-      - connection_identifier
-    PolicyProcessOptionsInput:
+    PolicyProcessOptions:
       type: object
       properties:
         impersonate_user:
           type:
           - string
-          - 'null'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
           - 'null'
     ConnectionConfigurationResponse:
       type: object
@@ -600,6 +593,13 @@ components:
           - 'null'
         policy_process_options:
           $ref: '#/components/schemas/PolicyProcessOptions'
+    PolicyProcessOptionsInput:
+      type: object
+      properties:
+        impersonate_user:
+          type:
+          - string
+          - 'null'
     UserPrincipal:
       type: object
       properties:

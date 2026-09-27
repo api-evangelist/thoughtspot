@@ -390,26 +390,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateTagRequest:
+    AssignTagRequest:
       type: object
       properties:
-        name:
-          description: Name of the tag.
-          type: string
-        color:
-          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
-          type: string
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
       required:
-      - name
-    UpdateTagRequest:
-      type: object
-      properties:
-        name:
-          description: Name of the tag.
-          type: string
-        color:
-          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
-          type: string
+      - metadata
+      - tag_identifiers
     SearchTagsRequest:
       type: object
       properties:
@@ -442,6 +438,38 @@ components:
         identifier:
           type: string
           description: Unique ID or name of the metadata.
+    UpdateTagRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    UnassignTagRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata
+      - tag_identifiers
     Tag:
       type: object
       required:
@@ -494,45 +522,17 @@ components:
           type:
           - string
           - 'null'
-    AssignTagRequest:
+    CreateTagRequest:
       type: object
       properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/TagMetadataTypeInput'
-        tag_identifiers:
-          description: GUID or name of the tag.
-          type: array
-          items:
-            type: string
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
       required:
-      - metadata
-      - tag_identifiers
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UnassignTagRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/TagMetadataTypeInput'
-        tag_identifiers:
-          description: GUID or name of the tag.
-          type: array
-          items:
-            type: string
-      required:
-      - metadata
-      - tag_identifiers
+      - name
   securitySchemes:
     bearerAuth:
       type: http

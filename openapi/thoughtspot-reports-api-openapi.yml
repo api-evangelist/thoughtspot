@@ -179,6 +179,192 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    PngOptionsInput:
+      type: object
+      properties:
+        include_cover_page:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include the cover page with the Liveboard title.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include a page with all applied filters.
+        personalised_view_id:
+          type:
+          - string
+          - 'null'
+          description: Indicates personalised view of the Liveboard in case of png
+        image_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        image_scale:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        include_header:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+    AnswerPngOptionsInput:
+      type: object
+      properties:
+        x_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        y_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        scaling:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+    ExportLiveboardReportRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: GUID or name of the Liveboard object.
+          type: string
+        tab_identifiers:
+          description: 'GUID or name of the tab of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: array
+          items:
+            type: string
+        personalised_view_identifier:
+          description: 'GUID or name of the personalised view of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: string
+        visualization_identifiers:
+          description: 'GUID or name of visualizations on the Liveboard. If this parameter is
+
+            not defined, the API returns a report with all visualizations saved on a Liveboard.'
+          type: array
+          items:
+            type: string
+        transient_content:
+          description: Transient content of the Liveboard.
+          type: string
+        file_format:
+          description: Export file format.
+          default: PDF
+          type: string
+          enum:
+          - PDF
+          - PNG
+          - CSV
+          - XLSX
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, {"col1": "region", "op1": "EQ", "val1": "northeast" }. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        override_filters:
+          description: "Applied to the liveboard and overrides any filters already applied on the same columns in liveboard.\nFollowing example illustrate different kinds of filters:\n{\n  \"override_filters\": [\n    {\n      \"column_name\": \"Color\",\n      \"generic_filter\": {\n        \"op\": \"IN\",\n        \"values\": [\n          \"almond\",\n          \"turquoise\"\n        ]\n      },\n      \"negate\": false\n    },\n    {\n      \"column_name\": \"Commit Date\",\n      \"date_filter\": {\n        \"datePeriod\": \"HOUR\",\n        \"number\": 3,\n        \"type\": \"LAST_N_PERIOD\",\n        \"op\": \"EQ\"\n      }\n    },\n    {\n      \"column_name\": \"Sales\",\n      \"generic_filter\": {\n        \"op\": \"BW_INC\",\n        \"values\": [\n          \"100000\",\n          \"70000\"\n        ]\n      },\n      \"negate\": true\n    }\n  ]\n}"
+          type: object
+        runtime_sort:
+          description: 'JSON string representing runtime sort. For example, {"sortCol1": "region", "asc1" : true}. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        pdf_options:
+          description: Options for PDF export.
+          allOf:
+          - $ref: '#/components/schemas/PdfOptionsInput'
+        png_options:
+          description: Options for PNG export.
+          allOf:
+          - $ref: '#/components/schemas/PngOptionsInput'
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+        regional_settings:
+          description: Options for specific region specific overrides to support date/number/string/currency formatting.
+          allOf:
+          - $ref: '#/components/schemas/RegionalSettingsInput'
+      required:
+      - metadata_identifier
+    PdfOptionsInput:
+      type: object
+      properties:
+        page_size:
+          type:
+          - string
+          - 'null'
+          enum:
+          - A4
+          - CONTINUOUS
+          description: 'Size of PDF page. `A4` generates a paginated A4 PDF. `CONTINUOUS` generates a continuous PDF that matches the Liveboard layout. Each Liveboard tab has its own page of variable length. Defaults to `A4` if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+        zoom_level:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Zoom level percentage for the PDF. Only applicable when `page_size` is `CONTINUOUS`. Acceptable values are integers in the range [45, 175]. Defaults to 100 if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
+        include_cover_page:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include the cover page with the Liveboard title.
+        include_custom_logo:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include customized wide logo in the footer if available.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include a page with all applied filters. For `CONTINUOUS` page_size, this parameter indicates whether to include the filter header.
+        include_page_number:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Indicates whether to include page number in the footer of each page.
+        page_orientation:
+          type:
+          - string
+          - 'null'
+          enum:
+          - PORTRAIT
+          - LANDSCAPE
+          default: PORTRAIT
+          description: Page orientation of the PDF.
+        truncate_table:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include only the first page of the tables.
+        page_footer_text:
+          type:
+          - string
+          - 'null'
+          description: Text to include in the footer of each page.
     ExportAnswerReportRequest:
       type: object
       properties:
@@ -232,27 +418,6 @@ components:
           enum:
           - SAVED
           - PINNED
-    AnswerPngOptionsInput:
-      type: object
-      properties:
-        x_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-        y_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-        scaling:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
     RegionalSettingsInput:
       type: object
       properties:
@@ -595,171 +760,6 @@ components:
           - zh-Hant
           - ko-KR
           - en-DE
-    PngOptionsInput:
-      type: object
-      properties:
-        include_cover_page:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to include the cover page with the Liveboard title.
-        include_filter_page:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to include a page with all applied filters.
-        personalised_view_id:
-          type:
-          - string
-          - 'null'
-          description: Indicates personalised view of the Liveboard in case of png
-        image_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-        image_scale:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-        include_header:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    ExportLiveboardReportRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: GUID or name of the Liveboard object.
-          type: string
-        tab_identifiers:
-          description: 'GUID or name of the tab of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          type: array
-          items:
-            type: string
-        personalised_view_identifier:
-          description: 'GUID or name of the personalised view of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          type: string
-        visualization_identifiers:
-          description: 'GUID or name of visualizations on the Liveboard. If this parameter is
-
-            not defined, the API returns a report with all visualizations saved on a Liveboard.'
-          type: array
-          items:
-            type: string
-        transient_content:
-          description: Transient content of the Liveboard.
-          type: string
-        file_format:
-          description: Export file format.
-          default: PDF
-          type: string
-          enum:
-          - PDF
-          - PNG
-          - CSV
-          - XLSX
-        runtime_filter:
-          description: 'JSON object with representing filter condition to apply filters at runtime. For example, {"col1": "region", "op1": "EQ", "val1": "northeast" }. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
-          type: object
-        override_filters:
-          description: "Applied to the liveboard and overrides any filters already applied on the same columns in liveboard.\nFollowing example illustrate different kinds of filters:\n{\n  \"override_filters\": [\n    {\n      \"column_name\": \"Color\",\n      \"generic_filter\": {\n        \"op\": \"IN\",\n        \"values\": [\n          \"almond\",\n          \"turquoise\"\n        ]\n      },\n      \"negate\": false\n    },\n    {\n      \"column_name\": \"Commit Date\",\n      \"date_filter\": {\n        \"datePeriod\": \"HOUR\",\n        \"number\": 3,\n        \"type\": \"LAST_N_PERIOD\",\n        \"op\": \"EQ\"\n      }\n    },\n    {\n      \"column_name\": \"Sales\",\n      \"generic_filter\": {\n        \"op\": \"BW_INC\",\n        \"values\": [\n          \"100000\",\n          \"70000\"\n        ]\n      },\n      \"negate\": true\n    }\n  ]\n}"
-          type: object
-        runtime_sort:
-          description: 'JSON string representing runtime sort. For example, {"sortCol1": "region", "asc1" : true}. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
-          type: object
-        pdf_options:
-          description: Options for PDF export.
-          allOf:
-          - $ref: '#/components/schemas/PdfOptionsInput'
-        png_options:
-          description: Options for PNG export.
-          allOf:
-          - $ref: '#/components/schemas/PngOptionsInput'
-        runtime_param_override:
-          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
-          type: object
-        regional_settings:
-          description: Options for specific region specific overrides to support date/number/string/currency formatting.
-          allOf:
-          - $ref: '#/components/schemas/RegionalSettingsInput'
-      required:
-      - metadata_identifier
-    PdfOptionsInput:
-      type: object
-      properties:
-        page_size:
-          type:
-          - string
-          - 'null'
-          enum:
-          - A4
-          - CONTINUOUS
-          description: 'Size of PDF page. `A4` generates a paginated A4 PDF. `CONTINUOUS` generates a continuous PDF that matches the Liveboard layout. Each Liveboard tab has its own page of variable length. Defaults to `A4` if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
-        zoom_level:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Zoom level percentage for the PDF. Only applicable when `page_size` is `CONTINUOUS`. Acceptable values are integers in the range [45, 175]. Defaults to 100 if not specified. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.5.0.cl or later</span>'
-        include_cover_page:
-          type:
-          - boolean
-          - 'null'
-          default: true
-          description: Indicates whether to include the cover page with the Liveboard title.
-        include_custom_logo:
-          type:
-          - boolean
-          - 'null'
-          default: true
-          description: Indicates whether to include customized wide logo in the footer if available.
-        include_filter_page:
-          type:
-          - boolean
-          - 'null'
-          default: true
-          description: Indicates whether to include a page with all applied filters. For `CONTINUOUS` page_size, this parameter indicates whether to include the filter header.
-        include_page_number:
-          type:
-          - boolean
-          - 'null'
-          default: true
-          description: Indicates whether to include page number in the footer of each page.
-        page_orientation:
-          type:
-          - string
-          - 'null'
-          enum:
-          - PORTRAIT
-          - LANDSCAPE
-          default: PORTRAIT
-          description: Page orientation of the PDF.
-        truncate_table:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to include only the first page of the tables.
-        page_footer_text:
-          type:
-          - string
-          - 'null'
-          description: Text to include in the footer of each page.
   securitySchemes:
     bearerAuth:
       type: http
