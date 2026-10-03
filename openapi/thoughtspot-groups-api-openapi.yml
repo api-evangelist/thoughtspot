@@ -361,6 +361,42 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Role:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: id of the role
+        name:
+          type:
+          - string
+          - 'null'
+          description: name of the role
+    SortOptions:
+      type: object
+      properties:
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
     SearchUserGroupsRequest:
       type: object
       properties:
@@ -506,29 +542,6 @@ components:
           type:
           - boolean
           - 'null'
-    SortOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
     ErrorResponse:
       type: object
       properties:
@@ -536,231 +549,17 @@ components:
           type:
           - object
           - 'null'
-    CreateUserGroupRequest:
+    UserGroup:
       type: object
       properties:
-        name:
-          description: Name of the group. The group name must be unique.
-          type: string
-        display_name:
-          description: Display name for the group.
-          type: string
-        default_liveboard_identifiers:
-          description: GUID of the Liveboards to assign as default Liveboards to the users in the group.
-          type: array
-          items:
-            type: string
-        description:
-          description: Description of the group
-          type: string
-        privileges:
-          description: 'Privileges to assign to the group. Note: AUTHORING is a no-op — always inherited via ALL_GROUP, assigning it has no effect.'
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMINISTRATION
-            - AUTHORING
-            - USERDATAUPLOADING
-            - DATADOWNLOADING
-            - USERMANAGEMENT
-            - DATAMANAGEMENT
-            - SHAREWITHALL
-            - JOBSCHEDULING
-            - A3ANALYSIS
-            - EXPERIMENTALFEATUREPRIVILEGE
-            - BYPASSRLS
-            - RANALYSIS
-            - DEVELOPER
-            - USER_ADMINISTRATION
-            - GROUP_ADMINISTRATION
-            - SYNCMANAGEMENT
-            - CAN_CREATE_CATALOG
-            - DISABLE_PINBOARD_CREATION
-            - LIVEBOARD_VERIFIER
-            - PREVIEW_THOUGHTSPOT_SAGE
-            - CAN_MANAGE_VERSION_CONTROL
-            - THIRDPARTY_ANALYSIS
-            - ALLOW_NON_EMBED_FULL_APP_ACCESS
-            - CAN_ACCESS_ANALYST_STUDIO
-            - CAN_MANAGE_ANALYST_STUDIO
-            - CAN_MODIFY_FOLDERS
-            - CAN_MANAGE_VARIABLES
-            - CAN_VIEW_FOLDERS
-            - CAN_MANAGE_AGENTSPOT
-            - CAN_ACCESS_AGENTSPOT
-            - PREVIEW_DOCUMENT_SEARCH
-            - CAN_SETUP_VERSION_CONTROL
-            - CAN_DOWNLOAD_VISUALS
-            - CAN_DOWNLOAD_DETAILED_DATA
-            - CAN_USE_SPOTTER
-            - CAN_MANAGE_SPOTTER
-            - CAN_CREATE_LIVEBOARD
-            - CAN_CREATE_ANSWERS
-            - CAN_ANALYZE_DATA
-            - CAN_ADMINISTER_SCHEDULES
-            - CAN_CREATE_KPI_ALERTS
-        sub_group_identifiers:
-          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
-          type: array
-          items:
-            type: string
-        type:
-          description: Group type.
-          default: LOCAL_GROUP
-          type: string
-          enum:
-          - LOCAL_GROUP
-          - LDAP_GROUP
-          - TEAM_GROUP
-          - TENANT_GROUP
-        user_identifiers:
-          description: GUID or name of the users to assign to the group.
-          type: array
-          items:
-            type: string
-        visibility:
-          description: 'Visibility of the group. To make a group visible to other users and groups,
-
-            set the visibility to SHAREABLE.'
-          default: SHARABLE
-          type: string
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
-        role_identifiers:
-          description: Role identifiers of the roles that should be assigned to the group.
-          type: array
-          items:
-            type: string
-      required:
-      - name
-      - display_name
-    ImportUserGroupsRequest:
-      type: object
-      properties:
-        groups:
-          description: Details of groups which are to be imported
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupsImportListInput'
-        delete_unspecified_groups:
-          description: If set to true, removes groups that are not specified in the API request.
-          default: false
+        id:
           type:
-          - boolean
+          - string
           - 'null'
-        dry_run:
-          description: 'If true, the API performs a test operation and returns user IDs whose
-
-            data will be edited after the import.'
-          default: true
-          type:
-          - boolean
-          - 'null'
-    UpdateUserGroupRequest:
-      type: object
-      properties:
         name:
-          description: Name of the group to modify.
-          type: string
-        default_liveboard_identifiers:
-          description: ID of the Liveboards to be assigned as default Liveboards to the users in the group.
-          type: array
-          items:
-            type: string
-        description:
-          description: Description for the group.
-          type: string
-        display_name:
-          description: Display name of the group.
-          type: string
-        privileges:
-          description: 'Privileges to assign to the group. Note: AUTHORING is a no-op — always inherited via ALL_GROUP, assigning it has no effect.'
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMINISTRATION
-            - AUTHORING
-            - USERDATAUPLOADING
-            - DATADOWNLOADING
-            - USERMANAGEMENT
-            - DATAMANAGEMENT
-            - SHAREWITHALL
-            - JOBSCHEDULING
-            - A3ANALYSIS
-            - EXPERIMENTALFEATUREPRIVILEGE
-            - BYPASSRLS
-            - RANALYSIS
-            - DEVELOPER
-            - USER_ADMINISTRATION
-            - GROUP_ADMINISTRATION
-            - SYNCMANAGEMENT
-            - CAN_CREATE_CATALOG
-            - DISABLE_PINBOARD_CREATION
-            - LIVEBOARD_VERIFIER
-            - PREVIEW_THOUGHTSPOT_SAGE
-            - CAN_MANAGE_VERSION_CONTROL
-            - THIRDPARTY_ANALYSIS
-            - ALLOW_NON_EMBED_FULL_APP_ACCESS
-            - CAN_ACCESS_ANALYST_STUDIO
-            - CAN_MANAGE_ANALYST_STUDIO
-            - CAN_MODIFY_FOLDERS
-            - CAN_MANAGE_VARIABLES
-            - CAN_VIEW_FOLDERS
-            - CAN_MANAGE_AGENTSPOT
-            - CAN_ACCESS_AGENTSPOT
-            - PREVIEW_DOCUMENT_SEARCH
-            - CAN_SETUP_VERSION_CONTROL
-            - CAN_DOWNLOAD_VISUALS
-            - CAN_DOWNLOAD_DETAILED_DATA
-            - CAN_USE_SPOTTER
-            - CAN_MANAGE_SPOTTER
-            - CAN_CREATE_LIVEBOARD
-            - CAN_CREATE_ANSWERS
-            - CAN_ANALYZE_DATA
-            - CAN_ADMINISTER_SCHEDULES
-            - CAN_CREATE_KPI_ALERTS
-        sub_group_identifiers:
-          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
-          type: array
-          items:
-            type: string
-        type:
-          description: Type of the group
-          type: string
-          enum:
-          - LOCAL_GROUP
-          - LDAP_GROUP
-          - TEAM_GROUP
-          - TENANT_GROUP
-        user_identifiers:
-          description: GUID or name of the users to assign to the group.
-          type: array
-          items:
-            type: string
-        visibility:
-          description: 'Visibility of the group. To make a group visible to other users and
-
-            groups, set the visibility to SHAREABLE.'
-          type: string
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
-        role_identifiers:
-          description: Role identifiers of the Roles that should be assigned to the group.
-          type: array
-          items:
-            type: string
-        operation:
-          description: Type of update operation. Default operation type is REPLACE
-          default: REPLACE
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
+          type:
+          - string
+          - 'null'
     UserGroupResponse:
       type: object
       required:
@@ -947,29 +746,27 @@ components:
           items:
             $ref: '#/components/schemas/Role'
           description: List of roles assgined to the user
-    Role:
+    ImportUserGroupsRequest:
       type: object
       properties:
-        id:
+        groups:
+          description: Details of groups which are to be imported
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupsImportListInput'
+        delete_unspecified_groups:
+          description: If set to true, removes groups that are not specified in the API request.
+          default: false
           type:
-          - string
+          - boolean
           - 'null'
-          description: id of the role
-        name:
+        dry_run:
+          description: 'If true, the API performs a test operation and returns user IDs whose
+
+            data will be edited after the import.'
+          default: true
           type:
-          - string
-          - 'null'
-          description: name of the role
-    UserGroup:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
+          - boolean
           - 'null'
     GroupsImportListInput:
       type: object
@@ -1098,6 +895,209 @@ components:
           items:
             $ref: '#/components/schemas/UserGroup'
           description: The groups which are updated in the system.
+    UpdateUserGroupRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the group to modify.
+          type: string
+        default_liveboard_identifiers:
+          description: ID of the Liveboards to be assigned as default Liveboards to the users in the group.
+          type: array
+          items:
+            type: string
+        description:
+          description: Description for the group.
+          type: string
+        display_name:
+          description: Display name of the group.
+          type: string
+        privileges:
+          description: 'Privileges to assign to the group. Note: AUTHORING is a no-op — always inherited via ALL_GROUP, assigning it has no effect.'
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMINISTRATION
+            - AUTHORING
+            - USERDATAUPLOADING
+            - DATADOWNLOADING
+            - USERMANAGEMENT
+            - DATAMANAGEMENT
+            - SHAREWITHALL
+            - JOBSCHEDULING
+            - A3ANALYSIS
+            - EXPERIMENTALFEATUREPRIVILEGE
+            - BYPASSRLS
+            - RANALYSIS
+            - DEVELOPER
+            - USER_ADMINISTRATION
+            - GROUP_ADMINISTRATION
+            - SYNCMANAGEMENT
+            - CAN_CREATE_CATALOG
+            - DISABLE_PINBOARD_CREATION
+            - LIVEBOARD_VERIFIER
+            - PREVIEW_THOUGHTSPOT_SAGE
+            - CAN_MANAGE_VERSION_CONTROL
+            - THIRDPARTY_ANALYSIS
+            - ALLOW_NON_EMBED_FULL_APP_ACCESS
+            - CAN_ACCESS_ANALYST_STUDIO
+            - CAN_MANAGE_ANALYST_STUDIO
+            - CAN_MODIFY_FOLDERS
+            - CAN_MANAGE_VARIABLES
+            - CAN_VIEW_FOLDERS
+            - CAN_MANAGE_AGENTSPOT
+            - CAN_ACCESS_AGENTSPOT
+            - PREVIEW_DOCUMENT_SEARCH
+            - CAN_SETUP_VERSION_CONTROL
+            - CAN_DOWNLOAD_VISUALS
+            - CAN_DOWNLOAD_DETAILED_DATA
+            - CAN_USE_SPOTTER
+            - CAN_MANAGE_SPOTTER
+            - CAN_CREATE_LIVEBOARD
+            - CAN_CREATE_ANSWERS
+            - CAN_ANALYZE_DATA
+            - CAN_ADMINISTER_SCHEDULES
+            - CAN_CREATE_KPI_ALERTS
+        sub_group_identifiers:
+          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
+          type: array
+          items:
+            type: string
+        type:
+          description: Type of the group
+          type: string
+          enum:
+          - LOCAL_GROUP
+          - LDAP_GROUP
+          - TEAM_GROUP
+          - TENANT_GROUP
+        user_identifiers:
+          description: GUID or name of the users to assign to the group.
+          type: array
+          items:
+            type: string
+        visibility:
+          description: 'Visibility of the group. To make a group visible to other users and
+
+            groups, set the visibility to SHAREABLE.'
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+        role_identifiers:
+          description: Role identifiers of the Roles that should be assigned to the group.
+          type: array
+          items:
+            type: string
+        operation:
+          description: Type of update operation. Default operation type is REPLACE
+          default: REPLACE
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
+    CreateUserGroupRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the group. The group name must be unique.
+          type: string
+        display_name:
+          description: Display name for the group.
+          type: string
+        default_liveboard_identifiers:
+          description: GUID of the Liveboards to assign as default Liveboards to the users in the group.
+          type: array
+          items:
+            type: string
+        description:
+          description: Description of the group
+          type: string
+        privileges:
+          description: 'Privileges to assign to the group. Note: AUTHORING is a no-op — always inherited via ALL_GROUP, assigning it has no effect.'
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMINISTRATION
+            - AUTHORING
+            - USERDATAUPLOADING
+            - DATADOWNLOADING
+            - USERMANAGEMENT
+            - DATAMANAGEMENT
+            - SHAREWITHALL
+            - JOBSCHEDULING
+            - A3ANALYSIS
+            - EXPERIMENTALFEATUREPRIVILEGE
+            - BYPASSRLS
+            - RANALYSIS
+            - DEVELOPER
+            - USER_ADMINISTRATION
+            - GROUP_ADMINISTRATION
+            - SYNCMANAGEMENT
+            - CAN_CREATE_CATALOG
+            - DISABLE_PINBOARD_CREATION
+            - LIVEBOARD_VERIFIER
+            - PREVIEW_THOUGHTSPOT_SAGE
+            - CAN_MANAGE_VERSION_CONTROL
+            - THIRDPARTY_ANALYSIS
+            - ALLOW_NON_EMBED_FULL_APP_ACCESS
+            - CAN_ACCESS_ANALYST_STUDIO
+            - CAN_MANAGE_ANALYST_STUDIO
+            - CAN_MODIFY_FOLDERS
+            - CAN_MANAGE_VARIABLES
+            - CAN_VIEW_FOLDERS
+            - CAN_MANAGE_AGENTSPOT
+            - CAN_ACCESS_AGENTSPOT
+            - PREVIEW_DOCUMENT_SEARCH
+            - CAN_SETUP_VERSION_CONTROL
+            - CAN_DOWNLOAD_VISUALS
+            - CAN_DOWNLOAD_DETAILED_DATA
+            - CAN_USE_SPOTTER
+            - CAN_MANAGE_SPOTTER
+            - CAN_CREATE_LIVEBOARD
+            - CAN_CREATE_ANSWERS
+            - CAN_ANALYZE_DATA
+            - CAN_ADMINISTER_SCHEDULES
+            - CAN_CREATE_KPI_ALERTS
+        sub_group_identifiers:
+          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
+          type: array
+          items:
+            type: string
+        type:
+          description: Group type.
+          default: LOCAL_GROUP
+          type: string
+          enum:
+          - LOCAL_GROUP
+          - LDAP_GROUP
+          - TEAM_GROUP
+          - TENANT_GROUP
+        user_identifiers:
+          description: GUID or name of the users to assign to the group.
+          type: array
+          items:
+            type: string
+        visibility:
+          description: 'Visibility of the group. To make a group visible to other users and groups,
+
+            set the visibility to SHAREABLE.'
+          default: SHARABLE
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+        role_identifiers:
+          description: Role identifiers of the roles that should be assigned to the group.
+          type: array
+          items:
+            type: string
+      required:
+      - name
+      - display_name
   securitySchemes:
     bearerAuth:
       type: http

@@ -435,34 +435,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
+    InputTableResponse:
       type: object
       properties:
-        error:
+        input_table_identifier:
           type:
-          - object
+          - string
           - 'null'
-    InputTableDefinitionInput:
-      type: object
-      required:
-      - new_columns
-      - referenced_columns
-      properties:
-        new_columns:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputColumnSchemaInput'
-          description: New input-only columns to create in the table.
-        referenced_columns:
-          type: array
-          items:
-            type: string
-          description: 'Column IDs from the linked model to include in the table.
-
-            Pass an empty array to create an input table with no reference
-
-            columns from the model.'
-      description: Definition of the input table schema.
+          description: Unique ID of the newly created input table.
     CreateInputTableRequest:
       type: object
       properties:
@@ -484,36 +464,23 @@ components:
       - table_name
       - model_identifier
       - table_definition
-    UpdateInputTableRequest:
+    InputTableUpdateResponse:
       type: object
       properties:
-        columns:
-          description: 'Names of the columns being written, in the same order as
-
-            the values in each row.'
-          type: array
-          items:
-            type: string
-        rows:
-          description: 'Rows to write into the input table. Each row is an array
-
-            of string values aligned positionally with columns.'
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-      required:
-      - columns
-      - rows
-    InputTableResponse:
-      type: object
-      properties:
-        input_table_identifier:
+        rows_loaded:
           type:
-          - string
+          - integer
           - 'null'
-          description: Unique ID of the newly created input table.
+          format: int32
+          description: Number of rows successfully written to the input table.
+      description: Response returned after successfully writing rows to an input table.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     InputColumnSchemaInput:
       type: object
       required:
@@ -553,16 +520,49 @@ components:
 
             or leave empty to allow any value supported by the data type. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
       description: Schema definition for a single input column.
-    InputTableUpdateResponse:
+    InputTableDefinitionInput:
+      type: object
+      required:
+      - new_columns
+      - referenced_columns
+      properties:
+        new_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputColumnSchemaInput'
+          description: New input-only columns to create in the table.
+        referenced_columns:
+          type: array
+          items:
+            type: string
+          description: 'Column IDs from the linked model to include in the table.
+
+            Pass an empty array to create an input table with no reference
+
+            columns from the model.'
+      description: Definition of the input table schema.
+    UpdateInputTableRequest:
       type: object
       properties:
-        rows_loaded:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of rows successfully written to the input table.
-      description: Response returned after successfully writing rows to an input table.
+        columns:
+          description: 'Names of the columns being written, in the same order as
+
+            the values in each row.'
+          type: array
+          items:
+            type: string
+        rows:
+          description: 'Rows to write into the input table. Each row is an array
+
+            of string values aligned positionally with columns.'
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - columns
+      - rows
   securitySchemes:
     bearerAuth:
       type: http

@@ -586,151 +586,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CommiterType:
-      type: object
-      properties:
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email id of the committer
-        username:
-          type:
-          - string
-          - 'null'
-          description: Username of the committer
-    MetadataObject:
-      type: object
-      required:
-      - identifier
-      properties:
-        identifier:
-          type: string
-          description: Unique ID or name of the metadata
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - CUSTOM_ACTION
-          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
-    CommitFileType:
-      type: object
-      required:
-      - file_name
-      - status_code
-      properties:
-        file_name:
-          type: string
-          description: Name of the file deployed
-        status_code:
-          type: string
-          description: Indicates the status of deployment for the file
-        status_message:
-          type:
-          - string
-          - 'null'
-          description: Any error or warning with the deployment
-    DeployResponse:
-      type: object
-      properties:
-        file_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the file deployed
-        metadata_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the metadata object
-        metadata_type:
-          type:
-          - string
-          - 'null'
-          description: Type of the metadata object
-        status_code:
-          type:
-          - string
-          - 'null'
-          description: Indicates the status of deployment for the file
-        status_message:
-          type:
-          - string
-          - 'null'
-          description: Any error or warning with the deployment
-    SearchCommitsRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: Unique ID or name of the metadata.
-          type: string
-        metadata_type:
-          description: Type of metadata.
-          type: string
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - CUSTOM_ACTION
-        branch_name:
-          description: "   Name of the branch from which commit history needs to be displayed.\n   \n\nNote: If no branch_name is specified, then commits will be returned for the default branch for this configuration."
-          type: string
-        record_offset:
-          description: "    Record offset point in the commit history to display the response.\n    \n\nNote: If no record offset is specified, the beginning of the record will be considered."
-          type: integer
-          format: int32
-        record_size:
-          description: "    Number of history records from record offset point to be displayed in the response.\n    \n\nNote: If no record size is specified, then all the records will be considered."
-          type: integer
-          format: int32
-      required:
-      - metadata_identifier
-    UpdateConfigRequest:
-      type: object
-      properties:
-        username:
-          description: Username to authenticate connection to version control system
-          type: string
-        access_token:
-          description: Access token corresponding to the user to authenticate connection to version control system
-          type: string
-        org_identifier:
-          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nList of Org ids or name. Provide value -1 for cluster level. Example : [\"OrgID1-or-Name1\", \"OrgID2-or-Name2\"] \n\n\n   \n\nNote: If no value is specified, then the configurations will be returned for all orgs the user has access to  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
-          type: string
-        branch_names:
-          description: List the remote branches to configure. Example:[development, production]
-          type: array
-          items:
-            type: string
-        commit_branch_name:
-          description: 'Name of the remote branch where objects from this Thoughtspot instance will be versioned. <br/>  <span class="since-beta-tag">Version: 9.7.0.cl or later</span>'
-          type: string
-        enable_guid_mapping:
-          description: 'Maintain mapping of guid for the deployment to an instance <br/>  <span class="since-beta-tag">Version: 9.4.0.cl or later</span>'
-          type:
-          - boolean
-          - 'null'
-        configuration_branch_name:
-          description: 'Name of the branch where the configuration files related to operations between Thoughtspot and version control repo should be maintained. <br/>  <span class="since-beta-tag">Version: 9.7.0.cl or later</span>'
-          type: string
-    Org:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: The ID of the object.
-        name:
-          type: string
-          description: Name of the object.
-      description: The current Org context of the user.
     RevertResponse:
       type: object
       properties:
@@ -774,6 +629,53 @@ components:
           items:
             $ref: '#/components/schemas/RevertedMetadata'
           description: Metadata of reverted file of this commit
+    DeployCommitRequest:
+      type: object
+      properties:
+        commit_id:
+          description: "   Commit_id against which the files should be picked to deploy.\n   \n\nNote: If no commit_id is specified, then the head of the branch is considered."
+          type: string
+        branch_name:
+          description: Name of the remote branch where changes should be picked
+          type: string
+        deploy_type:
+          description: Indicates if all files or only modified file at specified commit point should be considered
+          default: DELTA
+          type: string
+          enum:
+          - FULL
+          - DELTA
+        deploy_policy:
+          description: Define the policy to follow while importing TML in the ThoughtSpot environment. Use “ALL_OR_NONE” to cancel the deployment of all ThoughtSpot objects if at least one of them fails to import. Use “Partial” to import ThoughtSpot objects that validate successfully even if other objects in the same deploy operations fail to import.
+          default: ALL_OR_NONE
+          type: string
+          enum:
+          - ALL_OR_NONE
+          - PARTIAL
+          - VALIDATE_ONLY
+      required:
+      - branch_name
+    Org:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The ID of the object.
+        name:
+          type: string
+          description: Name of the object.
+      description: The current Org context of the user.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     CommitHistoryResponse:
       type: object
       required:
@@ -802,6 +704,39 @@ components:
         branch:
           type: string
           description: Branch where changes were committed
+    DeleteConfigRequest:
+      type: object
+      properties:
+        cluster_level:
+          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nIndicator to consider cluster level or org level config. Set it to false to delete configuration from current org. If set to true, then the configuration at cluster level and orgs that inherited the configuration from cluster level will be deleted.  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
+          type:
+          - boolean
+          - 'null'
+    CommitFileType:
+      type: object
+      required:
+      - file_name
+      - status_code
+      properties:
+        file_name:
+          type: string
+          description: Name of the file deployed
+        status_code:
+          type: string
+          description: Indicates the status of deployment for the file
+        status_message:
+          type:
+          - string
+          - 'null'
+          description: Any error or warning with the deployment
+    SearchConfigRequest:
+      type: object
+      properties:
+        org_identifiers:
+          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nList of Org ids or name. Provide value -1 for cluster level. Example : [\"OrgID1-or-Name1\", \"OrgID2-or-Name2\"] \n\n\n   \n\nNote: If no value is specified, then the configurations will be returned for all orgs the user has access to  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
+          type: array
+          items:
+            type: string
     RevertedMetadata:
       type: object
       required:
@@ -826,51 +761,27 @@ components:
         status_message:
           type: string
           description: Any error or warning with the deployment
-    DeployCommitRequest:
+    CommiterType:
       type: object
       properties:
-        commit_id:
-          description: "   Commit_id against which the files should be picked to deploy.\n   \n\nNote: If no commit_id is specified, then the head of the branch is considered."
-          type: string
-        branch_name:
-          description: Name of the remote branch where changes should be picked
-          type: string
-        deploy_type:
-          description: Indicates if all files or only modified file at specified commit point should be considered
-          default: DELTA
-          type: string
-          enum:
-          - FULL
-          - DELTA
-        deploy_policy:
-          description: Define the policy to follow while importing TML in the ThoughtSpot environment. Use “ALL_OR_NONE” to cancel the deployment of all ThoughtSpot objects if at least one of them fails to import. Use “Partial” to import ThoughtSpot objects that validate successfully even if other objects in the same deploy operations fail to import.
-          default: ALL_OR_NONE
-          type: string
-          enum:
-          - ALL_OR_NONE
-          - PARTIAL
-          - VALIDATE_ONLY
-      required:
-      - branch_name
-    DeleteConfigRequest:
-      type: object
-      properties:
-        cluster_level:
-          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nIndicator to consider cluster level or org level config. Set it to false to delete configuration from current org. If set to true, then the configuration at cluster level and orgs that inherited the configuration from cluster level will be deleted.  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
+        email:
           type:
-          - boolean
+          - string
           - 'null'
-    CreateConfigRequest:
+          description: Email id of the committer
+        username:
+          type:
+          - string
+          - 'null'
+          description: Username of the committer
+    UpdateConfigRequest:
       type: object
       properties:
-        repository_url:
-          description: URL for connecting to remote repository
-          type: string
         username:
-          description: Username to authenticate connection to remote repository
+          description: Username to authenticate connection to version control system
           type: string
         access_token:
-          description: Access token corresponding to the user to authenticate connection to remote repository
+          description: Access token corresponding to the user to authenticate connection to version control system
           type: string
         org_identifier:
           description: "   Applicable when Orgs is enabled in the cluster\n   \n\nList of Org ids or name. Provide value -1 for cluster level. Example : [\"OrgID1-or-Name1\", \"OrgID2-or-Name2\"] \n\n\n   \n\nNote: If no value is specified, then the configurations will be returned for all orgs the user has access to  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
@@ -885,65 +796,12 @@ components:
           type: string
         enable_guid_mapping:
           description: 'Maintain mapping of guid for the deployment to an instance <br/>  <span class="since-beta-tag">Version: 9.4.0.cl or later</span>'
-          default: true
           type:
           - boolean
           - 'null'
         configuration_branch_name:
-          description: "   Name of the branch where the configuration files related to operations between Thoughtspot and version control repo should be maintained.\n   \n\nNote: If no branch name is specified, then by default, ts_config_files branch is considered. Ensure this branch exists before configuration. <br/>  <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>"
+          description: 'Name of the branch where the configuration files related to operations between Thoughtspot and version control repo should be maintained. <br/>  <span class="since-beta-tag">Version: 9.7.0.cl or later</span>'
           type: string
-      required:
-      - repository_url
-      - username
-      - access_token
-    ValidateMergeRequest:
-      type: object
-      properties:
-        source_branch_name:
-          description: Name of the branch from which changes need to be picked for validation
-          type: string
-        target_branch_name:
-          description: Name of the branch where files will be merged
-          type: string
-      required:
-      - source_branch_name
-      - target_branch_name
-    CommitResponse:
-      type: object
-      properties:
-        committer:
-          $ref: '#/components/schemas/CommiterType'
-          description: Repository user using which changes were committed
-        author:
-          $ref: '#/components/schemas/AuthorType'
-          description: Thoughtspot user who commits the changes
-        comment:
-          type:
-          - string
-          - 'null'
-          description: Comments associated with the commit
-        commit_time:
-          type:
-          - string
-          - 'null'
-          description: Time at which the changes were committed.
-        commit_id:
-          type:
-          - string
-          - 'null'
-          description: SHA id associated with the commit
-        branch:
-          type:
-          - string
-          - 'null'
-          description: Branch where changes were committed
-        committed_files:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CommitFileType'
-          description: Files that were pushed as part of this commit
     RepoConfigObject:
       type: object
       properties:
@@ -982,52 +840,36 @@ components:
         org:
           $ref: '#/components/schemas/Org'
           description: Details of the Org
-    SearchConfigRequest:
+    MetadataObject:
       type: object
+      required:
+      - identifier
       properties:
-        org_identifiers:
-          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nList of Org ids or name. Provide value -1 for cluster level. Example : [\"OrgID1-or-Name1\", \"OrgID2-or-Name2\"] \n\n\n   \n\nNote: If no value is specified, then the configurations will be returned for all orgs the user has access to  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
+        identifier:
+          type: string
+          description: Unique ID or name of the metadata
+        type:
           type:
-          - object
+          - string
           - 'null'
-    RevertCommitRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataObject'
-        branch_name:
-          description: "   Name of the branch where the reverted version should be committed\n   \n\nNote: If no branch_name is specified, then the commit_branch_name will be considered."
-          type: string
-        revert_policy:
-          description: 'Policy to apply when reverting a commit. Valid values: [ALL_OR_NONE, PARTIAL]'
-          default: ALL_OR_NONE
-          type: string
           enum:
-          - ALL_OR_NONE
-          - PARTIAL
-    AuthorType:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - CUSTOM_ACTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+    ValidateMergeRequest:
       type: object
       properties:
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email id of the committer
-        username:
-          type:
-          - string
-          - 'null'
-          description: Username of the committer
+        source_branch_name:
+          description: Name of the branch from which changes need to be picked for validation
+          type: string
+        target_branch_name:
+          description: Name of the branch where files will be merged
+          type: string
+      required:
+      - source_branch_name
+      - target_branch_name
     CommitBranchRequest:
       type: object
       properties:
@@ -1051,6 +893,164 @@ components:
       required:
       - metadata
       - comment
+    RevertCommitRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataObject'
+        branch_name:
+          description: "   Name of the branch where the reverted version should be committed\n   \n\nNote: If no branch_name is specified, then the commit_branch_name will be considered."
+          type: string
+        revert_policy:
+          description: 'Policy to apply when reverting a commit. Valid values: [ALL_OR_NONE, PARTIAL]'
+          default: ALL_OR_NONE
+          type: string
+          enum:
+          - ALL_OR_NONE
+          - PARTIAL
+    CommitResponse:
+      type: object
+      properties:
+        committer:
+          $ref: '#/components/schemas/CommiterType'
+          description: Repository user using which changes were committed
+        author:
+          $ref: '#/components/schemas/AuthorType'
+          description: Thoughtspot user who commits the changes
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Comments associated with the commit
+        commit_time:
+          type:
+          - string
+          - 'null'
+          description: Time at which the changes were committed.
+        commit_id:
+          type:
+          - string
+          - 'null'
+          description: SHA id associated with the commit
+        branch:
+          type:
+          - string
+          - 'null'
+          description: Branch where changes were committed
+        committed_files:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CommitFileType'
+          description: Files that were pushed as part of this commit
+    SearchCommitsRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: Unique ID or name of the metadata.
+          type: string
+        metadata_type:
+          description: Type of metadata.
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - CUSTOM_ACTION
+        branch_name:
+          description: "   Name of the branch from which commit history needs to be displayed.\n   \n\nNote: If no branch_name is specified, then commits will be returned for the default branch for this configuration."
+          type: string
+        record_offset:
+          description: "    Record offset point in the commit history to display the response.\n    \n\nNote: If no record offset is specified, the beginning of the record will be considered."
+          type: integer
+          format: int32
+        record_size:
+          description: "    Number of history records from record offset point to be displayed in the response.\n    \n\nNote: If no record size is specified, then all the records will be considered."
+          type: integer
+          format: int32
+      required:
+      - metadata_identifier
+    DeployResponse:
+      type: object
+      properties:
+        file_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the file deployed
+        metadata_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the metadata object
+        metadata_type:
+          type:
+          - string
+          - 'null'
+          description: Type of the metadata object
+        status_code:
+          type:
+          - string
+          - 'null'
+          description: Indicates the status of deployment for the file
+        status_message:
+          type:
+          - string
+          - 'null'
+          description: Any error or warning with the deployment
+    CreateConfigRequest:
+      type: object
+      properties:
+        repository_url:
+          description: URL for connecting to remote repository
+          type: string
+        username:
+          description: Username to authenticate connection to remote repository
+          type: string
+        access_token:
+          description: Access token corresponding to the user to authenticate connection to remote repository
+          type: string
+        org_identifier:
+          description: "   Applicable when Orgs is enabled in the cluster\n   \n\nList of Org ids or name. Provide value -1 for cluster level. Example : [\"OrgID1-or-Name1\", \"OrgID2-or-Name2\"] \n\n\n   \n\nNote: If no value is specified, then the configurations will be returned for all orgs the user has access to  <br/>  <span class=\"since-beta-tag\">Version: 9.5.0.cl or later</span>"
+          type: string
+        branch_names:
+          description: List the remote branches to configure. Example:[development, production]
+          type: array
+          items:
+            type: string
+        commit_branch_name:
+          description: 'Name of the remote branch where objects from this Thoughtspot instance will be versioned. <br/>  <span class="since-beta-tag">Version: 9.7.0.cl or later</span>'
+          type: string
+        enable_guid_mapping:
+          description: 'Maintain mapping of guid for the deployment to an instance <br/>  <span class="since-beta-tag">Version: 9.4.0.cl or later</span>'
+          default: true
+          type:
+          - boolean
+          - 'null'
+        configuration_branch_name:
+          description: "   Name of the branch where the configuration files related to operations between Thoughtspot and version control repo should be maintained.\n   \n\nNote: If no branch name is specified, then by default, ts_config_files branch is considered. Ensure this branch exists before configuration. <br/>  <span class=\"since-beta-tag\">Version: 9.7.0.cl or later</span>"
+          type: string
+      required:
+      - repository_url
+      - username
+      - access_token
+    AuthorType:
+      type: object
+      properties:
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email id of the committer
+        username:
+          type:
+          - string
+          - 'null'
+          description: Username of the committer
   securitySchemes:
     bearerAuth:
       type: http

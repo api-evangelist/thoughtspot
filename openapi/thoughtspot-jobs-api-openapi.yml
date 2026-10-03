@@ -177,6 +177,74 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    JobRecipient:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - USER
+          - EXTERNAL
+          description: Type of the recipient.
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the recipient.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the recipient.
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the recipient.
+      description: A recipient (user, group, or external) for a job execution.
+    SearchChannelHistoryRequest:
+      type: object
+      properties:
+        channel_type:
+          description: Type of communication channel to search history for.
+          type: string
+          enum:
+          - WEBHOOK
+        job_ids:
+          description: List of job execution record IDs to retrieve.
+          type: array
+          items:
+            type: string
+        channel_identifiers:
+          description: List of channel IDs or names to filter by.
+          type: array
+          items:
+            type: string
+        channel_status:
+          description: Filter by channel delivery status.
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+        events:
+          description: Filter by events that triggered the channel.
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryEventInput'
+        start_epoch_time_in_millis:
+          description: Filter records created on or after this time (epoch milliseconds).
+          type: number
+          format: float
+        end_epoch_time_in_millis:
+          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          type: number
+          format: float
+      required:
+      - channel_type
     ChannelHistoryEventInput:
       type: object
       required:
@@ -225,47 +293,17 @@ components:
           - 'null'
           description: Unique run ID for this event execution.
       description: Event metadata for the triggering event associated with a job.
-    SearchChannelHistoryRequest:
+    SearchChannelHistoryResponse:
       type: object
-      properties:
-        channel_type:
-          description: Type of communication channel to search history for.
-          type: string
-          enum:
-          - WEBHOOK
-        job_ids:
-          description: List of job execution record IDs to retrieve.
-          type: array
-          items:
-            type: string
-        channel_identifiers:
-          description: List of channel IDs or names to filter by.
-          type: array
-          items:
-            type: string
-        channel_status:
-          description: Filter by channel delivery status.
-          type: string
-          enum:
-          - PENDING
-          - RETRY
-          - SUCCESS
-          - FAILED
-        events:
-          description: Filter by events that triggered the channel.
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelHistoryEventInput'
-        start_epoch_time_in_millis:
-          description: Filter records created on or after this time (epoch milliseconds).
-          type: number
-          format: float
-        end_epoch_time_in_millis:
-          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-          type: number
-          format: float
       required:
-      - channel_type
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
     ChannelHistoryJob:
       type: object
       required:
@@ -310,44 +348,6 @@ components:
           format: int32
           description: Number of attempts made. 1 indicates first attempt.
       description: A single job execution record for a channel.
-    SearchChannelHistoryResponse:
-      type: object
-      required:
-      - jobs
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelHistoryJob'
-          description: List of job execution records.
-      description: Response wrapper for channel delivery history.
-    JobRecipient:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - USER
-          - EXTERNAL
-          description: Type of the recipient.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the recipient.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the recipient.
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email of the recipient.
-      description: A recipient (user, group, or external) for a job execution.
   securitySchemes:
     bearerAuth:
       type: http

@@ -390,34 +390,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AssignTagRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/TagMetadataTypeInput'
-        tag_identifiers:
-          description: GUID or name of the tag.
-          type: array
-          items:
-            type: string
-      required:
-      - metadata
-      - tag_identifiers
-    SearchTagsRequest:
-      type: object
-      properties:
-        tag_identifier:
-          description: Name or Id of the tag.
-          type: string
-        name_pattern:
-          description: A pattern to match case-insensitive name of the Tag object.
-          type: string
-        color:
-          description: Color of the tag.
-          type: string
     TagMetadataTypeInput:
       type: object
       required:
@@ -447,29 +419,6 @@ components:
         color:
           description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UnassignTagRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
-          type: array
-          items:
-            $ref: '#/components/schemas/TagMetadataTypeInput'
-        tag_identifiers:
-          description: GUID or name of the tag.
-          type: array
-          items:
-            type: string
-      required:
-      - metadata
-      - tag_identifiers
     Tag:
       type: object
       required:
@@ -522,6 +471,41 @@ components:
           type:
           - string
           - 'null'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    AssignTagRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata
+      - tag_identifiers
+    SearchTagsRequest:
+      type: object
+      properties:
+        tag_identifier:
+          description: Name or Id of the tag.
+          type: string
+        name_pattern:
+          description: A pattern to match case-insensitive name of the Tag object.
+          type: string
+        color:
+          description: Color of the tag.
+          type: string
     CreateTagRequest:
       type: object
       properties:
@@ -533,6 +517,22 @@ components:
           type: string
       required:
       - name
+    UnassignTagRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/TagMetadataTypeInput'
+        tag_identifiers:
+          description: GUID or name of the tag.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata
+      - tag_identifiers
   securitySchemes:
     bearerAuth:
       type: http

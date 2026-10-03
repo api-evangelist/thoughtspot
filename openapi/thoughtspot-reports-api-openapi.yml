@@ -179,131 +179,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    PngOptionsInput:
-      type: object
-      properties:
-        include_cover_page:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to include the cover page with the Liveboard title.
-        include_filter_page:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to include a page with all applied filters.
-        personalised_view_id:
-          type:
-          - string
-          - 'null'
-          description: Indicates personalised view of the Liveboard in case of png
-        image_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-        image_scale:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-        include_header:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-    AnswerPngOptionsInput:
-      type: object
-      properties:
-        x_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-        y_resolution:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-        scaling:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-    ExportLiveboardReportRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: GUID or name of the Liveboard object.
-          type: string
-        tab_identifiers:
-          description: 'GUID or name of the tab of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          type: array
-          items:
-            type: string
-        personalised_view_identifier:
-          description: 'GUID or name of the personalised view of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
-          type: string
-        visualization_identifiers:
-          description: 'GUID or name of visualizations on the Liveboard. If this parameter is
-
-            not defined, the API returns a report with all visualizations saved on a Liveboard.'
-          type: array
-          items:
-            type: string
-        transient_content:
-          description: Transient content of the Liveboard.
-          type: string
-        file_format:
-          description: Export file format.
-          default: PDF
-          type: string
-          enum:
-          - PDF
-          - PNG
-          - CSV
-          - XLSX
-        runtime_filter:
-          description: 'JSON object with representing filter condition to apply filters at runtime. For example, {"col1": "region", "op1": "EQ", "val1": "northeast" }. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
-          type: object
-        override_filters:
-          description: "Applied to the liveboard and overrides any filters already applied on the same columns in liveboard.\nFollowing example illustrate different kinds of filters:\n{\n  \"override_filters\": [\n    {\n      \"column_name\": \"Color\",\n      \"generic_filter\": {\n        \"op\": \"IN\",\n        \"values\": [\n          \"almond\",\n          \"turquoise\"\n        ]\n      },\n      \"negate\": false\n    },\n    {\n      \"column_name\": \"Commit Date\",\n      \"date_filter\": {\n        \"datePeriod\": \"HOUR\",\n        \"number\": 3,\n        \"type\": \"LAST_N_PERIOD\",\n        \"op\": \"EQ\"\n      }\n    },\n    {\n      \"column_name\": \"Sales\",\n      \"generic_filter\": {\n        \"op\": \"BW_INC\",\n        \"values\": [\n          \"100000\",\n          \"70000\"\n        ]\n      },\n      \"negate\": true\n    }\n  ]\n}"
-          type: object
-        runtime_sort:
-          description: 'JSON string representing runtime sort. For example, {"sortCol1": "region", "asc1" : true}. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
-          type: object
-        pdf_options:
-          description: Options for PDF export.
-          allOf:
-          - $ref: '#/components/schemas/PdfOptionsInput'
-        png_options:
-          description: Options for PNG export.
-          allOf:
-          - $ref: '#/components/schemas/PngOptionsInput'
-        runtime_param_override:
-          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
-          type: object
-        regional_settings:
-          description: Options for specific region specific overrides to support date/number/string/currency formatting.
-          allOf:
-          - $ref: '#/components/schemas/RegionalSettingsInput'
-      required:
-      - metadata_identifier
     PdfOptionsInput:
       type: object
       properties:
@@ -365,59 +240,6 @@ components:
           - string
           - 'null'
           description: Text to include in the footer of each page.
-    ExportAnswerReportRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: Unique ID or name of the metadata object.
-          type: string
-        session_identifier:
-          description: Unique ID of the answer session.
-          type: string
-        generation_number:
-          description: Generation number of the answer session.
-          type: integer
-          format: int32
-        file_format:
-          description: Export file format.
-          default: CSV
-          type: string
-          enum:
-          - CSV
-          - PDF
-          - XLSX
-          - PNG
-        runtime_filter:
-          description: 'JSON string representing runtime filter.
-
-            { col1:region, op1: EQ, val1: northeast }'
-          type: object
-        runtime_sort:
-          description: 'JSON string representing runtime sort.
-
-            { sortCol1: region, asc1 :true, sortCol2 : date }'
-          type: object
-        runtime_param_override:
-          description: JSON object for setting values of parameters in runtime.
-          type: object
-        regional_settings:
-          description: Options for specific region specific overrides to support date/number/string/currency formatting.
-          allOf:
-          - $ref: '#/components/schemas/RegionalSettingsInput'
-        png_options:
-          description: 'Options for PNG export. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          allOf:
-          - $ref: '#/components/schemas/AnswerPngOptionsInput'
-        personalised_view_identifier:
-          description: 'GUID or name of the personalised view of the Answer object. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          type: string
-        type:
-          description: 'Type of the answer being exported. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-          default: SAVED
-          type: string
-          enum:
-          - SAVED
-          - PINNED
     RegionalSettingsInput:
       type: object
       properties:
@@ -760,6 +582,184 @@ components:
           - zh-Hant
           - ko-KR
           - en-DE
+    ExportLiveboardReportRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: GUID or name of the Liveboard object.
+          type: string
+        tab_identifiers:
+          description: 'GUID or name of the tab of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: array
+          items:
+            type: string
+        personalised_view_identifier:
+          description: 'GUID or name of the personalised view of the Liveboard object. <br/>  <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+          type: string
+        visualization_identifiers:
+          description: 'GUID or name of visualizations on the Liveboard. If this parameter is
+
+            not defined, the API returns a report with all visualizations saved on a Liveboard.'
+          type: array
+          items:
+            type: string
+        transient_content:
+          description: Transient content of the Liveboard.
+          type: string
+        file_format:
+          description: Export file format.
+          default: PDF
+          type: string
+          enum:
+          - PDF
+          - PNG
+          - CSV
+          - XLSX
+        runtime_filter:
+          description: 'JSON object with representing filter condition to apply filters at runtime. For example, {"col1": "region", "op1": "EQ", "val1": "northeast" }. You can add multiple keys by incrementing the number at the end, for example, col2, op2, val2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_filters).'
+          type: object
+        override_filters:
+          description: "Applied to the liveboard and overrides any filters already applied on the same columns in liveboard.\nFollowing example illustrate different kinds of filters:\n{\n  \"override_filters\": [\n    {\n      \"column_name\": \"Color\",\n      \"generic_filter\": {\n        \"op\": \"IN\",\n        \"values\": [\n          \"almond\",\n          \"turquoise\"\n        ]\n      },\n      \"negate\": false\n    },\n    {\n      \"column_name\": \"Commit Date\",\n      \"date_filter\": {\n        \"datePeriod\": \"HOUR\",\n        \"number\": 3,\n        \"type\": \"LAST_N_PERIOD\",\n        \"op\": \"EQ\"\n      }\n    },\n    {\n      \"column_name\": \"Sales\",\n      \"generic_filter\": {\n        \"op\": \"BW_INC\",\n        \"values\": [\n          \"100000\",\n          \"70000\"\n        ]\n      },\n      \"negate\": true\n    }\n  ]\n}"
+          type: object
+        runtime_sort:
+          description: 'JSON string representing runtime sort. For example, {"sortCol1": "region", "asc1" : true}. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_sort).'
+          type: object
+        pdf_options:
+          description: Options for PDF export.
+          allOf:
+          - $ref: '#/components/schemas/PdfOptionsInput'
+        png_options:
+          description: Options for PNG export.
+          allOf:
+          - $ref: '#/components/schemas/PngOptionsInput'
+        runtime_param_override:
+          description: 'JSON object for setting values of parameters at runtime. For example, <code> {"param1": "Double List Param", "paramVal1": 0.5}</code>. You can add multiple keys by incrementing the number at the end, for example, param2, paramVal2. For more information, see [API Documentation](https://developers.thoughtspot.com/docs/fetch-data-and-report-apis#_runtime_parameters).'
+          type: object
+        regional_settings:
+          description: Options for specific region specific overrides to support date/number/string/currency formatting.
+          allOf:
+          - $ref: '#/components/schemas/RegionalSettingsInput'
+      required:
+      - metadata_identifier
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    PngOptionsInput:
+      type: object
+      properties:
+        include_cover_page:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include the cover page with the Liveboard title.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to include a page with all applied filters.
+        personalised_view_id:
+          type:
+          - string
+          - 'null'
+          description: Indicates personalised view of the Liveboard in case of png
+        image_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the Liveboard image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        image_scale:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+        include_header:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: 'Indicates whether to include the header of the liveboard. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.9.0.cl or later</span>'
+    AnswerPngOptionsInput:
+      type: object
+      properties:
+        x_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired width of the answer image in pixels. Ex. 1920 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        y_resolution:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'Desired height of the answer image in pixels. Ex. 1080 for Full HD image <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+        scaling:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: 'The scale of the image in percentage. Ex. 100 for 100% scale. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+    ExportAnswerReportRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: Unique ID or name of the metadata object.
+          type: string
+        session_identifier:
+          description: Unique ID of the answer session.
+          type: string
+        generation_number:
+          description: Generation number of the answer session.
+          type: integer
+          format: int32
+        file_format:
+          description: Export file format.
+          default: CSV
+          type: string
+          enum:
+          - CSV
+          - PDF
+          - XLSX
+          - PNG
+        runtime_filter:
+          description: 'JSON string representing runtime filter.
+
+            { col1:region, op1: EQ, val1: northeast }'
+          type: object
+        runtime_sort:
+          description: 'JSON string representing runtime sort.
+
+            { sortCol1: region, asc1 :true, sortCol2 : date }'
+          type: object
+        runtime_param_override:
+          description: JSON object for setting values of parameters in runtime.
+          type: object
+        regional_settings:
+          description: Options for specific region specific overrides to support date/number/string/currency formatting.
+          allOf:
+          - $ref: '#/components/schemas/RegionalSettingsInput'
+        png_options:
+          description: 'Options for PNG export. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/AnswerPngOptionsInput'
+        personalised_view_identifier:
+          description: 'GUID or name of the personalised view of the Answer object. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          type: string
+        type:
+          description: 'Type of the answer being exported. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+          default: SAVED
+          type: string
+          enum:
+          - SAVED
+          - PINNED
   securitySchemes:
     bearerAuth:
       type: http

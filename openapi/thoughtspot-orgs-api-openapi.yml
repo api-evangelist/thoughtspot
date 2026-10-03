@@ -269,51 +269,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    CreateOrgRequest:
-      type: object
-      properties:
-        name:
-          description: Name of the Org.
-          type: string
-        description:
-          description: Description of the Org.
-          type: string
-      required:
-      - name
-    UpdateOrgRequest:
-      type: object
-      properties:
-        name:
-          description: Name of the Org
-          type: string
-        description:
-          description: Description of the Org
-          type: string
-        user_identifiers:
-          description: Add Users to an Org
-          type: array
-          items:
-            type: string
-        group_identifiers:
-          description: Add Default Groups to an Org
-          type: array
-          items:
-            type: string
-        operation:
-          description: Type of update operation. Default operation type is ADD
-          default: ADD
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
     SearchOrgsRequest:
       type: object
       properties:
@@ -375,6 +330,51 @@ components:
           - SHOW
           - HIDDEN
           description: Visibility of the Org.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    CreateOrgRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the Org.
+          type: string
+        description:
+          description: Description of the Org.
+          type: string
+      required:
+      - name
+    UpdateOrgRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the Org
+          type: string
+        description:
+          description: Description of the Org
+          type: string
+        user_identifiers:
+          description: Add Users to an Org
+          type: array
+          items:
+            type: string
+        group_identifiers:
+          description: Add Default Groups to an Org
+          type: array
+          items:
+            type: string
+        operation:
+          description: Type of update operation. Default operation type is ADD
+          default: ADD
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
   securitySchemes:
     bearerAuth:
       type: http

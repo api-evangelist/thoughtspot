@@ -517,6 +517,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateEmailCustomizationResponse:
+      type: object
+      required:
+      - tenant_id
+      - org
+      - name
+      - template_properties
+      properties:
+        tenant_id:
+          type: string
+          description: Tenant ID
+        org:
+          $ref: '#/components/schemas/OrgType'
+          description: Email customization org
+        name:
+          type: string
+          description: Email customization name.
+        template_properties:
+          type: object
+          description: Customization configuration for the email
     CreateEmailCustomizationRequest:
       type: object
       properties:
@@ -529,29 +549,6 @@ components:
           type: string
       required:
       - template_properties
-    DeleteOrgEmailCustomizationRequest:
-      type: object
-      properties:
-        org_identifiers:
-          description: Unique identifier of the organization.
-          type: array
-          items:
-            type: string
-    SearchEmailCustomizationRequest:
-      type: object
-      properties:
-        org_identifiers:
-          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     UpdateEmailCustomizationRequest:
       type: object
       properties:
@@ -576,26 +573,21 @@ components:
           - integer
           - 'null'
           format: int32
-    CreateEmailCustomizationResponse:
+    ErrorResponse:
       type: object
-      required:
-      - tenant_id
-      - org
-      - name
-      - template_properties
       properties:
-        tenant_id:
-          type: string
-          description: Tenant ID
-        org:
-          $ref: '#/components/schemas/OrgType'
-          description: Email customization org
-        name:
-          type: string
-          description: Email customization name.
-        template_properties:
-          type: object
-          description: Customization configuration for the email
+        error:
+          type:
+          - object
+          - 'null'
+    DeleteOrgEmailCustomizationRequest:
+      type: object
+      properties:
+        org_identifiers:
+          description: Unique identifier of the organization.
+          type: array
+          items:
+            type: string
     Template_Properties_Input_Create:
       type: object
       properties:
@@ -740,6 +732,14 @@ components:
           - 'null'
           description: 'Whether to hide logo <br/>  <span class="since-beta-tag">Version: 26.4.0.cl or later</span>'
       description: Email customization configuration properties
+    SearchEmailCustomizationRequest:
+      type: object
+      properties:
+        org_identifiers:
+          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
+          type: array
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http
