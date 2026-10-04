@@ -318,6 +318,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CollectionMetadataItem:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of the metadata object.
+        identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CollectionEntityIdentifier'
+          description: List of identifiers for this metadata type.
+      description: Metadata item in a collection response.
     CollectionDeleteTypeIdentifiers:
       type: object
       properties:
@@ -334,6 +350,47 @@ components:
             $ref: '#/components/schemas/GenericInfo'
           description: List of metadata identifiers belonging to the given type.
       description: Group of metadata objects identified by type.
+    GenericInfo:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+    CollectionEntityIdentifier:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the entity.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the entity.
+      description: Entity identifier with name.
+    CreateCollectionRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the collection.
+          type: string
+        description:
+          description: Description of the collection.
+          type: string
+        metadata:
+          description: Metadata objects to add to the collection.
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMetadataInput'
+      required:
+      - name
     DeleteCollectionRequest:
       type: object
       properties:
@@ -360,131 +417,6 @@ components:
           - 'null'
       required:
       - collection_identifiers
-    SortOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
-    CollectionMetadataInput:
-      type: object
-      required:
-      - type
-      - identifiers
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - COLLECTION
-          description: Type of metadata object.
-        identifiers:
-          type: array
-          items:
-            type: string
-          description: List of unique IDs or names of metadata objects.
-      description: Input type for metadata to be added to a collection.
-    CollectionSearchResponse:
-      type: object
-      required:
-      - collections
-      properties:
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Collection'
-          description: List of collections matching the search criteria.
-        record_offset:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: The starting record number from where the records are included.
-        record_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: The number of records returned.
-        is_last_batch:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this is the last batch of results.
-        count:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Total count of records returned.
-      description: Response object for search collections operation.
-    CollectionMetadataItem:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type of the metadata object.
-        identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CollectionEntityIdentifier'
-          description: List of identifiers for this metadata type.
-      description: Metadata item in a collection response.
-    GenericInfo:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-    CollectionEntityIdentifier:
-      type: object
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the entity.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the entity.
-      description: Entity identifier with name.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     Collection:
       type: object
       required:
@@ -558,6 +490,36 @@ components:
 
             Objects may be skipped due to lack of permissions, dependencies, or other constraints.'
       description: Response object for delete collection operation.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    SortOptions:
+      type: object
+      properties:
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
     SearchCollectionsRequest:
       type: object
       properties:
@@ -602,22 +564,40 @@ components:
           description: Sort options.
           allOf:
           - $ref: '#/components/schemas/SortOptions'
-    CreateCollectionRequest:
+    CollectionSearchResponse:
       type: object
+      required:
+      - collections
       properties:
-        name:
-          description: Name of the collection.
-          type: string
-        description:
-          description: Description of the collection.
-          type: string
-        metadata:
-          description: Metadata objects to add to the collection.
+        collections:
           type: array
           items:
-            $ref: '#/components/schemas/CollectionMetadataInput'
-      required:
-      - name
+            $ref: '#/components/schemas/Collection'
+          description: List of collections matching the search criteria.
+        record_offset:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The starting record number from where the records are included.
+        record_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The number of records returned.
+        is_last_batch:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this is the last batch of results.
+        count:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Total count of records returned.
+      description: Response object for search collections operation.
     UpdateCollectionRequest:
       type: object
       properties:
@@ -640,6 +620,26 @@ components:
           - ADD
           - REMOVE
           - REPLACE
+    CollectionMetadataInput:
+      type: object
+      required:
+      - type
+      - identifiers
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - COLLECTION
+          description: Type of metadata object.
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: List of unique IDs or names of metadata objects.
+      description: Input type for metadata to be added to a collection.
   securitySchemes:
     bearerAuth:
       type: http

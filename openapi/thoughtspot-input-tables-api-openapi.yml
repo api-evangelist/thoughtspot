@@ -435,35 +435,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    InputTableResponse:
+    InputTableDefinitionInput:
       type: object
-      properties:
-        input_table_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the newly created input table.
-    CreateInputTableRequest:
-      type: object
-      properties:
-        table_name:
-          description: Physical table name to create in the external warehouse.
-          type: string
-        model_identifier:
-          description: 'Unique ID or name of the model (worksheet) to link the
-
-            input table to.'
-          type: string
-        table_definition:
-          description: 'Definition of the input table, including new columns
-
-            and referenced model columns.'
-          allOf:
-          - $ref: '#/components/schemas/InputTableDefinitionInput'
       required:
-      - table_name
-      - model_identifier
-      - table_definition
+      - new_columns
+      - referenced_columns
+      properties:
+        new_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputColumnSchemaInput'
+          description: New input-only columns to create in the table.
+        referenced_columns:
+          type: array
+          items:
+            type: string
+          description: 'Column IDs from the linked model to include in the table.
+
+            Pass an empty array to create an input table with no reference
+
+            columns from the model.'
+      description: Definition of the input table schema.
     InputTableUpdateResponse:
       type: object
       properties:
@@ -474,13 +466,14 @@ components:
           format: int32
           description: Number of rows successfully written to the input table.
       description: Response returned after successfully writing rows to an input table.
-    ErrorResponse:
+    InputTableResponse:
       type: object
       properties:
-        error:
+        input_table_identifier:
           type:
-          - object
+          - string
           - 'null'
+          description: Unique ID of the newly created input table.
     InputColumnSchemaInput:
       type: object
       required:
@@ -520,27 +513,13 @@ components:
 
             or leave empty to allow any value supported by the data type. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
       description: Schema definition for a single input column.
-    InputTableDefinitionInput:
+    ErrorResponse:
       type: object
-      required:
-      - new_columns
-      - referenced_columns
       properties:
-        new_columns:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputColumnSchemaInput'
-          description: New input-only columns to create in the table.
-        referenced_columns:
-          type: array
-          items:
-            type: string
-          description: 'Column IDs from the linked model to include in the table.
-
-            Pass an empty array to create an input table with no reference
-
-            columns from the model.'
-      description: Definition of the input table schema.
+        error:
+          type:
+          - object
+          - 'null'
     UpdateInputTableRequest:
       type: object
       properties:
@@ -563,6 +542,27 @@ components:
       required:
       - columns
       - rows
+    CreateInputTableRequest:
+      type: object
+      properties:
+        table_name:
+          description: Physical table name to create in the external warehouse.
+          type: string
+        model_identifier:
+          description: 'Unique ID or name of the model (worksheet) to link the
+
+            input table to.'
+          type: string
+        table_definition:
+          description: 'Definition of the input table, including new columns
+
+            and referenced model columns.'
+          allOf:
+          - $ref: '#/components/schemas/InputTableDefinitionInput'
+      required:
+      - table_name
+      - model_identifier
+      - table_definition
   securitySchemes:
     bearerAuth:
       type: http

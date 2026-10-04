@@ -311,28 +311,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PolicyProcessOptionsInput:
-      type: object
-      properties:
-        impersonate_user:
-          type:
-          - string
-          - 'null'
-    UserPrincipal:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
     DeleteConnectionConfigurationRequest:
       type: object
       properties:
@@ -345,6 +323,166 @@ components:
       required:
       - configuration_identifier
       - connection_identifier
+    PolicyProcessOptions:
+      type: object
+      properties:
+        impersonate_user:
+          type:
+          - string
+          - 'null'
+    UpdateConnectionConfigurationRequest:
+      type: object
+      properties:
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+        name:
+          description: Name of the configuration to update.
+          type: string
+        description:
+          description: Description of the configuration.
+          type: string
+        same_as_parent:
+          description: 'Specifies whether the connection configuration should inherit all properties and authentication
+
+            type from its parent connection. This attribute is only applicable to parameterized connections.
+
+            When set to true, the configuration uses only the connection properties and authentication type
+
+            inherited from the parent. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        policy_process_options:
+          description: 'This attribute is only applicable to parameterized connections. Ensure that the policy is
+
+            set to Processes to allow the configuration to be used exclusively for system processes. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/PolicyProcessOptionsInput'
+        authentication_type:
+          description: Type of authentication.
+          type: string
+          enum:
+          - SERVICE_ACCOUNT
+          - OAUTH
+          - OAUTH_WITH_SERVICE_PRINCIPAL
+          - EXTOAUTH
+          - KEY_PAIR
+          - EXTOAUTH_WITH_PKCE
+          - OAUTH_WITH_PKCE
+          - PERSONAL_ACCESS_TOKEN
+          - OAUTH_CLIENT_CREDENTIALS
+          - OAUTH_CLIENT_CREDENTIALS_WITH_X509
+        configuration:
+          description: Configuration properties in JSON.
+          type: object
+        policy_type:
+          description: Type of policy.
+          type: string
+          enum:
+          - NO_POLICY
+          - PRINCIPALS
+          - PROCESSES
+        policy_principals:
+          description: Unique ID or name of the User and User Groups.
+          type: array
+          items:
+            type: string
+        policy_processes:
+          description: Action that the query performed on the data warehouse, such as SAGE_INDEXING, ROW_COUNT_STATS, and SCHEDULED_LIVEBOARDS.
+          type: array
+          items:
+            type: string
+            enum:
+            - SAGE_INDEXING
+            - ROW_COUNT_STATS
+            - SCHEDULED_LIVEBOARDS
+        disable:
+          description: Indicates whether the configuration enable/disable.
+          default: false
+          type:
+          - boolean
+          - 'null'
+      required:
+      - connection_identifier
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    CreateConnectionConfigurationRequest:
+      type: object
+      properties:
+        name:
+          description: Unique name for the configuration.
+          type: string
+        description:
+          description: Description of the configuration.
+          type: string
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+        same_as_parent:
+          description: 'Specifies whether the connection configuration should inherit all properties and authentication
+
+            type from its parent connection. This attribute is only applicable to parameterized connections.
+
+            When set to true, the configuration uses only the connection properties and authentication type
+
+            inherited from the parent. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        policy_process_options:
+          description: 'This attribute is only applicable to parameterized connections. Ensure that the policy is
+
+            set to Processes to allow the configuration to be used exclusively for system processes. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/PolicyProcessOptionsInput'
+        authentication_type:
+          description: Type of authentication used for the connection.
+          default: SERVICE_ACCOUNT
+          type: string
+          enum:
+          - SERVICE_ACCOUNT
+          - KEY_PAIR
+          - PERSONAL_ACCESS_TOKEN
+          - OAUTH_WITH_SERVICE_PRINCIPAL
+          - OAUTH_CLIENT_CREDENTIALS
+          - OAUTH_CLIENT_CREDENTIALS_WITH_X509
+        configuration:
+          description: Configuration properties in JSON.
+          type: object
+        policy_type:
+          description: Type of policy.
+          default: NO_POLICY
+          type: string
+          enum:
+          - NO_POLICY
+          - PRINCIPALS
+          - PROCESSES
+        policy_principals:
+          description: Unique ID or name of the User and User Groups.
+          type: array
+          items:
+            type: string
+        policy_processes:
+          description: Action that the query performed on the data warehouse, such as SAGE_INDEXING, ROW_COUNT_STATS, and SCHEDULED_LIVEBOARDS.
+          type: array
+          items:
+            type: string
+            enum:
+            - SAGE_INDEXING
+            - ROW_COUNT_STATS
+            - SCHEDULED_LIVEBOARDS
+      required:
+      - name
+      - connection_identifier
+      - configuration
     ConnectionConfigurationResponse:
       type: object
       properties:
@@ -437,166 +575,6 @@ components:
           - 'null'
         policy_process_options:
           $ref: '#/components/schemas/PolicyProcessOptions'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    PolicyProcessOptions:
-      type: object
-      properties:
-        impersonate_user:
-          type:
-          - string
-          - 'null'
-    CreateConnectionConfigurationRequest:
-      type: object
-      properties:
-        name:
-          description: Unique name for the configuration.
-          type: string
-        description:
-          description: Description of the configuration.
-          type: string
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-        same_as_parent:
-          description: 'Specifies whether the connection configuration should inherit all properties and authentication
-
-            type from its parent connection. This attribute is only applicable to parameterized connections.
-
-            When set to true, the configuration uses only the connection properties and authentication type
-
-            inherited from the parent. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        policy_process_options:
-          description: 'This attribute is only applicable to parameterized connections. Ensure that the policy is
-
-            set to Processes to allow the configuration to be used exclusively for system processes. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
-          allOf:
-          - $ref: '#/components/schemas/PolicyProcessOptionsInput'
-        authentication_type:
-          description: Type of authentication used for the connection.
-          default: SERVICE_ACCOUNT
-          type: string
-          enum:
-          - SERVICE_ACCOUNT
-          - KEY_PAIR
-          - PERSONAL_ACCESS_TOKEN
-          - OAUTH_WITH_SERVICE_PRINCIPAL
-          - OAUTH_CLIENT_CREDENTIALS
-          - OAUTH_CLIENT_CREDENTIALS_WITH_X509
-        configuration:
-          description: Configuration properties in JSON.
-          type: object
-        policy_type:
-          description: Type of policy.
-          default: NO_POLICY
-          type: string
-          enum:
-          - NO_POLICY
-          - PRINCIPALS
-          - PROCESSES
-        policy_principals:
-          description: Unique ID or name of the User and User Groups.
-          type: array
-          items:
-            type: string
-        policy_processes:
-          description: Action that the query performed on the data warehouse, such as SAGE_INDEXING, ROW_COUNT_STATS, and SCHEDULED_LIVEBOARDS.
-          type: array
-          items:
-            type: string
-            enum:
-            - SAGE_INDEXING
-            - ROW_COUNT_STATS
-            - SCHEDULED_LIVEBOARDS
-      required:
-      - name
-      - connection_identifier
-      - configuration
-    UpdateConnectionConfigurationRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-        name:
-          description: Name of the configuration to update.
-          type: string
-        description:
-          description: Description of the configuration.
-          type: string
-        same_as_parent:
-          description: 'Specifies whether the connection configuration should inherit all properties and authentication
-
-            type from its parent connection. This attribute is only applicable to parameterized connections.
-
-            When set to true, the configuration uses only the connection properties and authentication type
-
-            inherited from the parent. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        policy_process_options:
-          description: 'This attribute is only applicable to parameterized connections. Ensure that the policy is
-
-            set to Processes to allow the configuration to be used exclusively for system processes. <br/>  <span class="since-beta-tag">Version: 26.2.0.cl or later</span>'
-          allOf:
-          - $ref: '#/components/schemas/PolicyProcessOptionsInput'
-        authentication_type:
-          description: Type of authentication.
-          type: string
-          enum:
-          - SERVICE_ACCOUNT
-          - OAUTH
-          - OAUTH_WITH_SERVICE_PRINCIPAL
-          - EXTOAUTH
-          - KEY_PAIR
-          - EXTOAUTH_WITH_PKCE
-          - OAUTH_WITH_PKCE
-          - PERSONAL_ACCESS_TOKEN
-          - OAUTH_CLIENT_CREDENTIALS
-          - OAUTH_CLIENT_CREDENTIALS_WITH_X509
-        configuration:
-          description: Configuration properties in JSON.
-          type: object
-        policy_type:
-          description: Type of policy.
-          type: string
-          enum:
-          - NO_POLICY
-          - PRINCIPALS
-          - PROCESSES
-        policy_principals:
-          description: Unique ID or name of the User and User Groups.
-          type: array
-          items:
-            type: string
-        policy_processes:
-          description: Action that the query performed on the data warehouse, such as SAGE_INDEXING, ROW_COUNT_STATS, and SCHEDULED_LIVEBOARDS.
-          type: array
-          items:
-            type: string
-            enum:
-            - SAGE_INDEXING
-            - ROW_COUNT_STATS
-            - SCHEDULED_LIVEBOARDS
-        disable:
-          description: Indicates whether the configuration enable/disable.
-          default: false
-          type:
-          - boolean
-          - 'null'
-      required:
-      - connection_identifier
     ConnectionConfigurationSearchRequest:
       type: object
       properties:
@@ -615,6 +593,28 @@ components:
           - PROCESSES
       required:
       - connection_identifier
+    UserPrincipal:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+    PolicyProcessOptionsInput:
+      type: object
+      properties:
+        impersonate_user:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

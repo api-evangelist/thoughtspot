@@ -390,34 +390,17 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TagMetadataTypeInput:
+    SearchTagsRequest:
       type: object
-      required:
-      - identifier
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - COLLECTION
-          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  1. LIVEBOARD\n  2. ANSWERS\n  3. LOGICAL_TABLE for any data object such as table, worksheet or view.\n  4. LOGICAL_COLUMN for a column of any data object such as tables, worksheets or views."
-        identifier:
+        tag_identifier:
+          description: Name or Id of the tag.
           type: string
-          description: Unique ID or name of the metadata.
-    UpdateTagRequest:
-      type: object
-      properties:
-        name:
-          description: Name of the tag.
+        name_pattern:
+          description: A pattern to match case-insensitive name of the Tag object.
           type: string
         color:
-          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          description: Color of the tag.
           type: string
     Tag:
       type: object
@@ -471,13 +454,6 @@ components:
           type:
           - string
           - 'null'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     AssignTagRequest:
       type: object
       properties:
@@ -494,19 +470,27 @@ components:
       required:
       - metadata
       - tag_identifiers
-    SearchTagsRequest:
+    TagMetadataTypeInput:
       type: object
+      required:
+      - identifier
       properties:
-        tag_identifier:
-          description: Name or Id of the tag.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier.\n  1. LIVEBOARD\n  2. ANSWERS\n  3. LOGICAL_TABLE for any data object such as table, worksheet or view.\n  4. LOGICAL_COLUMN for a column of any data object such as tables, worksheets or views."
+        identifier:
           type: string
-        name_pattern:
-          description: A pattern to match case-insensitive name of the Tag object.
-          type: string
-        color:
-          description: Color of the tag.
-          type: string
-    CreateTagRequest:
+          description: Unique ID or name of the metadata.
+    UpdateTagRequest:
       type: object
       properties:
         name:
@@ -515,8 +499,13 @@ components:
         color:
           description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
           type: string
-      required:
-      - name
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     UnassignTagRequest:
       type: object
       properties:
@@ -533,6 +522,17 @@ components:
       required:
       - metadata
       - tag_identifiers
+    CreateTagRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the tag.
+          type: string
+        color:
+          description: 'Hex color code to be assigned to the tag. For example, #ff78a9.'
+          type: string
+      required:
+      - name
   securitySchemes:
     bearerAuth:
       type: http

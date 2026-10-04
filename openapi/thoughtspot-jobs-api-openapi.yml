@@ -177,6 +177,109 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    SearchChannelHistoryResponse:
+      type: object
+      required:
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
+    ChannelHistoryEventInput:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the event.
+      description: Event specification for channel history search.
+    ChannelHistoryEventInfo:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of the event.
+        id:
+          type: string
+          description: Unique ID of the event.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the event.
+        run_id:
+          type:
+          - string
+          - 'null'
+          description: Unique run ID for this event execution.
+      description: Event metadata for the triggering event associated with a job.
+    ChannelHistoryJob:
+      type: object
+      required:
+      - id
+      - status
+      - creation_time_in_millis
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this job.
+        status:
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+          description: Delivery status of this job.
+        creation_time_in_millis:
+          type: number
+          format: float
+          description: Timestamp when this job was created (epoch milliseconds).
+        event:
+          $ref: '#/components/schemas/ChannelHistoryEventInfo'
+          description: Event metadata for the triggering event associated with this job.
+        recipients:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/JobRecipient'
+          description: The users, groups or external recipients for this job.
+        detail:
+          type:
+          - string
+          - 'null'
+          description: Additional delivery details such as HTTP response code or error message.
+        try_count:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of attempts made. 1 indicates first attempt.
+      description: A single job execution record for a channel.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     JobRecipient:
       type: object
       required:
@@ -245,109 +348,6 @@ components:
           format: float
       required:
       - channel_type
-    ChannelHistoryEventInput:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD_SCHEDULE
-          description: Type of the event.
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the event.
-      description: Event specification for channel history search.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    ChannelHistoryEventInfo:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          enum:
-          - LIVEBOARD_SCHEDULE
-          description: Type of the event.
-        id:
-          type: string
-          description: Unique ID of the event.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the event.
-        run_id:
-          type:
-          - string
-          - 'null'
-          description: Unique run ID for this event execution.
-      description: Event metadata for the triggering event associated with a job.
-    SearchChannelHistoryResponse:
-      type: object
-      required:
-      - jobs
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelHistoryJob'
-          description: List of job execution records.
-      description: Response wrapper for channel delivery history.
-    ChannelHistoryJob:
-      type: object
-      required:
-      - id
-      - status
-      - creation_time_in_millis
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this job.
-        status:
-          type: string
-          enum:
-          - PENDING
-          - RETRY
-          - SUCCESS
-          - FAILED
-          description: Delivery status of this job.
-        creation_time_in_millis:
-          type: number
-          format: float
-          description: Timestamp when this job was created (epoch milliseconds).
-        event:
-          $ref: '#/components/schemas/ChannelHistoryEventInfo'
-          description: Event metadata for the triggering event associated with this job.
-        recipients:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/JobRecipient'
-          description: The users, groups or external recipients for this job.
-        detail:
-          type:
-          - string
-          - 'null'
-          description: Additional delivery details such as HTTP response code or error message.
-        try_count:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of attempts made. 1 indicates first attempt.
-      description: A single job execution record for a channel.
   securitySchemes:
     bearerAuth:
       type: http

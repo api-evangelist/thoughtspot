@@ -361,204 +361,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Role:
+    ImportUserGroupsRequest:
       type: object
       properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: id of the role
-        name:
-          type:
-          - string
-          - 'null'
-          description: name of the role
-    SortOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
-    SearchUserGroupsRequest:
-      type: object
-      properties:
-        default_liveboard_identifiers:
-          description: GUID of Liveboards that are assigned as default Liveboards to the users in the group.
+        groups:
+          description: Details of groups which are to be imported
           type: array
           items:
-            type: string
-        description:
-          description: Description of the group
-          type: string
-        display_name:
-          description: Display name of the group
-          type: string
-        name_pattern:
-          description: A pattern to match case-insensitive name of the Group object.
-          type: string
-        group_identifier:
-          description: GUID or name of the group
-          type: string
-        org_identifiers:
-          description: ID or name of the Org to which the group belongs
-          type: array
-          items:
-            type: string
-        privileges:
-          description: Privileges assigned to the group.
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMINISTRATION
-            - AUTHORING
-            - USERDATAUPLOADING
-            - DATADOWNLOADING
-            - USERMANAGEMENT
-            - DATAMANAGEMENT
-            - SHAREWITHALL
-            - JOBSCHEDULING
-            - A3ANALYSIS
-            - EXPERIMENTALFEATUREPRIVILEGE
-            - BYPASSRLS
-            - RANALYSIS
-            - DEVELOPER
-            - USER_ADMINISTRATION
-            - GROUP_ADMINISTRATION
-            - SYNCMANAGEMENT
-            - CAN_CREATE_CATALOG
-            - DISABLE_PINBOARD_CREATION
-            - LIVEBOARD_VERIFIER
-            - PREVIEW_THOUGHTSPOT_SAGE
-            - APPLICATION_ADMINISTRATION
-            - SYSTEM_INFO_ADMINISTRATION
-            - ORG_ADMINISTRATION
-            - ROLE_ADMINISTRATION
-            - AUTHENTICATION_ADMINISTRATION
-            - BILLING_INFO_ADMINISTRATION
-            - CAN_MANAGE_CUSTOM_CALENDAR
-            - CAN_CREATE_OR_EDIT_CONNECTIONS
-            - CAN_MANAGE_WORKSHEET_VIEWS_TABLES
-            - CAN_MANAGE_VERSION_CONTROL
-            - THIRDPARTY_ANALYSIS
-            - ALLOW_NON_EMBED_FULL_APP_ACCESS
-            - CAN_ACCESS_ANALYST_STUDIO
-            - CAN_MANAGE_ANALYST_STUDIO
-            - PREVIEW_DOCUMENT_SEARCH
-            - CAN_MODIFY_FOLDERS
-            - CAN_MANAGE_VARIABLES
-            - CAN_VIEW_FOLDERS
-            - CAN_MANAGE_AGENTSPOT
-            - CAN_ACCESS_AGENTSPOT
-            - CAN_SETUP_VERSION_CONTROL
-            - CAN_MANAGE_WEBHOOKS
-            - CAN_DOWNLOAD_VISUALS
-            - CAN_DOWNLOAD_DETAILED_DATA
-            - CAN_USE_SPOTTER
-            - CAN_MANAGE_SPOTTER
-            - CAN_CREATE_LIVEBOARD
-            - CAN_CREATE_ANSWERS
-            - CAN_ANALYZE_DATA
-            - CAN_ADMINISTER_SCHEDULES
-            - CAN_CREATE_KPI_ALERTS
-        sub_group_identifiers:
-          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
-          type: array
-          items:
-            type: string
-        type:
-          description: Group type.
-          type: string
-          enum:
-          - LOCAL_GROUP
-          - LDAP_GROUP
-          - TEAM_GROUP
-          - TENANT_GROUP
-        user_identifiers:
-          description: GUID or name of the users assigned to the group.
-          type: array
-          items:
-            type: string
-        visibility:
-          description: 'Visibility of the group. To make a group visible to other users and groups,
-
-            set the visibility to SHAREABLE.'
-          type: string
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
-        role_identifiers:
-          description: Filter groups with a list of Roles assigned to a group
-          type: array
-          items:
-            type: string
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included.
-          default: 10
-          type: integer
-          format: int32
-        sort_options:
-          description: Sort options to filter group details.
-          allOf:
-          - $ref: '#/components/schemas/SortOptions'
-        include_users:
-          description: '<div><span class="since-beta-tag">Version: 10.10.0.cl or later</span></div>
-
-
-            Define Parameter to consider if the users should be included in group search response.'
-          default: true
+            $ref: '#/components/schemas/GroupsImportListInput'
+        delete_unspecified_groups:
+          description: If set to true, removes groups that are not specified in the API request.
+          default: false
           type:
           - boolean
           - 'null'
-        include_sub_groups:
-          description: '<div><span class="since-beta-tag">Version: 10.10.0.cl or later</span></div>
+        dry_run:
+          description: 'If true, the API performs a test operation and returns user IDs whose
 
-
-            Define Parameter to consider if the sub groups should be included in group search response.'
+            data will be edited after the import.'
           default: true
           type:
           - boolean
-          - 'null'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UserGroup:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
           - 'null'
     UserGroupResponse:
       type: object
@@ -746,27 +569,23 @@ components:
           items:
             $ref: '#/components/schemas/Role'
           description: List of roles assgined to the user
-    ImportUserGroupsRequest:
+    UserGroup:
       type: object
       properties:
-        groups:
-          description: Details of groups which are to be imported
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupsImportListInput'
-        delete_unspecified_groups:
-          description: If set to true, removes groups that are not specified in the API request.
-          default: false
+        id:
           type:
-          - boolean
+          - string
           - 'null'
-        dry_run:
-          description: 'If true, the API performs a test operation and returns user IDs whose
-
-            data will be edited after the import.'
-          default: true
+        name:
           type:
-          - boolean
+          - string
+          - 'null'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
           - 'null'
     GroupsImportListInput:
       type: object
@@ -873,28 +692,29 @@ components:
           - SHARABLE
           - NON_SHARABLE
           description: Visibility of the group. The SHARABLE makes a group visible to other users and groups, and thus allows them to share objects.
-    ImportUserGroupsResponse:
+    SortOptions:
       type: object
-      required:
-      - groups_added
-      - groups_deleted
-      - groups_updated
       properties:
-        groups_added:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are added into the system.
-        groups_deleted:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are deleted from the system.
-        groups_updated:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are updated in the system.
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
     UpdateUserGroupRequest:
       type: object
       properties:
@@ -998,6 +818,173 @@ components:
           - ADD
           - REMOVE
           - REPLACE
+    ImportUserGroupsResponse:
+      type: object
+      required:
+      - groups_added
+      - groups_deleted
+      - groups_updated
+      properties:
+        groups_added:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are added into the system.
+        groups_deleted:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are deleted from the system.
+        groups_updated:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are updated in the system.
+    SearchUserGroupsRequest:
+      type: object
+      properties:
+        default_liveboard_identifiers:
+          description: GUID of Liveboards that are assigned as default Liveboards to the users in the group.
+          type: array
+          items:
+            type: string
+        description:
+          description: Description of the group
+          type: string
+        display_name:
+          description: Display name of the group
+          type: string
+        name_pattern:
+          description: A pattern to match case-insensitive name of the Group object.
+          type: string
+        group_identifier:
+          description: GUID or name of the group
+          type: string
+        org_identifiers:
+          description: ID or name of the Org to which the group belongs
+          type: array
+          items:
+            type: string
+        privileges:
+          description: Privileges assigned to the group.
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMINISTRATION
+            - AUTHORING
+            - USERDATAUPLOADING
+            - DATADOWNLOADING
+            - USERMANAGEMENT
+            - DATAMANAGEMENT
+            - SHAREWITHALL
+            - JOBSCHEDULING
+            - A3ANALYSIS
+            - EXPERIMENTALFEATUREPRIVILEGE
+            - BYPASSRLS
+            - RANALYSIS
+            - DEVELOPER
+            - USER_ADMINISTRATION
+            - GROUP_ADMINISTRATION
+            - SYNCMANAGEMENT
+            - CAN_CREATE_CATALOG
+            - DISABLE_PINBOARD_CREATION
+            - LIVEBOARD_VERIFIER
+            - PREVIEW_THOUGHTSPOT_SAGE
+            - APPLICATION_ADMINISTRATION
+            - SYSTEM_INFO_ADMINISTRATION
+            - ORG_ADMINISTRATION
+            - ROLE_ADMINISTRATION
+            - AUTHENTICATION_ADMINISTRATION
+            - BILLING_INFO_ADMINISTRATION
+            - CAN_MANAGE_CUSTOM_CALENDAR
+            - CAN_CREATE_OR_EDIT_CONNECTIONS
+            - CAN_MANAGE_WORKSHEET_VIEWS_TABLES
+            - CAN_MANAGE_VERSION_CONTROL
+            - THIRDPARTY_ANALYSIS
+            - ALLOW_NON_EMBED_FULL_APP_ACCESS
+            - CAN_ACCESS_ANALYST_STUDIO
+            - CAN_MANAGE_ANALYST_STUDIO
+            - PREVIEW_DOCUMENT_SEARCH
+            - CAN_MODIFY_FOLDERS
+            - CAN_MANAGE_VARIABLES
+            - CAN_VIEW_FOLDERS
+            - CAN_MANAGE_AGENTSPOT
+            - CAN_ACCESS_AGENTSPOT
+            - CAN_SETUP_VERSION_CONTROL
+            - CAN_MANAGE_WEBHOOKS
+            - CAN_DOWNLOAD_VISUALS
+            - CAN_DOWNLOAD_DETAILED_DATA
+            - CAN_USE_SPOTTER
+            - CAN_MANAGE_SPOTTER
+            - CAN_CREATE_LIVEBOARD
+            - CAN_CREATE_ANSWERS
+            - CAN_ANALYZE_DATA
+            - CAN_ADMINISTER_SCHEDULES
+            - CAN_CREATE_KPI_ALERTS
+        sub_group_identifiers:
+          description: GUID or name of the sub groups. A subgroup is a group assigned to a parent group.
+          type: array
+          items:
+            type: string
+        type:
+          description: Group type.
+          type: string
+          enum:
+          - LOCAL_GROUP
+          - LDAP_GROUP
+          - TEAM_GROUP
+          - TENANT_GROUP
+        user_identifiers:
+          description: GUID or name of the users assigned to the group.
+          type: array
+          items:
+            type: string
+        visibility:
+          description: 'Visibility of the group. To make a group visible to other users and groups,
+
+            set the visibility to SHAREABLE.'
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+        role_identifiers:
+          description: Filter groups with a list of Roles assigned to a group
+          type: array
+          items:
+            type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included.
+          default: 10
+          type: integer
+          format: int32
+        sort_options:
+          description: Sort options to filter group details.
+          allOf:
+          - $ref: '#/components/schemas/SortOptions'
+        include_users:
+          description: '<div><span class="since-beta-tag">Version: 10.10.0.cl or later</span></div>
+
+
+            Define Parameter to consider if the users should be included in group search response.'
+          default: true
+          type:
+          - boolean
+          - 'null'
+        include_sub_groups:
+          description: '<div><span class="since-beta-tag">Version: 10.10.0.cl or later</span></div>
+
+
+            Define Parameter to consider if the sub groups should be included in group search response.'
+          default: true
+          type:
+          - boolean
+          - 'null'
     CreateUserGroupRequest:
       type: object
       properties:
@@ -1098,6 +1085,19 @@ components:
       required:
       - name
       - display_name
+    Role:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: id of the role
+        name:
+          type:
+          - string
+          - 'null'
+          description: name of the role
   securitySchemes:
     bearerAuth:
       type: http

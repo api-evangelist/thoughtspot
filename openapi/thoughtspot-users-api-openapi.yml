@@ -617,7 +617,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateUserRequest:
+    UpdateUserRequest:
       type: object
       properties:
         name:
@@ -626,25 +626,17 @@ components:
         display_name:
           description: A unique display name string for the user account, usually their first and last name
           type: string
-        password:
-          description: Password for the user account. For IAMv2 users, you must set this password if you do not want to trigger an activation email.
+        visibility:
+          description: Visibility of the users. When set to SHARABLE, the user is visible to other users and groups when they try to share an object.
           type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
         email:
           description: Email of the user account
           type: string
-        account_type:
-          description: Type of the account.
-          default: LOCAL_USER
-          type: string
-          enum:
-          - LOCAL_USER
-          - LDAP_USER
-          - SAML_USER
-          - OIDC_USER
-          - REMOTE_USER
         account_status:
           description: Current status of the user account. The `SUSPENDED` user state indicates a transitional state applicable to IAMv2 users only.
-          default: ACTIVE
           type: string
           enum:
           - ACTIVE
@@ -653,53 +645,60 @@ components:
           - LOCKED
           - PENDING
           - SUSPENDED
-        org_identifiers:
-          description: List of Org IDs to which the user belongs.
-          type: array
-          items:
-            type: string
-        group_identifiers:
-          description: GUIDs or names of the groups to which the newly created user belongs.
-          type: array
-          items:
-            type: string
-        visibility:
-          description: Visibility of the users. When set to SHARABLE, the user is visible to other users and groups when they try to share an object.
-          default: SHARABLE
-          type: string
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
         notify_on_share:
-          description: 'User preference for receiving email notifications when another ThoughtSpot
+          description: 'User preference for receiving email notifications when another ThoughtSpot user
 
-            user shares a metadata object such as Answer, Liveboard, or Worksheet.'
-          default: true
+            shares a metadata object such as Answer, Liveboard, or Worksheet.'
           type:
           - boolean
           - 'null'
         show_onboarding_experience:
           description: The user preference for revisiting the onboarding experience.
-          default: true
           type:
           - boolean
           - 'null'
         onboarding_experience_completed:
-          description: flag to get the on-boarding experience is completed or not.
-          default: false
+          description: Indicates if the user has completed the onboarding and allows turning off the onboarding walkthrough.
           type:
           - boolean
           - 'null'
+        account_type:
+          description: Type of the account.
+          type: string
+          enum:
+          - LOCAL_USER
+          - LDAP_USER
+          - SAML_USER
+          - OIDC_USER
+          - REMOTE_USER
+        group_identifiers:
+          description: GUIDs or names of the groups.
+          type: array
+          items:
+            type: string
         home_liveboard_identifier:
-          description: 'GUID of the Liveboard to set a default Liveboard for the user.
+          description: 'GUID of the Liveboard to set a default Liveboard for the user. ThoughtSpot displays
 
-            ThoughtSpot displays this Liveboard on the Home page when the user logs in.'
+            this Liveboard on the Home page when the user logs in.'
           type: string
         favorite_metadata:
           description: Metadata objects to add to the user's favorites list.
           type: array
           items:
             $ref: '#/components/schemas/FavoriteMetadataInput'
+        org_identifiers:
+          description: IDs of the Orgs.
+          type: array
+          items:
+            type: string
+        operation:
+          description: Type of update operation. Default operation type is REPLACE
+          default: REPLACE
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          - REPLACE
         preferred_locale:
           description: 'Locale for the user. When setting this value, do not set use_browser_language
 
@@ -750,39 +749,179 @@ components:
         extended_preferences:
           description: Preferences for the user
           type: object
-        trigger_welcome_email:
-          description: Flag to indicate whether welcome email should be sent to user. This parameter is applied only on clusters on which IAM is disabled.
-          type:
-          - boolean
-          - 'null'
-        trigger_activation_email:
-          description: "Flag to indicate whether activation email should be sent to the user. Default value for IAMv2 users is set to true. Users must either set this to false, or enter a valid \npassword if they do not want to trigger an activation email."
-          type:
-          - boolean
-          - 'null'
+    ImportUser:
+      type: object
       required:
-      - name
+      - user_identifier
       - display_name
-      - email
-    ActivateUserRequest:
+      properties:
+        user_identifier:
+          type: string
+          description: Unique ID or name of the user.
+        display_name:
+          type: string
+          description: Display name of the user.
+        password:
+          type:
+          - string
+          - 'null'
+          description: Password of the user.
+        account_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LOCAL_USER
+          - LDAP_USER
+          - SAML_USER
+          - OIDC_USER
+          - REMOTE_USER
+          description: Type of the user account.
+        account_status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - EXPIRED
+          - LOCKED
+          - PENDING
+          - SUSPENDED
+          description: Status of the user account.
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email address of the user.
+        org_identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: ID or name of the Orgs to which the user belongs.
+        group_identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: ID or name of the groups to which the user belongs.
+        visibility:
+          type:
+          - string
+          - 'null'
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
+          description: Visibility of the users. The SHARABLE property makes a user visible to other users and group, who can share objects with the user.
+        notify_on_share:
+          type:
+          - boolean
+          - 'null'
+          default: true
+          description: Notify user when other users or groups share metadata objects
+        show_onboarding_experience:
+          type:
+          - boolean
+          - 'null'
+          description: Show or hide the new user onboarding walkthroughs
+        onboarding_experience_completed:
+          type:
+          - boolean
+          - 'null'
+          description: Revisit the new user onboarding walkthroughs
+        home_liveboard_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the default Liveboard assigned to the user.
+        favorite_metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FavoriteMetadataInput'
+          description: Metadata objects to add to the user's favorites list.
+        preferred_locale:
+          type:
+          - string
+          - 'null'
+          description: Locale for the user. When setting this value, do not set use_browser_language to true, otherwise the browser's language setting will take precedence and the preferred_locale value will be ignored.
+          enum:
+          - en-CA
+          - en-GB
+          - en-US
+          - de-DE
+          - ja-JP
+          - zh-CN
+          - pt-BR
+          - fr-FR
+          - fr-CA
+          - es-US
+          - da-DK
+          - es-ES
+          - fi-FI
+          - sv-SE
+          - nb-NO
+          - pt-PT
+          - nl-NL
+          - it-IT
+          - ru-RU
+          - en-IN
+          - de-CH
+          - en-NZ
+          - es-MX
+          - en-AU
+          - zh-Hant
+          - ko-KR
+          - en-DE
+        use_browser_language:
+          type:
+          - boolean
+          - 'null'
+          description: 'Flag to indicate whether to use the browser locale for the user in the UI.
+
+            When set to true, the preferred_locale value is unset and the browser''s
+
+            language setting takes precedence. <br/>  <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
+    DeactivateUserRequest:
       type: object
       properties:
         user_identifier:
           description: Unique ID or name of the user.
           type: string
-        auth_token:
-          description: Auth token for the user.
-          type: string
-        password:
-          description: New password for the user to access the account.
-          type: string
-        properties:
-          description: Properties of the user.
+        base_url:
+          description: Base url of the cluster.
           type: string
       required:
       - user_identifier
-      - auth_token
-      - password
+      - base_url
+    ResponseActivationURL:
+      type: object
+      properties:
+        activation_link:
+          type:
+          - string
+          - 'null'
+          description: Activation link to activate the user.
+      description: The object representation with activation link.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    ForceLogoutUsersRequest:
+      type: object
+      properties:
+        user_identifiers:
+          description: GUID or name of the users for force logging out their sessions.
+          type: array
+          items:
+            type: string
     ImportUsersResponse:
       type: object
       properties:
@@ -804,29 +943,20 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ImportUserType'
-    SortOptions:
+    Object_ID_And_Name:
       type: object
       properties:
-        field_name:
+        id:
           type:
           - string
           - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          description: Name of the field to apply the sort on.
-        order:
+          description: The unique identifier of the object.
+        name:
           type:
           - string
           - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
+          description: Name of the object.
+      description: The object representation with ID and Name.
     Org:
       type: object
       required:
@@ -841,38 +971,6 @@ components:
           type: string
           description: Name of the object.
       description: The current Org context of the user.
-    ImportUsersRequest:
-      type: object
-      properties:
-        users:
-          description: List of users needs to be imported.
-          type: array
-          items:
-            $ref: '#/components/schemas/ImportUser'
-        default_password:
-          description: The default password to assign to users if they do not have a password assigned in ThoughtSpot.
-          type: string
-        dry_run:
-          description: If true, the API performs a test operation and returns user IDs whose data will be edited after the import.
-          default: true
-          type:
-          - boolean
-          - 'null'
-        delete_unspecified_users:
-          description: If set to true, removes the users that are not specified in the API request.
-          default: false
-          type:
-          - boolean
-          - 'null'
-      required:
-      - users
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     User:
       type: object
       required:
@@ -1144,34 +1242,79 @@ components:
           - object
           - 'null'
           description: Formula Variables which are specified for the user via JWToken
-    DeactivateUserRequest:
+    ImportUsersRequest:
+      type: object
+      properties:
+        users:
+          description: List of users needs to be imported.
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportUser'
+        default_password:
+          description: The default password to assign to users if they do not have a password assigned in ThoughtSpot.
+          type: string
+        dry_run:
+          description: If true, the API performs a test operation and returns user IDs whose data will be edited after the import.
+          default: true
+          type:
+          - boolean
+          - 'null'
+        delete_unspecified_users:
+          description: If set to true, removes the users that are not specified in the API request.
+          default: false
+          type:
+          - boolean
+          - 'null'
+      required:
+      - users
+    ImportUserType:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the user.
+        name:
+          type: string
+          description: Name of the user.
+    FavoriteMetadataInput:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the metadata object.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+    ActivateUserRequest:
       type: object
       properties:
         user_identifier:
           description: Unique ID or name of the user.
           type: string
-        base_url:
-          description: Base url of the cluster.
+        auth_token:
+          description: Auth token for the user.
+          type: string
+        password:
+          description: New password for the user to access the account.
+          type: string
+        properties:
+          description: Properties of the user.
           type: string
       required:
       - user_identifier
-      - base_url
-    ChangeUserPasswordRequest:
-      type: object
-      properties:
-        current_password:
-          description: Current password of the user.
-          type: string
-        new_password:
-          description: New password for the user.
-          type: string
-        user_identifier:
-          description: GUID or name of the user.
-          type: string
-      required:
-      - current_password
-      - new_password
-      - user_identifier
+      - auth_token
+      - password
     SearchUsersRequest:
       type: object
       properties:
@@ -1335,22 +1478,6 @@ components:
           type:
           - boolean
           - 'null'
-    FavoriteMetadataInput:
-      type: object
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the metadata object.
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
     ResetUserPasswordRequest:
       type: object
       properties:
@@ -1363,7 +1490,7 @@ components:
       required:
       - new_password
       - user_identifier
-    UpdateUserRequest:
+    CreateUserRequest:
       type: object
       properties:
         name:
@@ -1372,17 +1499,25 @@ components:
         display_name:
           description: A unique display name string for the user account, usually their first and last name
           type: string
-        visibility:
-          description: Visibility of the users. When set to SHARABLE, the user is visible to other users and groups when they try to share an object.
+        password:
+          description: Password for the user account. For IAMv2 users, you must set this password if you do not want to trigger an activation email.
           type: string
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
         email:
           description: Email of the user account
           type: string
+        account_type:
+          description: Type of the account.
+          default: LOCAL_USER
+          type: string
+          enum:
+          - LOCAL_USER
+          - LDAP_USER
+          - SAML_USER
+          - OIDC_USER
+          - REMOTE_USER
         account_status:
           description: Current status of the user account. The `SUSPENDED` user state indicates a transitional state applicable to IAMv2 users only.
+          default: ACTIVE
           type: string
           enum:
           - ACTIVE
@@ -1391,60 +1526,53 @@ components:
           - LOCKED
           - PENDING
           - SUSPENDED
+        org_identifiers:
+          description: List of Org IDs to which the user belongs.
+          type: array
+          items:
+            type: string
+        group_identifiers:
+          description: GUIDs or names of the groups to which the newly created user belongs.
+          type: array
+          items:
+            type: string
+        visibility:
+          description: Visibility of the users. When set to SHARABLE, the user is visible to other users and groups when they try to share an object.
+          default: SHARABLE
+          type: string
+          enum:
+          - SHARABLE
+          - NON_SHARABLE
         notify_on_share:
-          description: 'User preference for receiving email notifications when another ThoughtSpot user
+          description: 'User preference for receiving email notifications when another ThoughtSpot
 
-            shares a metadata object such as Answer, Liveboard, or Worksheet.'
+            user shares a metadata object such as Answer, Liveboard, or Worksheet.'
+          default: true
           type:
           - boolean
           - 'null'
         show_onboarding_experience:
           description: The user preference for revisiting the onboarding experience.
+          default: true
           type:
           - boolean
           - 'null'
         onboarding_experience_completed:
-          description: Indicates if the user has completed the onboarding and allows turning off the onboarding walkthrough.
+          description: flag to get the on-boarding experience is completed or not.
+          default: false
           type:
           - boolean
           - 'null'
-        account_type:
-          description: Type of the account.
-          type: string
-          enum:
-          - LOCAL_USER
-          - LDAP_USER
-          - SAML_USER
-          - OIDC_USER
-          - REMOTE_USER
-        group_identifiers:
-          description: GUIDs or names of the groups.
-          type: array
-          items:
-            type: string
         home_liveboard_identifier:
-          description: 'GUID of the Liveboard to set a default Liveboard for the user. ThoughtSpot displays
+          description: 'GUID of the Liveboard to set a default Liveboard for the user.
 
-            this Liveboard on the Home page when the user logs in.'
+            ThoughtSpot displays this Liveboard on the Home page when the user logs in.'
           type: string
         favorite_metadata:
           description: Metadata objects to add to the user's favorites list.
           type: array
           items:
             $ref: '#/components/schemas/FavoriteMetadataInput'
-        org_identifiers:
-          description: IDs of the Orgs.
-          type: array
-          items:
-            type: string
-        operation:
-          description: Type of update operation. Default operation type is REPLACE
-          default: REPLACE
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          - REPLACE
         preferred_locale:
           description: 'Locale for the user. When setting this value, do not set use_browser_language
 
@@ -1495,165 +1623,43 @@ components:
         extended_preferences:
           description: Preferences for the user
           type: object
-    ForceLogoutUsersRequest:
-      type: object
-      properties:
-        user_identifiers:
-          description: GUID or name of the users for force logging out their sessions.
-          type: array
-          items:
-            type: string
-    Object_ID_And_Name:
-      type: object
-      properties:
-        id:
+        trigger_welcome_email:
+          description: Flag to indicate whether welcome email should be sent to user. This parameter is applied only on clusters on which IAM is disabled.
           type:
-          - string
+          - boolean
           - 'null'
-          description: The unique identifier of the object.
-        name:
+        trigger_activation_email:
+          description: "Flag to indicate whether activation email should be sent to the user. Default value for IAMv2 users is set to true. Users must either set this to false, or enter a valid \npassword if they do not want to trigger an activation email."
           type:
-          - string
+          - boolean
           - 'null'
-          description: Name of the object.
-      description: The object representation with ID and Name.
-    ImportUser:
-      type: object
       required:
-      - user_identifier
+      - name
       - display_name
+      - email
+    SortOptions:
+      type: object
       properties:
-        user_identifier:
-          type: string
-          description: Unique ID or name of the user.
-        display_name:
-          type: string
-          description: Display name of the user.
-        password:
-          type:
-          - string
-          - 'null'
-          description: Password of the user.
-        account_type:
+        field_name:
           type:
           - string
           - 'null'
           enum:
-          - LOCAL_USER
-          - LDAP_USER
-          - SAML_USER
-          - OIDC_USER
-          - REMOTE_USER
-          description: Type of the user account.
-        account_status:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          description: Name of the field to apply the sort on.
+        order:
           type:
           - string
           - 'null'
           enum:
-          - ACTIVE
-          - INACTIVE
-          - EXPIRED
-          - LOCKED
-          - PENDING
-          - SUSPENDED
-          description: Status of the user account.
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email address of the user.
-        org_identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: ID or name of the Orgs to which the user belongs.
-        group_identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: ID or name of the groups to which the user belongs.
-        visibility:
-          type:
-          - string
-          - 'null'
-          enum:
-          - SHARABLE
-          - NON_SHARABLE
-          description: Visibility of the users. The SHARABLE property makes a user visible to other users and group, who can share objects with the user.
-        notify_on_share:
-          type:
-          - boolean
-          - 'null'
-          default: true
-          description: Notify user when other users or groups share metadata objects
-        show_onboarding_experience:
-          type:
-          - boolean
-          - 'null'
-          description: Show or hide the new user onboarding walkthroughs
-        onboarding_experience_completed:
-          type:
-          - boolean
-          - 'null'
-          description: Revisit the new user onboarding walkthroughs
-        home_liveboard_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the default Liveboard assigned to the user.
-        favorite_metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FavoriteMetadataInput'
-          description: Metadata objects to add to the user's favorites list.
-        preferred_locale:
-          type:
-          - string
-          - 'null'
-          description: Locale for the user. When setting this value, do not set use_browser_language to true, otherwise the browser's language setting will take precedence and the preferred_locale value will be ignored.
-          enum:
-          - en-CA
-          - en-GB
-          - en-US
-          - de-DE
-          - ja-JP
-          - zh-CN
-          - pt-BR
-          - fr-FR
-          - fr-CA
-          - es-US
-          - da-DK
-          - es-ES
-          - fi-FI
-          - sv-SE
-          - nb-NO
-          - pt-PT
-          - nl-NL
-          - it-IT
-          - ru-RU
-          - en-IN
-          - de-CH
-          - en-NZ
-          - es-MX
-          - en-AU
-          - zh-Hant
-          - ko-KR
-          - en-DE
-        use_browser_language:
-          type:
-          - boolean
-          - 'null'
-          description: 'Flag to indicate whether to use the browser locale for the user in the UI.
-
-            When set to true, the preferred_locale value is unset and the browser''s
-
-            language setting takes precedence. <br/>  <span class="since-beta-tag">Version: 26.3.0.cl or later</span>'
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
     FavoriteMetadataItem:
       type: object
       required:
@@ -1680,28 +1686,22 @@ components:
           - USER_GROUP
           - LOGICAL_RELATIONSHIP
           description: "  Type of metadata object.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
-    ResponseActivationURL:
+    ChangeUserPasswordRequest:
       type: object
       properties:
-        activation_link:
-          type:
-          - string
-          - 'null'
-          description: Activation link to activate the user.
-      description: The object representation with activation link.
-    ImportUserType:
-      type: object
-      required:
-      - name
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the user.
-        name:
+        current_password:
+          description: Current password of the user.
           type: string
-          description: Name of the user.
+        new_password:
+          description: New password for the user.
+          type: string
+        user_identifier:
+          description: GUID or name of the user.
+          type: string
+      required:
+      - current_password
+      - new_password
+      - user_identifier
   securitySchemes:
     bearerAuth:
       type: http

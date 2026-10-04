@@ -1136,22 +1136,45 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StyleColorPaletteInput:
+    StyleOrgInfo:
       type: object
       properties:
-        colors:
+        id:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            $ref: '#/components/schemas/StyleColorEntryInput'
-          description: Ordered array of exactly 8 color entries defining the chart color palette.
-        disable_color_rotation:
+          format: int32
+          description: Unique integer ID of the org.
+        name:
           type:
-          - boolean
+          - string
           - 'null'
-          description: When true, disables automatic color rotation across chart data series.
-      description: Chart color palette configuration.
+          description: Name of the org.
+      description: Org information returned in style API responses.
+    NavigationPanelInput:
+      type: object
+      properties:
+        theme:
+          type:
+          - string
+          - 'null'
+          enum:
+          - DARK
+          - TWO_TONE
+          - CUSTOM
+          description: 'Color mode for the navigation panel. DARK applies the default dark theme.
+
+            TWO_TONE applies a dual-tone style. CUSTOM enables a user-defined base
+
+            color; base_color is required when theme is CUSTOM.'
+        base_color:
+          type:
+          - string
+          - 'null'
+          description: 'Base color as a 6-digit hex string (e.g. "#2359B6"). Required when theme
+
+            is CUSTOM.'
+      description: Navigation panel color configuration.
     ExportStyleLogosRequest:
       type: object
       properties:
@@ -1175,6 +1198,400 @@ components:
           type:
           - object
           - 'null'
+    SearchStyleFontsRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Scope of the font library to search. CLUSTER searches the cluster-level
+
+            library. ORG searches the authenticated user''s org library. Returns both Cluster and Org
+
+            level font if omitted.'
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
+        font_identifier:
+          description: Filter by UUID or name of a specific font.
+          type: string
+        name_pattern:
+          description: Filter by font display name. Supports partial, case-insensitive matching.
+          type: string
+        include_font_assignments:
+          description: 'When true, includes visualization areas this font is assigned to in the
+
+            response. Defaults to false if omitted.'
+          default: false
+          type:
+          - boolean
+          - 'null'
+    StyleVisualizationFonts:
+      type: object
+      properties:
+        chart_visualization_fonts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ChartVisualizationFontRecord'
+          description: Font assignments for chart visualization areas.
+        table_visualization_fonts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TableVisualizationFontRecord'
+          description: Font assignments for table visualization areas.
+        advanced_chart_visualization_fonts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdvancedChartVisualizationFontRecord'
+          description: 'Font assignments for advanced chart visualization areas. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+      description: Effective font assignments per visualization type.
+    StylePreference:
+      type: object
+      properties:
+        scope:
+          type:
+          - string
+          - 'null'
+          enum:
+          - CLUSTER
+          - ORG
+          description: Scope at which these style preferences apply.
+        org:
+          $ref: '#/components/schemas/StyleOrgInfo'
+          description: Org associated with these preferences. Present only when scope is ORG.
+        navigation_panel:
+          $ref: '#/components/schemas/StyleNavigationPanel'
+          description: Navigation panel color configuration.
+        chart_color_palette:
+          $ref: '#/components/schemas/StyleChartColorPalette'
+          description: Chart color palette configuration.
+        embedded_footer_text:
+          $ref: '#/components/schemas/StyleEmbeddedFooterText'
+          description: Embedded footer text configuration.
+        logo:
+          $ref: '#/components/schemas/StyleLogoStatus'
+          description: Logo status per slot.
+        visualization_fonts:
+          $ref: '#/components/schemas/StyleVisualizationFonts'
+          description: Effective font assignments per visualization area.
+      description: Style preferences for a single scope entry.
+    TableVisualizationFontRecord:
+      type: object
+      properties:
+        visualization_area:
+          type:
+          - string
+          - 'null'
+          enum:
+          - TABLE_VALUE_CELLS
+          description: Table visualization area.
+        font_id:
+          type:
+          - string
+          - 'null'
+          description: 'UUID of the font assigned to this area. Null when the system default font
+
+            is active.'
+        font_name:
+          type:
+          - string
+          - 'null'
+          description: 'Display name of the font assigned to this area. Null when the system
+
+            default font is active.'
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: True if explicitly set at this scope, overriding any inherited value.
+      description: Font assignment for a table visualization area in the response.
+    StyleColorEntryInput:
+      type: object
+      required:
+      - primary
+      properties:
+        primary:
+          type: string
+          description: Primary color as a 6-digit hex string (e.g. "#2359B6"). Required.
+        secondary:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Array of exactly 4 secondary shade hex strings. If omitted, the server
+
+            auto-generates 4 shades from the primary color. If provided, must contain
+
+            exactly 4 valid 6-digit hex color strings.'
+      description: A single color entry in the chart color palette.
+    StyleNavigationPanel:
+      type: object
+      properties:
+        theme:
+          type:
+          - string
+          - 'null'
+          enum:
+          - DARK
+          - TWO_TONE
+          - CUSTOM
+          description: Navigation panel color mode.
+        base_color:
+          type:
+          - string
+          - 'null'
+          description: Base color as a 6-digit hex string. Present only when theme is CUSTOM.
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: True if explicitly set at this scope, overriding any inherited value.
+      description: Navigation panel color configuration for a specific scope.
+    StyleChartColorPalette:
+      type: object
+      properties:
+        colors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StyleColorEntry'
+          description: Ordered array of 8 color entries.
+        disable_color_rotation:
+          type:
+          - boolean
+          - 'null'
+          description: When true, automatic color rotation across chart data series is disabled.
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: True if explicitly set at this scope, overriding any inherited value.
+      description: Chart color palette configuration for a specific scope.
+    UpdateStyleFontRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Scope of the font library containing this font. CLUSTER targets the
+
+            cluster-level library. ORG targets the authenticated user''s org library.
+
+            Defaults to ORG if omitted.'
+          default: ORG
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
+        name:
+          description: New display name for the font.
+          type: string
+        weight:
+          description: 'New weight for the font. Supported values: NORMAL, LIGHT, BOLD.'
+          type: string
+          enum:
+          - NORMAL
+          - LIGHT
+          - BOLD
+        style:
+          description: 'New style for the font. Supported values: NORMAL, ITALIC, OBLIQUE.'
+          type: string
+          enum:
+          - NORMAL
+          - ITALIC
+          - OBLIQUE
+        color:
+          description: 'New color for the font as a 6-digit hex string (e.g. "#333333"). Returns
+
+            an error if the value is malformed.'
+          type: string
+    StyleEmbeddedFooterText:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: Footer text value. Empty string indicates no footer is set.
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: True if explicitly set at this scope, overriding any inherited value.
+      description: Embedded footer text configuration for a specific scope.
+    AdvancedChartVisualizationFontRecord:
+      type: object
+      properties:
+        visualization_area:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ADVANCED_CHART_LABELS
+          description: Advanced chart visualization area.
+        font_id:
+          type:
+          - string
+          - 'null'
+          description: 'UUID of the font assigned to this area. Null when the system default font
+
+            is active.'
+        font_name:
+          type:
+          - string
+          - 'null'
+          description: 'Display name of the font assigned to this area. Null when the system
+
+            default font is active.'
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: True if explicitly set at this scope, overriding any inherited value.
+      description: Font assignment for an advanced chart visualization area in the response.
+    StyleFontUploadData:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique UUID identifier of the uploaded font.
+        name:
+          type: string
+          description: Display name of the uploaded font.
+      description: Font data returned after a successful upload.
+    ChartFontAssignmentInput:
+      type: object
+      required:
+      - visualization_area
+      - font_identifier
+      properties:
+        visualization_area:
+          type: string
+          enum:
+          - CHART_X_AXIS_LABELS
+          - CHART_X_AXIS_TITLE
+          - CHART_Y_AXIS_LABELS
+          - CHART_Y_AXIS_TITLE
+          - CHART_TOOLTIP
+          - CHART_SCATTER_DATA_LABELS
+          - CHART_DONUT_DATA_LABELS
+          - CHART_LINE_DATA_LABELS
+          - CHART_COLUMN_DATA_LABELS
+          - CHART_BAR_DATA_LABELS
+          - CHART_AREA_DATA_LABELS
+          description: Chart visualization area to assign the font to.
+        font_identifier:
+          type: string
+          description: UUID or name of the font to assign to this area.
+      description: Font assignment for a single chart visualization area.
+    StyleResetOptionsInput:
+      type: object
+      properties:
+        style:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            enum:
+            - CHART_COLOR_PALETTE
+            - EMBEDDED_FOOTER_TEXT
+            - NAV_PANEL_COLOR
+            - DEFAULT_LOGO
+            - WIDE_LOGO
+          description: 'Style fields to reset. Supported values: CHART_COLOR_PALETTE,
+
+            EMBEDDED_FOOTER_TEXT, NAV_PANEL_COLOR, DEFAULT_LOGO, WIDE_LOGO.'
+        visualization_areas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            enum:
+            - CHART_X_AXIS_LABELS
+            - CHART_X_AXIS_TITLE
+            - CHART_Y_AXIS_LABELS
+            - CHART_Y_AXIS_TITLE
+            - CHART_TOOLTIP
+            - CHART_SCATTER_DATA_LABELS
+            - CHART_DONUT_DATA_LABELS
+            - CHART_LINE_DATA_LABELS
+            - CHART_COLUMN_DATA_LABELS
+            - CHART_BAR_DATA_LABELS
+            - CHART_AREA_DATA_LABELS
+            - TABLE_VALUE_CELLS
+            - ADVANCED_CHART_LABELS
+          description: 'Visualization areas whose font assignments should revert to the system
+
+            default font.'
+      description: Fields to revert to defaults when operation is RESET.
+    StyleLogoSlot:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: UUID of the active logo.
+        is_overridden:
+          type:
+          - boolean
+          - 'null'
+          description: 'True if a custom logo is uploaded at this scope. False if the system
+
+            default or cluster logo is active.'
+      description: Status of a single logo slot.
+    StyleFontAssignment:
+      type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/StyleOrgInfo'
+          description: Org context for this assignment. Present only when scope is ORG.
+        visualization_areas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            enum:
+            - CHART_X_AXIS_LABELS
+            - CHART_X_AXIS_TITLE
+            - CHART_Y_AXIS_LABELS
+            - CHART_Y_AXIS_TITLE
+            - CHART_TOOLTIP
+            - CHART_SCATTER_DATA_LABELS
+            - CHART_DONUT_DATA_LABELS
+            - CHART_LINE_DATA_LABELS
+            - CHART_COLUMN_DATA_LABELS
+            - CHART_BAR_DATA_LABELS
+            - CHART_AREA_DATA_LABELS
+            - TABLE_VALUE_CELLS
+            - ADVANCED_CHART_LABELS
+          description: Visualization areas using this font.
+      description: Visualization areas assigned to a font, grouped by org context.
+    StyleLogoStatus:
+      type: object
+      properties:
+        default_logo:
+          $ref: '#/components/schemas/StyleLogoSlot'
+          description: 'Status of the DEFAULT logo slot (square app icon and favicon; recommended
+
+            140x140 px).'
+        wide_logo:
+          $ref: '#/components/schemas/StyleLogoSlot'
+          description: 'Status of the WIDE logo slot (horizontal top nav bar logo; recommended
+
+            230x45 px).'
+      description: Logo status per slot.
     ChartVisualizationFontRecord:
       type: object
       properties:
@@ -1215,20 +1632,49 @@ components:
           - 'null'
           description: True if explicitly set at this scope, overriding any inherited value.
       description: Font assignment for a chart visualization area in the response.
-    StyleEmbeddedFooterText:
+    TableFontAssignmentInput:
+      type: object
+      required:
+      - visualization_area
+      - font_identifier
+      properties:
+        visualization_area:
+          type: string
+          enum:
+          - TABLE_VALUE_CELLS
+          description: Table visualization area to assign the font to.
+        font_identifier:
+          type: string
+          description: UUID or name of the font to assign to this area.
+      description: Font assignment for a single table visualization area.
+    StyleFontDeleteData:
       type: object
       properties:
-        value:
+        affected_assignments:
           type:
-          - string
+          - array
           - 'null'
-          description: Footer text value. Empty string indicates no footer is set.
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: True if explicitly set at this scope, overriding any inherited value.
-      description: Embedded footer text configuration for a specific scope.
+          items:
+            $ref: '#/components/schemas/StyleFontDeleteAffectedAssignment'
+          description: 'Visualization areas that used the deleted font(s) and were automatically
+
+            reset to the system default font. Empty if no areas were affected.'
+      description: Result data for font deletion.
+    AdvancedChartFontAssignmentInput:
+      type: object
+      required:
+      - visualization_area
+      - font_identifier
+      properties:
+        visualization_area:
+          type: string
+          enum:
+          - ADVANCED_CHART_LABELS
+          description: 'Advanced chart visualization area to assign the font to. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+        font_identifier:
+          type: string
+          description: 'UUID or name of the font to assign to this area. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+      description: Font assignment for a single advanced chart visualization area.
     VisualizationFontsInput:
       type: object
       properties:
@@ -1260,115 +1706,7 @@ components:
 
             areas to update; omitted areas remain unchanged. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
       description: Font assignments grouped by visualization type.
-    SearchStyleFontsRequest:
-      type: object
-      properties:
-        scope:
-          description: 'Scope of the font library to search. CLUSTER searches the cluster-level
-
-            library. ORG searches the authenticated user''s org library. Returns both Cluster and Org
-
-            level font if omitted.'
-          type: string
-          enum:
-          - CLUSTER
-          - ORG
-        font_identifier:
-          description: Filter by UUID or name of a specific font.
-          type: string
-        name_pattern:
-          description: Filter by font display name. Supports partial, case-insensitive matching.
-          type: string
-        include_font_assignments:
-          description: 'When true, includes visualization areas this font is assigned to in the
-
-            response. Defaults to false if omitted.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-    StyleFontDeleteData:
-      type: object
-      properties:
-        affected_assignments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/StyleFontDeleteAffectedAssignment'
-          description: 'Visualization areas that used the deleted font(s) and were automatically
-
-            reset to the system default font. Empty if no areas were affected.'
-      description: Result data for font deletion.
-    StyleLogoSlot:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: UUID of the active logo.
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: 'True if a custom logo is uploaded at this scope. False if the system
-
-            default or cluster logo is active.'
-      description: Status of a single logo slot.
-    StyleColorEntry:
-      type: object
-      properties:
-        primary:
-          type:
-          - string
-          - 'null'
-          description: Primary color as a 6-digit hex string.
-        secondary:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Array of 4 secondary shade hex strings.
-      description: A single color entry in the chart color palette.
-    UpdateStyleFontRequest:
-      type: object
-      properties:
-        scope:
-          description: 'Scope of the font library containing this font. CLUSTER targets the
-
-            cluster-level library. ORG targets the authenticated user''s org library.
-
-            Defaults to ORG if omitted.'
-          default: ORG
-          type: string
-          enum:
-          - CLUSTER
-          - ORG
-        name:
-          description: New display name for the font.
-          type: string
-        weight:
-          description: 'New weight for the font. Supported values: NORMAL, LIGHT, BOLD.'
-          type: string
-          enum:
-          - NORMAL
-          - LIGHT
-          - BOLD
-        style:
-          description: 'New style for the font. Supported values: NORMAL, ITALIC, OBLIQUE.'
-          type: string
-          enum:
-          - NORMAL
-          - ITALIC
-          - OBLIQUE
-        color:
-          description: 'New color for the font as a 6-digit hex string (e.g. "#333333"). Returns
-
-            an error if the value is malformed.'
-          type: string
-    StyleChartColorPalette:
+    StyleColorPaletteInput:
       type: object
       properties:
         colors:
@@ -1376,119 +1714,14 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/StyleColorEntry'
-          description: Ordered array of 8 color entries.
+            $ref: '#/components/schemas/StyleColorEntryInput'
+          description: Ordered array of exactly 8 color entries defining the chart color palette.
         disable_color_rotation:
           type:
           - boolean
           - 'null'
-          description: When true, automatic color rotation across chart data series is disabled.
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: True if explicitly set at this scope, overriding any inherited value.
-      description: Chart color palette configuration for a specific scope.
-    ChartFontAssignmentInput:
-      type: object
-      required:
-      - visualization_area
-      - font_identifier
-      properties:
-        visualization_area:
-          type: string
-          enum:
-          - CHART_X_AXIS_LABELS
-          - CHART_X_AXIS_TITLE
-          - CHART_Y_AXIS_LABELS
-          - CHART_Y_AXIS_TITLE
-          - CHART_TOOLTIP
-          - CHART_SCATTER_DATA_LABELS
-          - CHART_DONUT_DATA_LABELS
-          - CHART_LINE_DATA_LABELS
-          - CHART_COLUMN_DATA_LABELS
-          - CHART_BAR_DATA_LABELS
-          - CHART_AREA_DATA_LABELS
-          description: Chart visualization area to assign the font to.
-        font_identifier:
-          type: string
-          description: UUID or name of the font to assign to this area.
-      description: Font assignment for a single chart visualization area.
-    StyleFontDeleteAffectedAssignment:
-      type: object
-      properties:
-        org:
-          $ref: '#/components/schemas/StyleOrgInfo'
-          description: Org context for this assignment. Present only when scope is ORG.
-        visualization_areas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            enum:
-            - CHART_X_AXIS_LABELS
-            - CHART_X_AXIS_TITLE
-            - CHART_Y_AXIS_LABELS
-            - CHART_Y_AXIS_TITLE
-            - CHART_TOOLTIP
-            - CHART_SCATTER_DATA_LABELS
-            - CHART_DONUT_DATA_LABELS
-            - CHART_LINE_DATA_LABELS
-            - CHART_COLUMN_DATA_LABELS
-            - CHART_BAR_DATA_LABELS
-            - CHART_AREA_DATA_LABELS
-            - TABLE_VALUE_CELLS
-            - ADVANCED_CHART_LABELS
-          description: 'Visualization areas that used the deleted font and were automatically reset
-
-            to the system default font.'
-      description: A visualization area assignment affected by a font deletion.
-    StylePreference:
-      type: object
-      properties:
-        scope:
-          type:
-          - string
-          - 'null'
-          enum:
-          - CLUSTER
-          - ORG
-          description: Scope at which these style preferences apply.
-        org:
-          $ref: '#/components/schemas/StyleOrgInfo'
-          description: Org associated with these preferences. Present only when scope is ORG.
-        navigation_panel:
-          $ref: '#/components/schemas/StyleNavigationPanel'
-          description: Navigation panel color configuration.
-        chart_color_palette:
-          $ref: '#/components/schemas/StyleChartColorPalette'
-          description: Chart color palette configuration.
-        embedded_footer_text:
-          $ref: '#/components/schemas/StyleEmbeddedFooterText'
-          description: Embedded footer text configuration.
-        logo:
-          $ref: '#/components/schemas/StyleLogoStatus'
-          description: Logo status per slot.
-        visualization_fonts:
-          $ref: '#/components/schemas/StyleVisualizationFonts'
-          description: Effective font assignments per visualization area.
-      description: Style preferences for a single scope entry.
-    SearchStyleCustomizationsRequest:
-      type: object
-      properties:
-        scope:
-          description: 'Scope of the style preferences to retrieve. CLUSTER returns cluster-level
-
-            defaults. ORG returns preferences for the authenticated user''s org, which
-
-            may override cluster defaults. If not specified, returns both cluster and
-
-            org preferences based on user privileges.'
-          type: string
-          enum:
-          - CLUSTER
-          - ORG
+          description: When true, disables automatic color rotation across chart data series.
+      description: Chart color palette configuration.
     StyleFontRecord:
       type: object
       required:
@@ -1551,6 +1784,67 @@ components:
 
             to any area. Populated only when include_font_assignments is true.'
       description: A custom font record in the font library.
+    SearchStyleCustomizationsRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Scope of the style preferences to retrieve. CLUSTER returns cluster-level
+
+            defaults. ORG returns preferences for the authenticated user''s org, which
+
+            may override cluster defaults. If not specified, returns both cluster and
+
+            org preferences based on user privileges.'
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
+    StyleFontDeleteAffectedAssignment:
+      type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/StyleOrgInfo'
+          description: Org context for this assignment. Present only when scope is ORG.
+        visualization_areas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            enum:
+            - CHART_X_AXIS_LABELS
+            - CHART_X_AXIS_TITLE
+            - CHART_Y_AXIS_LABELS
+            - CHART_Y_AXIS_TITLE
+            - CHART_TOOLTIP
+            - CHART_SCATTER_DATA_LABELS
+            - CHART_DONUT_DATA_LABELS
+            - CHART_LINE_DATA_LABELS
+            - CHART_COLUMN_DATA_LABELS
+            - CHART_BAR_DATA_LABELS
+            - CHART_AREA_DATA_LABELS
+            - TABLE_VALUE_CELLS
+            - ADVANCED_CHART_LABELS
+          description: 'Visualization areas that used the deleted font and were automatically reset
+
+            to the system default font.'
+      description: A visualization area assignment affected by a font deletion.
+    StyleColorEntry:
+      type: object
+      properties:
+        primary:
+          type:
+          - string
+          - 'null'
+          description: Primary color as a 6-digit hex string.
+        secondary:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Array of 4 secondary shade hex strings.
+      description: A single color entry in the chart color palette.
     DeleteStyleFontsRequest:
       type: object
       properties:
@@ -1584,300 +1878,6 @@ components:
           - 'null'
       required:
       - font_identifiers
-    StyleOrgInfo:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Unique integer ID of the org.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the org.
-      description: Org information returned in style API responses.
-    NavigationPanelInput:
-      type: object
-      properties:
-        theme:
-          type:
-          - string
-          - 'null'
-          enum:
-          - DARK
-          - TWO_TONE
-          - CUSTOM
-          description: 'Color mode for the navigation panel. DARK applies the default dark theme.
-
-            TWO_TONE applies a dual-tone style. CUSTOM enables a user-defined base
-
-            color; base_color is required when theme is CUSTOM.'
-        base_color:
-          type:
-          - string
-          - 'null'
-          description: 'Base color as a 6-digit hex string (e.g. "#2359B6"). Required when theme
-
-            is CUSTOM.'
-      description: Navigation panel color configuration.
-    StyleResetOptionsInput:
-      type: object
-      properties:
-        style:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            enum:
-            - CHART_COLOR_PALETTE
-            - EMBEDDED_FOOTER_TEXT
-            - NAV_PANEL_COLOR
-            - DEFAULT_LOGO
-            - WIDE_LOGO
-          description: 'Style fields to reset. Supported values: CHART_COLOR_PALETTE,
-
-            EMBEDDED_FOOTER_TEXT, NAV_PANEL_COLOR, DEFAULT_LOGO, WIDE_LOGO.'
-        visualization_areas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            enum:
-            - CHART_X_AXIS_LABELS
-            - CHART_X_AXIS_TITLE
-            - CHART_Y_AXIS_LABELS
-            - CHART_Y_AXIS_TITLE
-            - CHART_TOOLTIP
-            - CHART_SCATTER_DATA_LABELS
-            - CHART_DONUT_DATA_LABELS
-            - CHART_LINE_DATA_LABELS
-            - CHART_COLUMN_DATA_LABELS
-            - CHART_BAR_DATA_LABELS
-            - CHART_AREA_DATA_LABELS
-            - TABLE_VALUE_CELLS
-            - ADVANCED_CHART_LABELS
-          description: 'Visualization areas whose font assignments should revert to the system
-
-            default font.'
-      description: Fields to revert to defaults when operation is RESET.
-    StyleVisualizationFonts:
-      type: object
-      properties:
-        chart_visualization_fonts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ChartVisualizationFontRecord'
-          description: Font assignments for chart visualization areas.
-        table_visualization_fonts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TableVisualizationFontRecord'
-          description: Font assignments for table visualization areas.
-        advanced_chart_visualization_fonts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AdvancedChartVisualizationFontRecord'
-          description: 'Font assignments for advanced chart visualization areas. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-      description: Effective font assignments per visualization type.
-    TableVisualizationFontRecord:
-      type: object
-      properties:
-        visualization_area:
-          type:
-          - string
-          - 'null'
-          enum:
-          - TABLE_VALUE_CELLS
-          description: Table visualization area.
-        font_id:
-          type:
-          - string
-          - 'null'
-          description: 'UUID of the font assigned to this area. Null when the system default font
-
-            is active.'
-        font_name:
-          type:
-          - string
-          - 'null'
-          description: 'Display name of the font assigned to this area. Null when the system
-
-            default font is active.'
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: True if explicitly set at this scope, overriding any inherited value.
-      description: Font assignment for a table visualization area in the response.
-    StyleNavigationPanel:
-      type: object
-      properties:
-        theme:
-          type:
-          - string
-          - 'null'
-          enum:
-          - DARK
-          - TWO_TONE
-          - CUSTOM
-          description: Navigation panel color mode.
-        base_color:
-          type:
-          - string
-          - 'null'
-          description: Base color as a 6-digit hex string. Present only when theme is CUSTOM.
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: True if explicitly set at this scope, overriding any inherited value.
-      description: Navigation panel color configuration for a specific scope.
-    AdvancedChartFontAssignmentInput:
-      type: object
-      required:
-      - visualization_area
-      - font_identifier
-      properties:
-        visualization_area:
-          type: string
-          enum:
-          - ADVANCED_CHART_LABELS
-          description: 'Advanced chart visualization area to assign the font to. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-        font_identifier:
-          type: string
-          description: 'UUID or name of the font to assign to this area. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-      description: Font assignment for a single advanced chart visualization area.
-    StyleLogoStatus:
-      type: object
-      properties:
-        default_logo:
-          $ref: '#/components/schemas/StyleLogoSlot'
-          description: 'Status of the DEFAULT logo slot (square app icon and favicon; recommended
-
-            140x140 px).'
-        wide_logo:
-          $ref: '#/components/schemas/StyleLogoSlot'
-          description: 'Status of the WIDE logo slot (horizontal top nav bar logo; recommended
-
-            230x45 px).'
-      description: Logo status per slot.
-    StyleColorEntryInput:
-      type: object
-      required:
-      - primary
-      properties:
-        primary:
-          type: string
-          description: Primary color as a 6-digit hex string (e.g. "#2359B6"). Required.
-        secondary:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Array of exactly 4 secondary shade hex strings. If omitted, the server
-
-            auto-generates 4 shades from the primary color. If provided, must contain
-
-            exactly 4 valid 6-digit hex color strings.'
-      description: A single color entry in the chart color palette.
-    TableFontAssignmentInput:
-      type: object
-      required:
-      - visualization_area
-      - font_identifier
-      properties:
-        visualization_area:
-          type: string
-          enum:
-          - TABLE_VALUE_CELLS
-          description: Table visualization area to assign the font to.
-        font_identifier:
-          type: string
-          description: UUID or name of the font to assign to this area.
-      description: Font assignment for a single table visualization area.
-    StyleFontAssignment:
-      type: object
-      properties:
-        org:
-          $ref: '#/components/schemas/StyleOrgInfo'
-          description: Org context for this assignment. Present only when scope is ORG.
-        visualization_areas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            enum:
-            - CHART_X_AXIS_LABELS
-            - CHART_X_AXIS_TITLE
-            - CHART_Y_AXIS_LABELS
-            - CHART_Y_AXIS_TITLE
-            - CHART_TOOLTIP
-            - CHART_SCATTER_DATA_LABELS
-            - CHART_DONUT_DATA_LABELS
-            - CHART_LINE_DATA_LABELS
-            - CHART_COLUMN_DATA_LABELS
-            - CHART_BAR_DATA_LABELS
-            - CHART_AREA_DATA_LABELS
-            - TABLE_VALUE_CELLS
-            - ADVANCED_CHART_LABELS
-          description: Visualization areas using this font.
-      description: Visualization areas assigned to a font, grouped by org context.
-    StyleFontUploadData:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Unique UUID identifier of the uploaded font.
-        name:
-          type: string
-          description: Display name of the uploaded font.
-      description: Font data returned after a successful upload.
-    AdvancedChartVisualizationFontRecord:
-      type: object
-      properties:
-        visualization_area:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ADVANCED_CHART_LABELS
-          description: Advanced chart visualization area.
-        font_id:
-          type:
-          - string
-          - 'null'
-          description: 'UUID of the font assigned to this area. Null when the system default font
-
-            is active.'
-        font_name:
-          type:
-          - string
-          - 'null'
-          description: 'Display name of the font assigned to this area. Null when the system
-
-            default font is active.'
-        is_overridden:
-          type:
-          - boolean
-          - 'null'
-          description: True if explicitly set at this scope, overriding any inherited value.
-      description: Font assignment for an advanced chart visualization area in the response.
   securitySchemes:
     bearerAuth:
       type: http

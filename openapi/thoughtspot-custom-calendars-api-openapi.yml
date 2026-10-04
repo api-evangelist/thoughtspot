@@ -539,44 +539,209 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CalendarResponse:
+    UpdateCalendarRequest:
       type: object
       properties:
-        calendar_name:
+        update_method:
+          description: Type of update operation.
+          default: FROM_INPUT_PARAMS
+          type: string
+          enum:
+          - FROM_INPUT_PARAMS
+          - FROM_EXISTING_TABLE
+        table_reference:
+          description: 'Table reference containing connection identifier and table details in this format: `{"connection_identifier":"conn1", "database_name":"db1", "schema_name":"sc1", "table_name":"tb1"}`.'
+          allOf:
+          - $ref: '#/components/schemas/ExternalTableInput'
+        start_date:
+          description: Start date for the calendar in `MM/dd/yyyy` format. This parameter is mandatory if `update_method` is set as `FROM_INPUT_PARAMS`.
+          type: string
+        end_date:
+          description: End date for the calendar in `MM/dd/yyyy` format. This parameter is mandatory if `update_method` is set as `FROM_INPUT_PARAMS`.
+          type: string
+        calendar_type:
+          description: Type of the calendar.
+          default: MONTH_OFFSET
+          type: string
+          enum:
+          - MONTH_OFFSET
+          - FOUR_FOUR_FIVE
+          - FOUR_FIVE_FOUR
+          - FIVE_FOUR_FOUR
+        month_offset:
+          description: Specify the month in which the fiscal or custom calendar year should start. For example, if you set `month_offset` to "April", the custom calendar will treat "April" as the first month of the year, and the related attributes such as quarters and start date will be based on this offset. The default value is `January`, which represents the standard calendar year (January to December).
+          default: January
+          type: string
+          enum:
+          - January
+          - February
+          - March
+          - April
+          - May
+          - June
+          - July
+          - August
+          - September
+          - October
+          - November
+          - December
+        start_day_of_week:
+          description: Specify the starting day of the week
+          default: Sunday
+          type: string
+          enum:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+        quarter_name_prefix:
+          description: Prefix to add before the quarter.
+          default: ''
+          type: string
+        year_name_prefix:
+          description: Prefix to add before the year.
+          default: ''
+          type: string
+      required:
+      - table_reference
+    ExternalTableInput:
+      type: object
+      required:
+      - connection_identifier
+      - table_name
+      properties:
+        connection_identifier:
+          type: string
+          description: Unique ID or name of the connection.
+        database_name:
           type:
           - string
           - 'null'
-          description: Name of the calendar
-        connection_name:
+          default: ''
+          description: Name of the database.
+        schema_name:
           type:
           - string
           - 'null'
-          description: Name of the connection
-        data_warehouse_type:
+          default: ''
+          description: Name of the schema.
+        table_name:
+          type: string
+          description: Name of the table. Table names may be case-sensitive depending on the database system.
+    SortOption:
+      type: object
+      properties:
+        field_name:
           type:
           - string
           - 'null'
-          description: Type of data warehouse
-        modification_time_in_millis:
+          enum:
+          - DEFAULT
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          default: DEFAULT
+          description: Name of the field to apply the sort on.
+        order:
           type:
           - string
           - 'null'
-          description: Last modification time in milliseconds
-        author_name:
+          enum:
+          - ASC
+          - DESC
+          default: ASC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
           type:
-          - string
+          - object
           - 'null'
-          description: Name of the author who created the calendar
-        connection_id:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the connection
-        calendar_id:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the calendar
+    GenerateCSVRequest:
+      type: object
+      properties:
+        start_date:
+          description: Start date for the calendar in `MM/dd/yyyy` format.
+          type: string
+        end_date:
+          description: End date for the calendar in `MM/dd/yyyy` format.
+          type: string
+        calendar_type:
+          description: Type of the calendar.
+          default: MONTH_OFFSET
+          type: string
+          enum:
+          - MONTH_OFFSET
+          - FOUR_FOUR_FIVE
+          - FOUR_FIVE_FOUR
+          - FIVE_FOUR_FOUR
+        month_offset:
+          description: Month offset to start calendar from `January`.
+          default: January
+          type: string
+          enum:
+          - January
+          - February
+          - March
+          - April
+          - May
+          - June
+          - July
+          - August
+          - September
+          - October
+          - November
+          - December
+        start_day_of_week:
+          description: Specify the starting day of the week.
+          default: Sunday
+          type: string
+          enum:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+        quarter_name_prefix:
+          description: Prefix to add before the quarter.
+          type: string
+        year_name_prefix:
+          description: Prefix to add before the year.
+          type: string
+      required:
+      - start_date
+      - end_date
+    SearchCalendarsRequest:
+      type: object
+      properties:
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+        name_pattern:
+          description: Pattern to match for calendar names (use '%' for wildcard match).
+          type: string
+        record_offset:
+          description: The starting record number from where the records should be included.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of records that should be included.
+          default: 10
+          type: integer
+          format: int32
+        sort_options:
+          description: Sort options.
+          allOf:
+          - $ref: '#/components/schemas/SortOption'
     CreateCalendarRequest:
       type: object
       properties:
@@ -649,209 +814,44 @@ components:
       - name
       - creation_method
       - table_reference
-    ExternalTableInput:
+    CalendarResponse:
       type: object
-      required:
-      - connection_identifier
-      - table_name
       properties:
-        connection_identifier:
-          type: string
-          description: Unique ID or name of the connection.
-        database_name:
+        calendar_name:
           type:
           - string
           - 'null'
-          default: ''
-          description: Name of the database.
-        schema_name:
+          description: Name of the calendar
+        connection_name:
           type:
           - string
           - 'null'
-          default: ''
-          description: Name of the schema.
-        table_name:
-          type: string
-          description: Name of the table. Table names may be case-sensitive depending on the database system.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UpdateCalendarRequest:
-      type: object
-      properties:
-        update_method:
-          description: Type of update operation.
-          default: FROM_INPUT_PARAMS
-          type: string
-          enum:
-          - FROM_INPUT_PARAMS
-          - FROM_EXISTING_TABLE
-        table_reference:
-          description: 'Table reference containing connection identifier and table details in this format: `{"connection_identifier":"conn1", "database_name":"db1", "schema_name":"sc1", "table_name":"tb1"}`.'
-          allOf:
-          - $ref: '#/components/schemas/ExternalTableInput'
-        start_date:
-          description: Start date for the calendar in `MM/dd/yyyy` format. This parameter is mandatory if `update_method` is set as `FROM_INPUT_PARAMS`.
-          type: string
-        end_date:
-          description: End date for the calendar in `MM/dd/yyyy` format. This parameter is mandatory if `update_method` is set as `FROM_INPUT_PARAMS`.
-          type: string
-        calendar_type:
-          description: Type of the calendar.
-          default: MONTH_OFFSET
-          type: string
-          enum:
-          - MONTH_OFFSET
-          - FOUR_FOUR_FIVE
-          - FOUR_FIVE_FOUR
-          - FIVE_FOUR_FOUR
-        month_offset:
-          description: Specify the month in which the fiscal or custom calendar year should start. For example, if you set `month_offset` to "April", the custom calendar will treat "April" as the first month of the year, and the related attributes such as quarters and start date will be based on this offset. The default value is `January`, which represents the standard calendar year (January to December).
-          default: January
-          type: string
-          enum:
-          - January
-          - February
-          - March
-          - April
-          - May
-          - June
-          - July
-          - August
-          - September
-          - October
-          - November
-          - December
-        start_day_of_week:
-          description: Specify the starting day of the week
-          default: Sunday
-          type: string
-          enum:
-          - Sunday
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-        quarter_name_prefix:
-          description: Prefix to add before the quarter.
-          default: ''
-          type: string
-        year_name_prefix:
-          description: Prefix to add before the year.
-          default: ''
-          type: string
-      required:
-      - table_reference
-    SearchCalendarsRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-        name_pattern:
-          description: Pattern to match for calendar names (use '%' for wildcard match).
-          type: string
-        record_offset:
-          description: The starting record number from where the records should be included.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of records that should be included.
-          default: 10
-          type: integer
-          format: int32
-        sort_options:
-          description: Sort options.
-          allOf:
-          - $ref: '#/components/schemas/SortOption'
-    SortOption:
-      type: object
-      properties:
-        field_name:
+          description: Name of the connection
+        data_warehouse_type:
           type:
           - string
           - 'null'
-          enum:
-          - DEFAULT
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          default: DEFAULT
-          description: Name of the field to apply the sort on.
-        order:
+          description: Type of data warehouse
+        modification_time_in_millis:
           type:
           - string
           - 'null'
-          enum:
-          - ASC
-          - DESC
-          default: ASC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-    GenerateCSVRequest:
-      type: object
-      properties:
-        start_date:
-          description: Start date for the calendar in `MM/dd/yyyy` format.
-          type: string
-        end_date:
-          description: End date for the calendar in `MM/dd/yyyy` format.
-          type: string
-        calendar_type:
-          description: Type of the calendar.
-          default: MONTH_OFFSET
-          type: string
-          enum:
-          - MONTH_OFFSET
-          - FOUR_FOUR_FIVE
-          - FOUR_FIVE_FOUR
-          - FIVE_FOUR_FOUR
-        month_offset:
-          description: Month offset to start calendar from `January`.
-          default: January
-          type: string
-          enum:
-          - January
-          - February
-          - March
-          - April
-          - May
-          - June
-          - July
-          - August
-          - September
-          - October
-          - November
-          - December
-        start_day_of_week:
-          description: Specify the starting day of the week.
-          default: Sunday
-          type: string
-          enum:
-          - Sunday
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-        quarter_name_prefix:
-          description: Prefix to add before the quarter.
-          type: string
-        year_name_prefix:
-          description: Prefix to add before the year.
-          type: string
-      required:
-      - start_date
-      - end_date
+          description: Last modification time in milliseconds
+        author_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the author who created the calendar
+        connection_id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the connection
+        calendar_id:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the calendar
   securitySchemes:
     bearerAuth:
       type: http

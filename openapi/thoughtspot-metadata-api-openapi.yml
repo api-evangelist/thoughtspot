@@ -1725,17 +1725,117 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UpdateMetadataObjIdRequest:
+    ImportMetadataTMLAsyncRequest:
       type: object
       properties:
-        metadata:
-          description: List of metadata objects to update their object IDs.
+        metadata_tmls:
+          description: Details of TML objects.
           type: array
           items:
-            $ref: '#/components/schemas/UpdateObjIdInput'
+            type: string
+        create_new:
+          description: If selected, creates TML objects with new GUIDs.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        all_orgs_override:
+          description: If import is happening from all orgs context.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        import_policy:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Policy to be followed while importing the TML. Valid values are [PARTIAL_OBJECT, PARTIAL, VALIDATE_ONLY, ALL_OR_NONE]'
+          default: PARTIAL_OBJECT
+          type: string
+          enum:
+          - PARTIAL
+          - ALL_OR_NONE
+          - VALIDATE_ONLY
+          - PARTIAL_OBJECT
+        skip_diff_check:
+          description: '<div><span class="since-beta-tag">Version: 10.6.0.cl or later</span></div>
+
+
+            Boolean Flag to skip TML diff check before processing object TMLs.'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        enable_large_metadata_validation:
+          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
+
+
+            Boolean to indicate if the large metadata validation should be enabled.'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        enable_personalized_view_upsert:
+          description: '<div><span class="since-beta-tag">Version: 26.8.0.cl or later</span></div>
+
+
+            Boolean flag to enable update/insert of personalized views in liveboard.'
+          default: false
+          type:
+          - boolean
+          - 'null'
       required:
-      - metadata
-    ResponseSuccessfulEntities:
+      - metadata_tmls
+    ResponseWorksheetToModelConversion:
+      type: object
+      required:
+      - name
+      - success_count
+      - failure_count
+      - incomplete_count
+      - post_upgrade_failed_count
+      - total_time_in_millis
+      - successful_entities
+      - failed_entities
+      - incomplete_entities
+      - post_upgrade_failed_entities
+      properties:
+        name:
+          type: string
+        success_count:
+          type: integer
+          format: int32
+          description: The number of worksheets successfully converted to models.
+        failure_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed to convert.
+        incomplete_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that were incomplete during the conversion process.
+        post_upgrade_failed_count:
+          type: integer
+          format: int32
+          description: The number of worksheets that failed after an upgrade during the conversion process.
+        total_time_in_millis:
+          type: integer
+          format: int32
+          description: The total time taken to complete the conversion process in milliseconds.
+        successful_entities:
+          $ref: '#/components/schemas/ResponseSuccessfulEntities'
+          description: List of worksheets successfully converted to models.
+        failed_entities:
+          $ref: '#/components/schemas/ResponseFailedEntities'
+          description: List of worksheets that failed to convert.
+        incomplete_entities:
+          $ref: '#/components/schemas/ResponseIncompleteEntities'
+          description: List of worksheets that were incomplete during the conversion.
+        post_upgrade_failed_entities:
+          $ref: '#/components/schemas/ResponsePostUpgradeFailedEntities'
+          description: List of worksheets that failed after an upgrade during the conversion process.
+      description: Name of the conversion process, which involves converting worksheets to models.
+    ResponseFailedEntities:
       type: object
       required:
       - data
@@ -1743,8 +1843,31 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ResponseSuccessfulEntity'
-      description: Wrapper for the successful entities, as they are inside a 'data' field in the response.
+            $ref: '#/components/schemas/ResponseFailedEntity'
+      description: Wrapper for the failed entities, as they are inside a 'data' field in the response.
+    PrincipalsInput:
+      type: object
+      required:
+      - identifier
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the principal object such as a user or group.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - USER
+          - USER_GROUP
+          description: Principal type.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     SqlQueryResponse:
       type: object
       required:
@@ -1777,6 +1900,142 @@ components:
           items:
             $ref: '#/components/schemas/SqlQuery'
           description: SQL query details of metadata objects.
+    ResponseFailedEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet that failed to convert.
+        error:
+          type: string
+          description: Error details related to the failed conversion.
+      description: Unique ID of the failed worksheet.
+    FetchLiveboardSqlQueryRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID or name of the Liveboard.
+          type: string
+        visualization_identifiers:
+          description: Unique ID or name of visualizations.
+          type: array
+          items:
+            type: string
+      required:
+      - metadata_identifier
+    CopyObjectRequest:
+      type: object
+      properties:
+        description:
+          description: Description of the new object
+          type: string
+        identifier:
+          description: GUID of metadata object to be copied (answer id or liveboard id)
+          type: string
+        type:
+          description: Type of metadata object
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+        title:
+          description: Title of the new object
+          type: string
+      required:
+      - identifier
+    ExportMetadataTypeInput:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CUSTOM_ACTION
+          - USER
+          - USER_GROUP
+          - ROLE
+          - FEEDBACK
+          - COLLECTION
+          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the metadata object. Not required if the metadata type is ANSWER when session_id and generation_number is set.
+        session_identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
+        generation_number:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Generation Number of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
+      description: MetadataType InputType used in Export MetadataType API
+    FavoriteObjectOptionsInput:
+      type: object
+      properties:
+        include:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Includes objects marked as favorite for the specified users.
+        user_identifiers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Unique ID or name of the users. If not specified, the favorite objects of current logged in user are returned.
+      description: Favorite object options.
+    UpdateObjIdInput:
+      type: object
+      required:
+      - new_obj_id
+      properties:
+        metadata_identifier:
+          type:
+          - string
+          - 'null'
+          description: GUID or name of the metadata object.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LIVEBOARD
+          - ACTION_OBJECT
+          - DATA_SOURCE
+          - USER
+          - USER_GROUP
+          - COLLECTION
+          description: Type of metadata. Required if metadata_identifier is name of the object.
+        current_obj_id:
+          type:
+          - string
+          - 'null'
+          description: Current object ID value.
+        new_obj_id:
+          type: string
+          description: New object ID value to set.
+      description: Input for updating object ID of a metadata object.
     SqlQuery:
       type: object
       required:
@@ -1794,29 +2053,46 @@ components:
           type: string
           description: SQL query of a metadata object.
       description: Response format associated with fetch SQL query api
-    ErrorResponse:
+    ResponseIncompleteEntities:
       type: object
+      required:
+      - data
       properties:
-        error:
-          type:
-          - object
-          - 'null'
-    DeleteMetadataRequest:
-      type: object
-      properties:
-        metadata:
-          description: Metadata objects.
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/DeleteMetadataTypeInput'
-        delete_disabled_objects:
-          description: Indicates whether to delete disabled metadata objects.
-          default: false
-          type:
-          - boolean
-          - 'null'
+            $ref: '#/components/schemas/ResponseIncompleteEntity'
+      description: Wrapper for the incomplete entities, as they are inside a 'data' field in the response.
+    UnparameterizeMetadataRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to unparameterize.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to unparameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to unparameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_name:
+          description: Name of the field which needs to be unparameterized.
+          type: string
+        value:
+          description: The value to use in place of the variable for the field
+          type: string
       required:
-      - metadata
+      - metadata_identifier
+      - field_type
+      - field_name
+      - value
     ImportMetadataTMLRequest:
       type: object
       properties:
@@ -1878,39 +2154,76 @@ components:
           - 'null'
       required:
       - metadata_tmls
-    HeaderAttributeInput:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-          description: Attribute name to be updated.
-        value:
-          type: string
-          description: Attribute's new value.
-      description: Attribute to update in a header.
-    CopyObjectRequest:
+    ParameterizeMetadataRequest:
       type: object
       properties:
-        description:
-          description: Description of the new object
-          type: string
-        identifier:
-          description: GUID of metadata object to be copied (answer id or liveboard id)
-          type: string
-        type:
-          description: Type of metadata object
+        metadata_type:
+          description: Type of metadata object to parameterize.
           type: string
           enum:
-          - LIVEBOARD
-          - ANSWER
-        title:
-          description: Title of the new object
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to parameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to parameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_name:
+          description: Name of the field which needs to be parameterized.
+          type: string
+        variable_identifier:
+          description: Unique ID or name of the variable to use for parameterization
           type: string
       required:
-      - identifier
+      - metadata_identifier
+      - field_type
+      - field_name
+      - variable_identifier
+    ParameterizeMetadataFieldsRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to parameterize.
+          type: string
+          enum:
+          - LOGICAL_TABLE
+          - CONNECTION
+          - CONNECTION_CONFIG
+        metadata_identifier:
+          description: Unique ID or name of the metadata object to parameterize.
+          type: string
+        field_type:
+          description: Type of field in the metadata to parameterize.
+          type: string
+          enum:
+          - ATTRIBUTE
+          - CONNECTION_PROPERTY
+        field_names:
+          description: 'JSON array of field names to parameterize. Example: [schemaName, databaseName, tableName]'
+          type: array
+          items:
+            type: string
+        variable_identifier:
+          description: Unique ID or name of the variable to use for parameterization of these fields.
+          type: string
+      required:
+      - metadata_identifier
+      - field_type
+      - field_names
+      - variable_identifier
+    ResponseCopyObject:
+      type: object
+      properties:
+        metadata_id:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the object.
     ConvertWorksheetToModelRequest:
       type: object
       properties:
@@ -1936,6 +2249,200 @@ components:
           type:
           - boolean
           - 'null'
+    UpdateMetadataHeaderRequest:
+      type: object
+      properties:
+        headers_update:
+          description: List of header objects to update.
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderUpdateInput'
+        org_identifier:
+          description: Unique ID or name of the organization.
+          type: string
+      required:
+      - headers_update
+    ExportMetadataTMLBatchedRequest:
+      type: object
+      properties:
+        metadata_type:
+          description: Type of metadata object to export, can be one of USER | ROLE | USER_GROUP
+          type: string
+          enum:
+          - USER
+          - USER_GROUP
+          - ROLE
+        batch_offset:
+          description: Indicates the position within the complete set from where the API should begin returning objects.
+          default: 0
+          type: integer
+          format: int32
+        batch_size:
+          description: Determines the number of objects or items to be retrieved in a single request.
+          default: 20
+          type: integer
+          format: int32
+        edoc_format:
+          description: TML EDOC content format.
+          default: JSON
+          type: string
+          enum:
+          - JSON
+          - YAML
+        export_dependent:
+          description: Indicates whether to export dependent metadata objects of specified metadata objects.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        all_orgs_override:
+          description: Indicates whether to export is happening from all orgs context.
+          default: false
+          type:
+          - boolean
+          - 'null'
+      required:
+      - metadata_type
+    MetadataSearchResponse:
+      type: object
+      required:
+      - metadata_type
+      properties:
+        metadata_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the metadata.
+        metadata_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the metadata.
+        metadata_type:
+          type: string
+          enum:
+          - LIVEBOARD
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - CONNECTION
+          - TAG
+          - USER
+          - USER_GROUP
+          - LOGICAL_RELATIONSHIP
+          - INSIGHT_SPEC
+          - COLLECTION
+          description: Type of the metadata.
+        metadata_obj_id:
+          type:
+          - string
+          - 'null'
+          description: 'Custom identifier of the metadata.
+
+            (Available from 10.8.0.cl onwards)'
+        dependent_objects:
+          type:
+          - object
+          - 'null'
+          description: Details of dependent objects of the metadata objects.
+        incomplete_objects:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+          description: Details of incomplete information of the metadata objects if any.
+        metadata_detail:
+          type:
+          - object
+          - 'null'
+          description: Complete details of the metadata objects.
+        metadata_header:
+          type:
+          - object
+          - 'null'
+          description: Header information of the metadata objects.
+        visualization_headers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+          description: Visualization header information of the metadata objects.
+        stats:
+          type:
+          - object
+          - 'null'
+          description: Stats of the metadata object. Includes views, favorites, last_accessed.
+      description: Metadata Search Response Object.
+    ExportMetadataTMLRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportMetadataTypeInput'
+        export_associated:
+          description: Indicates whether to export associated metadata objects of specified metadata objects.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        export_fqn:
+          description: 'Adds FQNs of the referenced objects. For example, if you are exporting a Liveboard and its associated objects,
+
+            the API returns the Liveboard TML data with the FQNs of the referenced worksheet.
+
+            If the exported TML data includes FQNs, you don''t need to manually add FQNs of the referenced objects during TML import.'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        edoc_format:
+          description: 'TML EDOC content format.
+
+
+            **Note: exporting in YAML format currently requires manual formatting of the output. For more details on the workaround, please click [here](https://developers.thoughtspot.com/docs/known-issues#_version_9_12_0_cl)**'
+          default: JSON
+          type: string
+          enum:
+          - JSON
+          - YAML
+        export_schema_version:
+          description: Indicates whether to export worksheet TML in DEFAULT or V1 or V2 version.
+          default: DEFAULT
+          type: string
+          enum:
+          - DEFAULT
+          - V1
+          - V2
+        export_dependent:
+          description: Indicates whether to export table while exporting connection.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        export_connection_as_dependent:
+          description: 'Indicates whether to export connection as dependent while exporting table/worksheet/answer/liveboard.
+
+            This will only be active when export_associated is true.'
+          default: false
+          type:
+          - boolean
+          - 'null'
+        all_orgs_override:
+          description: Indicates whether to export is happening from all orgs context.
+          default: false
+          type:
+          - boolean
+          - 'null'
+        export_options:
+          description: 'Flags to specify additional options for export. <br/>  <span class="since-beta-tag">Version: 10.6.0.cl or later</span>'
+          allOf:
+          - $ref: '#/components/schemas/Export_Options'
+      required:
+      - metadata
     MetadataListItemInput:
       type: object
       properties:
@@ -2019,160 +2526,6 @@ components:
             5. AGGR_WORKSHEET.
 
             6. SQL_VIEW <br/>  <span class="since-beta-tag">Version: 10.11.0.cl or later</span>'
-    ParameterizeMetadataRequest:
-      type: object
-      properties:
-        metadata_type:
-          description: Type of metadata object to parameterize.
-          type: string
-          enum:
-          - LOGICAL_TABLE
-          - CONNECTION
-          - CONNECTION_CONFIG
-        metadata_identifier:
-          description: Unique ID or name of the metadata object to parameterize.
-          type: string
-        field_type:
-          description: Type of field in the metadata to parameterize.
-          type: string
-          enum:
-          - ATTRIBUTE
-          - CONNECTION_PROPERTY
-        field_name:
-          description: Name of the field which needs to be parameterized.
-          type: string
-        variable_identifier:
-          description: Unique ID or name of the variable to use for parameterization
-          type: string
-      required:
-      - metadata_identifier
-      - field_type
-      - field_name
-      - variable_identifier
-    FavoriteObjectOptionsInput:
-      type: object
-      properties:
-        include:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Includes objects marked as favorite for the specified users.
-        user_identifiers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Unique ID or name of the users. If not specified, the favorite objects of current logged in user are returned.
-      description: Favorite object options.
-    ResponseSuccessfulEntity:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Name of the worksheet.
-      description: Unique ID of the worksheet.
-    ImportMetadataTMLAsyncRequest:
-      type: object
-      properties:
-        metadata_tmls:
-          description: Details of TML objects.
-          type: array
-          items:
-            type: string
-        create_new:
-          description: If selected, creates TML objects with new GUIDs.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        all_orgs_override:
-          description: If import is happening from all orgs context.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        import_policy:
-          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
-
-
-            Policy to be followed while importing the TML. Valid values are [PARTIAL_OBJECT, PARTIAL, VALIDATE_ONLY, ALL_OR_NONE]'
-          default: PARTIAL_OBJECT
-          type: string
-          enum:
-          - PARTIAL
-          - ALL_OR_NONE
-          - VALIDATE_ONLY
-          - PARTIAL_OBJECT
-        skip_diff_check:
-          description: '<div><span class="since-beta-tag">Version: 10.6.0.cl or later</span></div>
-
-
-            Boolean Flag to skip TML diff check before processing object TMLs.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        enable_large_metadata_validation:
-          description: '<div><span class="since-beta-tag">Version: 10.5.0.cl or later</span></div>
-
-
-            Boolean to indicate if the large metadata validation should be enabled.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        enable_personalized_view_upsert:
-          description: '<div><span class="since-beta-tag">Version: 26.8.0.cl or later</span></div>
-
-
-            Boolean flag to enable update/insert of personalized views in liveboard.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-      required:
-      - metadata_tmls
-    UpdateObjIdInput:
-      type: object
-      required:
-      - new_obj_id
-      properties:
-        metadata_identifier:
-          type:
-          - string
-          - 'null'
-          description: GUID or name of the metadata object.
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - LIVEBOARD
-          - ACTION_OBJECT
-          - DATA_SOURCE
-          - USER
-          - USER_GROUP
-          - COLLECTION
-          description: Type of metadata. Required if metadata_identifier is name of the object.
-        current_obj_id:
-          type:
-          - string
-          - 'null'
-          description: Current object ID value.
-        new_obj_id:
-          type: string
-          description: New object ID value to set.
-      description: Input for updating object ID of a metadata object.
     ResponsePostUpgradeFailedEntity:
       type: object
       required:
@@ -2189,6 +2542,14 @@ components:
           type: string
           description: Error details related to the post-upgrade failure.
       description: Unique ID of the worksheet that failed post-upgrade.
+    FetchAnswerSqlQueryRequest:
+      type: object
+      properties:
+        metadata_identifier:
+          description: ID or name of an Answer.
+          type: string
+      required:
+      - metadata_identifier
     ImportEPackAsyncTaskStatus:
       type: object
       properties:
@@ -2284,45 +2645,6 @@ components:
           - string
           - 'null'
           description: Display name of the user who initiated the task.
-    PrincipalsInput:
-      type: object
-      required:
-      - identifier
-      properties:
-        identifier:
-          type: string
-          description: Unique ID or name of the principal object such as a user or group.
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - USER
-          - USER_GROUP
-          description: Principal type.
-    ResponseFailedEntities:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseFailedEntity'
-      description: Wrapper for the failed entities, as they are inside a 'data' field in the response.
-    FetchLiveboardSqlQueryRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: ID or name of the Liveboard.
-          type: string
-        visualization_identifiers:
-          description: Unique ID or name of visualizations.
-          type: array
-          items:
-            type: string
-      required:
-      - metadata_identifier
     Export_Options:
       type: object
       properties:
@@ -2363,458 +2685,6 @@ components:
           default: false
           description: 'Boolean flag indicating whether to export column aliases of the model. This will only be respected when the object can have column aliases. <br/> <span class="since-beta-tag">Beta</span> <span class="since-beta-tag">Version: 10.13.0.cl or later</span>'
       description: Flags to specify additional options for export. This will only be active when UserDefinedId in TML is enabled.
-    FetchAsyncImportTaskStatusRequest:
-      type: object
-      properties:
-        task_ids:
-          description: List of task IDs to fetch status for.
-          type: array
-          items:
-            type: string
-        task_status:
-          description: 'List of task statuses to filter on. Valid values: [IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED]'
-          type: array
-          items:
-            type: string
-            enum:
-            - COMPLETED
-            - IN_QUEUE
-            - IN_PROGRESS
-            - FAILED
-        author_identifier:
-          description: Author GUID or name of async import tasks to filter on.
-          type: string
-        record_offset:
-          description: The offset point, starting from where the task status should be included in the response.
-          default: 0
-          type: integer
-          format: int32
-        record_size:
-          description: The number of task statuses that should be included in the response starting from offset position.
-          default: 5
-          type: integer
-          format: int32
-        include_import_response:
-          description: Boolean flag to specify whether to include import response in the task status objects.
-          default: false
-          type:
-          - boolean
-          - 'null'
-    PermissionInput:
-      type: object
-      required:
-      - principal
-      - share_mode
-      properties:
-        principal:
-          $ref: '#/components/schemas/PrincipalsInput'
-          description: Details of users or groups.
-        share_mode:
-          type: string
-          enum:
-          - READ_ONLY
-          - MODIFY
-          - NO_ACCESS
-          description: Object share mode.
-      description: Details of users or groups.
-    HeaderUpdateInput:
-      type: object
-      required:
-      - attributes
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of a specified type to identify the header.
-        obj_identifier:
-          type:
-          - string
-          - 'null'
-          description: Custom object identifier to uniquely identify header.
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - LIVEBOARD
-          - ACTION_OBJECT
-          - DATA_SOURCE
-          - USER
-          - USER_GROUP
-          - COLLECTION
-          description: Optional type of the header object.
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HeaderAttributeInput'
-          description: List of attributes to update
-      description: Favorite object options.
-    ParameterizeMetadataFieldsRequest:
-      type: object
-      properties:
-        metadata_type:
-          description: Type of metadata object to parameterize.
-          type: string
-          enum:
-          - LOGICAL_TABLE
-          - CONNECTION
-          - CONNECTION_CONFIG
-        metadata_identifier:
-          description: Unique ID or name of the metadata object to parameterize.
-          type: string
-        field_type:
-          description: Type of field in the metadata to parameterize.
-          type: string
-          enum:
-          - ATTRIBUTE
-          - CONNECTION_PROPERTY
-        field_names:
-          description: 'JSON array of field names to parameterize. Example: [schemaName, databaseName, tableName]'
-          type: array
-          items:
-            type: string
-        variable_identifier:
-          description: Unique ID or name of the variable to use for parameterization of these fields.
-          type: string
-      required:
-      - metadata_identifier
-      - field_type
-      - field_names
-      - variable_identifier
-    UpdateMetadataHeaderRequest:
-      type: object
-      properties:
-        headers_update:
-          description: List of header objects to update.
-          type: array
-          items:
-            $ref: '#/components/schemas/HeaderUpdateInput'
-        org_identifier:
-          description: Unique ID or name of the organization.
-          type: string
-      required:
-      - headers_update
-    ResponseCopyObject:
-      type: object
-      properties:
-        metadata_id:
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the object.
-    ResponseFailedEntity:
-      type: object
-      required:
-      - id
-      - name
-      - error
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Name of the worksheet that failed to convert.
-        error:
-          type: string
-          description: Error details related to the failed conversion.
-      description: Unique ID of the failed worksheet.
-    GetAsyncImportStatusResponse:
-      type: object
-      properties:
-        status_list:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
-          description: List of task statuses.
-        last_batch:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether there are more task statuses to fetch.
-    ExportMetadataTypeInput:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - CONNECTION
-          - CUSTOM_ACTION
-          - USER
-          - USER_GROUP
-          - ROLE
-          - FEEDBACK
-          - COLLECTION
-          description: "  Type of metadata.\n  \n\nRequired if the name of the object is set as the identifier. This attribute is optional when the object GUID is specified as the identifier."
-        identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID or name of the metadata object. Not required if the metadata type is ANSWER when session_id and generation_number is set.
-        session_identifier:
-          type:
-          - string
-          - 'null'
-          description: Unique ID of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
-        generation_number:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Generation Number of the Answer session. Required if the metadata type is ANSWER and identifier is not set.
-      description: MetadataType InputType used in Export MetadataType API
-    ResponseIncompleteEntity:
-      type: object
-      required:
-      - id
-      - name
-      - error
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Name of the incomplete worksheet.
-        error:
-          type: string
-          description: Error details related to the incomplete conversion.
-      description: Unique ID of the incomplete worksheet.
-    ResponseWorksheetToModelConversion:
-      type: object
-      required:
-      - name
-      - success_count
-      - failure_count
-      - incomplete_count
-      - post_upgrade_failed_count
-      - total_time_in_millis
-      - successful_entities
-      - failed_entities
-      - incomplete_entities
-      - post_upgrade_failed_entities
-      properties:
-        name:
-          type: string
-        success_count:
-          type: integer
-          format: int32
-          description: The number of worksheets successfully converted to models.
-        failure_count:
-          type: integer
-          format: int32
-          description: The number of worksheets that failed to convert.
-        incomplete_count:
-          type: integer
-          format: int32
-          description: The number of worksheets that were incomplete during the conversion process.
-        post_upgrade_failed_count:
-          type: integer
-          format: int32
-          description: The number of worksheets that failed after an upgrade during the conversion process.
-        total_time_in_millis:
-          type: integer
-          format: int32
-          description: The total time taken to complete the conversion process in milliseconds.
-        successful_entities:
-          $ref: '#/components/schemas/ResponseSuccessfulEntities'
-          description: List of worksheets successfully converted to models.
-        failed_entities:
-          $ref: '#/components/schemas/ResponseFailedEntities'
-          description: List of worksheets that failed to convert.
-        incomplete_entities:
-          $ref: '#/components/schemas/ResponseIncompleteEntities'
-          description: List of worksheets that were incomplete during the conversion.
-        post_upgrade_failed_entities:
-          $ref: '#/components/schemas/ResponsePostUpgradeFailedEntities'
-          description: List of worksheets that failed after an upgrade during the conversion process.
-      description: Name of the conversion process, which involves converting worksheets to models.
-    MetadataSearchSortOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          - VIEWS
-          - FAVORITES
-          - LAST_ACCESSED
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
-    MetadataSearchResponse:
-      type: object
-      required:
-      - metadata_type
-      properties:
-        metadata_id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the metadata.
-        metadata_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the metadata.
-        metadata_type:
-          type: string
-          enum:
-          - LIVEBOARD
-          - ANSWER
-          - LOGICAL_TABLE
-          - LOGICAL_COLUMN
-          - CONNECTION
-          - TAG
-          - USER
-          - USER_GROUP
-          - LOGICAL_RELATIONSHIP
-          - INSIGHT_SPEC
-          - COLLECTION
-          description: Type of the metadata.
-        metadata_obj_id:
-          type:
-          - string
-          - 'null'
-          description: 'Custom identifier of the metadata.
-
-            (Available from 10.8.0.cl onwards)'
-        dependent_objects:
-          type:
-          - object
-          - 'null'
-          description: Details of dependent objects of the metadata objects.
-        incomplete_objects:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-          description: Details of incomplete information of the metadata objects if any.
-        metadata_detail:
-          type:
-          - object
-          - 'null'
-          description: Complete details of the metadata objects.
-        metadata_header:
-          type:
-          - object
-          - 'null'
-          description: Header information of the metadata objects.
-        visualization_headers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-          description: Visualization header information of the metadata objects.
-        stats:
-          type:
-          - object
-          - 'null'
-          description: Stats of the metadata object. Includes views, favorites, last_accessed.
-      description: Metadata Search Response Object.
-    UnparameterizeMetadataRequest:
-      type: object
-      properties:
-        metadata_type:
-          description: Type of metadata object to unparameterize.
-          type: string
-          enum:
-          - LOGICAL_TABLE
-          - CONNECTION
-          - CONNECTION_CONFIG
-        metadata_identifier:
-          description: Unique ID or name of the metadata object to unparameterize.
-          type: string
-        field_type:
-          description: Type of field in the metadata to unparameterize.
-          type: string
-          enum:
-          - ATTRIBUTE
-          - CONNECTION_PROPERTY
-        field_name:
-          description: Name of the field which needs to be unparameterized.
-          type: string
-        value:
-          description: The value to use in place of the variable for the field
-          type: string
-      required:
-      - metadata_identifier
-      - field_type
-      - field_name
-      - value
-    FetchAnswerSqlQueryRequest:
-      type: object
-      properties:
-        metadata_identifier:
-          description: ID or name of an Answer.
-          type: string
-      required:
-      - metadata_identifier
-    ExportMetadataTMLBatchedRequest:
-      type: object
-      properties:
-        metadata_type:
-          description: Type of metadata object to export, can be one of USER | ROLE | USER_GROUP
-          type: string
-          enum:
-          - USER
-          - USER_GROUP
-          - ROLE
-        batch_offset:
-          description: Indicates the position within the complete set from where the API should begin returning objects.
-          default: 0
-          type: integer
-          format: int32
-        batch_size:
-          description: Determines the number of objects or items to be retrieved in a single request.
-          default: 20
-          type: integer
-          format: int32
-        edoc_format:
-          description: TML EDOC content format.
-          default: JSON
-          type: string
-          enum:
-          - JSON
-          - YAML
-        export_dependent:
-          description: Indicates whether to export dependent metadata objects of specified metadata objects.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        all_orgs_override:
-          description: Indicates whether to export is happening from all orgs context.
-          default: false
-          type:
-          - boolean
-          - 'null'
-      required:
-      - metadata_type
     SearchMetadataRequest:
       type: object
       properties:
@@ -2979,6 +2849,58 @@ components:
           type:
           - boolean
           - 'null'
+    FetchAsyncImportTaskStatusRequest:
+      type: object
+      properties:
+        task_ids:
+          description: List of task IDs to fetch status for.
+          type: array
+          items:
+            type: string
+        task_status:
+          description: 'List of task statuses to filter on. Valid values: [IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED]'
+          type: array
+          items:
+            type: string
+            enum:
+            - COMPLETED
+            - IN_QUEUE
+            - IN_PROGRESS
+            - FAILED
+        author_identifier:
+          description: Author GUID or name of async import tasks to filter on.
+          type: string
+        record_offset:
+          description: The offset point, starting from where the task status should be included in the response.
+          default: 0
+          type: integer
+          format: int32
+        record_size:
+          description: The number of task statuses that should be included in the response starting from offset position.
+          default: 5
+          type: integer
+          format: int32
+        include_import_response:
+          description: Boolean flag to specify whether to include import response in the task status objects.
+          default: false
+          type:
+          - boolean
+          - 'null'
+    GetAsyncImportStatusResponse:
+      type: object
+      properties:
+        status_list:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ImportEPackAsyncTaskStatus'
+          description: List of task statuses.
+        last_batch:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether there are more task statuses to fetch.
     DeleteMetadataTypeInput:
       type: object
       required:
@@ -2999,84 +2921,16 @@ components:
           type: string
           description: Unique ID or name of the metadata object.
       description: MetadataType InputType used in Delete MetadataType API
-    ExportMetadataTMLRequest:
+    UpdateMetadataObjIdRequest:
       type: object
       properties:
         metadata:
-          description: Metadata objects.
+          description: List of metadata objects to update their object IDs.
           type: array
           items:
-            $ref: '#/components/schemas/ExportMetadataTypeInput'
-        export_associated:
-          description: Indicates whether to export associated metadata objects of specified metadata objects.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        export_fqn:
-          description: 'Adds FQNs of the referenced objects. For example, if you are exporting a Liveboard and its associated objects,
-
-            the API returns the Liveboard TML data with the FQNs of the referenced worksheet.
-
-            If the exported TML data includes FQNs, you don''t need to manually add FQNs of the referenced objects during TML import.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        edoc_format:
-          description: 'TML EDOC content format.
-
-
-            **Note: exporting in YAML format currently requires manual formatting of the output. For more details on the workaround, please click [here](https://developers.thoughtspot.com/docs/known-issues#_version_9_12_0_cl)**'
-          default: JSON
-          type: string
-          enum:
-          - JSON
-          - YAML
-        export_schema_version:
-          description: Indicates whether to export worksheet TML in DEFAULT or V1 or V2 version.
-          default: DEFAULT
-          type: string
-          enum:
-          - DEFAULT
-          - V1
-          - V2
-        export_dependent:
-          description: Indicates whether to export table while exporting connection.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        export_connection_as_dependent:
-          description: 'Indicates whether to export connection as dependent while exporting table/worksheet/answer/liveboard.
-
-            This will only be active when export_associated is true.'
-          default: false
-          type:
-          - boolean
-          - 'null'
-        all_orgs_override:
-          description: Indicates whether to export is happening from all orgs context.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        export_options:
-          description: 'Flags to specify additional options for export. <br/>  <span class="since-beta-tag">Version: 10.6.0.cl or later</span>'
-          allOf:
-          - $ref: '#/components/schemas/Export_Options'
+            $ref: '#/components/schemas/UpdateObjIdInput'
       required:
       - metadata
-    ResponsePostUpgradeFailedEntities:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponsePostUpgradeFailedEntity'
-      description: Wrapper for the post-upgrade failed entities, as they are inside a 'data' field in the response.
     ExcludeMetadataListItemInput:
       type: object
       required:
@@ -3123,7 +2977,20 @@ components:
             10. INSIGHT_SPEC for SpotIQ objects
 
             11. COLLECTION for collection objects'
-    ResponseIncompleteEntities:
+    HeaderAttributeInput:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: Attribute name to be updated.
+        value:
+          type: string
+          description: Attribute's new value.
+      description: Attribute to update in a header.
+    ResponseSuccessfulEntities:
       type: object
       required:
       - data
@@ -3131,8 +2998,141 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ResponseIncompleteEntity'
-      description: Wrapper for the incomplete entities, as they are inside a 'data' field in the response.
+            $ref: '#/components/schemas/ResponseSuccessfulEntity'
+      description: Wrapper for the successful entities, as they are inside a 'data' field in the response.
+    ResponsePostUpgradeFailedEntities:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponsePostUpgradeFailedEntity'
+      description: Wrapper for the post-upgrade failed entities, as they are inside a 'data' field in the response.
+    PermissionInput:
+      type: object
+      required:
+      - principal
+      - share_mode
+      properties:
+        principal:
+          $ref: '#/components/schemas/PrincipalsInput'
+          description: Details of users or groups.
+        share_mode:
+          type: string
+          enum:
+          - READ_ONLY
+          - MODIFY
+          - NO_ACCESS
+          description: Object share mode.
+      description: Details of users or groups.
+    ResponseSuccessfulEntity:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the worksheet.
+      description: Unique ID of the worksheet.
+    ResponseIncompleteEntity:
+      type: object
+      required:
+      - id
+      - name
+      - error
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Name of the incomplete worksheet.
+        error:
+          type: string
+          description: Error details related to the incomplete conversion.
+      description: Unique ID of the incomplete worksheet.
+    MetadataSearchSortOptions:
+      type: object
+      properties:
+        field_name:
+          type:
+          - string
+          - 'null'
+          enum:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          - VIEWS
+          - FAVORITES
+          - LAST_ACCESSED
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
+    HeaderUpdateInput:
+      type: object
+      required:
+      - attributes
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID of a specified type to identify the header.
+        obj_identifier:
+          type:
+          - string
+          - 'null'
+          description: Custom object identifier to uniquely identify header.
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - ANSWER
+          - LOGICAL_TABLE
+          - LOGICAL_COLUMN
+          - LIVEBOARD
+          - ACTION_OBJECT
+          - DATA_SOURCE
+          - USER
+          - USER_GROUP
+          - COLLECTION
+          description: Optional type of the header object.
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderAttributeInput'
+          description: List of attributes to update
+      description: Favorite object options.
+    DeleteMetadataRequest:
+      type: object
+      properties:
+        metadata:
+          description: Metadata objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteMetadataTypeInput'
+        delete_disabled_objects:
+          description: Indicates whether to delete disabled metadata objects.
+          default: false
+          type:
+          - boolean
+          - 'null'
+      required:
+      - metadata
   securitySchemes:
     bearerAuth:
       type: http
