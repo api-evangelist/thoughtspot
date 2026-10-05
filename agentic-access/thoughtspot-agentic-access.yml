@@ -1,20 +1,32 @@
-generated: '2026-07-21'
+generated: '2026-09-23'
 method: generated
-source: openapi/thoughtspot-rest-v2-openapi-original.json
+source: openapi/thoughtspot-ai-api-openapi.yml, openapi/thoughtspot-authentication-api-openapi.yml,
+  openapi/thoughtspot-collections-api-openapi.yml, openapi/thoughtspot-connection-configurations-api-openapi.yml,
+  openapi/thoughtspot-connections-api-openapi.yml, openapi/thoughtspot-custom-action-api-openapi.yml,
+  openapi/thoughtspot-custom-calendars-api-openapi.yml, openapi/thoughtspot-data-api-openapi.yml,
+  openapi/thoughtspot-dbt-api-openapi.yml, openapi/thoughtspot-email-customization-api-openapi.yml,
+  openapi/thoughtspot-groups-api-openapi.yml, openapi/thoughtspot-input-tables-api-openapi.yml,
+  openapi/thoughtspot-jobs-api-openapi.yml, openapi/thoughtspot-log-api-openapi.yml, openapi/thoughtspot-manual-translation-api-openapi.yml,
+  openapi/thoughtspot-metadata-api-openapi.yml, openapi/thoughtspot-orgs-api-openapi.yml, openapi/thoughtspot-reports-api-openapi.yml,
+  openapi/thoughtspot-roles-api-openapi.yml, openapi/thoughtspot-schedules-api-openapi.yml,
+  openapi/thoughtspot-security-api-openapi.yml, openapi/thoughtspot-semantic-integrations-api-openapi.yml,
+  openapi/thoughtspot-style-customization-api-openapi.yml, openapi/thoughtspot-system-api-openapi.yml,
+  openapi/thoughtspot-tags-api-openapi.yml, openapi/thoughtspot-users-api-openapi.yml, openapi/thoughtspot-variable-api-openapi.yml,
+  openapi/thoughtspot-version-control-api-openapi.yml, openapi/thoughtspot-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 191
   by_action_class:
-    acting: 179
-    connected: 12
+    acting: 140
+    connected: 51
   by_consequence:
-    write: 161
-    read: 12
+    write: 124
+    read: 51
     physical: 5
-    safety-critical: 13
-  human_in_the_loop_required: 13
+    safety-critical: 11
+  human_in_the_loop_required: 11
 operations:
 - path: /api/rest/2.0/ai/agent/conversation/create
   method: post
@@ -114,50 +126,32 @@ operations:
   method: post
   operationId: getDataSourceSuggestions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/ai/instructions/get
   method: post
   operationId: getNLInstructions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/ai/relevant-questions/
   method: post
   operationId: getRelevantQuestions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/ai/agent/conversations/{conversation_identifier}/get-shared-content
   method: get
   operationId: getSharedContent
@@ -208,18 +202,12 @@ operations:
   method: post
   operationId: queryGetDecomposedQuery
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/ai/agent/conversation/{conversation_identifier}/send
   method: post
   operationId: sendAgentConversationMessage
@@ -542,18 +530,12 @@ operations:
   method: post
   operationId: searchAuthSettings
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/auth/token/validate
   method: post
   operationId: validateToken
@@ -606,18 +588,12 @@ operations:
   method: post
   operationId: searchCollections
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/collections/{collection_identifier}/update
   method: post
   operationId: updateCollection
@@ -766,18 +742,12 @@ operations:
   method: post
   operationId: fetchConnectionDiffStatus
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/connections/{connection_identifier}/revoke-refresh-tokens
   method: post
   operationId: revokeRefreshTokens
@@ -798,18 +768,12 @@ operations:
   method: post
   operationId: searchConnection
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/connections/{connection_identifier}/resync-metadata
   method: post
   operationId: syncMetadata
@@ -910,18 +874,12 @@ operations:
   method: post
   operationId: searchCustomActions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/customization/custom-actions/{custom_action_identifier}/update
   method: post
   operationId: updateCustomAction
@@ -990,18 +948,12 @@ operations:
   method: post
   operationId: searchCalendars
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/calendars/{calendar_identifier}/update
   method: post
   operationId: updateCalendar
@@ -1022,50 +974,32 @@ operations:
   method: post
   operationId: fetchAnswerData
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/metadata/liveboard/data
   method: post
   operationId: fetchLiveboardData
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/searchdata
   method: post
   operationId: searchData
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/dbt/dbt-connection
   method: post
   operationId: dbtConnection
@@ -1214,18 +1148,12 @@ operations:
   method: post
   operationId: searchEmailCustomization
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/customization/email/update
   method: post
   operationId: updateEmailCustomization
@@ -1310,18 +1238,12 @@ operations:
   method: post
   operationId: searchUserGroups
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/groups/{group_identifier}/update
   method: post
   operationId: updateUserGroup
@@ -1390,34 +1312,22 @@ operations:
   method: post
   operationId: searchChannelHistory
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/logs/fetch
   method: post
   operationId: fetchLogs
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/localizations/manual-translation/delete
   method: post
   operationId: deleteManualTranslations
@@ -1454,18 +1364,12 @@ operations:
   method: post
   operationId: getManualTranslationBundle
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/localizations/manual-translation/import
   method: post
   operationId: importManualTranslations
@@ -1566,18 +1470,12 @@ operations:
   method: post
   operationId: fetchAnswerSqlQuery
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/metadata/tml/async/status
   method: post
   operationId: fetchAsyncImportTaskStatus
@@ -1598,18 +1496,12 @@ operations:
   method: post
   operationId: fetchLiveboardSqlQuery
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/metadata/tml/import
   method: post
   operationId: importMetadataTML
@@ -1678,18 +1570,12 @@ operations:
   method: post
   operationId: searchMetadata
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/metadata/unparameterize
   method: post
   operationId: unparameterizeMetadata
@@ -1774,18 +1660,12 @@ operations:
   method: post
   operationId: searchOrgs
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/orgs/{org_identifier}/update
   method: post
   operationId: updateOrg
@@ -1870,18 +1750,12 @@ operations:
   method: post
   operationId: searchRoles
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/roles/{role_identifier}/update
   method: post
   operationId: updateRole
@@ -1934,18 +1808,12 @@ operations:
   method: post
   operationId: searchSchedules
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/schedules/{schedule_identifier}/update
   method: post
   operationId: updateSchedule
@@ -1982,66 +1850,42 @@ operations:
   method: post
   operationId: fetchColumnSecurityRules
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/security/metadata/fetch-object-privileges
   method: post
   operationId: fetchObjectPrivileges
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/security/principals/fetch-permissions
   method: post
   operationId: fetchPermissionsOfPrincipals
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/security/metadata/fetch-permissions
   method: post
   operationId: fetchPermissionsOnMetadata
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/security/metadata/manage-object-privilege
   method: post
   operationId: manageObjectPrivilege
@@ -2174,18 +2018,12 @@ operations:
   method: post
   operationId: searchSemanticIntegrations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/customization/styles/fonts/delete
   method: post
   operationId: deleteStyleFonts
@@ -2222,34 +2060,22 @@ operations:
   method: post
   operationId: searchStyleCustomizations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/customization/styles/fonts/search
   method: post
   operationId: searchStyleFonts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/customization/styles/update
   method: post
   operationId: updateStyleCustomization
@@ -2364,34 +2190,22 @@ operations:
   method: post
   operationId: searchCommunicationChannelPreferences
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/system/security-settings/search
   method: post
   operationId: searchSecuritySettings
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/system/config-update
   method: post
   operationId: updateSystemConfig
@@ -2476,18 +2290,12 @@ operations:
   method: post
   operationId: searchTags
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/tags/unassign
   method: post
   operationId: unassignTag
@@ -2652,18 +2460,12 @@ operations:
   method: post
   operationId: searchUsers
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/users/{user_identifier}/update
   method: post
   operationId: updateUser
@@ -2748,18 +2550,12 @@ operations:
   method: post
   operationId: searchVariables
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/template/variables/{identifier}/update
   method: post
   operationId: updateVariable
@@ -2876,34 +2672,22 @@ operations:
   method: post
   operationId: searchCommits
   x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/vcs/git/config/search
   method: post
   operationId: searchConfig
   x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/vcs/git/config/update
   method: post
   operationId: updateConfig
@@ -2982,18 +2766,12 @@ operations:
   method: post
   operationId: searchWebhookConfigurations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/rest/2.0/webhooks/{webhook_identifier}/update
   method: post
   operationId: updateWebhookConfiguration
