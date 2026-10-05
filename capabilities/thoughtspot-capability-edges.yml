@@ -1,0 +1,45 @@
+slug: thoughtspot
+provider: ThoughtSpot
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Data
+  spec_file: thoughtspot-data-api-openapi.yml
+  capability_id: BC-610.50
+  capability_id_l1: BC-610
+  capability_name: Analytics & BI Management
+  confidence: 0.85
+  evidence: POST /api/rest/2.0/metadata/liveboard/data  fetchLiveboardData  Fetch liveboard data; POST
+    /api/rest/2.0/searchdata  searchData  Search data
+  reason: Operations retrieve data behind Answers and Liveboards and run search-based queries on an analytics/BI
+    platform, which is delivery of reporting and business intelligence content.
+- tag: Users
+  spec_file: thoughtspot-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/rest/2.0/users/activate  activateUser; POST /api/rest/2.0/users/reset-password  resetUserPassword;
+    POST /api/rest/2.0/users/force-logout
+  reason: User create/activate/deactivate/password-reset/force-logout is platform user account and credential
+    administration — IAM, not HR employee records.
+- tag: Security
+  spec_file: thoughtspot-security-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST /api/rest/2.0/security/metadata/fetch-object-privileges  fetchObjectPrivileges; POST
+    /api/rest/2.0/security/metadata/manage-object-privilege
+  reason: Operations fetch and manage object privileges, principal permissions, sharing and column-level
+    security rules — application-level authorisation administration, i.e. identity and access management.
