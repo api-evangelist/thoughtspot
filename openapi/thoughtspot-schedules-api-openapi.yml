@@ -280,6 +280,29 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    LiveboardOptionsInput:
+      type: object
+      required:
+      - visualization_identifiers
+      properties:
+        visualization_identifiers:
+          type: array
+          items:
+            type: string
+          description: Unique ID or name of visualizations.
+      description: Options to specify details of Liveboard.
+    PrincipalsListItemInput:
+      type: object
+      required:
+      - identifier
+      - type
+      properties:
+        identifier:
+          type: string
+          description: Unique ID or name of the user or group.
+        type:
+          type: string
+          description: Principal type.
     SchedulesPdfOptionsInput:
       type: object
       properties:
@@ -332,63 +355,111 @@ components:
           - 'null'
           description: Indicates whether to include only first page of the tables.
       description: Options for PDF export.
-    ResponseScheduleRun:
+    SortingOptions:
       type: object
-      required:
-      - id
-      - start_time_in_millis
-      - end_time_in_millis
-      - status
       properties:
-        id:
-          type: string
-          description: GUID of the scheduled job.
-        start_time_in_millis:
-          type: integer
-          format: int32
-          description: Schedule run start time in milliseconds.
-        end_time_in_millis:
-          type: integer
-          format: int32
-          description: Schedule run end time in milliseconds.
-        status:
-          type: string
-          description: Status of the schedule run.
-        detail:
+        field_name:
           type:
           - string
           - 'null'
-          description: Message details related to the schedule run.
-      description: Schedule run response object
-    CronExpression:
+          description: Name of the field to apply the sort on.
+        order:
+          type:
+          - string
+          - 'null'
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+      description: Sort options.
+    ScheduleHistoryRunsOptionsInput:
+      type: object
+      properties:
+        include_history_runs:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Indicates whether to fetch history runs for the scheduled notification.
+        record_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          default: 10
+          description: Indicates the max number of records that can be fetched as past runs of any scheduled job.
+        record_offset:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          default: 0
+          description: Indicates the starting record number from where history runs records should be fetched.
+    MetadataResponse:
       type: object
       required:
-      - day_of_month
-      - day_of_week
-      - hour
-      - minute
-      - month
-      - second
+      - id
+      - type
       properties:
-        day_of_month:
+        name:
+          type:
+          - string
+          - 'null'
+        id:
           type: string
-          description: Day of month of the object.
-        day_of_week:
+        type:
           type: string
-          description: Day of Week of the object.
-        hour:
-          type: string
-          description: Hour of the object.
-        minute:
-          type: string
-          description: Minute of the object.
-        month:
-          type: string
-          description: Month of the object.
-        second:
-          type: string
-          description: Second of the object.
-      description: Schedule selected cron expression.
+          enum:
+          - LIVEBOARD
+    PdfOptions:
+      type: object
+      properties:
+        complete_liveboard:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include complete Liveboard.
+        include_cover_page:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include cover page with the Liveboard title.
+        include_custom_logo:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include customized wide logo in the footer if available.
+        include_filter_page:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include a page with all applied filters.
+        include_page_number:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include page number in the footer of each page
+        page_footer_text:
+          type:
+          - string
+          - 'null'
+          description: Text to include in the footer of each page.
+        page_orientation:
+          type:
+          - string
+          - 'null'
+          description: Page orientation of the PDF.
+        page_size:
+          type:
+          - string
+          - 'null'
+          enum:
+          - A4
+          - TAB_BASED
+          description: Page size.
+        truncate_table:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether to include only first page of the tables.
+      description: Options for PDF export.
     CronExpressionInput:
       type: object
       required:
@@ -425,6 +496,87 @@ components:
           type:
           - object
           - 'null'
+    MetadataInput:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - LIVEBOARD
+    RecipientDetails:
+      type: object
+      properties:
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Emails of the recipients. Specify email address if the recipient is not a ThoughtSpot user.
+        principals:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PrincipalsListItem'
+          description: List of user or groups to subscribe for the scheduled job notifications.
+      description: Recipient configuration which includes email address, ID or name of the users and groups.
+    Author:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the object.
+        name:
+          type: string
+          description: Name of the object.
+      description: Author of the schedule.
+    Frequency:
+      type: object
+      required:
+      - cron_expression
+      properties:
+        cron_expression:
+          $ref: '#/components/schemas/CronExpression'
+          description: Schedule selected cron expression.
+      description: Configuration of schedule with cron expression
+    ResponseScheduleRun:
+      type: object
+      required:
+      - id
+      - start_time_in_millis
+      - end_time_in_millis
+      - status
+      properties:
+        id:
+          type: string
+          description: GUID of the scheduled job.
+        start_time_in_millis:
+          type: integer
+          format: int32
+          description: Schedule run start time in milliseconds.
+        end_time_in_millis:
+          type: integer
+          format: int32
+          description: Schedule run end time in milliseconds.
+        status:
+          type: string
+          description: Status of the schedule run.
+        detail:
+          type:
+          - string
+          - 'null'
+          description: Message details related to the schedule run.
+      description: Schedule run response object
     FrequencyInput:
       type: object
       required:
@@ -434,45 +586,6 @@ components:
           $ref: '#/components/schemas/CronExpressionInput'
           description: Schedule selected cron expression.
       description: Configuration of schedule with cron expression
-    MetadataResponse:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - LIVEBOARD
-    ScheduleHistoryRunsOptionsInput:
-      type: object
-      properties:
-        include_history_runs:
-          type:
-          - boolean
-          - 'null'
-          default: false
-          description: Indicates whether to fetch history runs for the scheduled notification.
-        record_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          default: 10
-          description: Indicates the max number of records that can be fetched as past runs of any scheduled job.
-        record_offset:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          default: 0
-          description: Indicates the starting record number from where history runs records should be fetched.
     SearchSchedulesRequest:
       type: object
       properties:
@@ -502,38 +615,7 @@ components:
           type: array
           items:
             type: string
-    MetadataInput:
-      type: object
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - LIVEBOARD
-    RecipientDetailsInput:
-      type: object
-      properties:
-        emails:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Emails of the recipients.
-        principals:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PrincipalsListItemInput'
-          description: User or groups to be set as recipients of the schedule notifications.
-      description: Recipients of the scheduled job notification.
-    PrincipalsListItemInput:
+    PrincipalsListItem:
       type: object
       required:
       - identifier
@@ -544,63 +626,7 @@ components:
           description: Unique ID or name of the user or group.
         type:
           type: string
-          description: Principal type.
-    Author:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the object.
-        name:
-          type: string
-          description: Name of the object.
-      description: Author of the schedule.
-    LiveboardOptions:
-      type: object
-      required:
-      - visualization_identifiers
-      properties:
-        visualization_identifiers:
-          type: array
-          items:
-            type: string
-          description: Unique ID or name of visualizations.
-      description: Options to specify details of Liveboard.
-    RecipientDetails:
-      type: object
-      properties:
-        emails:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Emails of the recipients. Specify email address if the recipient is not a ThoughtSpot user.
-        principals:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PrincipalsListItem'
-          description: List of user or groups to subscribe for the scheduled job notifications.
-      description: Recipient configuration which includes email address, ID or name of the users and groups.
-    SortingOptions:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-      description: Sort options.
+          description: Principal type. Valid values are
     CreateScheduleRequest:
       type: object
       properties:
@@ -1287,15 +1313,64 @@ components:
       - metadata_identifier
       - time_zone
       - recipient_details
-    Frequency:
+    RecipientDetailsInput:
+      type: object
+      properties:
+        emails:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Emails of the recipients.
+        principals:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PrincipalsListItemInput'
+          description: User or groups to be set as recipients of the schedule notifications.
+      description: Recipients of the scheduled job notification.
+    CronExpression:
       type: object
       required:
-      - cron_expression
+      - day_of_month
+      - day_of_week
+      - hour
+      - minute
+      - month
+      - second
       properties:
-        cron_expression:
-          $ref: '#/components/schemas/CronExpression'
-          description: Schedule selected cron expression.
-      description: Configuration of schedule with cron expression
+        day_of_month:
+          type: string
+          description: Day of month of the object.
+        day_of_week:
+          type: string
+          description: Day of Week of the object.
+        hour:
+          type: string
+          description: Hour of the object.
+        minute:
+          type: string
+          description: Minute of the object.
+        month:
+          type: string
+          description: Month of the object.
+        second:
+          type: string
+          description: Second of the object.
+      description: Schedule selected cron expression.
+    LiveboardOptions:
+      type: object
+      required:
+      - visualization_identifiers
+      properties:
+        visualization_identifiers:
+          type: array
+          items:
+            type: string
+          description: Unique ID or name of visualizations.
+      description: Options to specify details of Liveboard.
     UpdateScheduleRequest:
       type: object
       properties:
@@ -1979,81 +2054,6 @@ components:
         personalised_view_id:
           description: Personalised view id of the liveboard to be scheduled.
           type: string
-    PdfOptions:
-      type: object
-      properties:
-        complete_liveboard:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include complete Liveboard.
-        include_cover_page:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include cover page with the Liveboard title.
-        include_custom_logo:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include customized wide logo in the footer if available.
-        include_filter_page:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include a page with all applied filters.
-        include_page_number:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include page number in the footer of each page
-        page_footer_text:
-          type:
-          - string
-          - 'null'
-          description: Text to include in the footer of each page.
-        page_orientation:
-          type:
-          - string
-          - 'null'
-          description: Page orientation of the PDF.
-        page_size:
-          type:
-          - string
-          - 'null'
-          enum:
-          - A4
-          - TAB_BASED
-          description: Page size.
-        truncate_table:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether to include only first page of the tables.
-      description: Options for PDF export.
-    PrincipalsListItem:
-      type: object
-      required:
-      - identifier
-      - type
-      properties:
-        identifier:
-          type: string
-          description: Unique ID or name of the user or group.
-        type:
-          type: string
-          description: Principal type. Valid values are
-    LiveboardOptionsInput:
-      type: object
-      required:
-      - visualization_identifiers
-      properties:
-        visualization_identifiers:
-          type: array
-          items:
-            type: string
-          description: Unique ID or name of visualizations.
-      description: Options to specify details of Liveboard.
     ResponseSchedule:
       type: object
       required:

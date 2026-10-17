@@ -998,24 +998,34 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UpdateConnectionV2Request:
+    DeleteConnectionRequest:
       type: object
       properties:
+        connection_identifier:
+          description: Unique ID or name of the connection.
+          type: string
+      required:
+      - connection_identifier
+    Database:
+      type: object
+      required:
+      - name
+      properties:
         name:
-          description: Updated name of the connection.
           type: string
-        description:
-          description: Updated description of the connection.
-          type: string
-        data_warehouse_config:
-          description: Configuration of the data warehouse in JSON.
-          type: object
-        validate:
-          description: Indicates whether to validate the connection details.
-          default: true
+          description: Name of the database.
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SchemaObject'
+          description: Schemas of the database.
+        auto_created:
           type:
           - boolean
           - 'null'
+          description: Determines if the object is auto created.
     SearchConnectionRequest:
       type: object
       properties:
@@ -1125,54 +1135,36 @@ components:
           type:
           - boolean
           - 'null'
-    SyncMetadataResponse:
+    SortOptionInput:
       type: object
       properties:
-        status:
+        field_name:
           type:
           - string
           - 'null'
           enum:
-          - SUCCESS
-          - PARTIAL_SUCCESS
-          - NO_UPDATE
-          description: Overall status of the sync operation.
-        tables_updated:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of tables with metadata updates.
-        columns_updated:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of columns with metadata updates.
-        tables_failed:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of tables that failed to sync (for PARTIAL_SUCCESS).
-        columns_failed:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of columns that failed to sync (for PARTIAL_SUCCESS).
-        message:
+          - NAME
+          - DISPLAY_NAME
+          - AUTHOR
+          - CREATED
+          - MODIFIED
+          - LAST_ACCESSED
+          - SYNCED
+          - VIEWS
+          - USER_STATE
+          - ROW_COUNT
+          description: Name of the field to apply the sort on.
+        order:
           type:
           - string
           - 'null'
-          description: Message describing the result.
-      description: Response from sync metadata operation.
-    UpdateConnectionRequest:
+          enum:
+          - ASC
+          - DESC
+          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
+    UpdateConnectionV2Request:
       type: object
       properties:
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
         name:
           description: Updated name of the connection.
           type: string
@@ -1188,8 +1180,24 @@ components:
           type:
           - boolean
           - 'null'
+    DataWarehouseObjects:
+      type: object
       required:
-      - connection_identifier
+      - databases
+      properties:
+        databases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Database'
+          description: Databases of the connection.
+    FetchConnectionDiffStatusResponse:
+      type: object
+      properties:
+        status:
+          type:
+          - boolean
+          - 'null'
+          description: Status of the connection diff.
     ErrorResponse:
       type: object
       properties:
@@ -1197,97 +1205,6 @@ components:
           type:
           - object
           - 'null'
-    CreateConnectionResponse:
-      type: object
-      required:
-      - id
-      - name
-      - data_warehouse_type
-      properties:
-        id:
-          type: string
-          description: ID of the connection created.
-        name:
-          type: string
-          description: Name of the connection.
-        data_warehouse_type:
-          type: string
-          enum:
-          - SNOWFLAKE
-          - AMAZON_REDSHIFT
-          - GOOGLE_BIGQUERY
-          - AZURE_SYNAPSE
-          - TERADATA
-          - SAP_HANA
-          - STARBURST
-          - ORACLE_ADW
-          - DATABRICKS
-          - DENODO
-          - DREMIO
-          - TRINO
-          - PRESTO
-          - POSTGRES
-          - SQLSERVER
-          - MYSQL
-          - GENERIC_JDBC
-          - AMAZON_RDS_POSTGRESQL
-          - AMAZON_AURORA_POSTGRESQL
-          - AMAZON_RDS_MYSQL
-          - AMAZON_AURORA_MYSQL
-          - LOOKER
-          - AMAZON_ATHENA
-          - SINGLESTORE
-          - GCP_SQLSERVER
-          - GCP_ALLOYDB_POSTGRESQL
-          - GCP_POSTGRESQL
-          - GCP_MYSQL
-          - MODE
-          - GOOGLE_SHEETS
-          - FALCON
-          - FALCON_ONPREM
-          - CLICKHOUSE
-          - IOMETE
-          description: Type of data warehouse.
-        details:
-          type:
-          - object
-          - 'null'
-          description: Details of the connection.
-    SchemaObject:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the schema.
-        tables:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Table'
-          description: Tables in the schema.
-    Database:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the database.
-        schemas:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SchemaObject'
-          description: Schemas of the database.
-        auto_created:
-          type:
-          - boolean
-          - 'null'
-          description: Determines if the object is auto created.
     Table:
       type: object
       required:
@@ -1330,59 +1247,6 @@ components:
           items:
             type: object
           description: List of relationships for the table
-    UpdateConnectionStatusRequest:
-      type: object
-      properties:
-        status:
-          description: Status to set for the connection. Use ACTIVATED to enable the connection or DEACTIVATED to disable it.
-          default: ACTIVATED
-          type: string
-          enum:
-          - ACTIVATED
-          - DEACTIVATED
-    FetchConnectionDiffStatusResponse:
-      type: object
-      properties:
-        status:
-          type:
-          - boolean
-          - 'null'
-          description: Status of the connection diff.
-    SortOptionInput:
-      type: object
-      properties:
-        field_name:
-          type:
-          - string
-          - 'null'
-          enum:
-          - NAME
-          - DISPLAY_NAME
-          - AUTHOR
-          - CREATED
-          - MODIFIED
-          - LAST_ACCESSED
-          - SYNCED
-          - VIEWS
-          - USER_STATE
-          - ROW_COUNT
-          description: Name of the field to apply the sort on.
-        order:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ASC
-          - DESC
-          description: 'Sort order : ASC(Ascending) or DESC(Descending).'
-    DeleteConnectionRequest:
-      type: object
-      properties:
-        connection_identifier:
-          description: Unique ID or name of the connection.
-          type: string
-      required:
-      - connection_identifier
     Column:
       type: object
       required:
@@ -1415,6 +1279,58 @@ components:
           - boolean
           - 'null'
           description: Determines if the table is linked
+    ConnectionInput:
+      type: object
+      properties:
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Unique ID or name of the connection.
+        name_pattern:
+          type:
+          - string
+          - 'null'
+          description: A pattern to match case-insensitive name of the connection object. User `%` for a wildcard match.
+        data_warehouse_objects:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DataWarehouseObjectInput'
+          description: Filter options for databases, schemas, tables and columns.
+    SchemaObject:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the schema.
+        tables:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Table'
+          description: Tables in the schema.
+    SyncMetadataRequest:
+      type: object
+      properties:
+        tables:
+          description: "Array of tables to sync. Each element can be:\n- String: Table identifier (GUID or name) to sync\n  all columns for that table.\n- Object: {tableId: [columnIds]} to sync specific\n  columns.\nIf not provided, syncs all tables in the connection."
+          type: object
+        sync_attributes:
+          description: 'List of sync_attributes to sync from CDW.
+
+            The default value is DESCRIPTION.'
+          default:
+          - DESCRIPTION
+          type: array
+          items:
+            type: string
+            enum:
+            - DESCRIPTION
     RevokeRefreshTokensResponse:
       type: object
       required:
@@ -1423,16 +1339,58 @@ components:
         data:
           type: string
           description: Result message describing the outcome of the refresh token revocation operation.
-    DataWarehouseObjects:
+    SyncMetadataResponse:
       type: object
-      required:
-      - databases
       properties:
-        databases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Database'
-          description: Databases of the connection.
+        status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - SUCCESS
+          - PARTIAL_SUCCESS
+          - NO_UPDATE
+          description: Overall status of the sync operation.
+        tables_updated:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of tables with metadata updates.
+        columns_updated:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of columns with metadata updates.
+        tables_failed:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of tables that failed to sync (for PARTIAL_SUCCESS).
+        columns_failed:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of columns that failed to sync (for PARTIAL_SUCCESS).
+        message:
+          type:
+          - string
+          - 'null'
+          description: Message describing the result.
+      description: Response from sync metadata operation.
+    UpdateConnectionStatusRequest:
+      type: object
+      properties:
+        status:
+          description: Status to set for the connection. Use ACTIVATED to enable the connection or DEACTIVATED to disable it.
+          default: ACTIVATED
+          type: string
+          enum:
+          - ACTIVATED
+          - DEACTIVATED
     SearchConnectionResponse:
       type: object
       required:
@@ -1502,29 +1460,6 @@ components:
           - object
           - 'null'
           description: Details of the connection.
-    DataWarehouseObjectInput:
-      type: object
-      properties:
-        database:
-          type:
-          - string
-          - 'null'
-          description: Name of the database.
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Name of the schema within the database.
-        table:
-          type:
-          - string
-          - 'null'
-          description: Name of the table within the schema.
-        column:
-          type:
-          - string
-          - 'null'
-          description: Name of the column within the table.
     CreateConnectionRequest:
       type: object
       properties:
@@ -1585,6 +1520,29 @@ components:
       - name
       - data_warehouse_type
       - data_warehouse_config
+    DataWarehouseObjectInput:
+      type: object
+      properties:
+        database:
+          type:
+          - string
+          - 'null'
+          description: Name of the database.
+        schema:
+          type:
+          - string
+          - 'null'
+          description: Name of the schema within the database.
+        table:
+          type:
+          - string
+          - 'null'
+          description: Name of the table within the schema.
+        column:
+          type:
+          - string
+          - 'null'
+          description: Name of the column within the table.
     RevokeRefreshTokensRequest:
       type: object
       properties:
@@ -1603,43 +1561,85 @@ components:
           type: array
           items:
             type: string
-    SyncMetadataRequest:
+    UpdateConnectionRequest:
       type: object
       properties:
-        tables:
-          description: "Array of tables to sync. Each element can be:\n- String: Table identifier (GUID or name) to sync\n  all columns for that table.\n- Object: {tableId: [columnIds]} to sync specific\n  columns.\nIf not provided, syncs all tables in the connection."
-          type: object
-        sync_attributes:
-          description: 'List of sync_attributes to sync from CDW.
-
-            The default value is DESCRIPTION.'
-          default:
-          - DESCRIPTION
-          type: array
-          items:
-            type: string
-            enum:
-            - DESCRIPTION
-    ConnectionInput:
-      type: object
-      properties:
-        identifier:
-          type:
-          - string
-          - 'null'
+        connection_identifier:
           description: Unique ID or name of the connection.
-        name_pattern:
+          type: string
+        name:
+          description: Updated name of the connection.
+          type: string
+        description:
+          description: Updated description of the connection.
+          type: string
+        data_warehouse_config:
+          description: Configuration of the data warehouse in JSON.
+          type: object
+        validate:
+          description: Indicates whether to validate the connection details.
+          default: true
           type:
-          - string
+          - boolean
           - 'null'
-          description: A pattern to match case-insensitive name of the connection object. User `%` for a wildcard match.
-        data_warehouse_objects:
+      required:
+      - connection_identifier
+    CreateConnectionResponse:
+      type: object
+      required:
+      - id
+      - name
+      - data_warehouse_type
+      properties:
+        id:
+          type: string
+          description: ID of the connection created.
+        name:
+          type: string
+          description: Name of the connection.
+        data_warehouse_type:
+          type: string
+          enum:
+          - SNOWFLAKE
+          - AMAZON_REDSHIFT
+          - GOOGLE_BIGQUERY
+          - AZURE_SYNAPSE
+          - TERADATA
+          - SAP_HANA
+          - STARBURST
+          - ORACLE_ADW
+          - DATABRICKS
+          - DENODO
+          - DREMIO
+          - TRINO
+          - PRESTO
+          - POSTGRES
+          - SQLSERVER
+          - MYSQL
+          - GENERIC_JDBC
+          - AMAZON_RDS_POSTGRESQL
+          - AMAZON_AURORA_POSTGRESQL
+          - AMAZON_RDS_MYSQL
+          - AMAZON_AURORA_MYSQL
+          - LOOKER
+          - AMAZON_ATHENA
+          - SINGLESTORE
+          - GCP_SQLSERVER
+          - GCP_ALLOYDB_POSTGRESQL
+          - GCP_POSTGRESQL
+          - GCP_MYSQL
+          - MODE
+          - GOOGLE_SHEETS
+          - FALCON
+          - FALCON_ONPREM
+          - CLICKHOUSE
+          - IOMETE
+          description: Type of data warehouse.
+        details:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            $ref: '#/components/schemas/DataWarehouseObjectInput'
-          description: Filter options for databases, schemas, tables and columns.
+          description: Details of the connection.
   securitySchemes:
     bearerAuth:
       type: http

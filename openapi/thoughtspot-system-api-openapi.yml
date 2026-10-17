@@ -1012,41 +1012,71 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EventChannelConfig:
+    ChannelValidationAwsS3Info:
       type: object
-      required:
-      - event_type
-      - channels
       properties:
-        event_type:
-          type: string
-          enum:
-          - LIVEBOARD_SCHEDULE
-          description: Type of event for which communication channels are configured
-        channels:
+        bucket_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the S3 bucket.
+        file_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the uploaded file.
+        object_key:
+          type:
+          - string
+          - 'null'
+          description: Key of the object in S3 storage.
+      description: AWS S3 storage information returned from a validation step.
+    ConfigureSecuritySettingsRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Cluster-level security preferences.
+          allOf:
+          - $ref: '#/components/schemas/SecuritySettingsClusterPreferencesInput'
+        org_preferences:
+          description: Org-level security preferences for the current org.
           type: array
           items:
-            type: string
-            enum:
-            - EMAIL
-            - WEBHOOK
-          description: Communication channels enabled for this event type. Empty array indicates no channels are enabled.
-    OrgNonEmbedAccessInput:
+            $ref: '#/components/schemas/SecuritySettingsOrgPreferencesInput'
+    SystemConfig:
       type: object
       properties:
-        block_full_app_access:
+        onboarding_content_url:
+          type:
+          - string
+          - 'null'
+        saml_enabled:
           type:
           - boolean
           - 'null'
-          description: Block full application access for non-embedded usage.
-        groups_identifiers_with_access:
+        okta_enabled:
           type:
-          - array
+          - boolean
           - 'null'
-          items:
-            type: string
-          description: Group identifiers that are allowed non-embed full app access. Can only be set if block_full_app_access is true.
-      description: Input for org-level non-embed access configuration.
+    ChannelValidationGcpGcsInfo:
+      type: object
+      properties:
+        bucket_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the GCS bucket.
+        file_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the uploaded file.
+        object_key:
+          type:
+          - string
+          - 'null'
+          description: Key (path) of the object within the GCS bucket.
+      description: GCP GCS storage information returned from a validation step.
     CspSettingsInput:
       type: object
       properties:
@@ -1096,43 +1126,20 @@ components:
             type: string
           description: Allowed URLs for style-src directive.
       description: Input for CSP (Content Security Policy) settings.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    ClusterNonEmbedAccess:
-      type: object
-      properties:
-        block_full_app_access:
-          type:
-          - boolean
-          - 'null'
-          description: Block full application access for non-embedded usage.
-        groups_with_access:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GroupInfo'
-          description: 'Groups that have non-embed full app access.
-
-            Only applicable when orgs feature is disabled. Use org_preferences when org feature is enabled.'
-      description: Cluster-level non-embed access configuration.
-    OrgDetails:
+    OrgChannelConfigResponse:
       type: object
       required:
-      - id
-      - name
+      - org
+      - preferences
       properties:
-        id:
-          type: string
-          description: Unique id of the org
-        name:
-          type: string
-          description: Name of the org
+        org:
+          $ref: '#/components/schemas/OrgDetails'
+          description: Org details
+        preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfig'
+          description: Event-specific communication channel configurations for this org
     ValidateCommunicationChannelRequest:
       type: object
       properties:
@@ -1153,6 +1160,36 @@ components:
       - channel_type
       - channel_identifier
       - event_type
+    SecuritySettingsResponse:
+      type: object
+      properties:
+        cluster_preferences:
+          $ref: '#/components/schemas/SecuritySettingsClusterPreferences'
+          description: Cluster-level security preferences.
+        org_preferences:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SecuritySettingsOrgPreferences'
+          description: Org-level security preferences.
+      description: Response type for security settings search.
+    ScriptSrcUrlsInput:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Whether script-src customization is enabled.
+        urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
+      description: Input for script-src CSP settings.
     OrgChannelConfigInput:
       type: object
       required:
@@ -1186,194 +1223,6 @@ components:
             enum:
             - LIVEBOARD_SCHEDULE
           description: Event types to reset. Required for RESET operation. Org-specific configurations for these events will be removed, causing fallback to cluster-level preferences.
-    OrgChannelConfigResponse:
-      type: object
-      required:
-      - org
-      - preferences
-      properties:
-        org:
-          $ref: '#/components/schemas/OrgDetails'
-          description: Org details
-        preferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventChannelConfig'
-          description: Event-specific communication channel configurations for this org
-    ConfigureSecuritySettingsRequest:
-      type: object
-      properties:
-        cluster_preferences:
-          description: Cluster-level security preferences.
-          allOf:
-          - $ref: '#/components/schemas/SecuritySettingsClusterPreferencesInput'
-        org_preferences:
-          description: Org-level security preferences for the current org.
-          type: array
-          items:
-            $ref: '#/components/schemas/SecuritySettingsOrgPreferencesInput'
-    ScriptSrcUrlsInput:
-      type: object
-      properties:
-        enabled:
-          type:
-          - boolean
-          - 'null'
-          description: Whether script-src customization is enabled.
-        urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
-      description: Input for script-src CSP settings.
-    ChannelValidationDetail:
-      type: object
-      required:
-      - validation_step
-      - status
-      properties:
-        validation_step:
-          type: string
-          enum:
-          - HTTP_CONNECTION_CHECK
-          - STORAGE_FILE_UPLOAD_CHECK
-          description: The validation step that was performed.
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILED
-          description: Status of this validation step.
-        http_status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: HTTP status code returned by the channel (if applicable).
-        error_message:
-          type:
-          - string
-          - 'null'
-          description: Error message from the channel or validation process.
-        aws_s3_info:
-          $ref: '#/components/schemas/ChannelValidationAwsS3Info'
-          description: AWS S3 storage information from the validation step.
-        gcp_gcs_info:
-          $ref: '#/components/schemas/ChannelValidationGcpGcsInfo'
-          description: 'GCP GCS storage information from the validation step. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-      description: Validation detail result for a sub-step.
-    ChannelValidationGcpGcsInfo:
-      type: object
-      properties:
-        bucket_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the GCS bucket.
-        file_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the uploaded file.
-        object_key:
-          type:
-          - string
-          - 'null'
-          description: Key (path) of the object within the GCS bucket.
-      description: GCP GCS storage information returned from a validation step.
-    SecuritySettingsOrgPreferences:
-      type: object
-      properties:
-        org:
-          $ref: '#/components/schemas/SecuritySettingsOrgDetails'
-          description: Org details (id and name).
-        cors_whitelisted_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed origins for CORS for this org.
-        non_embed_access:
-          $ref: '#/components/schemas/OrgNonEmbedAccess'
-          description: Non-embed access configuration for this org.
-        trusted_auth_status:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ENABLED
-          - DISABLED
-          description: 'Trusted authentication status for this org. <br/>  <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
-      description: Org-level security preferences.
-    OrgNonEmbedAccess:
-      type: object
-      properties:
-        block_full_app_access:
-          type:
-          - boolean
-          - 'null'
-          description: Block full application access for non-embedded usage.
-        groups_with_access:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GroupInfo'
-          description: Groups that have non-embed full app access.
-      description: Org-level non-embed access configuration.
-    SecuritySettingsOrgPreferencesInput:
-      type: object
-      required:
-      - org_identifier
-      properties:
-        org_identifier:
-          type: string
-          description: Unique identifier or name of the org
-        cors_whitelisted_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed origins for CORS for this org.
-        non_embed_access:
-          $ref: '#/components/schemas/OrgNonEmbedAccessInput'
-          description: Non-embed access configuration for this org.
-      description: 'Input for org-level security preferences configuration.
-
-        Note: cross-org operations are not supported currently.'
-    SecuritySettingsClusterPreferencesInput:
-      type: object
-      properties:
-        enable_partitioned_cookies:
-          type:
-          - boolean
-          - 'null'
-          description: Support embedded access when third-party cookies are blocked.
-        cors_whitelisted_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed origins for CORS.
-        csp_settings:
-          $ref: '#/components/schemas/CspSettingsInput'
-          description: CSP (Content Security Policy) settings.
-        saml_redirect_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed redirect hosts for SAML login.
-        non_embed_access:
-          $ref: '#/components/schemas/ClusterNonEmbedAccessInput'
-          description: Non-embed access configuration at cluster level.
-      description: Input for cluster-level security preferences configuration.
     SystemOverrideInfo:
       type: object
       properties:
@@ -1381,86 +1230,6 @@ components:
           type:
           - object
           - 'null'
-    ScriptSrcUrls:
-      type: object
-      properties:
-        enabled:
-          type:
-          - boolean
-          - 'null'
-          description: Whether script-src customization is enabled.
-        urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
-      description: Script-src CSP settings.
-    CspSettings:
-      type: object
-      properties:
-        connect_src_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for connect-src directive.
-        font_src_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for font-src directive.
-        visual_embed_hosts:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed hosts for visual embed (frame-ancestors directive).
-        iframe_src_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for frame-src directive.
-        img_src_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for img-src directive.
-        script_src_urls:
-          $ref: '#/components/schemas/ScriptSrcUrls'
-          description: Script-src settings including URLs and enabled flag.
-        style_src_urls:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Allowed URLs for style-src directive.
-      description: CSP (Content Security Policy) settings.
-    SearchCommunicationChannelPreferencesRequest:
-      type: object
-      properties:
-        cluster_preferences:
-          description: Event types to search for in cluster-level preferences.
-          type: array
-          items:
-            type: string
-            enum:
-            - LIVEBOARD_SCHEDULE
-        org_preferences:
-          description: Org-specific search criteria.
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgPreferenceSearchCriteriaInput'
     CommunicationChannelValidateResponse:
       type: object
       required:
@@ -1506,49 +1275,13 @@ components:
             $ref: '#/components/schemas/ChannelValidationDetail'
           description: Detailed results of various validation sub-steps.
       description: Response containing validation results for communication channel configuration.
-    SecuritySettingsOrgDetails:
+    ErrorResponse:
       type: object
       properties:
-        id:
+        error:
           type:
-          - integer
+          - object
           - 'null'
-          format: int32
-          description: Unique identifier of the org.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the org.
-      description: Org details for security settings.
-    SecuritySettingsResponse:
-      type: object
-      properties:
-        cluster_preferences:
-          $ref: '#/components/schemas/SecuritySettingsClusterPreferences'
-          description: Cluster-level security preferences.
-        org_preferences:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SecuritySettingsOrgPreferences'
-          description: Org-level security preferences.
-      description: Response type for security settings search.
-    GroupInfo:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the group.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the group.
-      description: Group information for non-embed access.
     CommunicationChannelPreferencesResponse:
       type: object
       properties:
@@ -1566,19 +1299,42 @@ components:
           items:
             $ref: '#/components/schemas/OrgChannelConfigResponse'
           description: Org-specific configurations.
-    SearchSecuritySettingsRequest:
+    ChannelValidationDetail:
       type: object
+      required:
+      - validation_step
+      - status
       properties:
-        scope:
-          description: 'Scope of security settings to retrieve. CLUSTER returns cluster-level settings,
-
-            ORG returns org-level settings for the current org.
-
-            If not specified, returns both cluster and org settings based on user privileges.'
+        validation_step:
           type: string
           enum:
-          - CLUSTER
-          - ORG
+          - HTTP_CONNECTION_CHECK
+          - STORAGE_FILE_UPLOAD_CHECK
+          description: The validation step that was performed.
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          description: Status of this validation step.
+        http_status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: HTTP status code returned by the channel (if applicable).
+        error_message:
+          type:
+          - string
+          - 'null'
+          description: Error message from the channel or validation process.
+        aws_s3_info:
+          $ref: '#/components/schemas/ChannelValidationAwsS3Info'
+          description: AWS S3 storage information from the validation step.
+        gcp_gcs_info:
+          $ref: '#/components/schemas/ChannelValidationGcpGcsInfo'
+          description: 'GCP GCS storage information from the validation step. <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+      description: Validation detail result for a sub-step.
     SystemInfo:
       type: object
       properties:
@@ -1699,34 +1455,88 @@ components:
           - 'null'
           format: int32
           description: The version number of logical model of the cluster.
-    ConfigureCommunicationChannelPreferencesRequest:
+    OrgDetails:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique id of the org
+        name:
+          type: string
+          description: Name of the org
+    SecuritySettingsOrgPreferencesInput:
+      type: object
+      required:
+      - org_identifier
+      properties:
+        org_identifier:
+          type: string
+          description: Unique identifier or name of the org
+        cors_whitelisted_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed origins for CORS for this org.
+        non_embed_access:
+          $ref: '#/components/schemas/OrgNonEmbedAccessInput'
+          description: Non-embed access configuration for this org.
+      description: 'Input for org-level security preferences configuration.
+
+        Note: cross-org operations are not supported currently.'
+    OrgNonEmbedAccess:
       type: object
       properties:
-        cluster_preferences:
-          description: Cluster-level default configurations.
-          type: array
+        block_full_app_access:
+          type:
+          - boolean
+          - 'null'
+          description: Block full application access for non-embedded usage.
+        groups_with_access:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/EventChannelConfigInput'
-        org_preferences:
-          description: Org-specific configurations.
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgChannelConfigInput'
-    SystemConfig:
+            $ref: '#/components/schemas/GroupInfo'
+          description: Groups that have non-embed full app access.
+      description: Org-level non-embed access configuration.
+    SecuritySettingsOrgDetails:
       type: object
       properties:
-        onboarding_content_url:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Unique identifier of the org.
+        name:
           type:
           - string
           - 'null'
-        saml_enabled:
+          description: Name of the org.
+      description: Org details for security settings.
+    ClusterNonEmbedAccessInput:
+      type: object
+      properties:
+        block_full_app_access:
           type:
           - boolean
           - 'null'
-        okta_enabled:
+          description: Block full application access for non-embedded usage.
+        groups_identifiers_with_access:
           type:
-          - boolean
+          - array
           - 'null'
+          items:
+            type: string
+          description: 'Group identifiers that are allowed non-embed full app access.
+
+            Can only be set when orgs feature is disabled and block_full_app_access is true.'
+      description: Input for cluster-level non-embed access configuration.
     OrgPreferenceSearchCriteriaInput:
       type: object
       required:
@@ -1744,6 +1554,24 @@ components:
             enum:
             - LIVEBOARD_SCHEDULE
           description: Event types to search for. If not provided, all event types for this org are returned.
+    ClusterNonEmbedAccess:
+      type: object
+      properties:
+        block_full_app_access:
+          type:
+          - boolean
+          - 'null'
+          description: Block full application access for non-embedded usage.
+        groups_with_access:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GroupInfo'
+          description: 'Groups that have non-embed full app access.
+
+            Only applicable when orgs feature is disabled. Use org_preferences when org feature is enabled.'
+      description: Cluster-level non-embed access configuration.
     SecuritySettingsClusterPreferences:
       type: object
       properties:
@@ -1781,6 +1609,55 @@ components:
           - DISABLED
           description: 'Trusted authentication status at the cluster level. <br/>  <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
       description: Cluster-level security preferences.
+    CspSettings:
+      type: object
+      properties:
+        connect_src_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for connect-src directive.
+        font_src_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for font-src directive.
+        visual_embed_hosts:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed hosts for visual embed (frame-ancestors directive).
+        iframe_src_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for frame-src directive.
+        img_src_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for img-src directive.
+        script_src_urls:
+          $ref: '#/components/schemas/ScriptSrcUrls'
+          description: Script-src settings including URLs and enabled flag.
+        style_src_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for style-src directive.
+      description: CSP (Content Security Policy) settings.
     UpdateSystemConfigRequest:
       type: object
       properties:
@@ -1789,24 +1666,48 @@ components:
           type: object
       required:
       - configuration
-    ClusterNonEmbedAccessInput:
+    SecuritySettingsClusterPreferencesInput:
       type: object
       properties:
-        block_full_app_access:
+        enable_partitioned_cookies:
           type:
           - boolean
           - 'null'
-          description: Block full application access for non-embedded usage.
-        groups_identifiers_with_access:
+          description: Support embedded access when third-party cookies are blocked.
+        cors_whitelisted_urls:
           type:
           - array
           - 'null'
           items:
             type: string
-          description: 'Group identifiers that are allowed non-embed full app access.
+          description: Allowed origins for CORS.
+        csp_settings:
+          $ref: '#/components/schemas/CspSettingsInput'
+          description: CSP (Content Security Policy) settings.
+        saml_redirect_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed redirect hosts for SAML login.
+        non_embed_access:
+          $ref: '#/components/schemas/ClusterNonEmbedAccessInput'
+          description: Non-embed access configuration at cluster level.
+      description: Input for cluster-level security preferences configuration.
+    SearchSecuritySettingsRequest:
+      type: object
+      properties:
+        scope:
+          description: 'Scope of security settings to retrieve. CLUSTER returns cluster-level settings,
 
-            Can only be set when orgs feature is disabled and block_full_app_access is true.'
-      description: Input for cluster-level non-embed access configuration.
+            ORG returns org-level settings for the current org.
+
+            If not specified, returns both cluster and org settings based on user privileges.'
+          type: string
+          enum:
+          - CLUSTER
+          - ORG
     EventChannelConfigInput:
       type: object
       required:
@@ -1826,25 +1727,124 @@ components:
             - EMAIL
             - WEBHOOK
           description: Communication channels enabled for this event type. Empty array disables all channels for this event.
-    ChannelValidationAwsS3Info:
+    SecuritySettingsOrgPreferences:
       type: object
       properties:
-        bucket_name:
+        org:
+          $ref: '#/components/schemas/SecuritySettingsOrgDetails'
+          description: Org details (id and name).
+        cors_whitelisted_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed origins for CORS for this org.
+        non_embed_access:
+          $ref: '#/components/schemas/OrgNonEmbedAccess'
+          description: Non-embed access configuration for this org.
+        trusted_auth_status:
           type:
           - string
           - 'null'
-          description: Name of the S3 bucket.
-        file_name:
+          enum:
+          - ENABLED
+          - DISABLED
+          description: 'Trusted authentication status for this org. <br/>  <span class="since-beta-tag">Version: 26.6.0.cl or later</span>'
+      description: Org-level security preferences.
+    ScriptSrcUrls:
+      type: object
+      properties:
+        enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Whether script-src customization is enabled.
+        urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Allowed URLs for script-src directive. Can only be set if enabled is true.
+      description: Script-src CSP settings.
+    GroupInfo:
+      type: object
+      properties:
+        id:
           type:
           - string
           - 'null'
-          description: Name of the uploaded file.
-        object_key:
+          description: Unique identifier of the group.
+        name:
           type:
           - string
           - 'null'
-          description: Key of the object in S3 storage.
-      description: AWS S3 storage information returned from a validation step.
+          description: Name of the group.
+      description: Group information for non-embed access.
+    ConfigureCommunicationChannelPreferencesRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Cluster-level default configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/EventChannelConfigInput'
+        org_preferences:
+          description: Org-specific configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgChannelConfigInput'
+    SearchCommunicationChannelPreferencesRequest:
+      type: object
+      properties:
+        cluster_preferences:
+          description: Event types to search for in cluster-level preferences.
+          type: array
+          items:
+            type: string
+            enum:
+            - LIVEBOARD_SCHEDULE
+        org_preferences:
+          description: Org-specific search criteria.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgPreferenceSearchCriteriaInput'
+    OrgNonEmbedAccessInput:
+      type: object
+      properties:
+        block_full_app_access:
+          type:
+          - boolean
+          - 'null'
+          description: Block full application access for non-embedded usage.
+        groups_identifiers_with_access:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Group identifiers that are allowed non-embed full app access. Can only be set if block_full_app_access is true.
+      description: Input for org-level non-embed access configuration.
+    EventChannelConfig:
+      type: object
+      required:
+      - event_type
+      - channels
+      properties:
+        event_type:
+          type: string
+          enum:
+          - LIVEBOARD_SCHEDULE
+          description: Type of event for which communication channels are configured
+        channels:
+          type: array
+          items:
+            type: string
+            enum:
+            - EMAIL
+            - WEBHOOK
+          description: Communication channels enabled for this event type. Empty array indicates no channels are enabled.
   securitySchemes:
     bearerAuth:
       type: http

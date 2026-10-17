@@ -361,28 +361,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ImportUserGroupsRequest:
-      type: object
-      properties:
-        groups:
-          description: Details of groups which are to be imported
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupsImportListInput'
-        delete_unspecified_groups:
-          description: If set to true, removes groups that are not specified in the API request.
-          default: false
-          type:
-          - boolean
-          - 'null'
-        dry_run:
-          description: 'If true, the API performs a test operation and returns user IDs whose
-
-            data will be edited after the import.'
-          default: true
-          type:
-          - boolean
-          - 'null'
     UserGroupResponse:
       type: object
       required:
@@ -569,23 +547,27 @@ components:
           items:
             $ref: '#/components/schemas/Role'
           description: List of roles assgined to the user
-    UserGroup:
+    ImportUserGroupsRequest:
       type: object
       properties:
-        id:
+        groups:
+          description: Details of groups which are to be imported
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupsImportListInput'
+        delete_unspecified_groups:
+          description: If set to true, removes groups that are not specified in the API request.
+          default: false
           type:
-          - string
+          - boolean
           - 'null'
-        name:
+        dry_run:
+          description: 'If true, the API performs a test operation and returns user IDs whose
+
+            data will be edited after the import.'
+          default: true
           type:
-          - string
-          - 'null'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
+          - boolean
           - 'null'
     GroupsImportListInput:
       type: object
@@ -715,6 +697,28 @@ components:
           - DESC
           description: 'Sort order : ASC(Ascending) or DESC(Descending).'
       description: Sort options.
+    ImportUserGroupsResponse:
+      type: object
+      required:
+      - groups_added
+      - groups_deleted
+      - groups_updated
+      properties:
+        groups_added:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are added into the system.
+        groups_deleted:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are deleted from the system.
+        groups_updated:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          description: The groups which are updated in the system.
     UpdateUserGroupRequest:
       type: object
       properties:
@@ -818,28 +822,6 @@ components:
           - ADD
           - REMOVE
           - REPLACE
-    ImportUserGroupsResponse:
-      type: object
-      required:
-      - groups_added
-      - groups_deleted
-      - groups_updated
-      properties:
-        groups_added:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are added into the system.
-        groups_deleted:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are deleted from the system.
-        groups_updated:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          description: The groups which are updated in the system.
     SearchUserGroupsRequest:
       type: object
       properties:
@@ -985,6 +967,26 @@ components:
           type:
           - boolean
           - 'null'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    Role:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: id of the role
+        name:
+          type:
+          - string
+          - 'null'
+          description: name of the role
     CreateUserGroupRequest:
       type: object
       properties:
@@ -1085,19 +1087,17 @@ components:
       required:
       - name
       - display_name
-    Role:
+    UserGroup:
       type: object
       properties:
         id:
           type:
           - string
           - 'null'
-          description: id of the role
         name:
           type:
           - string
           - 'null'
-          description: name of the role
   securitySchemes:
     bearerAuth:
       type: http

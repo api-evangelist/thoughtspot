@@ -517,6 +517,37 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateEmailCustomizationRequest:
+      type: object
+      properties:
+        template_properties:
+          description: Email customization configuration as key value pair
+          allOf:
+          - $ref: '#/components/schemas/Template_Properties_Input_Create'
+        org_identifier:
+          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
+          type: string
+      required:
+      - template_properties
+    UpdateEmailCustomizationRequest:
+      type: object
+      properties:
+        template_properties:
+          description: Email customization configuration as key value pair
+          allOf:
+          - $ref: '#/components/schemas/Template_Properties_Input_Create'
+        org_identifier:
+          description: Unique ID or name of org
+          type: string
+      required:
+      - template_properties
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     CreateEmailCustomizationResponse:
       type: object
       required:
@@ -689,45 +720,6 @@ components:
           type: array
           items:
             type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
-    UpdateEmailCustomizationRequest:
-      type: object
-      properties:
-        template_properties:
-          description: Email customization configuration as key value pair
-          allOf:
-          - $ref: '#/components/schemas/Template_Properties_Input_Create'
-        org_identifier:
-          description: Unique ID or name of org
-          type: string
-      required:
-      - template_properties
-    CreateEmailCustomizationRequest:
-      type: object
-      properties:
-        template_properties:
-          description: Email customization configuration as key value pair
-          allOf:
-          - $ref: '#/components/schemas/Template_Properties_Input_Create'
-        org_identifier:
-          description: 'Unique ID or name of org <br/>  <span class="since-beta-tag">Version: 10.12.0.cl or later</span>'
-          type: string
-      required:
-      - template_properties
-    DeleteOrgEmailCustomizationRequest:
-      type: object
-      properties:
-        org_identifiers:
-          description: Unique identifier of the organization.
-          type: array
-          items:
-            type: string
     OrgType:
       type: object
       properties:
@@ -740,6 +732,14 @@ components:
           - integer
           - 'null'
           format: int32
+    DeleteOrgEmailCustomizationRequest:
+      type: object
+      properties:
+        org_identifiers:
+          description: Unique identifier of the organization.
+          type: array
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http

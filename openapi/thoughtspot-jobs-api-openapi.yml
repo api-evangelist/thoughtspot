@@ -177,17 +177,47 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SearchChannelHistoryResponse:
+    SearchChannelHistoryRequest:
       type: object
-      required:
-      - jobs
       properties:
-        jobs:
+        channel_type:
+          description: Type of communication channel to search history for.
+          type: string
+          enum:
+          - WEBHOOK
+        job_ids:
+          description: List of job execution record IDs to retrieve.
           type: array
           items:
-            $ref: '#/components/schemas/ChannelHistoryJob'
-          description: List of job execution records.
-      description: Response wrapper for channel delivery history.
+            type: string
+        channel_identifiers:
+          description: List of channel IDs or names to filter by.
+          type: array
+          items:
+            type: string
+        channel_status:
+          description: Filter by channel delivery status.
+          type: string
+          enum:
+          - PENDING
+          - RETRY
+          - SUCCESS
+          - FAILED
+        events:
+          description: Filter by events that triggered the channel.
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryEventInput'
+        start_epoch_time_in_millis:
+          description: Filter records created on or after this time (epoch milliseconds).
+          type: number
+          format: float
+        end_epoch_time_in_millis:
+          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
+          type: number
+          format: float
+      required:
+      - channel_type
     ChannelHistoryEventInput:
       type: object
       required:
@@ -204,6 +234,24 @@ components:
           - 'null'
           description: Unique ID or name of the event.
       description: Event specification for channel history search.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    SearchChannelHistoryResponse:
+      type: object
+      required:
+      - jobs
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelHistoryJob'
+          description: List of job execution records.
+      description: Response wrapper for channel delivery history.
     ChannelHistoryEventInfo:
       type: object
       required:
@@ -273,13 +321,6 @@ components:
           format: int32
           description: Number of attempts made. 1 indicates first attempt.
       description: A single job execution record for a channel.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     JobRecipient:
       type: object
       required:
@@ -307,47 +348,6 @@ components:
           - 'null'
           description: Email of the recipient.
       description: A recipient (user, group, or external) for a job execution.
-    SearchChannelHistoryRequest:
-      type: object
-      properties:
-        channel_type:
-          description: Type of communication channel to search history for.
-          type: string
-          enum:
-          - WEBHOOK
-        job_ids:
-          description: List of job execution record IDs to retrieve.
-          type: array
-          items:
-            type: string
-        channel_identifiers:
-          description: List of channel IDs or names to filter by.
-          type: array
-          items:
-            type: string
-        channel_status:
-          description: Filter by channel delivery status.
-          type: string
-          enum:
-          - PENDING
-          - RETRY
-          - SUCCESS
-          - FAILED
-        events:
-          description: Filter by events that triggered the channel.
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelHistoryEventInput'
-        start_epoch_time_in_millis:
-          description: Filter records created on or after this time (epoch milliseconds).
-          type: number
-          format: float
-        end_epoch_time_in_millis:
-          description: 'Filter records created before this time (epoch milliseconds). <br/>  <span class="since-beta-tag">Version: 26.7.0.cl or later</span>'
-          type: number
-          format: float
-      required:
-      - channel_type
   securitySchemes:
     bearerAuth:
       type: http

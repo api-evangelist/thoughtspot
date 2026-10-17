@@ -269,50 +269,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateOrgRequest:
-      type: object
-      properties:
-        name:
-          description: Name of the Org.
-          type: string
-        description:
-          description: Description of the Org.
-          type: string
-      required:
-      - name
-    SearchOrgsRequest:
-      type: object
-      properties:
-        org_identifier:
-          description: ID or name of the Org
-          type: string
-        description:
-          description: Description of the Org
-          type: string
-        visibility:
-          description: Visibility of the Org
-          type: string
-          enum:
-          - SHOW
-          - HIDDEN
-        status:
-          description: Status of the Org
-          type: string
-          enum:
-          - ACTIVE
-          - IN_ACTIVE
-        user_identifiers:
-          description: GUIDs or names of the users for which you want to retrieve the Orgs data
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     UpdateOrgRequest:
       type: object
       properties:
@@ -340,6 +296,24 @@ components:
           - ADD
           - REMOVE
           - REPLACE
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
+    CreateOrgRequest:
+      type: object
+      properties:
+        name:
+          description: Name of the Org.
+          type: string
+        description:
+          description: Description of the Org.
+          type: string
+      required:
+      - name
     OrgResponse:
       type: object
       properties:
@@ -375,6 +349,32 @@ components:
           - SHOW
           - HIDDEN
           description: Visibility of the Org.
+    SearchOrgsRequest:
+      type: object
+      properties:
+        org_identifier:
+          description: ID or name of the Org
+          type: string
+        description:
+          description: Description of the Org
+          type: string
+        visibility:
+          description: Visibility of the Org
+          type: string
+          enum:
+          - SHOW
+          - HIDDEN
+        status:
+          description: Status of the Org
+          type: string
+          enum:
+          - ACTIVE
+          - IN_ACTIVE
+        user_identifiers:
+          description: GUIDs or names of the users for which you want to retrieve the Orgs data
+          type: array
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http

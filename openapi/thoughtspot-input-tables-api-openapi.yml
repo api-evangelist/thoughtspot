@@ -435,6 +435,44 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    InputTableUpdateResponse:
+      type: object
+      properties:
+        rows_loaded:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Number of rows successfully written to the input table.
+      description: Response returned after successfully writing rows to an input table.
+    CreateInputTableRequest:
+      type: object
+      properties:
+        table_name:
+          description: Physical table name to create in the external warehouse.
+          type: string
+        model_identifier:
+          description: 'Unique ID or name of the model (worksheet) to link the
+
+            input table to.'
+          type: string
+        table_definition:
+          description: 'Definition of the input table, including new columns
+
+            and referenced model columns.'
+          allOf:
+          - $ref: '#/components/schemas/InputTableDefinitionInput'
+      required:
+      - table_name
+      - model_identifier
+      - table_definition
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type:
+          - object
+          - 'null'
     InputTableDefinitionInput:
       type: object
       required:
@@ -456,16 +494,6 @@ components:
 
             columns from the model.'
       description: Definition of the input table schema.
-    InputTableUpdateResponse:
-      type: object
-      properties:
-        rows_loaded:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: Number of rows successfully written to the input table.
-      description: Response returned after successfully writing rows to an input table.
     InputTableResponse:
       type: object
       properties:
@@ -513,13 +541,6 @@ components:
 
             or leave empty to allow any value supported by the data type. <br/>  <span class="since-beta-tag">Version: 26.9.0.cl or later</span>'
       description: Schema definition for a single input column.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type:
-          - object
-          - 'null'
     UpdateInputTableRequest:
       type: object
       properties:
@@ -542,27 +563,6 @@ components:
       required:
       - columns
       - rows
-    CreateInputTableRequest:
-      type: object
-      properties:
-        table_name:
-          description: Physical table name to create in the external warehouse.
-          type: string
-        model_identifier:
-          description: 'Unique ID or name of the model (worksheet) to link the
-
-            input table to.'
-          type: string
-        table_definition:
-          description: 'Definition of the input table, including new columns
-
-            and referenced model columns.'
-          allOf:
-          - $ref: '#/components/schemas/InputTableDefinitionInput'
-      required:
-      - table_name
-      - model_identifier
-      - table_definition
   securitySchemes:
     bearerAuth:
       type: http
